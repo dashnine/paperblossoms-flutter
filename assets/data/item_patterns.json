@@ -1,0 +1,164 @@
+[
+    {
+        "name": "Kakita Pattern",
+        "reference": {
+            "page": 109,
+            "book": "SL"
+        },
+        "xp_cost": 6,
+        "rarity_modifier": 4
+    },
+    {
+        "name": "Kenzō Blade",
+        "reference": {
+            "book": "SL",
+            "page": 109
+        },
+        "xp_cost": 8,
+        "rarity_modifier": 5
+    },
+    {
+        "name": "Shirogane Jade Inlay",
+        "reference": {
+            "book": "SL",
+            "page": 109
+        },
+        "xp_cost": 3,
+        "rarity_modifier": 2
+    },
+    {
+        "name": "Uchema's Technique",
+        "reference": {
+            "book": "SL",
+            "page": 109
+        },
+        "xp_cost": 4,
+        "rarity_modifier": 3
+    },
+    {
+        "name": "Yasunori Steel",
+        "reference": {
+            "book": "SL",
+            "page": 109
+        },
+        "xp_cost": 5,
+        "rarity_modifier": 4
+    },
+    {
+        "name": "Spirit of the Qamarist Pattern",
+        "reference": {
+            "book": "PoW",
+            "page": 117
+        },
+        "xp_cost": 5,
+        "rarity_modifier": 4
+    },
+    {
+        "name": "Ghostlands Yodhaniya Pattern",
+        "reference": {
+            "book": "PoW",
+            "page": 117
+        },
+        "xp_cost": 6,
+        "rarity_modifier": 4
+    },
+    {
+        "name": "Kökejin's Heart of the Wind Pattern",
+        "reference": {
+            "book": "PoW",
+            "page": 117
+        },
+        "xp_cost": 8,
+        "rarity_modifier": 5
+    },
+    {
+        "name": "Agasha Pattern",
+        "reference": {
+            "book": "CR",
+            "page": 105
+        },
+        "xp_cost": 6,
+        "rarity_modifier": 4
+    },
+    {
+        "name": "Akodo Pattern",
+        "reference": {
+            "book": "FoV",
+            "page": 93
+        },
+        "xp_cost": 6,
+        "rarity_modifier": 4
+    },
+    {
+        "name": "Burning Water Pattern",
+        "reference": {
+            "book": "FoV",
+            "page": 93
+        },
+        "xp_cost": 6,
+        "rarity_modifier": 4
+    },
+    {
+        "name": "Concealment Pattern",
+        "reference": {
+            "book": "FoV",
+            "page": 93
+        },
+        "xp_cost": 6,
+        "rarity_modifier": 4
+    },
+    {
+        "name": "Deadly Fangs Pattern",
+        "reference": {
+            "book": "FoV",
+            "page": 94
+        },
+        "xp_cost": 7,
+        "rarity_modifier": 4
+    },
+    {
+        "name": "Fearsome Snarl Pattern",
+        "reference": {
+            "book": "FoV",
+            "page": 94
+        },
+        "xp_cost": 3,
+        "rarity_modifier": 1
+    },
+    {
+        "name": "Ichir\u014d Pattern",
+        "reference": {
+            "book": "FoV",
+            "page": 94
+        },
+        "xp_cost": 4,
+        "rarity_modifier": -1
+    },
+    {
+        "name": "Mountain Silk Pattern",
+        "reference": {
+            "book": "FoV",
+            "page": 94
+        },
+        "xp_cost": 6,
+        "rarity_modifier": 3
+    },
+    {
+        "name": "Screaming Fire Pattern",
+        "reference": {
+            "book": "FoV",
+            "page": 94
+        },
+        "xp_cost": 6,
+        "rarity_modifier": 4
+    },
+    {
+        "name": "Toriyama's Endurance Pattern",
+        "reference": {
+            "book": "FoV",
+            "page": 94
+        },
+        "xp_cost": 3,
+        "rarity_modifier": 3
+    }
+]

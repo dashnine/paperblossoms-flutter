@@ -1,0 +1,3397 @@
+[
+    {
+        "name": "Emerald Magistrate",
+        "reference": {
+            "book": "Core",
+            "page": 305
+        },
+        "xp_to_completion": 30,
+        "title_ability": "Voice of Authority",
+        "advancements": [
+            {
+                "name": "Trade skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Fitness",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Martial Arts [Melee]",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Martial Arts [Ranged]",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Martial Arts [Unarmed]",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Performance",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Kata",
+                "type": "technique_group",
+                "special_access": true,
+                "rank": 2
+            },
+            {
+                "name": "Open-Hand Style",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Shallow Waters",
+                "type": "technique",
+                "special_access": true
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": 15,
+                "constraint": {
+                    "type": "max",
+                    "value": 40
+                },
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "Advisor",
+        "reference": {
+            "book": "EE",
+            "page": 249
+        },
+        "xp_to_completion": 36,
+        "title_ability": "Skilled Attendant",
+        "advancements": [
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Commerce",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Courtesy",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Design",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Fanning the Flames",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Feigned Opening",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Stonewall Tactics",
+                "type": "technique",
+                "special_access": true
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": 10,
+                "constraint": {
+                    "type": "min",
+                    "value": 40
+                },
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "Clan Magistrate",
+        "reference": {
+            "book": "EE",
+            "page": 249
+        },
+        "xp_to_completion": 30,
+        "title_ability": "Justice of the Champion",
+        "advancements": [
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Fitness",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Martial Arts [Melee]",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Coiling Serpent Style",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Prey on the Weak",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Truth Burns through Lies",
+                "type": "technique",
+                "special_access": true
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": 10,
+                "constraint": {
+                    "type": "min",
+                    "value": 45
+                },
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "Daimy\u014d",
+        "reference": {
+            "book": "EE",
+            "page": 250
+        },
+        "xp_to_completion": 36,
+        "title_ability": "Voice of Authority",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Tactics",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Courtier's Resolve",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Shallow Waters",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Stirring the Embers",
+                "type": "technique",
+                "special_access": true
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": 20,
+                "constraint": {
+                    "type": "min",
+                    "value": 55
+                },
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "Guns\u014d",
+        "reference": {
+            "book": "EE",
+            "page": 250
+        },
+        "xp_to_completion": 24,
+        "title_ability": "Lead from the Front",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Kata",
+                "rank": 4,
+                "type": "technique_group",
+                "special_access": false
+            },
+            {
+                "name": "Rallying Cry",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Stirring the Embers",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Touchstone of Courage",
+                "type": "technique",
+                "special_access": true
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": 5,
+                "constraint": {
+                    "type": "min",
+                    "value": 20
+                },
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "Monastic Acolyte",
+        "reference": {
+            "book": "EE",
+            "page": 251
+        },
+        "xp_to_completion": 24,
+        "title_ability": "Enlightened",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Aesthetics",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Composition",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Cleansing Spirit",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Ki Protection",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Still the Elements",
+                "type": "technique",
+                "special_access": true
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": 0,
+                "constraint": {
+                    "type": "equals",
+                    "value": 25
+                },
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "Priest",
+        "reference": {
+            "book": "EE",
+            "page": 251
+        },
+        "xp_to_completion": 24,
+        "title_ability": "Servant of the Kami",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Composition",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Theology",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Rituals",
+                "rank": 5,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Civility Foremost",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Rouse the Soul",
+                "type": "technique",
+                "special_access": true
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": 10,
+                "constraint": {
+                    "type": "min",
+                    "value": 40
+                },
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "Spy",
+        "reference": {
+            "book": "EE",
+            "page": 252
+        },
+        "xp_to_completion": 24,
+        "title_ability": "Ears Everywhere",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Sentiment",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Skulduggery",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Air Sh\u016bji",
+                "rank": 5,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Shallow Waters",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Skulk",
+                "type": "technique",
+                "special_access": true
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": -5,
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "Y\u014djimb\u014d",
+        "reference": {
+            "book": "EE",
+            "page": 252
+        },
+        "xp_to_completion": 36,
+        "title_ability": "No Sacrifice Too Great",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Medicine",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Sentiment",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Iaijutsu Cut: Crossing Blade",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Iaijutsu Cut: Rising Blade",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Warrior's Resolve",
+                "type": "technique",
+                "special_access": true
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": 10,
+                "constraint": {
+                    "type": "min",
+                    "value": 40
+                },
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "Yoriki",
+        "reference": {
+            "book": "EE",
+            "page": 253
+        },
+        "xp_to_completion": 24,
+        "title_ability": "Take Them Alive",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Martial Arts [Melee]",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Skulduggery",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Kata",
+                "rank": 3,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Fanning the Flames",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Shallow Waters",
+                "type": "technique",
+                "special_access": true
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": 5,
+                "constraint": {
+                    "type": "min",
+                    "value": 35
+                },
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "The Damned",
+        "reference": {
+            "book": "SL",
+            "page": 128
+        },
+        "xp_to_completion": 20,
+        "title_ability": "Tainted Warrior",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Medicine",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Survival",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Theology",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "rank": 2,
+                "name": "Kata",
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Heartpiercing Strike",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Rallying Cry",
+                "type": "technique",
+                "special_access": true
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": -20,
+                "constraint": {
+                    "type": "max",
+                    "value": 30
+                },
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "Harvester",
+        "reference": {
+            "book": "SL",
+            "page": 128
+        },
+        "xp_to_completion": 20,
+        "title_ability": "Capture Evil",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Smithing",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Survival",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Theology",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "rank": 2,
+                "name": "Kata",
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "rank": 2,
+                "name": "Rituals",
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Skulk",
+                "type": "technique",
+                "special_access": false
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": 10,
+                "constraint": {
+                    "type": "max",
+                    "value": 45
+                },
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "Twenty-Goblin Crab",
+        "reference": {
+            "book": "SL",
+            "page": 128
+        },
+        "xp_to_completion": 20,
+        "title_ability": "Goblin Killer",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "rank": 2,
+                "name": "Kata",
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Thunderclap Strike",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Stonewall Tactics",
+                "type": "technique",
+                "special_access": true
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": 15,
+                "constraint": {
+                    "type": "between",
+                    "range": [
+                        30,
+                        40
+                    ]
+                },
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "Witch Hunter",
+        "reference": {
+            "book": "SL",
+            "page": 129
+        },
+        "xp_to_completion": 45,
+        "title_ability": "Bane of Sorcerers",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Skulduggery",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "rank": 4,
+                "name": "Kata",
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "rank": 5,
+                "name": "Rituals",
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Honest Assessment",
+                "type": "technique",
+                "special_access": true
+            }
+        ],
+        "social_awards": [
+            {
+                "base_award": 10,
+                "constraint": {
+                    "type": "min",
+                    "value": 30
+                },
+                "award_attribute": "status"
+            }
+        ]
+    },
+    {
+        "name": "Castellan",
+        "reference": {
+            "book": "CoS",
+            "page": 128
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 30
+                }
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 10,
+                "constraint": {
+                    "type": "max",
+                    "value": 60
+                }
+            }
+        ],
+        "xp_to_completion": 20,
+        "title_ability": "Every Stone Has Its Place",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Design",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Rallying Cry",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Slippery Maneuvers",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Touchstone of Courage",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Covert Agent",
+        "reference": {
+            "book": "CoS",
+            "page": 128
+        },
+        "social_awards": [
+            {
+                "award_attribute": "honor",
+                "base_award": -10,
+                "constraint": {
+                    "type": "min",
+                    "value": 25
+                }
+            }
+        ],
+        "xp_to_completion": 20,
+        "title_ability": "Practiced Prevaricator",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Meditation",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Artful Alibi",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Cadence",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Cunning Distraction",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "To Float or Sink",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "What's Yours Is Mine",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Dreaded Enforcer",
+        "reference": {
+            "book": "CoS",
+            "page": 129
+        },
+        "social_awards": [
+            {
+                "award_attribute": "honor",
+                "base_award": -10,
+                "constraint": {
+                    "type": "min",
+                    "value": 5
+                }
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": -20,
+                "constraint": {
+                    "type": "min",
+                    "value": 15
+                }
+            }
+        ],
+        "xp_to_completion": 40,
+        "title_ability": "Merciless Eyes",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Medicine",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Skulduggery",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Deceitful Strike",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Like a Ghost",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Silent Elimination",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Stillness of Death",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Esteemed Negotiator",
+        "reference": {
+            "book": "CoS",
+            "page": 129
+        },
+        "social_awards": [
+            {
+                "award_attribute": "glory",
+                "base_award": 10,
+                "constraint": {
+                    "type": "max",
+                    "value": 65
+                }
+            }
+        ],
+        "xp_to_completion": 34,
+        "title_ability": "Calming Words",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Sentiment",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "rank": 1,
+                "name": "Earth Shūji",
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "The Ties that Bind",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Treaty Signing",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Kenshinzen",
+        "reference": {
+            "book": "CoS",
+            "page": 130
+        },
+        "social_awards": [
+            {
+                "award_attribute": "glory",
+                "base_award": 20,
+                "constraint": {
+                    "type": "max",
+                    "value": 75
+                }
+            }
+        ],
+        "xp_to_completion": 24,
+        "title_ability": "A Single Moment",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Sentiment",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "rank": 5,
+                "name": "Close Combat Kata",
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "rank": 5,
+                "name": "Void Shūji",
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Tea Ceremony",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Kyuden Asako Shieldbearer",
+        "reference": {
+            "book": "CoS",
+            "page": 130
+        },
+        "social_awards": [
+            {
+                "award_attribute": "glory",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 55
+                }
+            }
+        ],
+        "xp_to_completion": 40,
+        "title_ability": "Time-Tested Defense",
+        "advancements": [
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Martial Arts [Melee]",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Martial Arts [Ranged]",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Meditation",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Tactics",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "rank": 3,
+                "name": "Kata",
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Cleansing Rite",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Master Artisan",
+        "reference": {
+            "book": "CoS",
+            "page": 130
+        },
+        "social_awards": [
+            {
+                "award_attribute": "glory",
+                "base_award": 30,
+                "constraint": {
+                    "type": "max",
+                    "value": 80
+                }
+            }
+        ],
+        "xp_to_completion": 60,
+        "title_ability": "Inspired Creations",
+        "advancements": [
+            {
+                "name": "Artisan skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Courtesy",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Medicine",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Meditation",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "All Arts Are One",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Formal Tea Ceremony",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Winter Court Champion",
+        "reference": {
+            "book": "CoS",
+            "page": 131
+        },
+        "social_awards": [
+            {
+                "award_attribute": "glory",
+                "base_award": 20,
+                "constraint": {
+                    "type": "max",
+                    "value": 75
+                }
+            }
+        ],
+        "xp_to_completion": 16,
+        "title_ability": "Accustomed to Attention",
+        "advancements": [
+            {
+                "name": "Artisan skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Artisan's Appraisal",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Formal Tea Ceremony",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Fun and Games",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Offend the Sensibilities",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Spiteful Loss",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Seven Fold Palace Acolyte",
+        "reference": {
+            "book": "CoS",
+            "page": 131
+        },
+        "social_awards": [
+            {
+                "award_attribute": "glory",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 35
+                }
+            }
+        ],
+        "xp_to_completion": 36,
+        "title_ability": "First, Forge Yourself",
+        "advancements": [
+            {
+                "name": "Trade skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Aesthetics",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Design",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Fitness",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Meditation",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Smithing",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Artisan's Appraisal",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "In Service to a Lord",
+        "reference": {
+            "book": "PoW",
+            "page": 186
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 10,
+                "constraint": {
+                    "type": "max",
+                    "value": 35
+                }
+            }
+        ],
+        "xp_to_completion": 24,
+        "title_ability": "Privileged Position",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Kata",
+                "type": "technique_group",
+                "special_access": true,
+                "rank": 2
+            },
+            {
+                "name": "Wolf's Proposal",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Fluent Bargaining",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Perfect Land Sect Member",
+        "reference": {
+            "book": "PoW",
+            "page": 186
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": -5,
+                "constraint": {
+                    "type": "min",
+                    "value": 15
+                }
+            }
+        ],
+        "xp_to_completion": 24,
+        "title_ability": "Trustworthy Cadence",
+        "advancements": [
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Courtesy",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Fitness",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Labor",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Water Shūji",
+                "type": "technique_group",
+                "special_access": true,
+                "rank": 2
+            },
+            {
+                "name": "Roar of Encouragement",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Rallying Cry",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Ghostlands Warrior",
+        "reference": {
+            "book": "PoW",
+            "page": 186
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 0
+            }
+        ],
+        "xp_to_completion": 36,
+        "title_ability": "Eyes of the Yodhaniya",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Medicine",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Survival",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Earth Needs No Eyes",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Soaring Slice",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Cleansing of Coral and Gold",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Astradhari",
+        "reference": {
+            "book": "PoW",
+            "page": 187
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 0
+            }
+        ],
+        "xp_to_completion": 36,
+        "title_ability": "Sacred Mantras",
+        "advancements": [
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Courtesy",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Rituals",
+                "type": "technique_group",
+                "special_access": true,
+                "rank": 3
+            },
+            {
+                "name": "Summoning Mantra: [Implement Name]",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Touchstone of Courage",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Bond with a Spirit [Air]",
+        "reference": {
+            "book": "CR",
+            "page": 140
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 40
+                }
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 40
+                }
+            }
+        ],
+        "xp_to_completion": 25,
+        "title_ability": "Spiritual Protector",
+        "advancements": [
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Aesthetics",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Games",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Meditation",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Air Invocations",
+                "type": "technique_group",
+                "special_access": true,
+                "rank": 1
+            },
+            {
+                "name": "Commune with the Spirits",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Blessing of Fertile Fields",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Bond with a Spirit [Earth]",
+        "reference": {
+            "book": "CR",
+            "page": 140
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 40
+                }
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 40
+                }
+            }
+        ],
+        "xp_to_completion": 25,
+        "title_ability": "Spiritual Protector",
+        "advancements": [
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Aesthetics",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Games",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Meditation",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Earth Invocations",
+                "type": "technique_group",
+                "special_access": true,
+                "rank": 1
+            },
+            {
+                "name": "Commune with the Spirits",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Blessing of Fertile Fields",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Bond with a Spirit [Fire]",
+        "reference": {
+            "book": "CR",
+            "page": 140
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 40
+                }
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 40
+                }
+            }
+        ],
+        "xp_to_completion": 25,
+        "title_ability": "Spiritual Protector",
+        "advancements": [
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Aesthetics",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Games",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Meditation",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Fire Invocations",
+                "type": "technique_group",
+                "special_access": true,
+                "rank": 1
+            },
+            {
+                "name": "Commune with the Spirits",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Blessing of Fertile Fields",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Bond with a Spirit [Water]",
+        "reference": {
+            "book": "CR",
+            "page": 140
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 40
+                }
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 40
+                }
+            }
+        ],
+        "xp_to_completion": 25,
+        "title_ability": "Spiritual Protector",
+        "advancements": [
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Aesthetics",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Games",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Meditation",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Water Invocations",
+                "type": "technique_group",
+                "special_access": true,
+                "rank": 1
+            },
+            {
+                "name": "Commune with the Spirits",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Blessing of Fertile Fields",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Moon Cultist",
+        "reference": {
+            "book": "CR",
+            "page": 140
+        },
+        "social_awards": [
+            {
+                "award_attribute": "honor",
+                "base_award": -5,
+                "constraint": {
+                    "type": "min",
+                    "value": 15
+                }
+            }
+        ],
+        "xp_to_completion": 30,
+        "title_ability": "Swallow the Light",
+        "advancements": [
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Composition",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Courtesy",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Fitness",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Water Invocations",
+                "type": "technique_group",
+                "special_access": false,
+                "rank": 2
+            },
+            {
+                "name": "Hands of Tides",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Whispers to the Moon",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Spirit Hunter",
+        "reference": {
+            "book": "DT",
+            "page": 21
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5
+            }
+        ],
+        "xp_to_completion": 12,
+        "title_ability": "Celestial Influence",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Theology",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Rituals",
+                "type": "technique_group",
+                "special_access": true,
+                "rank": 1
+            }
+        ]
+    },
+    {
+        "name": "Ashigaru",
+        "reference": {
+            "book": "FoV",
+            "page": 131
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 3,
+                "constraint": {
+                    "type": "max",
+                    "value": 19
+                }
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 29
+                }
+            }
+        ],
+        "xp_to_completion": 20,
+        "title_ability": "A Thousand Stinging Cuts",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Courtesy",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Survival",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Kata",
+                "rank": 2,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Thicket's Embrace Style",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Slippery Maneuvers",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Deathseeker",
+        "reference": {
+            "book": "FoV",
+            "page": 132
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": -25,
+                "constraint": {
+                    "type": "min",
+                    "value": 20
+                }
+            }
+        ],
+        "xp_to_completion": 8,
+        "title_ability": "Kifu's Oath",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Courtesy",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Labor",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Theology",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Kata",
+                "type": "technique_group",
+                "rank": 3,
+                "special_access": true
+            },
+            {
+                "name": "A Samurai's Fate",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Moment of Glory",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Elemental Guard",
+        "reference": {
+            "book": "FoV",
+            "page": 132
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 10
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 10
+            }
+        ],
+        "xp_to_completion": 20,
+        "title_ability": "Wrath of the Elements",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Medicine",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Beseech Shiba's Calm",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Tactical Assessment",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Warrior's Resolve",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Elemental Legionnaire",
+        "reference": {
+            "book": "FoV",
+            "page": 133
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 10
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 10
+            }
+        ],
+        "xp_to_completion": 24,
+        "title_ability": "Strength of the Elements",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Medicine",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Smithing",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Kata",
+                "rank": 3,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Great Anvil's Measure",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Moment of Glory",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "General",
+        "reference": {
+            "book": "FoV",
+            "page": 133
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 25,
+                "constraint": {
+                    "type": "max",
+                    "value": 85
+                }
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 10
+            }
+        ],
+        "xp_to_completion": 50,
+        "title_ability": "Superior Command",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Survival",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Kata",
+                "rank": 2,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Rituals",
+                "rank": 3,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Sh\u016bji",
+                "rank": 4,
+                "type": "technique_group",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Lion's Pride Warrior",
+        "reference": {
+            "book": "FoV",
+            "page": 133
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 20,
+                "constraint": {
+                    "type": "max",
+                    "value": 59
+                }
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 10
+            }
+        ],
+        "xp_to_completion": 24,
+        "title_ability": "Fury of Matsu",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Sentiment",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Survival",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Kata",
+                "rank": 3,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "A Samurai's Fate",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Battle of No Escape",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Master Saboteur",
+        "reference": {
+            "book": "FoV",
+            "page": 134
+        },
+        "social_awards": [],
+        "xp_to_completion": 40,
+        "title_ability": "Ender of Works",
+        "advancements": [
+            {
+                "name": "Trade skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Martial Arts [Unarmed]",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Medicine",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Ninjutsu",
+                "rank": 2,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Imbue Thunder",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Wreak Havoc",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Poet of War",
+        "reference": {
+            "book": "FoV",
+            "page": 134
+        },
+        "social_awards": [
+            {
+                "award_attribute": "glory",
+                "base_award": 10,
+                "constraint": {
+                    "type": "max",
+                    "value": 55
+                }
+            }
+        ],
+        "xp_to_completion": 20,
+        "title_ability": "The Hand of Our Ancestors",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Composition",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Sentiment",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Fire Sh\u016bji",
+                "rank": 2,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Borrowed Courage",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Coursing March Chant",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Quartermaster",
+        "reference": {
+            "book": "FoV",
+            "page": 135
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 35
+                }
+            }
+        ],
+        "xp_to_completion": 24,
+        "title_ability": "Procurement and Supply",
+        "advancements": [
+            {
+                "name": "Trade skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Courtesy",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Tactics",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Air Sh\u016bji",
+                "rank": 2,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Water Sh\u016bji",
+                "rank": 2,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Fortress of Necessity",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Renowned Warrior",
+        "reference": {
+            "book": "FoV",
+            "page": 135
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 40
+                }
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 5
+            }
+        ],
+        "xp_to_completion": 16,
+        "title_ability": "Behold the Legend",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Performance",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Kata",
+                "rank": 2,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Heartpiercing Strike",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Righteous Example",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Spirit Caller",
+        "reference": {
+            "book": "FoV",
+            "page": 136
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 15,
+                "constraint": {
+                    "type": "max",
+                    "value": 40
+                }
+            }
+        ],
+        "xp_to_completion": 38,
+        "title_ability": "Eyes of the Ancestors",
+        "advancements": [
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Courtesy",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Meditation",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Performance",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Rituals",
+                "rank": 2,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Ancestry Unearthed",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Preserve Strength",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Sumai Master",
+        "reference": {
+            "book": "FoV",
+            "page": 136
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 10,
+                "constraint": {
+                    "type": "max",
+                    "value": 35
+                }
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 10,
+                "constraint": {
+                    "type": "max",
+                    "value": 50
+                }
+            }
+        ],
+        "xp_to_completion": 30,
+        "title_ability": "Unsurpassed Soul",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Martial Arts [Unarmed]",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Theology",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Kata",
+                "rank": 2,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Beseech Hida's Might",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Fierce Badger Style",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Sword-Saint",
+        "reference": {
+            "book": "FoV",
+            "page": 136
+        },
+        "social_awards": [
+            {
+                "award_attribute": "glory",
+                "base_award": 20,
+                "constraint": {
+                    "type": "max",
+                    "value": 100
+                }
+            }
+        ],
+        "xp_to_completion": 24,
+        "title_ability": "Invincible Blade",
+        "advancements": [
+            {
+                "name": "Martial Arts [Melee]",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Meditation",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Smithing",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Tactics",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Close Combat Kata",
+                "rank": 5,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Soul Sunder",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Victory Without a Sword",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "War College Graduate",
+        "reference": {
+            "book": "FoV",
+            "page": 137
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 10,
+                "constraint": {
+                    "type": "max",
+                    "value": 40
+                }
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 5,
+                "constraint": {
+                    "type": "max",
+                    "value": 60
+                }
+            }
+        ],
+        "xp_to_completion": 36,
+        "title_ability": "Learned from History",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Kata",
+                "rank": 3,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Sh\u016bji",
+                "type": "technique_group",
+                "rank": 3,
+                "special_access": true
+            },
+            {
+                "name": "Beseech Akodo's Judgment",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Awakened Soul",
+        "reference": {
+            "book": "WotW",
+            "page": 142
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 0
+            }
+        ],
+        "xp_to_completion": 44,
+        "title_ability": "Wisdom of Countless Lifetimes",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Meditation",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Survival",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Theology",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Eternal Mind's Gates",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Trance of Lives Past",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Forester",
+        "reference": {
+            "book": "WotW",
+            "page": 142
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5,
+                "constraint": {
+                    "type": "min",
+                    "value": 20
+                }
+            }
+        ],
+        "xp_to_completion": 24,
+        "title_ability": "Blessing of the Trees",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Courtesy",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Sentiment",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Survival",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Theology",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Earth Invocations",
+                "type": "technique_group",
+                "special_access": true,
+                "rank": 2
+            },
+            {
+                "name": "Water Invocations",
+                "type": "technique_group",
+                "special_access": true,
+                "rank": 2
+            },
+            {
+                "name": "Sh\u016bji",
+                "type": "technique_group",
+                "special_access": true,
+                "rank": 3
+            }
+        ]
+    },
+    {
+        "name": "Temple Abbot",
+        "reference": {
+            "book": "WotW",
+            "page": 142
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 10,
+                "constraint": {
+                    "type": "min",
+                    "value": 30
+                }
+            }
+        ],
+        "xp_to_completion": 36,
+        "title_ability": "Soothing Cadence",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Meditation",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Theology",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Cleansing Rite",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Rejuvinating Breath",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Touchstone of Courage",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Y\u014dkai Hunter",
+        "reference": {
+            "book": "WotW",
+            "page": 143
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5
+            }
+        ],
+        "xp_to_completion": 36,
+        "title_ability": "Commune with the Changed",
+        "advancements": [
+            {
+                "name": "Scholar skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Courtesy",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Survival",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Blistering Retribution",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Swallow's Dart Style",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Tiger's Lunge Style",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Animal Handler",
+        "reference": {
+            "book": "CotFW",
+            "page": 134
+        },
+        "social_awards": [
+            {
+                "award_attribute": "glory",
+                "base_award": 5
+            }
+        ],
+        "xp_to_completion": 24,
+        "title_ability": "Instinctive Command",
+        "advancements": [
+            {
+                "name": "Trade skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Martial Arts [Unarmed]",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Medicine",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Sentiment",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Call to Ride",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Incite Wrath",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Touchstone of Courage",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Doomhunter",
+        "reference": {
+            "book": "CotFW",
+            "page": 135
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 20
+            }
+        ],
+        "xp_to_completion": 28,
+        "title_ability": "Slayer of Immortals",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Skulduggery",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Survival",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Theology",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Rituals",
+                "rank": 1,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Rituals",
+                "rank": 2,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Skulk",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Soul Sunder",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Imperial Peacekeeper",
+        "reference": {
+            "book": "CotFW",
+            "page": 135
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 10
+            }
+        ],
+        "xp_to_completion": 18,
+        "title_ability": "By Imperial Command",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Courtesy",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Sentiment",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Earth Shūji",
+                "rank": 1,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Earth Shūji",
+                "rank": 2,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Cultural Exchange",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Pillar of Calm",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Interpreter",
+        "reference": {
+            "book": "CotFW",
+            "page": 135
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 5
+            }
+        ],
+        "xp_to_completion": 12,
+        "title_ability": "Linguistic Liaison",
+        "advancements": [
+            {
+                "name": "Social skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Composition",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Sh\u016bji",
+                "rank": 1,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Cultural Exchange",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Traveler's Experience",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Scarlet Banners Ranger",
+        "reference": {
+            "book": "CotFW",
+            "page": 136
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 10
+            }
+        ],
+        "xp_to_completion": 24,
+        "title_ability": "Master of the Lariat",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Trade skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Government",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Sentiment",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Kata",
+                "rank": 1,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Kata",
+                "rank": 2,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Cunning Omission",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Thunderbolt Style",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "Student of Names",
+        "reference": {
+            "book": "CotFW",
+            "page": 137
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 5
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 10
+            }
+        ],
+        "xp_to_completion": 12,
+        "title_ability": "Meish\u016dd\u016d Secrets",
+        "advancements": [
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Culture",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Survival",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Theology",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Invocations",
+                "rank": 1,
+                "type": "technique_group",
+                "special_access": true
+            },
+            {
+                "name": "Spiritual Survey",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Threshold Barrier",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    },
+    {
+        "name": "White Guard Veteran",
+        "reference": {
+            "book": "CotFW",
+            "page": 137
+        },
+        "social_awards": [
+            {
+                "award_attribute": "status",
+                "base_award": 10
+            },
+            {
+                "award_attribute": "glory",
+                "base_award": 15
+            }
+        ],
+        "xp_to_completion": 32,
+        "title_ability": "Unrelenting and Inevitable",
+        "advancements": [
+            {
+                "name": "Martial skills",
+                "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "name": "Courtesy",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Command",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Survival",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "Theology",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "name": "A Samurai's Fate",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Stalking Leopard Style",
+                "type": "technique",
+                "special_access": true
+            },
+            {
+                "name": "Sudden Downpour Style",
+                "type": "technique",
+                "special_access": true
+            }
+        ]
+    }
+]

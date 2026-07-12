@@ -1,0 +1,3836 @@
+[
+    {
+        "name": "Kata",
+        "subcategories": [
+            {
+                "name": "General Kata",
+                "techniques": [
+                    {
+                        "name": "Battle in the Mind",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 174
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Bear's Swipe Style",
+                        "_comment": ["Bushi", "Monk"],
+                        "rank": 1,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 114
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Breath of Wind Style",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 175
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Crashing Wave Style",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 175
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Crescent Moon Style",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 175
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Crimson Leaves Strike",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 175
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Disappearing World Style",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 175
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Flowing Water Strike",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 175
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Heartpiercing Strike",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 176
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Iron in the Mountains Style",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 176
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Lord Hida's Grip",
+                        "restriction": "Crab",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 176
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Lord Shiba's Valor",
+                        "restriction": "Phoenix",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 177
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Serpent's Twist Style",
+                        "_comment": ["Bushi", "Monk"],
+                        "rank": 2,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 114
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Soaring Slice",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 177
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Soul Sunder",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 177
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Striking as Air",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 177
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Striking as Earth",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 178
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Striking as Fire",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 178
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Striking as Void",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 178
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Striking as Water",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 178
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Swallow's Dart Style",
+                        "_comment": ["Bushi", "Monk"],
+                        "rank": 2,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 115
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Tactical Assessment",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 178
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Tiger's Lunge Style",
+                        "_comment": ["Bushi", "Monk"],
+                        "rank": 3,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 115
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Warrior's Resolve",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 178
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Chaotic Scattering",
+                        "rank": 2,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 86
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Iron Shell Style",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 86
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Mind's Edge",
+                        "rank": 1,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 86
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Rider's Haste",
+                        "rank": 2,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 87
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Thunderous Hooves Style",
+                        "rank": 4,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 87
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Void Embrace Style",
+                        "rank": 5,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 87
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Cautious Tread",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 108
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Stalking Leopard Style",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 108
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Sudden Downpour Style",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 108
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Swaying Grass Evasion",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 108
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Close Combat Kata",
+                "techniques": [
+                    {
+                        "name": "Coiling Serpent Style",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 179
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Flexible Grip",
+                        "rank": 1,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 115
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Howling Gale Defense",
+                        "rank": 2,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 116
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Heron's Grasp Style",
+                        "rank": 3,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 116
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Iaijutsu Cut: Crossing Blade",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 179
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Iaijutsu Cut: Rising Blade",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 179
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Iron Forest Style",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 180
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Open-Hand Style",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 180
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Rushing Avalanche Style",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 180
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Serow's Leap Style",
+                        "rank": 3,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 116
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Spinning Blades Style",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 180
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Thunderclap Strike",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 180
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Tumbling Oak Style",
+                        "rank": 4,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 116
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Veiled Menace Style",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 181
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Pole-Vault",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 113
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Trip the Leg",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 113
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Improvised Assault",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 87
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Boar's Wrath Style",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 87
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Bonebreaker Style",
+                        "rank": 5,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 88
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Daring Swing",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 88
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Deflective Defense",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 88
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Flashing Steel Strike",
+                        "rank": 2,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 88
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Iaijutsu Cut: Reverse Draw",
+                        "rank": 4,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 89
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Iaijutsu Cut: Sword and Sheath",
+                        "rank": 2,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 89
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Landslide Strike",
+                        "rank": 2,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 98
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Laughing Fox Style",
+                        "rank": 4,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 89
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Piercing Bolt Style",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 90
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Reckless Lunge",
+                        "rank": 2,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 90
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Rushing Ox Style",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 90
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Snapping Branch Strike",
+                        "rank": 1,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 90
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Swirling Tempest Style",
+                        "rank": 5,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 90
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Thunderous Blows Style",
+                        "rank": 2,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 90
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Twin Streams Style",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 91
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Wheeling Sweep",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 91
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Fierce Badger Style",
+                        "rank": 2,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 95
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Thicket's Embrace Style",
+                        "rank": 3,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 95
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Shattering Tide Style",
+                        "rank": 3,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 95
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Distracting Flurry Style",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 108
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Scouring Wind Style",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 109
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Slashing Sandstorm Style",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 109
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Ranged Combat Kata",
+                "techniques": [
+                    {
+                        "name": "Hawk's Precision",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 181
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Pelting Hail Style",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 181
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Pin the Fan",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 181
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Eyeless Sight Shot",
+                        "rank": 4,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 91
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Falling Heavens Shot",
+                        "rank": 5,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 91
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Staggering Shot",
+                        "rank": 2,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 91
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Swirling Viper Style",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 92
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Wasp's Spite Style",
+                        "rank": 4,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 92
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Descending Swarm Shot",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 110
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Thunderbolt Style",
+                        "rank": 4,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 110
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Nonhuman Kata",
+                "techniques": [
+                    {
+                        "name": "Flight",
+                        "_comment": "Yokai",    
+                        "rank": 1,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 117
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Razor Bite",
+                        "_comment": ["Naga", "Nezumi", "Yokai"],    
+                        "rank": 2,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 117
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Owl's Swoop Style",
+                        "_comment": "Yokai",    
+                        "rank": 3,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 117
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Skittering Shift",
+                        "_comment": "Nezumi",    
+                        "rank": 3,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 118
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Tail Sweep",
+                        "_comment": ["Naga", "Nezumi", "Yokai"],    
+                        "rank": 3,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 118
+                        },
+                        "xp": 3
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Kih\u014d",
+        "subcategories": [
+            {
+                "name": "Earth Kih\u014d",
+                "techniques": [
+                    {
+                        "name": "Cleansing Spirit",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 182
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Earth Needs No Eyes",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 182
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Earthen Fist",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 183
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Grasp the Earth Dragon",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 183
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Mercy of the Stone Fortune",
+                        "rank": 2,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 108
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Rejuvinating Breath",
+                        "rank": 3,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 109
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Shadow of Ancient Peaks",
+                        "rank": 4,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 109
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Way of the Earthquake",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 183
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Air Kih\u014d",
+                "techniques": [
+                    {
+                        "name": "Air Fist",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 183
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Cutting Wind Talons",
+                        "rank": 4,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 109
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Grace of the Gentle Breeze",
+                        "rank": 3,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 109
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Riding the Clouds",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 184
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Step of the Storm",
+                        "rank": 4,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 110
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "The Great Silence",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 184
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Way of the Willow",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 184
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Fire Kih\u014d",
+                "techniques": [
+                    {
+                        "name": "Blistering Retribution",
+                        "rank": 2,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 110
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Breaking Blow",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 184
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Channel the Fire Dragon",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 185
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Dance of Fire",
+                        "rank": 3,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 110
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Flame Fist",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 185
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "The Body is an Anvil",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 186
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Volcanic Fist",
+                        "rank": 4,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 111
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Way of the Falling Star",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 186
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Water Kih\u014d",
+                "techniques": [
+                    {
+                        "name": "Fist of Spreading Venom",
+                        "rank": 2,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 112
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Freezing the Lifeblood",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 186
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Ki Protection",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 186
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Ride the Water Dragon",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 187
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "River's Flowing Stride",
+                        "rank": 3,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 112
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Seeping Ki",
+                        "rank": 4,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 112
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Water Fist",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 187
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Way of the Seafoam",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 187
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Void Kih\u014d",
+                "techniques": [
+                    {
+                        "name": "Aura Awareness",
+                        "rank": 2,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 113
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Death Touch",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 188
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Essence of Stillness",
+                        "rank": 3,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 113
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Eternal Mind's Gates",
+                        "rank": 4,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 114
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Still the Elements",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 188
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Touch the Void Dragon",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 188
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Way of the Edgeless Sword",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 188
+                        },
+                        "xp": 3
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Invocations",
+        "subcategories": [
+            {
+                "name": "Air Invocations",
+                "techniques": [
+                    {
+                        "name": "Blessed Wind",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 192
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "By the Light of the Lord Moon",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 192
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Call Upon the Wind",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 192
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Cloak of Night",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 192
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "False Realm of the Fox Spirits",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 193
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Grasp of the Air Dragon",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 193
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Mask of Wind",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 193
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Nature's Touch",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 194
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Rise, Air",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 194
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Secrets on the Wind",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 194
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Summon Fog",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 195
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Tempest of Air",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 195
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Token of Memory",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 195
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Vapor of Nightmares",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 195
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Wrath of Kaze-no-Kami",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 196
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Yari of Air",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 196
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Dream Painter",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CR",
+                            "page": 105
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Messenger of Chikushō-dō",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CR",
+                            "page": 106
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "The Fading Dream",
+                        "rank": 5,
+                        "reference": {
+                            "book": "CR",
+                            "page": 106
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Earth Invocations",
+                "techniques": [
+                    {
+                        "name": "Armor of Earth",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 197
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Bind the Shadow",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 197
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Caress of Earth",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 197
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Courage of Seven Thunders",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 197
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Earthquake",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 198
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Earth Becomes Sky",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 198
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Embrace of Kenro-Ji-Jin",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 198
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Grasp of Earth",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 199
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Jade Strike",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 199
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Jur\u014djin's Balm",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 199
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Power of the Earth Dragon",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 200
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Rise, Earth",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 200
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Symbol of Earth",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 200
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Tetsub\u014d of Earth",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 200
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Tomb of Jade",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 201
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Wall of Earth",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 201
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Essence of Jade",
+                        "rank": 3,
+                        "reference": {
+                            "book": "SL",
+                            "page": 114
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Bond of the Realms",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CR",
+                            "page": 107
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Emboldened Steed",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CR",
+                            "page": 107
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Guardian of the Secret Gate",
+                        "rank": 5,
+                        "reference": {
+                            "book": "CR",
+                            "page": 107
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Fire Invocations",
+                "techniques": [
+                    {
+                        "name": "Armor of Radiance",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 202
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Biting Steel",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 202
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Breath of the Fire Dragon",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 202
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Extinguish",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 202
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Fukurokujin's Wit",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 203
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Fury of Osano-wo",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 203
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Katana of Fire",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 203
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Matsu's Battlecry",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 204
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Ravenous Swarms",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 204
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Rise, Flame",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 204
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "The Cleansing Fire",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 204
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "The Fires from Within",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 205
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "The Soul's Blade",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 205
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Wall of Fire",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 205
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Wings of the Phoenix",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 206
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Amaterasu's Gaze",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CR",
+                            "page": 108
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Fires of Purity",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CR",
+                            "page": 108
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Heart of the Lady Sun",
+                        "rank": 5,
+                        "reference": {
+                            "book": "CR",
+                            "page": 108
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Water Invocations",
+                "techniques": [
+                    {
+                        "name": "B\u014d of Water",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 207
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Dance of Seasons",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 207
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Dominion of Suijin",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 207
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Ever-Changing Waves",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 208
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Hands of Tides",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 208
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Heart of the Water Dragon",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 208
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Inari's Blessing",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 209
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Path to Inner Peace",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 209
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Reflections of P'an Ku",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 209
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Rise, Water",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 210
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Stride the Waves",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 211
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Strike the Tsunami",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 211
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Suijin's Embrace",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 211
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Sympathetic Energies",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 211
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "The Rushing Wave",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 211
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Fluid Shadows",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CR",
+                            "page": 108
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Path of Beasts",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CR",
+                            "page": 109
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Rain of Ten Thousand Lotuses",
+                        "rank": 5,
+                        "reference": {
+                            "book": "CR",
+                            "page": 109
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "The World is Not Heavy",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 116
+                        },
+                        "xp": 3
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Rituals",
+        "subcategories": [
+            {
+                "name": "Void",
+                "techniques": [
+                    {
+                        "name": "Cleansing Rite",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 212
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Commune with the Spirits",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 212
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Divination",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 212
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Tea Ceremony",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 213
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Craft Shikigami",
+                        "rank": 2,
+                        "reference": {
+                            "book": "SL",
+                            "page": 114
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Threshold Barrier",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 213
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Formal Tea Ceremony",
+                        "rank": 5,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 116
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "The Ties that Bind",
+                        "rank": 4,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 117
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Balancing Salve",
+                        "rank": 1,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 95
+                        },
+                        "xp": 3,
+                        "restriction": "Qamarist Region"
+                    },
+                    {
+                        "name": "Elixir of Recovery",
+                        "rank": 2,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 96
+                        },
+                        "xp": 3,
+                        "restriction": "Qamarist Region"
+                    },
+                    {
+                        "name": "Fortitude Draught",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 96
+                        },
+                        "xp": 3,
+                        "restriction": "Qamarist Region"
+                    },
+                    {
+                        "name": "Restorative Transmutation",
+                        "rank": 5,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 96
+                        },
+                        "xp": 3,
+                        "restriction": "Qamarist Region"
+                    },
+                    {
+                        "name": "Cleansing of Coral and Gold",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 97
+                        },
+                        "xp": 3,
+                        "restriction": "Ivory Kingdoms Region"
+                    },
+                    {
+                        "name": "Wayfarer's Path",
+                        "rank": 2,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 97
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Rite of the Wheel",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CR",
+                            "page": 111
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Beseech Akodo's Judgment",
+                        "rank": 3,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 96
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Beseech Shiba's Calm",
+                        "rank": 3,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 97
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Beseech Togashi's Vision",
+                        "rank": 3,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 98
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Trance of Lives Past",
+                        "_comment": "Monk",
+                        "rank": 4,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 120
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Spiritual Survey",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 110
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "",
+                "techniques": [
+                    {
+                        "name": "Blessing of Steel",
+                        "rank": 2,
+                        "reference": {
+                            "book": "SL",
+                            "page": 114
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Treaty Signing",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 116
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Beseech Doji's Wisdom",
+                        "rank": 4,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 96
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Imbue Thunder",
+                        "rank": 4,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 98
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Guard Against the Elements",
+                        "_comment": "Yobanjin Group",
+                        "rank": 1,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 119
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Hunter's Expertise",
+                        "_comment": "Yobanjin Group",
+                        "rank": 3,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 120
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Air",
+                "techniques": [
+                    {
+                        "name": "Blessed Union",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CR",
+                            "page": 110
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Beseech Bayushi's Absolution",
+                        "rank": 4,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 96
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Chikush\u014d-d\u014d's Guile",
+                        "_comment": "Yokai",
+                        "rank": 1,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 118
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Cunning Snares",
+                        "_comment": ["Shinobi", "Yobanjin Group"],
+                        "rank": 2,
+                        "reference": {
+                            "book": "WotW",
+                            "page": 119
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Center the World",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 110
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Earth",
+                "techniques": [
+                    {
+                        "name": "Blessing of Fertile Fields",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CR",
+                            "page": 110
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Shadow of Days",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 110
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Traveler's Experience",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 110
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Water",
+                "techniques": [
+                    {
+                        "name": "Blessing of the Dance",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CR",
+                            "page": 110
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Whispers to the Moon",
+                        "rank": 5,
+                        "reference": {
+                            "book": "CR",
+                            "page": 111
+                        },
+                        "xp": 3,
+                        "restriction": "Moon Cultist"
+                    },
+                    {
+                        "name": "Beseech Shinjo's Empathy",
+                        "rank": 2,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 98
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Wayfinder's Instincts",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 110
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Fire",
+                "techniques": [
+                    {
+                        "name": "Prayer of Protection",
+                        "rank": 4,
+                        "reference": {
+                            "book": "CR",
+                            "page": 110
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Beseech Hida's Might",
+                        "rank": 2,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 97
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Cultural Exchange",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 110
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Protection of the Flock",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 110
+                        },
+                        "xp": 3
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Sh\u016bji",
+        "subcategories": [
+            {
+                "name": "Air Sh\u016bji",
+                "techniques": [
+                    {
+                        "name": "Artisan's Appraisal",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 214
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Bend with the Storm",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 214
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Cadence",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 214
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Feigned Opening",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 214
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Prey on the Weak",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 215
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Rustling of Leaves",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 215
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "The Wind Blows Both Ways",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 215
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Whispers of Court",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 215
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Wolf's Proposal",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 215
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Spin the Web",
+                        "restriction": "Kolat",
+                        "rank": 3,
+                        "reference": {
+                            "book": "EE",
+                            "page": 248
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Assess Strengths",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 117
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Hidden in Smoke",
+                        "rank": 4,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 117
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Flowering Deceptions",
+                        "rank": 1,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 93
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Pack Gambit",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 93
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Ruse of the Moon's Reflection",
+                        "rank": 5,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 93
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Borrowed Courage",
+                        "rank": 1,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 99
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Clouds Parted by Steel",
+                        "rank": 2,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 99
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Entice with Falsehoods",
+                        "rank": 4,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 99
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Cunning Omission",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 112
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Entice with Offerings",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 113
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Trader's Intuition",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 113
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Earth Sh\u016bji",
+                "techniques": [
+                    {
+                        "name": "Ancestry Unearthed",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 216
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Civility Foremost",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 216
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Honest Assessment",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 216
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Pillar of Calm",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 216
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Stonewall Tactics",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 216
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Touchstone of Courage",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 217
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "The Immovable Hand of Peace",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 217
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Weight of Duty",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 217
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Unyielding Terms",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 117
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Bellow of Resolve",
+                        "rank": 1,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 92
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Look Out!",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 92
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Mentor's Guidance",
+                        "rank": 5,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 93
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Fortress of Necessity",
+                        "rank": 1,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 100
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Great Anvil's Measure",
+                        "rank": 2,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 100
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Steady the Hammer",
+                        "rank": 4,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 100
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Cite the Facts",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 114
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Solidify Gratitude",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 114
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Fire Sh\u016bji",
+                "techniques": [
+                    {
+                        "name": "Bravado",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 218
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Dazzling Performance",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 218
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Fanning the Flames",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 218
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Lightning Raid",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 218
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Rallying Cry",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 219
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Sear the Wound",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 219
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Sensational Distraction",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 219
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Stirring the Embers",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 219
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Truth Burns through Lies",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 219
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Osano-wo's Boast",
+                        "restriction": "Mantis",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Mantis",
+                            "page": 7
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "All Shall Fear Me",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 118
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Crackling Laughter",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 118
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Offend the Sensibilities",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 118
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Spiteful Loss",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 118
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Illuminate the Way",
+                        "rank": 1,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 94
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Goading Taunt",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 94
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Roar of Encouragement",
+                        "rank": 5,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 95
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Call the Wild",
+                        "rank": 3,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 101
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Righteous Example",
+                        "rank": 1,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 101
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Sting of Warrior's Pride",
+                        "rank": 2,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 101
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "To Smash the Heart",
+                        "rank": 4,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 102
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Incite True Nature",
+                        "rank": 3,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 79
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Glorious Entrance",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 114
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Incite Wrath",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 114
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Water Sh\u016bji",
+                "techniques": [
+                    {
+                        "name": "All in Jest",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 220
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Buoyant Arrival",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 220
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Ebb and Flow",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 220
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Regal Bearing",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 220
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Shallow Waters",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 220
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Slippery Maneuvers",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 221
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Tributaries of Trade",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 221
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Well of Desire",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 221
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Beware the Smallest Mouse",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 118
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Fun and Games",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 119
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Eyes Up!",
+                        "rank": 1,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 93
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Fluent Bargaining",
+                        "rank": 2,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 94
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Malleable Formation",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 94
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Watch My Back",
+                        "rank": 5,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 94
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Coursing March Chant",
+                        "rank": 1,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 102
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Preserve Strength",
+                        "rank": 2,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 102
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Your Enemy's Arrows",
+                        "rank": 4,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 103
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Call to Ride",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 115
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Complementary Experience",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 115
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Everyone Has a Price",
+                        "rank": 4,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 115
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Horse Whisperer",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 115
+                        },
+                        "xp": 3
+                    }
+                ]
+            },
+            {
+                "name": "Void Sh\u016bji",
+                "techniques": [
+                    {
+                        "name": "All Arts Are One",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 222
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "A Samurai's Fate",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 222
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Courtier's Resolve",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 222
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Lady Doji's Decree",
+                        "restriction": "Crane",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 222
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Lady Shinjo's Speed",
+                        "restriction": "Unicorn",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 222
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Lord Akodo's Roar",
+                        "restriction": "Lion",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 223
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Lord Bayushi's Whispers",
+                        "restriction": "Scorpion",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 223
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Lord Togashi's Insight",
+                        "restriction": "Dragon",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 223
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Rouse the Soul",
+                        "rank": 5,
+                        "reference": {
+                            "book": "Core",
+                            "page": 223
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Awe of Heaven",
+                        "restriction": "Imperial",
+                        "rank": 4,
+                        "reference": {
+                            "book": "EE",
+                            "page": 248
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Foreseen Need",
+                        "rank": 4,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 119
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Wanderer's Resolve",
+                        "rank": 1,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 95
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Tonight, I Am Your Opponent",
+                        "rank": 3,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 95
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Bond of Heroes",
+                        "rank": 5,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 95
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Battle of No Escape",
+                        "rank": 2,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 103
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Moment of Glory",
+                        "rank": 3,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 104
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Victory Without a Sword",
+                        "rank": 6,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 104
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Appreciate the Scenery",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CotFW",
+                            "page": 116
+                        },
+                        "xp": 3
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Mah\u014d",
+        "subcategories": [
+            {
+                "name": "",
+                "techniques": [
+                    {
+                        "name": "Incite Haunting",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 224
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Mark of Desecration",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 225
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Sinful Whispers",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 225
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Unholy Fervor",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 225
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "The Blood Price",
+                        "rank": 1,
+                        "reference": {
+                            "book": "SL",
+                            "page": 116
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Accursed Summoning",
+                        "rank": 1,
+                        "reference": {
+                            "book": "SL",
+                            "page": 118
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Bind the Undead",
+                        "rank": 2,
+                        "reference": {
+                            "book": "SL",
+                            "page": 118
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Commune with Evil",
+                        "rank": 1,
+                        "reference": {
+                            "book": "SL",
+                            "page": 118
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Dark Reflection",
+                        "rank": 1,
+                        "reference": {
+                            "book": "SL",
+                            "page": 119
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Entreat the Shadow Steed",
+                        "rank": 2,
+                        "reference": {
+                            "book": "SL",
+                            "page": 119
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Fiend's Retreat",
+                        "rank": 3,
+                        "reference": {
+                            "book": "SL",
+                            "page": 119
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Shape the Flesh",
+                        "rank": 4,
+                        "reference": {
+                            "book": "SL",
+                            "page": 120
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Spiritual Shackles",
+                        "rank": 1,
+                        "reference": {
+                            "book": "SL",
+                            "page": 120
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Spread Corruption",
+                        "rank": 2,
+                        "reference": {
+                            "book": "SL",
+                            "page": 120
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Sword of Blood",
+                        "rank": 2,
+                        "reference": {
+                            "book": "SL",
+                            "page": 121
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Twisted Summons",
+                        "rank": 3,
+                        "reference": {
+                            "book": "SL",
+                            "page": 121
+                        },
+                        "xp": 3
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Ninjutsu",
+        "subcategories": [
+            {
+                "name": "",
+                "techniques": [
+                    {
+                        "name": "Skulk",
+                        "rank": 1,
+                        "reference": {
+                            "book": "Core",
+                            "page": 226
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Deadly Sting",
+                        "rank": 2,
+                        "reference": {
+                            "book": "Core",
+                            "page": 226
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Noxious Cloud",
+                        "rank": 3,
+                        "reference": {
+                            "book": "Core",
+                            "page": 227
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Silencing Stroke",
+                        "rank": 4,
+                        "reference": {
+                            "book": "Core",
+                            "page": 227
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Artful Alibi",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 114
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Cunning Distraction",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 114
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Deceitful Strike",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 114
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Like a Ghost",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 114
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Slicing Wind Kick",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 115
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Silent Elimination",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 115
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Stillness of Death",
+                        "rank": 5,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 115
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "To Float or Sink",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 115
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "What's Yours Is Mine",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CoS",
+                            "page": 116
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Employ Terrible Thunder",
+                        "rank": 2,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 105
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Swift Scouting",
+                        "rank": 1,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 105
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "The Patient Viper",
+                        "rank": 2,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 106
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Vanish in the Shadows",
+                        "rank": 3,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 106
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Wreak Havoc",
+                        "rank": 4,
+                        "reference": {
+                            "book": "FoV",
+                            "page": 107
+                        },
+                        "xp": 3
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Signature Scrolls",
+        "subcategories": [
+            {
+                "name": "",
+                "techniques": [
+                    {
+                        "name": "Ichi's Second Sight",
+                        "rank": 1,
+                        "reference": {
+                            "book": "SL",
+                            "page": 108
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Hasegawa's Denial",
+                        "rank": 1,
+                        "reference": {
+                            "book": "SL",
+                            "page": 108
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Maikara's Rebuke",
+                        "rank": 1,
+                        "reference": {
+                            "book": "SL",
+                            "page": 108
+                        },
+                        "xp": 3
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Astradhari Techniques",
+        "subcategories": [
+            {
+                "name": "",
+                "techniques": [
+                    {
+                        "name": "Summoning Mantra: [Implement Name]",
+                        "rank": 1,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 99
+                        },
+                        "xp": 3
+                    },
+                    {
+                        "name": "Countering Mantra",
+                        "rank": 4,
+                        "reference": {
+                            "book": "PoW",
+                            "page": 99
+                        },
+                        "xp": 3
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "Inversions",
+        "subcategories": [
+            {
+                "name": "void Inversions",
+                "techniques": [
+                    {
+                        "name": "One within the Void",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CR",
+                            "page": 114
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Sight beyond Existence",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CR",
+                            "page": 115
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Whispered Blade",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CR",
+                            "page": 115
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Witness the End",
+                        "rank": 1,
+                        "reference": {
+                            "book": "CR",
+                            "page": 116
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Distance Distorted",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CR",
+                            "page": 116
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Ethereal Flicker",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CR",
+                            "page": 116
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "The Lotus Blooms",
+                        "rank": 2,
+                        "reference": {
+                            "book": "CR",
+                            "page": 117
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Hurl from the Stream",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CR",
+                            "page": 117
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Moon on the Shifting Sea",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CR",
+                            "page": 118
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Shroud in Solitude",
+                        "rank": 3,
+                        "reference": {
+                            "book": "CR",
+                            "page": 118
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Reality Stitch",
+                        "rank": 4,
+                        "reference": {
+                            "book": "CR",
+                            "page": 119
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Shattering Caress",
+                        "rank": 4,
+                        "reference": {
+                            "book": "CR",
+                            "page": 119
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Three Heartbeats",
+                        "rank": 4,
+                        "reference": {
+                            "book": "CR",
+                            "page": 119
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Essence Eternal",
+                        "rank": 5,
+                        "reference": {
+                            "book": "CR",
+                            "page": 119
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Slip the Cycle",
+                        "rank": 5,
+                        "reference": {
+                            "book": "CR",
+                            "page": 120
+                        },
+                        "xp": 6
+                    },
+                    {
+                        "name": "Unweave",
+                        "rank": 5,
+                        "reference": {
+                            "book": "CR",
+                            "page": 120
+                        },
+                        "xp": 6
+                    }
+                ]
+            }
+        ]
+    }
+]

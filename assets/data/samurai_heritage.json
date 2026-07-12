@@ -1,0 +1,2181 @@
+[
+    {
+        "roll": {
+            "min": 1,
+            "max": 1
+        },
+        "result": "Famous Deed",
+        "modifiers": {
+            "glory": 3,
+            "honor": 0,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "starting item",
+            "instructions": "Roll a ten-sided die again and add the resulting family heirloom to your starting items. You choose one quality and the GM chooses one quality from the list of item qualities, on page 240; these are applied to the item.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "weapon"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "set of armor"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "another item"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 9
+                    },
+                    "outcome": "horse or other animal"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "boat or estate"
+                }
+            ]
+        },
+        "source": "Core"
+    },
+    {
+        "roll": {
+            "min": 2,
+            "max": 2
+        },
+        "result": "Glorious Sacrifice",
+        "modifiers": {
+            "glory": 5,
+            "honor": 5,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "lost family heirloom",
+            "instructions": "Roll a ten-sided die again to determin your lost family heirloom, which exists somewhere in the world. You choose one quality and the GM chooses one quality; these are applied to the item. You do not know where the heirloom is, but you could later reclaim it during the campaign.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "weapon"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "set of armor"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "another item"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 9
+                    },
+                    "outcome": "horse or other animal"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "boat or estate"
+                }
+            ]
+        },
+        "source": "Core"
+    },
+    {
+        "roll": {
+            "min": 3,
+            "max": 3
+        },
+        "result": "Wondrous Work",
+        "modifiers": {
+            "glory": 5,
+            "honor": 0,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Artisan skills",
+            "instructions": "Roll a ten-sided die again to determine an Artisan skill; gain +1 rank in that skill.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Aesthetics"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Composition"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Design"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 10
+                    },
+                    "outcome": "Smithing"
+                }
+            ]
+        },
+        "source": "Core"
+    },
+    {
+        "roll": {
+            "min": 4,
+            "max": 4
+        },
+        "result": "Dynasty Builder",
+        "modifiers": {
+            "glory": -3,
+            "honor": 0,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Social skill",
+            "instructions": "Roll a ten-sided die again to determine a Social skill; gain +1 rank in that skill",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Command"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Courtesy"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Games"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 10
+                    },
+                    "outcome": "Performance"
+                }
+            ]
+        },
+        "source": "Core"
+    },
+    {
+        "roll": {
+            "min": 5,
+            "max": 5
+        },
+        "result": "Discovery",
+        "modifiers": {
+            "glory": 3,
+            "honor": 0,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Scholar skill",
+            "instructions": "Roll a ten-sided die again to determine a Scholar skill; gain +1 rank in that skill",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Culture"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 5
+                    },
+                    "outcome": "Sentiment"
+                },
+                {
+                    "roll": {
+                        "min": 6,
+                        "max": 7
+                    },
+                    "outcome": "Government"
+                },
+                {
+                    "roll": {
+                        "min": 8,
+                        "max": 9
+                    },
+                    "outcome": "Medicine"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "Theology"
+                }
+            ]
+        },
+        "source": "Core"
+    },
+    {
+        "roll": {
+            "min": 6,
+            "max": 6
+        },
+        "result": "Ruthless Victor",
+        "modifiers": {
+            "glory": 0,
+            "honor": -5,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Martial skill",
+            "instructions": "Roll a ten-sided again to determine a Martial skill; gain +1 rank in that skill",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Fitness"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 5
+                    },
+                    "outcome": "Martial Arts [Melee]"
+                },
+                {
+                    "roll": {
+                        "min": 6,
+                        "max": 7
+                    },
+                    "outcome": "Martial Arts [Ranged]"
+                },
+                {
+                    "roll": {
+                        "min": 8,
+                        "max": 8
+                    },
+                    "outcome": "Martial Arts [Unarmed]"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 9
+                    },
+                    "outcome": "Tactics"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "Meditation"
+                }
+            ]
+        },
+        "source": "Core"
+    },
+    {
+        "roll": {
+            "min": 7,
+            "max": 7
+        },
+        "result": "Elevated for Service",
+        "modifiers": {
+            "glory": -3,
+            "honor": 3,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Trade skill",
+            "instructions": "Roll a ten-sided die again to determine a Trade skill; gain +1 rank in that skill",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Commerce"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 5
+                    },
+                    "outcome": "Labor"
+                },
+                {
+                    "roll": {
+                        "min": 6,
+                        "max": 7
+                    },
+                    "outcome": "Seafaring"
+                },
+                {
+                    "roll": {
+                        "min": 8,
+                        "max": 8
+                    },
+                    "outcome": "Skulduggery"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 10
+                    },
+                    "outcome": "Survival"
+                }
+            ]
+        },
+        "source": "Core"
+    },
+    {
+        "roll": {
+            "min": 8,
+            "max": 8
+        },
+        "result": "Stolen Knowledge",
+        "modifiers": {
+            "glory": 0,
+            "honor": -5,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Technique",
+            "instructions": "You know one additional technique. Roll a ten-sided die again to determine the category, and then select one technique with a prerequisite of school rank 1 and learn that technique. You can perform that technique even if it is not normally allowed by your school.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Kata"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Sh\u016bji"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 7
+                    },
+                    "outcome": "Rituals"
+                },
+                {
+                    "roll": {
+                        "min": 8,
+                        "max": 8
+                    },
+                    "outcome": "Invocations"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 9
+                    },
+                    "outcome": "Kih\u014d"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "Mah\u014d or Ninjutsu"
+                }
+            ]
+        },
+        "source": "Core"
+    },
+    {
+        "roll": {
+            "min": 9,
+            "max": 9
+        },
+        "result": "Imperial Heritage",
+        "modifiers": {
+            "glory": 0,
+            "honor": 0,
+            "status": 10
+        },
+        "other_effects": {
+            "type": "Distinction",
+            "instructions": "You gain the Blessed Lineage advantage (see page 103) (this can be assigned in excess of the normal limitations on advantages at character creation).",
+            "outcomes": [
+                {
+                    "outcome": "Blessed Lineage"
+                }
+            ]
+        },
+        "source": "Core"
+    },
+    {
+        "roll": {
+            "min": 10,
+            "max": 10
+        },
+        "result": "Unusual Name Origin",
+        "modifiers": {
+            "glory": -3,
+            "honor": 0,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "other",
+            "instructions": "Choose two of your character's rings; you may reduce the value of one of these rings by 1 to increase the value of the other by 1 (this still cannot raise a ring above 3). If you do not do so, choose one item of rarity 6 or lower and assign it to your starting outfit.",
+            "outcomes": [
+                {
+                    "outcome": "Ring Exchange"
+                },
+                {
+                    "outcome": "Item (Rank 6 or Lower)"
+                }
+            ]
+        },
+        "source": "Core"
+    },
+    {
+        "roll": {
+            "min": 1,
+            "max": 1
+        },
+        "result": "Blood and Mortar",
+        "modifiers": {
+            "glory": 0,
+            "honor": 0,
+            "status": 3
+        },
+        "other_effects": {
+            "type": "Distinction",
+            "instructions": "You gain the Blessed Lineage advantage (see page 103 of the core rulebook). This can be assigned in excess of the normal limitations on disadvantages at character creation. While on the Wall, your glory rank is treated as 1 higher.",
+            "outcomes": [
+                {
+                    "outcome": "Blessed Lineage"
+                }
+            ]
+        },
+        "source": "SL"
+    },
+    {
+        "roll": {
+            "min": 2,
+            "max": 3
+        },
+        "result": "Infamous Builder",
+        "modifiers": {
+            "glory": -5,
+            "honor": 0,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Skill",
+            "instructions": "Roll a ten-sided die again to determine a skill to aid in restoring your ancestor's name; gain +1 rank in that skill.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Government"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Labor"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 10
+                    },
+                    "outcome": "Smithing"
+                }
+            ]
+        },
+        "source": "SL"
+    },
+    {
+        "roll": {
+            "min": 4,
+            "max": 5
+        },
+        "result": "Lost in the Darkness",
+        "modifiers": {
+            "glory": -5,
+            "honor": 5,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Skill",
+            "instructions": "Roll a ten-sided die again to determine a skill to aid in learning of your ancestor's fate; gain +1 rank in that skill. Additionally, your ancestor might still be alive, in the Shadowlands...waiting.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Culture"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Survival"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 10
+                    },
+                    "outcome": "Theology"
+                }
+            ]
+        },
+        "source": "SL"
+    },
+    {
+        "roll": {
+            "min": 6,
+            "max": 7
+        },
+        "result": "Vengeance for the Fallen",
+        "modifiers": {
+            "glory": 0,
+            "honor": 5,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Adversity and Skill",
+            "instructions": "You gain the Haunting (Void) adversity (see page 122 of the core rulebook). This can be assigned in excess of the normal limitations on disadvantages at character creation. Roll a ten-sided die again to determine a Martial skill; gain +1 rank in that skill.",
+            "outcomes": [
+                {
+                    "outcome": "Haunting"
+                },
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Fitness"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 5
+                    },
+                    "outcome": "Martial Arts [Melee]"
+                },
+                {
+                    "roll": {
+                        "min": 6,
+                        "max": 7
+                    },
+                    "outcome": "Martial Arts [Ranged]"
+                },
+                {
+                    "roll": {
+                        "min": 8,
+                        "max": 8
+                    },
+                    "outcome": "Martial Arts [Unarmed]"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 9
+                    },
+                    "outcome": "Tactics"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "Meditation"
+                }
+            ]
+        },
+        "source": "SL"
+    },
+    {
+        "roll": {
+            "min": 8,
+            "max": 9
+        },
+        "result": "Twenty Goblin Thief",
+        "modifiers": {
+            "glory": -3,
+            "honor": 0,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Skill",
+            "instructions": "Roll a ten-sided die again to determine a skill to aid in learning of your ancestor's fate; gain +1 rank in that skill.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Culture"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Skulduggery"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 10
+                    },
+                    "outcome": "Theology"
+                }
+            ]
+        },
+        "source": "SL"
+    },
+    {
+        "roll": {
+            "min": 10,
+            "max": 10
+        },
+        "result": "Tainted Blood",
+        "modifiers": {
+            "glory": 0,
+            "honor": 0,
+            "status": -3
+        },
+        "other_effects": {
+            "type": "Anxiety and other",
+            "instructions": "You gain the Fallen Ancestor disadvantage (see 98). Choose one of your character's rings; you may reduce the value of that ring by 1 to increase the value of your Void Ring by 1 (this still cannot raise it above 3).",
+            "outcomes": [
+                {
+                    "outcome": "Fallen Ancestor"
+                },
+                {
+                    "outcome": "Void ring exchange"
+                }
+            ]
+        },
+        "source": "SL"
+    },
+    {
+        "roll": {
+            "min": 1,
+            "max": 1
+        },
+        "result": "Dishonorable Cheat",
+        "modifiers": {
+            "glory": -5,
+            "honor": 0,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Skill",
+            "instructions": "Roll a ten-sided die to determine a skill to aid you in bringing your disgraced kin to justice.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 1
+                    },
+                    "outcome": "Martial Arts [Melee]"
+                },
+                {
+                    "roll": {
+                        "min": 2,
+                        "max": 2
+                    },
+                    "outcome": "Martial Arts [Ranged]"
+                },
+                {
+                    "roll": {
+                        "min": 3,
+                        "max": 3
+                    },
+                    "outcome": "Martial Arts [Unarmed]"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Survival"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 10
+                    },
+                    "outcome": "Government"
+                }
+            ]
+        },
+        "source": "CoS"
+    },
+    {
+        "roll": {
+            "min": 2,
+            "max": 3
+        },
+        "result": "Triumph Over the Lion",
+        "modifiers": {
+            "glory": 0,
+            "honor": 5,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "starting item",
+            "instructions": "Roll a ten-sided die and add the resulting family heirloom to your starting items. You choose one quality and the GM chooses one quality from the list of item qualities on page 240 of the core rulebook; these are applied to the item.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Any weapon"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Any game set"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Other item relevant to your ancestor's victory"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 9
+                    },
+                    "outcome": "horse or other animal"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "The deed to a small piece of land on the border of Lion territory"
+                }
+            ]
+        },
+        "source": "CoS"
+    },
+    {
+        "roll": {
+            "min": 4,
+            "max": 5
+        },
+        "result": "Unforgivable Performance",
+        "modifiers": {
+            "glory": 0,
+            "honor": 0,
+            "status": -3
+        },
+        "other_effects": {
+            "type": "Skill",
+            "instructions": "You gain the Benten's Curse (air) disadvantage (see page 116 of the core rulebook). Rolla ten-sided die to determine a skill that will help redeem your family.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Performance"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Culture"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 9
+                    },
+                    "outcome": "Command"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "Courtesy"
+                }
+            ]
+        },
+        "source": "CoS"
+    },
+    {
+        "roll": {
+            "min": 6,
+            "max": 7
+        },
+        "result": "Triumph During Gempuku",
+        "modifiers": {
+            "glory": 3,
+            "honor": 3,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Distinction",
+            "instructions": "You gain the Support of the Kakita Dueling Academy distinction, where the Topaz Championship takes place.",
+            "outcomes": [
+                {
+                    "outcome": "Support of the Kakita Dueling Academy"
+                }
+            ]
+        },
+        "source": "CoS"
+    },
+    {
+        "roll": {
+            "min": 8,
+            "max": 9
+        },
+        "result": "A Little Too Close to Heaven",
+        "modifiers": {
+            "glory": 0,
+            "honor": -5,
+            "status": 5
+        },
+        "other_effects": {
+            "type": "Skill",
+            "instructions": "Roll a ten-sided die to determine a skill that can aid you in discovering the truth about your lineage.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 2
+                    },
+                    "outcome": "Government"
+                },
+                {
+                    "roll": {
+                        "min": 3,
+                        "max": 4
+                    },
+                    "outcome": "Commerce"
+                },
+                {
+                    "roll": {
+                        "min": 5,
+                        "max": 6
+                    },
+                    "outcome": "Sentiment"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Meditation"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 10
+                    },
+                    "outcome": "Theology"
+                }
+            ]
+        },
+        "source": "CoS"
+    },
+    {
+        "roll": {
+            "min": 10,
+            "max": 10
+        },
+        "result": "Elegant Craftsman",
+        "modifiers": {
+            "glory": 5,
+            "honor": 0,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Anxiety and other",
+            "instructions": "You gain the Isolation anxiety (see page 103). Choose one of your character's rings; you may reduce the value of this ring by 1 to increase the value of your Fire or Air Ring bi 1 (this still cannot raise it above 3).",
+            "outcomes": [
+                {
+                    "outcome": "Isolation"
+                },
+                {
+                    "outcome": "Air/Fire ring exchange"
+                }
+            ]
+        },
+        "source": "CoS"
+    },
+    {
+        "roll": {
+            "min": 1,
+            "max": 1
+        },
+        "result": "Associated with a Natural Disaster",
+        "modifiers": {
+            "glory": 0,
+            "honor": -3,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Adversity",
+            "instructions": "You gain the Whispers of Failure (Fire) adversity. You may reduce the value of one of your character's rings by 1 to increase the value of a ring associated with the disease by 1 (this still cannot raise a ring above 3).",
+            "outcomes": [
+                {
+                    "outcome": "Whispers of Failure"
+                },
+                {
+                    "outcome": "Ring Exchange"
+                }
+            ]
+        },
+        "source": "CR"
+    },
+    {
+        "roll": {
+            "min": 2,
+            "max": 2
+        },
+        "result": "Great Treatise",
+        "modifiers": {
+            "glory": 0,
+            "honor": 0,
+            "status": 3
+        },
+        "other_effects": {
+            "type": "Skill",
+            "instructions": "Roll a ten-sided die again to determine a skill your family values; gain +1 rank in that skill.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Composition"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Culture"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Government"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 10
+                    },
+                    "outcome": "Theology"
+                }
+            ]
+        },
+        "source": "CR"
+    },
+    {
+        "roll": {
+            "min": 3,
+            "max": 4
+        },
+        "result": "Guardian of Forbidden Knowledge",
+        "modifiers": {
+            "glory": 0,
+            "honor": 0,
+            "status": -5
+        },
+        "other_effects": {
+            "type": "Skill",
+            "instructions": "Roll a ten-sided die again to determine the skill your family uses to guard this knowledge; gain +1 rank in that skill.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Martial Arts [Melee]"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Government"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Theology"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 10
+                    },
+                    "outcome": "Skulduggery"
+                }
+            ]
+        },
+        "source": "CR"
+    },
+    {
+        "roll": {
+            "min": 5,
+            "max": 6
+        },
+        "result": "Mark of the Elements",
+        "modifiers": {
+            "glory": 0,
+            "honor": 0,
+            "status": 5
+        },
+        "other_effects": {
+            "type": "Ring",
+            "instructions": "Choose one of your character's rings; you may reduce the value of that ring by 1 to increase the value of the ring associated with the element by 1 (this still cannot raise a ring above 3).",
+            "outcomes": [
+                {
+                    "outcome": "Ring Exchange"
+                }
+            ]
+        },
+        "source": "CR"
+    },
+    {
+        "roll": {
+            "min": 7,
+            "max": 8
+        },
+        "result": "Sacrifice",
+        "modifiers": {
+            "glory": 5,
+            "honor": 0,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Personal Effect",
+            "instructions": "Roll a ten-sided die again and add the resulting heirloom to your starting items. You choose one item quality and the GM chooses another from the list of item qualities.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Weapon"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Set of armor"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Valued piece of art"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 9
+                    },
+                    "outcome": "Horse or other animal"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "Deed to a small piece of land on the border of Phoenix territory"
+                }
+            ]
+        },
+        "source": "CR"
+    },
+    {
+        "roll": {
+            "min": 9,
+            "max": 9
+        },
+        "result": "Spirit of the Phoenix",
+        "modifiers": {
+            "glory": 3,
+            "honor": 0,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Advantage",
+            "instructions": "You gain an advantage associated with your predecessor's rebirth (this can be assigned in excess of the normal limitations on advantages at character creation). Roll a ten-sided die again and add the resulting advantage.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 2
+                    },
+                    "outcome": "Famously Kind"
+                },
+                {
+                    "roll": {
+                        "min": 3,
+                        "max": 4
+                    },
+                    "outcome": "Famously Lucky"
+                },
+                {
+                    "roll": {
+                        "min": 5,
+                        "max": 6
+                    },
+                    "outcome": "Famously Reliable"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Famously Successful"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 10
+                    },
+                    "outcome": "Famously Wealthy"
+                }
+            ]
+        },
+        "source": "CR"
+    },
+    {
+        "roll": {
+            "min": 10,
+            "max": 10
+        },
+        "result": "Touched by the Fortunes",
+        "modifiers": {
+            "glory": -5,
+            "honor": 0,
+            "status": 0
+        },
+        "other_effects": {
+            "type": "Distinction",
+            "instructions": "You gain the Sixth Sense distinction (this can be assigned in excess of the normal limitations on advantages at character creation.",
+            "outcomes": [
+                {
+                    "outcome": "Sixth Sense"
+                }
+            ]
+        },
+        "source": "CR"
+    },
+    {
+        "roll": {
+            "min": 1,
+            "max": 1
+        },
+        "result": "Born on the Battlefield",
+        "other_effects": {
+            "type": "Distinction",
+            "instructions": "You gain the Guiding Ancestor (Void) distinction (see page 82).",
+            "outcomes": [
+                {
+                    "outcome": "Guiding Ancestor"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": -3,
+            "honor": 0,
+            "status": 0
+        },
+        "source": "FoV"
+    },
+    {
+        "roll": {
+            "min": 2,
+            "max": 2
+        },
+        "result": "Strategic Mastermind",
+        "other_effects": {
+            "type": "Skill",
+            "instructions": "Roll a ten-sided die to determine a skill you learned by studying your ancestor's deeds.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 2
+                    },
+                    "outcome": "Tactics"
+                },
+                {
+                    "roll": {
+                        "min": 3,
+                        "max": 4
+                    },
+                    "outcome": "Command"
+                },
+                {
+                    "roll": {
+                        "min": 5,
+                        "max": 6
+                    },
+                    "outcome": "Government"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Culture"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 9
+                    },
+                    "outcome": "Commerce"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "Theology"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": 5,
+            "honor": -5,
+            "status": 0
+        },
+        "source": "FoV"
+    },
+    {
+        "roll": {
+            "min": 3,
+            "max": 3
+        },
+        "result": "Victory against the Crane",
+        "other_effects": {
+            "type": "starting item",
+            "instructions": "Roll a ten-sided die and add this following family heirloom to your starting items. In addition to its other properties, this item is a battlefield heirloom (see page 90).",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Any weapon"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Any game set"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Other item relevant to your ancestor's victory"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 9
+                    },
+                    "outcome": "horse or other animal"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "The deed to a small piece of land on the border of Crane territory"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": 3,
+            "honor": 0,
+            "status": 0
+        },
+        "source": "FoV"
+    },
+    {
+        "roll": {
+            "min": 4,
+            "max": 4
+        },
+        "result": "Victory against Invaders",
+        "other_effects": {
+            "type": "Skill",
+            "instructions": "Roll a ten-sided die to determine a skill you learned to honor your ancestor.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 2
+                    },
+                    "outcome": "Command"
+                },
+                {
+                    "roll": {
+                        "min": 3,
+                        "max": 4
+                    },
+                    "outcome": "Government"
+                },
+                {
+                    "roll": {
+                        "min": 5,
+                        "max": 6
+                    },
+                    "outcome": "Tactics"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Survival"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 9
+                    },
+                    "outcome": "Theology"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "Meditation"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": 0,
+            "honor": 3,
+            "status": 0
+        },
+        "source": "FoV"
+    },
+    {
+        "roll": {
+            "min": 5,
+            "max": 5
+        },
+        "result": "Shamed by Defeat",
+        "other_effects": {
+            "type": "Skill",
+            "instructions": "Choose one of the starting skills for your school in which your character has no ranks; gain +1 rank in that skill.",
+            "outcomes": [
+                {
+                    "outcome": "Aesthetics"
+                },
+                {
+                    "outcome": "Composition"
+                },
+                {
+                    "outcome": "Design"
+                },
+                {
+                    "outcome": "Smithing"
+                },
+                {
+                    "outcome": "Command"
+                },
+                {
+                    "outcome": "Courtesy"
+                },
+                {
+                    "outcome": "Games"
+                },
+                {
+                    "outcome": "Performance"
+                },
+                {
+                    "outcome": "Culture"
+                },
+                {
+                    "outcome": "Government"
+                },
+                {
+                    "outcome": "Medicine"
+                },
+                {
+                    "outcome": "Sentiment"
+                },
+                {
+                    "outcome": "Theology"
+                },
+                {
+                    "outcome": "Fitness"
+                },
+                {
+                    "outcome": "Martial Arts [Melee]"
+                },
+                {
+                    "outcome": "Martial Arts [Ranged]"
+                },
+                {
+                    "outcome": "Martial Arts [Unarmed]"
+                },
+                {
+                    "outcome": "Meditation"
+                },
+                {
+                    "outcome": "Tactics"
+                },
+                {
+                    "outcome": "Commerce"
+                },
+                {
+                    "outcome": "Labor"
+                },
+                {
+                    "outcome": "Seafaring"
+                },
+                {
+                    "outcome": "Skulduggery"
+                },
+                {
+                    "outcome": "Survival"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": -3,
+            "honor": 0,
+            "status": 0
+        },
+        "source": "FoV"
+    },
+    {
+        "roll": {
+            "min": 6,
+            "max": 6
+        },
+        "result": "Blade of 10,000 Battles",
+        "other_effects": {
+            "type": "starting item",
+            "instructions": "Choose a weapon and add it to your starting outfit. At the GM's discretion, certain weapons may be inappropriate choices and cannot be selected. In addition to being a weapon, this item is a battlefield heirloom (see page 90).",
+            "outcomes": [
+                {
+                    "outcome": "Any weapon"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": 3,
+            "honor": 0,
+            "status": 0
+        },
+        "source": "FoV"
+    },
+    {
+        "roll": {
+            "min": 7,
+            "max": 7
+        },
+        "result": "Lost Heirloom",
+        "other_effects": {
+            "type": "lost family heirloom",
+            "instructions": "Choose a weapon to be the lost heirloom, which is now held by some individual or group hostile to you or your clan. At the GM's discretion, certain weapons may be inappropriate choices and cannot be selected. In addition to being a weapon, this item is a battlefield heirloom (see page 90).",
+            "outcomes": [
+                {
+                    "outcome": "weapon"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": -3,
+            "honor": 5,
+            "status": 0
+        },
+        "source": "FoV"
+    },
+    {
+        "roll": {
+            "min": 8,
+            "max": 8
+        },
+        "result": "Selfless Sentinel",
+        "other_effects": {
+            "type": "Distinction",
+            "instructions": "Gain the Traditional Adherent (Earth) distinction (see page 82).",
+            "outcomes": [
+                {
+                    "outcome": "Traditional Adherent"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": -3,
+            "honor": 5,
+            "status": 0
+        },
+        "source": "FoV"
+    },
+    {
+        "roll": {
+            "min": 9,
+            "max": 9
+        },
+        "result": "Mighty Conqueror",
+        "other_effects": {
+            "type": "other",
+            "instructions": "Choose one: double your starting koku, add one item of rarity 6 or lowe to your starting items that is a battlefield heirloom (see page 90) in addition to its other properties, or gain the Glorious Deeds passion (see page 83).",
+            "outcomes": [
+                {
+                    "outcome": "Double your starting koku"
+                },
+                {
+                    "outcome": "Item (Rank 6 or Lower)"
+                },
+                {
+                    "outcome": "Glorious Deeds"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": 3,
+            "honor": -3,
+            "status": 0
+        },
+        "source": "FoV"
+    },
+    {
+        "roll": {
+            "min": 10,
+            "max": 10
+        },
+        "result": "Right Hand of the Emperor",
+        "other_effects": {
+            "type": "Distinction",
+            "instructions": "Gain the Support of [One Group] distinction. The group chosen must be the Seppun, Otomo, or Miya family, or the Imperial Legions",
+            "outcomes": [
+                {
+                    "outcome": "Support of Seppun"
+                },
+                {
+                    "outcome": "Support of Otomo"
+                },
+                {
+                    "outcome": "Support of Miya"
+                },
+                {
+                    "outcome": "Support of Imperial Legions"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": 0,
+            "honor": 0,
+            "status": 3
+        },
+        "source": "FoV"
+    },
+    {
+        "roll": {
+            "min": 1,
+            "max": 1
+        },
+        "result": "At One with Nature",
+        "other_effects": {
+            "type": "starting item",
+            "instructions": "Roll a ten-sided die to determine what item has followed your lineage since your ancestor was recognised by the kami as a true protector of nature.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Boon of Fukurokujin [Omamori]"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Bowyer's Kit"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 9
+                    },
+                    "outcome": "Tent (small)"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "Finger of Jade"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": 5,
+            "honor": 0,
+            "status": 0
+        },
+        "source": "WotW"
+    },
+    {
+        "roll": {
+            "min": 2,
+            "max": 3
+        },
+        "result": "Ties to the Perfect Land Sect",
+        "other_effects": {
+            "type": "Skill",
+            "instructions": "Roll a ten-sided die to determine what skill related to helping those who are looked down upon was passed down through your family.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Labor"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Sentiment"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 9
+                    },
+                    "outcome": "Medicine"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "Performance"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": -5,
+            "honor": 0,
+            "status": 0
+        },
+        "source": "WotW"
+    },
+    {
+        "roll": {
+            "min": 4,
+            "max": 5
+        },
+        "result": "Medical Innovator",
+        "other_effects": {
+            "type": "Distinction",
+            "instructions": "Gain the Knowledgable Wilderness Guide distinction found in WotW page 102.",
+            "outcomes": [
+                {
+                    "outcome": "Knowledgeable Wilderness Guide"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": 0,
+            "honor": 5,
+            "status": 0
+        },
+        "source": "WotW"
+    },
+    {
+        "roll": {
+            "min": 6,
+            "max": 7
+        },
+        "result": "Gaijin Consort",
+        "other_effects": {
+            "type": "Distinction",
+            "instructions": "Gain the Ally [Gaijin Group] distinction found on page 101 of the Core Rulebook. Work with your GM to select an appropriate Gaijin Group, such as one of the Yobanjin factions found beginning on page 36 of the book.",
+            "outcomes": [
+                {
+                    "outcome": "Ally [Name]"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": -3,
+            "honor": -2,
+            "status": 0
+        },
+        "source": "WotW"
+    },
+    {
+        "roll": {
+            "min": 8,
+            "max": 9
+        },
+        "result": "Revered Parent",
+        "other_effects": {
+            "type": "Distinction",
+            "instructions": "You gain one Distinction of the following of your choice.",
+            "outcomes": [
+                {
+                    "outcome": "Kissh\u016bten's Blessing"
+                },
+                {
+                    "outcome": "Famously Lucky"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": 0,
+            "honor": 0,
+            "status": 3
+        },
+        "source": "WotW"
+    },
+    {
+        "roll": {
+            "min": 10,
+            "max": 10
+        },
+        "result": "Path to Enlightenment",
+        "other_effects": {
+            "type": "Distinction",
+            "instructions": "You gain the Enlightenment Passion found on page 112 of the Core Rulebook. Additionally, you remove 1 additional strife when activating this passion. You may still select a different passion as normal during character creation.",
+            "outcomes": [
+                {
+                    "outcome": "Enlightenment"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": 3,
+            "honor": 3,
+            "status": 0
+        },
+        "source": "WotW"
+    },
+    {
+        "roll": {
+            "min": 1,
+            "max": 1
+        },
+        "result": "Ancestral Horse Line",
+        "other_effects": {
+            "type": "Ancestral Horse Line",
+            "instructions": "You add an additional Warhorse to your starting items. Roll a ten-sided die again to determine the Horse's original family. New Horse options can be found beginning on CotFW page 141.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 2
+                    },
+                    "outcome": "Utaku Horse"
+                },
+                {
+                    "roll": {
+                        "min": 3,
+                        "max": 4
+                    },
+                    "outcome": "Shinjo Horse"
+                },
+                {
+                    "roll": {
+                        "min": 5,
+                        "max": 6
+                    },
+                    "outcome": "Iuchi Horse"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Ide Horse"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 10
+                    },
+                    "outcome": "Moto Horse"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": 3,
+            "honor": 0,
+            "status": 0
+        },
+        "source": "CotFW"
+    },
+    {
+        "roll": {
+            "min": 2,
+            "max": 2
+        },
+        "result": "Heart of a Horse",
+        "other_effects": {
+            "type": "starting item and distinction",
+            "instructions": "You gain a horse (if you did not start with one), and you gain the Karmic Tie (Void) distinction (see page 108 of the Core Rulebook) with it.",
+            "outcomes": [
+                {
+                    "outcome": "Karmic Tie (Void) with your horse (gain one if you don't own one)"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": 3,
+            "honor": 0,
+            "status": -3
+        },
+        "source": "CotFW"
+    },
+    {
+        "roll": {
+            "min": 3,
+            "max": 4
+        },
+        "result": "Knowledge Exchange",
+        "other_effects": {
+            "type": "Technique",
+            "instructions": "You know one additional technique. Roll a ten-sided die again to determine the category, and then select one technique with a prerequisite of school rank 1 and learn that technique. You can perform that technique even if it is not normally allowed by your school.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 3
+                    },
+                    "outcome": "Kata"
+                },
+                {
+                    "roll": {
+                        "min": 4,
+                        "max": 6
+                    },
+                    "outcome": "Sh\u016bji"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 7
+                    },
+                    "outcome": "Rituals"
+                },
+                {
+                    "roll": {
+                        "min": 8,
+                        "max": 8
+                    },
+                    "outcome": "Invocations"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 9
+                    },
+                    "outcome": "Kih\u014d"
+                },
+                {
+                    "roll": {
+                        "min": 10,
+                        "max": 10
+                    },
+                    "outcome": "Mah\u014d or Ninjutsu"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": -5,
+            "honor": 0,
+            "status": 0
+        },
+        "source": "CotFW"
+    },
+    {
+        "roll": {
+            "min": 5,
+            "max": 5
+        },
+        "result": "Lost Banner",
+        "other_effects": {
+            "type": "Distinction",
+            "instructions": "You gain the Indomitable Will distinction (see page 106 of the Core Rulebook). This can be assigned in excess of the normal limitations on Advantages at Character Creation.",
+            "outcomes": [
+                {
+                    "outcome": "Indomitable Will"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": -5,
+            "honor": 0,
+            "status": 0
+        },
+        "source": "CotFW"
+    },
+    {
+        "roll": {
+            "min": 6,
+            "max": 7
+        },
+        "result": "Splintered Loyalties",
+        "modifiers": {
+            "glory": 0,
+            "honor": 0,
+            "status": -5
+        },
+        "other_effects": {
+            "type": "Skill",
+            "instructions": "Roll a ten-sided die again to determine the skill you learned from your other culture; gain +1 rank in that skill.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 2
+                    },
+                    "outcome": "Aesthetics"
+                },
+                {
+                    "roll": {
+                        "min": 3,
+                        "max": 4
+                    },
+                    "outcome": "Courtesy"
+                },
+                {
+                    "roll": {
+                        "min": 5,
+                        "max": 6
+                    },
+                    "outcome": "Culture"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Meditation"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 10
+                    },
+                    "outcome": "Commerce"
+                }
+            ]
+        },
+        "source": "CotFW"
+    },
+    {
+        "roll": {
+            "min": 8,
+            "max": 8
+        },
+        "result": "Sacred Wilderness",
+        "other_effects": {
+            "type": "starting item",
+            "instructions": "You add an Estate to your starting items somewhere within your Clan's Territory. When at your Estate, you and your allies receive food, shelter, and medical care for free.",
+            "outcomes": [
+                {
+                    "outcome": "Estate somewhere in your clan's territory"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": 0,
+            "honor": 0,
+            "status": 5
+        },
+        "source": "CotFW"
+    },
+    {
+        "roll": {
+            "min": 9,
+            "max": 9
+        },
+        "result": "Spirit Companion",
+        "other_effects": {
+            "type": "Invocation",
+            "instructions": "You know one additional Meish/u016dd/u016d Talisman. Roll a ten-sided die again to determine the Ring of the spirit. Then, select an Invocation of that ring type with a prerequisite of School Rank 1 and learn that Invocation. You can perform that Invocation even if it is not normally allowed by your School.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 2
+                    },
+                    "outcome": "Meish\u014dd\u014d Talisman containing a Rank 1 Air Invocation"
+                },
+                {
+                    "roll": {
+                        "min": 3,
+                        "max": 4
+                    },
+                    "outcome": "Meish\u014dd\u014d Talisman containing a Rank 1 Water Invocation"
+                },
+                {
+                    "roll": {
+                        "min": 5,
+                        "max": 6
+                    },
+                    "outcome": "Meish\u014dd\u014d Talisman containing a Rank 1 Earth Invocation"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Meish\u014dd\u014d Talisman containing a Rank 1 Fire Invocation"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 10
+                    },
+                    "outcome": "Meish\u014dd\u014d Talisman containing a Rank 1 Void Invocation"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": -3,
+            "honor": 0,
+            "status": 3
+        },
+        "source": "CotFW"
+    },
+    {
+        "roll": {
+            "min": 10,
+            "max": 10
+        },
+        "result": "Spiritual Debt",
+        "other_effects": {
+            "type": "Ring",
+            "instructions": "Roll a ten-sided die to determine the spirit's Ring. You may increase the value of your matching Ring by 1 and reduce the value of a different Ring by 1 (this still cannot raise a ring above 3.",
+            "outcomes": [
+                {
+                    "roll": {
+                        "min": 1,
+                        "max": 2
+                    },
+                    "outcome": "Air Ring"
+                },
+                {
+                    "roll": {
+                        "min": 3,
+                        "max": 4
+                    },
+                    "outcome": "Water Ring"
+                },
+                {
+                    "roll": {
+                        "min": 5,
+                        "max": 6
+                    },
+                    "outcome": "Earth Ring"
+                },
+                {
+                    "roll": {
+                        "min": 7,
+                        "max": 8
+                    },
+                    "outcome": "Fire Ring"
+                },
+                {
+                    "roll": {
+                        "min": 9,
+                        "max": 10
+                    },
+                    "outcome": "Void Ring"
+                }
+            ]
+        },
+        "modifiers": {
+            "glory": -3,
+            "honor": 3,
+            "status": 0
+        },
+        "source": "CotFW"
+    }
+]

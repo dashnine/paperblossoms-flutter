@@ -1,0 +1,82 @@
+[
+    {
+        "name": "Family",
+        "ability": "Strong roots grow deep",
+        "reference": {
+            "book": "CoS",
+            "page": 136
+        }
+    },
+    {
+        "name": "Comrade",
+        "ability": "Just like old times",
+        "reference": {
+            "book": "CoS",
+            "page": 137
+        }
+    },
+    {
+        "name": "Lover",
+        "ability": "With you, the storm subsides",
+        "reference": {
+            "book": "CoS",
+            "page": 137
+        }
+    },
+    {
+        "name": "Rival",
+        "ability": "I will surpass you!",
+        "reference": {
+            "book": "CoS",
+            "page": 138
+        }
+    },
+    {
+        "name": "Nemesis",
+        "ability": "They were responsible!",
+        "reference": {
+            "book": "CoS",
+            "page": 138
+        }
+    },
+    {
+        "name": "Old Flame",
+        "ability": "It's always like this with you...",
+        "reference": {
+            "book": "PoW",
+            "page": 188
+        }
+    },
+    {
+        "name": "Partner",
+        "ability": "Always got your back",
+        "reference": {
+            "book": "PoW",
+            "page": 189
+        }
+    },
+    {
+        "name": "Protector",
+        "ability": "Under my protection",
+        "reference": {
+            "book": "PoW",
+            "page": 189
+        }
+    },
+    {
+        "name": "Ward",
+        "ability": "I've been learning",
+        "reference": {
+            "book": "PoW",
+            "page": 189
+        }
+    },
+    {
+        "name": "Wanderers' Fellowship",
+        "ability": "Sworn to duty and to death",
+        "reference": {
+            "book": "PoW",
+            "page": 191
+        }
+    }
+]

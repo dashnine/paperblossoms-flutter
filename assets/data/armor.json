@@ -1,0 +1,506 @@
+[
+    {
+        "name": "Sleeping Garb",
+        "reference": {
+            "book": "Core",
+            "page": 239
+        },
+        "resistance_values": [],
+        "qualities": [],
+        "rarity": 2,
+        "price": {
+            "value": 1,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Sumai Garb",
+        "reference": {
+            "book": "FoV",
+            "page": 76
+        },
+        "resistance_values": [],
+        "qualities": [],
+        "rarity": 2,
+        "price": {
+            "value": 1,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Common Clothes",
+        "reference": {
+            "book": "Core",
+            "page": 239
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 1
+            }
+        ],
+        "qualities": ["Mundane"],
+        "rarity": 1,
+        "price": {
+            "value": 1,
+            "unit": "bu"
+        }
+    },
+    {
+        "name": "Inconspicuous Garb",
+        "reference": {
+            "book": "Core",
+            "page": 80
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 1
+            }
+        ],
+        "qualities": ["Mundane"],
+        "rarity": 1,
+        "price": {
+            "value": 1,
+            "unit": "bu"
+        }
+    },
+    {
+        "name": "Ceremonial Clothes",
+        "reference": {
+            "book": "Core",
+            "page": 239
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 1
+            }
+        ],
+        "qualities": ["Ceremonial", "Resplendent"],
+        "rarity": 4,
+        "price": {
+            "value": 1,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Sanctified Robes",
+        "reference": {
+            "book": "Core",
+            "page": 239
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 1
+            },
+            {
+                "category": "Supernatural",
+                "value": 3
+            }
+        ],
+        "qualities": ["Ceremonial"],
+        "rarity": 7,
+        "price": {
+            "value": 4,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Traveling Clothes",
+        "reference": {
+            "book": "Core",
+            "page": 239
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 2
+            }
+        ],
+        "qualities": ["Durable", "Mundane", "Subtle"],
+        "rarity": 2,
+        "price": {
+            "value": 2,
+            "unit": "bu"
+        }
+    },
+    {
+        "name": "Concealed Armor",
+        "reference": {
+            "book": "Core",
+            "page": 239
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 2
+            }
+        ],
+        "qualities": ["Concealable"],
+        "rarity": 4,
+        "price": {
+            "value": 5,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Ashigaru Armor",
+        "reference": {
+            "book": "Core",
+            "page": 239
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 3
+            }
+        ],
+        "qualities": ["Wargear"],
+        "rarity": 3,
+        "price": {
+            "value": 5,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Lacquered Armor",
+        "reference": {
+            "book": "Core",
+            "page": 239
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 4
+            }
+        ],
+        "qualities": ["Ceremonial", "Cumbersome", "Wargear"],
+        "rarity": 6,
+        "price": {
+            "value": 25,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Plated Armor",
+        "reference": {
+            "book": "Core",
+            "page": 239
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 5
+            }
+        ],
+        "qualities": ["Cumbersome", "Durable", "Wargear"],
+        "rarity": 8,
+        "price": {
+            "value": 40,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Ō-yoroi",
+        "reference": {
+            "book": "SL",
+            "page": 105
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 6
+            }
+        ],
+        "qualities": ["Cumbersome", "Resplendent", "Wargear"],
+        "rarity": 8,
+        "price": {
+            "value": 60,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Tatami Gusoku",
+        "reference": {
+            "book": "SL",
+            "page": 106
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 3
+            }
+        ],
+        "qualities": ["Wargear"],
+        "rarity": 4,
+        "price": {
+            "value": 7,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Tosei-Gusoku",
+        "reference": {
+            "book": "SL",
+            "page": 106
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 4
+            }
+        ],
+        "qualities": ["Cumbersome", "Durable", "Wargear"],
+        "rarity": 8,
+        "price": {
+            "value": 50,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Sailor's Garb",
+        "reference": {
+            "book": "Mantis",
+            "page": 9
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 1
+            }
+        ],
+        "qualities": ["Durable", "Mundane"],
+        "rarity": 2,
+        "price": {
+            "value": 1,
+            "unit": "bu"
+        }
+    },
+    {
+        "name": "Shark Leather Armor",
+        "reference": {
+            "book": "Mantis",
+            "page": 9
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 2
+            }
+        ],
+        "qualities": ["Resplendent"],
+        "rarity": 7,
+        "price": {
+            "value": 12,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Firefighter's Coat",
+        "reference": {
+            "book": "CoS",
+            "page": 112
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 2
+            }
+        ],
+        "qualities": ["Cumbersome"],
+        "rarity": 4,
+        "price": {
+            "value": 6,
+            "unit": "bu"
+        }
+    },
+    {
+        "name": "Stealth Clothing",
+        "reference": {
+            "book": "CoS",
+            "page": 112
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 2
+            }
+        ],
+        "qualities": ["Forbidden", "Subtle"],
+        "rarity": 7,
+        "price": {
+            "value": 4,
+            "unit": "bu"
+        }
+    },
+    {
+        "name": "The Golden Obi of the Sun Goddess",
+        "reference": {
+            "book": "CR",
+            "page": 96
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 3
+            },
+            {
+                "category": "Supernatural",
+                "value": 6
+            }
+        ],
+        "qualities": ["Ceremonial", "Resplendent", "Sacred"],
+        "rarity": 10,
+        "price": {
+            "value": 0,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Robes of Judgment",
+        "reference": {
+            "book": "CR",
+            "page": 97
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 1
+            },
+            {
+                "category": "Supernatural",
+                "value": 4
+            }
+        ],
+        "qualities": ["Ceremonial", "Cumbersome", "Wargear"],
+        "rarity": 9,
+        "price": {
+            "value": 10,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Resplendent Traveling Clothes",
+        "reference": {
+            "book": "DT",
+            "page": 25
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 2
+            }
+        ],
+        "qualities": ["Durable", "Resplendent"],
+        "rarity": 4,
+        "price": {
+            "value": 1,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Nezumi Armor",
+        "reference": {
+            "book": "WotW",
+            "page": 99
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 2
+            }
+        ],
+        "qualities": [],
+        "rarity": 99,
+        "price": {
+            "value": 1,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Naga Armor",
+        "reference": {
+            "book": "WotW",
+            "page": 98
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 2
+            },
+            {
+                "category": "Supernatural",
+                "value": 1
+            }
+        ],
+        "qualities": [],
+        "rarity": 99,
+        "price": {
+            "value": 1,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Yobanjin Armor",
+        "reference": {
+            "book": "WotW",
+            "page": 101
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 2
+            }
+        ],
+        "qualities": ["Subtle"],
+        "rarity": 7,
+        "price": {
+            "value": 4,
+            "unit": "bu"
+        }
+    },
+    {
+        "name": "Mirror Armour",
+        "reference": {
+            "book": "CotFW",
+            "page": 103
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 3
+            },
+            {
+                "category": "Supernatural",
+                "value": 1
+            }
+        ],
+        "qualities": ["Wargear"],
+        "rarity": 8,
+        "price": {
+            "value": 40,
+            "unit": "koku"
+        }
+    },
+    {
+        "name": "Unicorn Barding",
+        "reference": {
+            "book": "CotFW",
+            "page": 103
+        },
+        "resistance_values": [
+            {
+                "category": "Physical",
+                "value": 2
+            }
+        ],
+        "qualities": ["Ceremonial", "Wargear", "Resplendent"],
+        "rarity": 8,
+        "price": {
+            "value": 65,
+            "unit": "koku"
+        }
+    }
+]

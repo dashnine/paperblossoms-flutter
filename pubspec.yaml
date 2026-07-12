@@ -1,0 +1,52 @@
+name: paperblossoms
+description: "Paper Blossoms — a character generator and manager for the Legend of the Five Rings 5th Edition RPG. Flutter port of the Qt application by dashnine."
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: ^3.8.1
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.8
+  path_provider: ^2.1.3
+  shared_preferences: ^2.2.3
+  uuid: ^4.4.0
+  file_picker: ^8.0.0
+  share_plus: ^10.0.0
+  pdf: ^3.10.8
+  printing: ^5.12.0
+  image_picker: ^1.1.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^5.0.0
+  flutter_launcher_icons: ^0.14.0
+
+flutter_launcher_icons:
+  android: true
+  ios: true
+  macos:
+    generate: true
+  windows:
+    generate: true
+  image_path: "assets/images/sakura.png"
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/data/
+    - assets/images/
+    - assets/fonts/
+
+  fonts:
+    - family: Caveat
+      fonts:
+        - asset: assets/fonts/Caveat-Bold.ttf
+          weight: 700
