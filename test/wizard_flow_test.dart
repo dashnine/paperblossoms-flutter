@@ -108,10 +108,9 @@ void main() {
     await tester.pumpAndSettle();
     await tester.tap(find.text('Next'));
     await tester.pumpAndSettle();
-    // Still on page 1, with the error snackbar.
+    // Still on page 1, with the error snackbar naming the missing answer.
     expect(find.text('Part 1: Clan and Family'), findsOneWidget);
-    expect(
-        find.text('Please answer all questions to advance.'), findsOneWidget);
+    expect(find.text('Choose a clan (Question 1).'), findsOneWidget);
   });
 
   testWidgets('page 4 blocks advancing without the Q9-12 traits',
@@ -132,10 +131,9 @@ void main() {
     expect(find.text('Part 4: Strengths and Weaknesses'), findsOneWidget);
     await tester.tap(find.text('Next'));
     await tester.pumpAndSettle();
-    // Still on page 4, with the error snackbar.
+    // Still on page 4, with the error snackbar naming the missing answer.
     expect(find.text('Part 4: Strengths and Weaknesses'), findsOneWidget);
-    expect(
-        find.text('Please answer all questions to advance.'), findsOneWidget);
+    expect(find.text('Choose a passion (Question 11).'), findsOneWidget);
 
     build.passion = 'Armament';
     await tester.tap(find.text('Next'));

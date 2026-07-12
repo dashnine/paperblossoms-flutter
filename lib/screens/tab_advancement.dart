@@ -87,22 +87,53 @@ class AdvancementTab extends StatelessWidget {
 
   Widget _buildStatus(
       BuildContext context, RankResult rank, TitleResult title) {
-    return Wrap(
-      spacing: 24,
-      runSpacing: 12,
-      crossAxisAlignment: WrapCrossAlignment.center,
+    final theme = Theme.of(context);
+    // Progress to the next school rank per the core-book thresholds; null
+    // once past the charted ranks.
+    final threshold = rank.rank <= rankXpThresholds.length
+        ? rankXpThresholds[rank.rank - 1]
+        : null;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        StatTile(label: 'School Rank', value: '${rank.rank}'),
-        StatTile(label: 'XP in Rank', value: '${rank.curriculumXP}'),
-        StatTile(
-            label: 'Current Title',
-            value: title.currentTitle.isEmpty ? '—' : title.currentTitle),
-        if (title.currentTitle.isNotEmpty)
-          StatTile(
-              label: 'Title XP',
-              value: '${title.titleXP} / '
-                  '${gameData.titleByName(title.currentTitle)?.xpToCompletion ?? 0}'),
-        StatTile(label: 'XP Spent', value: '${xpSpent(character)}'),
+        Wrap(
+          spacing: 24,
+          runSpacing: 12,
+          crossAxisAlignment: WrapCrossAlignment.center,
+          children: [
+            StatTile(label: 'School Rank', value: '${rank.rank}'),
+            StatTile(
+                label: 'XP in Rank',
+                value: threshold == null
+                    ? '${rank.curriculumXP}'
+                    : '${rank.curriculumXP} / $threshold'),
+            StatTile(label: 'XP Spent', value: '${xpSpent(character)}'),
+          ],
+        ),
+        if (threshold != null)
+          Padding(
+            padding: const EdgeInsets.only(top: 12),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(4),
+              child: LinearProgressIndicator(
+                  minHeight: 6,
+                  value: (rank.curriculumXP / threshold).clamp(0.0, 1.0)),
+            ),
+          ),
+        Padding(
+          padding: const EdgeInsets.only(top: 12),
+          child: Text(
+            title.currentTitle.isEmpty
+                ? 'No title in progress'
+                : 'Current title: ${title.currentTitle} — ${title.titleXP} / '
+                    '${gameData.titleByName(title.currentTitle)?.xpToCompletion ?? 0} XP',
+            style: theme.textTheme.titleSmall?.copyWith(
+              color: title.currentTitle.isEmpty
+                  ? theme.colorScheme.outline
+                  : null,
+            ),
+          ),
+        ),
       ],
     );
   }
@@ -122,7 +153,7 @@ class AdvancementTab extends StatelessWidget {
           ),
         ),
         if (school == null)
-          const Text('—')
+          const EmptyHint('No school chosen, so there is no curriculum.')
         else
           for (final entry in school.curriculum)
             ListTile(
@@ -148,6 +179,11 @@ class AdvancementTab extends StatelessWidget {
                 if (entry.minAllowableRank > 0 || entry.maxAllowableRank > 0)
                   'ranks ${entry.minAllowableRank}-${entry.maxAllowableRank}',
               ].join(' · ')),
+              trailing: Tooltip(
+                message: 'Buy this advance',
+                child: Icon(Icons.add_circle_outline,
+                    color: theme.colorScheme.primary),
+              ),
               onTap: () => _buyCurriculumEntry(context, entry),
             ),
       ],
@@ -170,7 +206,8 @@ class AdvancementTab extends StatelessWidget {
                 currentTitle.isEmpty ? () => addTitleFlow(context) : null,
           ),
         ),
-        if (character.titles.isEmpty) const Text('—'),
+        if (character.titles.isEmpty)
+          const EmptyHint('No titles yet — tap + to add.'),
         for (final title in character.titles)
           ExpansionTile(
             dense: true,
@@ -197,12 +234,32 @@ class AdvancementTab extends StatelessWidget {
     );
   }
 
+  void _removeAdvance(BuildContext context, int index) {
+    final advance = character.advanceStack.removeAt(index);
+    character.touch();
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        content: Text('Removed ${advance.name}'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            character.advanceStack
+                .insert(index.clamp(0, character.advanceStack.length), advance);
+            character.touch();
+          },
+        ),
+      ));
+  }
+
   Widget _buildAdvanceStack(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SectionHeader('Advances Taken'),
-        if (character.advanceStack.isEmpty) const Text('—'),
+        if (character.advanceStack.isEmpty)
+          const EmptyHint(
+              'No advances purchased yet — tap + or a curriculum entry.'),
         for (var i = character.advanceStack.length - 1; i >= 0; i--)
           ListTile(
             dense: true,
@@ -214,10 +271,7 @@ class AdvancementTab extends StatelessWidget {
             trailing: IconButton(
               tooltip: 'Remove',
               icon: const Icon(Icons.delete_outline),
-              onPressed: () {
-                character.advanceStack.removeAt(i);
-                character.touch();
-              },
+              onPressed: () => _removeAdvance(context, i),
             ),
           ),
       ],

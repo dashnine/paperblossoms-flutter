@@ -17,7 +17,7 @@ class TechniquesTab extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       children: [
         const SectionHeader('Techniques'),
-        if (names.isEmpty) const Text('No techniques known.'),
+        if (names.isEmpty) const EmptyHint('No techniques known yet.'),
         for (final name in names) _TechniqueCard(name: name),
       ],
     );

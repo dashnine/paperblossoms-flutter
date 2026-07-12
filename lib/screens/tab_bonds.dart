@@ -11,6 +11,26 @@ import 'add_bond_page.dart';
 class BondsTab extends StatelessWidget {
   const BondsTab({super.key});
 
+  void _removeBond(BuildContext context, CharacterBond bond) {
+    final index = character.bonds.indexOf(bond);
+    if (index < 0) return;
+    character.bonds.removeAt(index);
+    character.touch();
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        content: Text('Removed ${bond.name}'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            character.bonds
+                .insert(index.clamp(0, character.bonds.length), bond);
+            character.touch();
+          },
+        ),
+      ));
+  }
+
   @override
   Widget build(BuildContext context) {
     return ListView(
@@ -24,7 +44,8 @@ class BondsTab extends StatelessWidget {
             onPressed: () => addBondFlow(context),
           ),
         ),
-        if (character.bonds.isEmpty) const Text('No bonds formed yet.'),
+        if (character.bonds.isEmpty)
+          const EmptyHint('No bonds formed yet — tap + to add.'),
         for (final bond in character.bonds)
           Card(
             child: ListTile(
@@ -49,10 +70,7 @@ class BondsTab extends StatelessWidget {
                   IconButton(
                     tooltip: 'Remove',
                     icon: const Icon(Icons.delete_outline),
-                    onPressed: () {
-                      character.bonds.remove(bond);
-                      character.touch();
-                    },
+                    onPressed: () => _removeBond(context, bond),
                   ),
                 ],
               ),

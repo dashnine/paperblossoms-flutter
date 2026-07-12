@@ -10,6 +10,7 @@ Future<void> main() async {
   await gameData.load();
   await userDataStore.loadDescriptions();
   await userDataStore.loadHomebrew();
+  await themeController.load();
   runApp(const PaperBlossomsApp());
 }
 
@@ -18,12 +19,16 @@ class PaperBlossomsApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Paper Blossoms',
-      theme: lightTheme(),
-      darkTheme: darkTheme(),
-      debugShowCheckedModeBanner: false,
-      home: const CharacterChooser(),
+    return ListenableBuilder(
+      listenable: themeController,
+      builder: (context, _) => MaterialApp(
+        title: 'Paper Blossoms',
+        theme: lightTheme(),
+        darkTheme: darkTheme(),
+        themeMode: themeController.value,
+        debugShowCheckedModeBanner: false,
+        home: const CharacterChooser(),
+      ),
     );
   }
 }

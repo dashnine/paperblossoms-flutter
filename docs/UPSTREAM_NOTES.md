@@ -147,3 +147,93 @@ kansen are the corrupt kami that mahō entreats, a term used throughout
 the book. Nothing else in the data references the disadvantage by name,
 so the rename is safe. Guarded by the "Kansen Whispers matches the book
 name" test in `test/game_data_validation_test.dart`.
+
+## 12. "Kifu's Oath" typo in `titles.json` (patched here)
+
+Upstream `titles.json` names the Fields of Victory Deathseeker title
+ability "Kifu's Oath"; the book (FoV p. 132) prints **Kirifu's Oath** —
+named for Kirifu, the first Deathseeker (see the "Kirifu, the First
+Deathseeker" sidebar on the same page). Nothing else in the data
+references the ability by name, so the rename is safe. Guarded by the
+"Kirifu's Oath matches the book name" test in
+`test/game_data_validation_test.dart`.
+
+## 13. "Incite True Nature" is a phantom technique (NOT patched — follow up)
+
+Upstream `techniques.json` lists "Incite True Nature" as a learnable
+rank-3 Fire shūji (3 XP) citing FoV p. 79. That page is the Isawa Tensai
+School profile, and the technique's only appearance in the entire book is
+in that school's rank-4 curriculum table — Fields of Victory never prints
+an activation/effects block for it, and the curriculum entry lacks the
+bold marker the book uses for new-in-this-book techniques. It looks like
+a technique that was renamed or cut during development but left in the
+curriculum table (no official FFG errata found as of 2026-07-12).
+
+We have NOT patched anything: the entry is kept as-is for parity with the
+Qt app, and our description file (docs/fields_of_victory_descriptions.json)
+documents the gap instead of inventing mechanics. Follow-ups to consider:
+
+- Check FFG/EDGE errata and community errata threads for an official
+  resolution (a likely candidate rename is one of the printed Fire shūji,
+  e.g. "Sting of Warrior's Pride", which the same school gets at rank 1-2).
+- Decide whether to file this upstream (dashnine/PaperBlossoms) as a data
+  issue: the technique is selectable and costs XP but has no rules text
+  in any book.
+- If errata ever names a replacement, update techniques.json, the Isawa
+  Tensai curricula in schools.json, and the description file together.
+
+## 14. "Rejuvinating Breath" typo in `techniques.json` and `titles.json` (patched here)
+
+Upstream spells the Writ of the Wilds rank-3 Earth kihō "Rejuvinating
+Breath" in `techniques.json` AND in the Temple Abbot title curriculum in
+`titles.json`; the book (WotW p. 109, and the Temple Abbot curriculum on
+p. 143) prints **Rejuvenating Breath**. Both occurrences are patched
+together so the curriculum reference still resolves. Guarded by the
+"Rejuvenating Breath is spelled correctly" test in
+`test/game_data_validation_test.dart`.
+
+## 15. "Eternal Mind's Gates" name error in `techniques.json` and `titles.json` (patched here)
+
+Upstream names the Writ of the Wilds rank-4 Void kihō "Eternal Mind's
+Gates" in `techniques.json` AND in the Awakened Soul title curriculum in
+`titles.json`; the book (WotW p. 114, and the Awakened Soul curriculum on
+p. 142) prints **Eternal Mind's Gate** (singular). Both occurrences are
+patched together so the curriculum reference still resolves. Guarded by
+the "Eternal Mind's Gate matches the book name" test in
+`test/game_data_validation_test.dart`.
+
+## 16. "Logical Comclusion" typo in `schools.json` (patched here)
+
+Upstream names the Children of the Five Winds Scholar of al-Zawira
+mastery ability "Logical Comclusion"; the book (CotFW p. 89) prints
+**Logical Conclusion**. Nothing else references the name, so the rename
+is safe. Guarded by the "Logical Conclusion is spelled correctly" test in
+`test/game_data_validation_test.dart`.
+
+## 17. "Meishŭdŭ Secrets" mojibake in `titles.json` (patched here)
+
+Upstream garbles the Children of the Five Winds Student of Names title
+ability as "Meishŭdŭ Secrets" (U+016D u-breve where U+014D ō belongs);
+the book (CotFW p. 137) prints **Meishōdō Secrets**, and the data itself
+spells "meishōdō" correctly everywhere else (e.g. the Iuchi Meishōdō
+Master school). Nothing else references the ability name. Guarded by the
+"Meishōdō Secrets matches the book name" test in
+`test/game_data_validation_test.dart`.
+
+## 18. "Mirror Armour" spelling in `armor.json` (patched here)
+
+Upstream spells the Children of the Five Winds riding armor "Mirror
+Armour"; the book (CotFW p. 103, Table 2-5) prints **Mirror Armor**, and
+the data uses the US spelling "armor" everywhere else. Nothing else
+references the name. Guarded by the "Mirror Armor is spelled correctly"
+test in `test/game_data_validation_test.dart`.
+
+## 19. "Ganzu Ring Axe" spelling in `weapons.json` and `schools.json` (patched here)
+
+Upstream names the Children of the Five Winds weapon "Ganzu Ring Axe" in
+`weapons.json` AND in the Ganzu Guardian Tradition's starting outfit in
+`schools.json`; the book (CotFW pp. 99-100, header and Table 2-2) prints
+**Ganzu Ring Ax** — the same convention as Fields of Victory's "Ichirō
+Sapper Ax". Both occurrences are patched together so the outfit reference
+still resolves. Guarded by the "Ganzu Ring Ax matches the book name" test
+in `test/game_data_validation_test.dart`.

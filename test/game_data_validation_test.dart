@@ -245,6 +245,16 @@ void main() {
       expect(names, isNot(contains('Asaka Inquisitor School')));
     });
 
+    test("Kirifu's Oath matches the book name", () {
+      // Upstream names the Fields of Victory Deathseeker title ability
+      // "Kifu's Oath"; the book (FoV p. 132) prints "Kirifu's Oath", after
+      // Kirifu, the first Deathseeker. Patched in our titles.json — see
+      // docs/UPSTREAM_NOTES.md #12.
+      final abilities = gameData.titles.map((t) => t.titleAbility);
+      expect(abilities, contains("Kirifu's Oath"));
+      expect(abilities, isNot(contains("Kifu's Oath")));
+    });
+
     test('Kansen Whispers matches the book name', () {
       // Upstream spells the alternative Air Taint disadvantage
       // "Shadowlands Taint [Kaisen Whispers]"; the book (SL p. 98) prints
@@ -253,6 +263,78 @@ void main() {
       final names = gameData.advantagesDisadvantages.map((a) => a.name);
       expect(names, contains('Shadowlands Taint [Kansen Whispers]'));
       expect(names, isNot(contains('Shadowlands Taint [Kaisen Whispers]')));
+    });
+
+    test('Rejuvenating Breath is spelled correctly', () {
+      // Upstream spells the Writ of the Wilds Earth kihō "Rejuvinating
+      // Breath" in both techniques.json and the Temple Abbot curriculum in
+      // titles.json; the book (WotW p. 109, and the Temple Abbot curriculum
+      // itself on p. 143) prints "Rejuvenating Breath". Patched in both
+      // files — see docs/UPSTREAM_NOTES.md #14.
+      final names = gameData.techniques.map((t) => t.name);
+      expect(names, contains('Rejuvenating Breath'));
+      expect(names, isNot(contains('Rejuvinating Breath')));
+      final advances = [
+        for (final t in gameData.titles)
+          for (final a in t.advancements) a.name,
+      ];
+      expect(advances, contains('Rejuvenating Breath'));
+      expect(advances, isNot(contains('Rejuvinating Breath')));
+    });
+
+    test("Eternal Mind's Gate matches the book name", () {
+      // Upstream names the Writ of the Wilds Void kihō "Eternal Mind's
+      // Gates" in techniques.json and the Awakened Soul curriculum in
+      // titles.json; the book (WotW p. 114) prints "Eternal Mind's Gate".
+      // Patched in both files — see docs/UPSTREAM_NOTES.md #15.
+      final names = gameData.techniques.map((t) => t.name);
+      expect(names, contains("Eternal Mind's Gate"));
+      expect(names, isNot(contains("Eternal Mind's Gates")));
+      final advances = [
+        for (final t in gameData.titles)
+          for (final a in t.advancements) a.name,
+      ];
+      expect(advances, contains("Eternal Mind's Gate"));
+      expect(advances, isNot(contains("Eternal Mind's Gates")));
+    });
+
+    test('Logical Conclusion is spelled correctly', () {
+      // Upstream names the CotFW Scholar of al-Zawira mastery ability
+      // "Logical Comclusion"; the book (CotFW p. 89) prints "Logical
+      // Conclusion". Patched in schools.json — see UPSTREAM_NOTES.md #16.
+      final abilities = gameData.schools.map((s) => s.masteryAbility);
+      expect(abilities, contains('Logical Conclusion'));
+      expect(abilities, isNot(contains('Logical Comclusion')));
+    });
+
+    test('Meishōdō Secrets matches the book name', () {
+      // Upstream garbles the CotFW Student of Names title ability as
+      // "Meishŭdŭ Secrets" (u-breve mojibake); the book (CotFW p. 137)
+      // prints "Meishōdō Secrets". Patched in titles.json — see
+      // docs/UPSTREAM_NOTES.md #17.
+      final abilities = gameData.titles.map((t) => t.titleAbility);
+      expect(abilities, contains('Meishōdō Secrets'));
+      expect(abilities, isNot(contains('Meishŭdŭ Secrets')));
+    });
+
+    test('Mirror Armor is spelled correctly', () {
+      // Upstream spells the CotFW riding armor "Mirror Armour"; the book
+      // (CotFW p. 103, Table 2-5) prints "Mirror Armor", matching the
+      // spelling used throughout the data. Patched in armor.json — see
+      // docs/UPSTREAM_NOTES.md #18.
+      final names = gameData.armor.map((a) => a.name);
+      expect(names, contains('Mirror Armor'));
+      expect(names, isNot(contains('Mirror Armour')));
+    });
+
+    test('Ganzu Ring Ax matches the book name', () {
+      // Upstream names the CotFW weapon "Ganzu Ring Axe" in weapons.json
+      // and the Ganzu Guardian starting outfit in schools.json; the book
+      // (CotFW p. 99-100) prints "Ganzu Ring Ax" (matching FoV's "Ichirō
+      // Sapper Ax"). Both patched — see docs/UPSTREAM_NOTES.md #19.
+      final names = gameData.weapons.map((w) => w.name);
+      expect(names, contains('Ganzu Ring Ax'));
+      expect(names, isNot(contains('Ganzu Ring Axe')));
     });
 
     test('school starting skills resolve to skills', () {

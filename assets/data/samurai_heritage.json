@@ -2078,7 +2078,7 @@
         "result": "Spirit Companion",
         "other_effects": {
             "type": "Invocation",
-            "instructions": "You know one additional Meish/u016dd/u016d Talisman. Roll a ten-sided die again to determine the Ring of the spirit. Then, select an Invocation of that ring type with a prerequisite of School Rank 1 and learn that Invocation. You can perform that Invocation even if it is not normally allowed by your School.",
+            "instructions": "You know one additional Meishōdō Talisman. Roll a ten-sided die again to determine the Ring of the spirit. Then, select an Invocation of that ring type with a prerequisite of School Rank 1 and learn that Invocation. You can perform that Invocation even if it is not normally allowed by your School.",
             "outcomes": [
                 {
                     "roll": {

@@ -1988,7 +1988,7 @@
             }
         ],
         "xp_to_completion": 8,
-        "title_ability": "Kifu's Oath",
+        "title_ability": "Kirifu's Oath",
         "advancements": [
             {
                 "name": "Martial skills",
@@ -2780,7 +2780,7 @@
                 "special_access": false
             },
             {
-                "name": "Eternal Mind's Gates",
+                "name": "Eternal Mind's Gate",
                 "type": "technique",
                 "special_access": true
             },
@@ -2910,7 +2910,7 @@
                 "special_access": true
             },
             {
-                "name": "Rejuvinating Breath",
+                "name": "Rejuvenating Breath",
                 "type": "technique",
                 "special_access": true
             },
@@ -3293,7 +3293,7 @@
             }
         ],
         "xp_to_completion": 12,
-        "title_ability": "Meish\u016dd\u016d Secrets",
+        "title_ability": "Meish\u014dd\u014d Secrets",
         "advancements": [
             {
                 "name": "Command",

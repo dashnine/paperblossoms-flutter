@@ -85,6 +85,7 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
                       character.touch();
                     },
                   ),
+                  const SizedBox(height: 8),
                   TextField(
                     controller: _familyController,
                     enabled: !character.identityLocked,
@@ -110,6 +111,7 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
             IntSpinner(
                 label: 'Honor',
                 value: character.honor,
+                max: 100,
                 onChanged: (v) {
                   character.honor = v;
                   character.touch();
@@ -117,6 +119,7 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
             IntSpinner(
                 label: 'Glory',
                 value: character.glory,
+                max: 100,
                 onChanged: (v) {
                   character.glory = v;
                   character.touch();
@@ -124,6 +127,7 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
             IntSpinner(
                 label: 'Status',
                 value: character.status,
+                max: 100,
                 onChanged: (v) {
                   character.status = v;
                   character.touch();
@@ -167,7 +171,7 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
     final rank = recalcRank(character).rank;
     final currentTitle = recalcTitle(character).currentTitle;
     final abilityList = abilities(character, rank, currentTitle);
-    if (abilityList.isEmpty) return [const Text('—')];
+    if (abilityList.isEmpty) return [const EmptyHint('No abilities yet.')];
     return [
       for (final ability in abilityList)
         Padding(
@@ -211,6 +215,7 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
   Widget _buildSkillsPanel(BuildContext context) {
     final ranks = effectiveSkillRanks(character);
     final groups = gameData.skillGroups;
+    final colors = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -224,19 +229,28 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
           for (final skill in group.skills)
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 1),
-              child: Row(
-                children: [
-                  Expanded(child: Text(skill)),
-                  Text('${ranks[skill] ?? 0}',
-                      style: TextStyle(
-                        fontWeight: (ranks[skill] ?? 0) > 0
-                            ? FontWeight.bold
-                            : FontWeight.normal,
-                      )),
-                ],
-              ),
+              child: _skillRow(skill, ranks[skill] ?? 0, colors),
             ),
         ],
+      ],
+    );
+  }
+
+  /// Trained skills pop in the primary color; rank-0 rows recede so the
+  /// column can be scanned for what the character can actually do.
+  Widget _skillRow(String skill, int rank, ColorScheme colors) {
+    final trained = rank > 0;
+    return Row(
+      children: [
+        Expanded(
+          child: Text(skill,
+              style: trained ? null : TextStyle(color: colors.outline)),
+        ),
+        Text('$rank',
+            style: TextStyle(
+              fontWeight: trained ? FontWeight.bold : FontWeight.normal,
+              color: trained ? colors.primary : colors.outline,
+            )),
       ],
     );
   }

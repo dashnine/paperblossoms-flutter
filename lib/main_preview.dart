@@ -15,6 +15,7 @@ import 'wizard/wizard_shell.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await gameData.load();
+  await themeController.load();
   _seedDemoCharacter();
   // PORTRAIT_LATER=true injects a portrait 5s after launch, mimicking what
   // PortraitPicker does after the (unautomatable) native file dialog returns
@@ -84,18 +85,28 @@ class _PreviewApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Paper Blossoms (preview)',
-      theme: lightTheme(),
-      darkTheme: darkTheme(),
-      debugShowCheckedModeBanner: false,
-      // WIZARD=true opens the Twenty Questions wizard, TOOLS=true the tools
-      // page, instead of the editor.
-      home: const bool.fromEnvironment('WIZARD')
-          ? const NewCharacterWizard()
-          : const bool.fromEnvironment('TOOLS')
-              ? const ToolsPage()
-              : const CharacterEditor(initialTab: int.fromEnvironment('TAB')),
+    return ListenableBuilder(
+      listenable: themeController,
+      builder: (context, _) => MaterialApp(
+        title: 'Paper Blossoms (preview)',
+        theme: lightTheme(),
+        darkTheme: darkTheme(),
+        // DARK=true forces the dark theme regardless of the user setting or
+        // system appearance (System Events automation can't toggle
+        // appearance on this machine).
+        themeMode: const bool.fromEnvironment('DARK')
+            ? ThemeMode.dark
+            : themeController.value,
+        debugShowCheckedModeBanner: false,
+        // WIZARD=true opens the Twenty Questions wizard, TOOLS=true the
+        // tools page, instead of the editor.
+        home: const bool.fromEnvironment('WIZARD')
+            ? const NewCharacterWizard()
+            : const bool.fromEnvironment('TOOLS')
+                ? const ToolsPage()
+                : const CharacterEditor(
+                    initialTab: int.fromEnvironment('TAB')),
+      ),
     );
   }
 }

@@ -64,6 +64,10 @@ class Character extends ChangeNotifier {
   /// giri) are read-only in the editor so they can't be edited accidentally.
   bool identityLocked = false;
 
+  /// True when there are mutations not yet persisted by the store. Not
+  /// serialized; drives the editor's save badge and close guard.
+  bool dirty = false;
+
   /// Decoded portrait bytes, or null when no portrait is set or the stored
   /// base64 is corrupt (e.g. a truncated or hand-edited save file).
   Uint8List? get portraitBytes {
@@ -76,7 +80,16 @@ class Character extends ChangeNotifier {
   }
 
   /// Notify listeners after any direct field mutation.
-  void touch() => notifyListeners();
+  void touch() {
+    dirty = true;
+    notifyListeners();
+  }
+
+  /// Called by the store once the character is on disk.
+  void markSaved() {
+    dirty = false;
+    notifyListeners();
+  }
 
   void clear() {
     uuid = const Uuid().v4();
@@ -105,6 +118,7 @@ class Character extends ChangeNotifier {
     bonds = [];
     portraitB64 = '';
     identityLocked = false;
+    dirty = false;
     notifyListeners();
   }
 
@@ -138,6 +152,7 @@ class Character extends ChangeNotifier {
     bonds = [for (final b in json['bonds'] ?? []) CharacterBond.fromJson(b)];
     portraitB64 = json['portrait'] ?? '';
     identityLocked = json['identity_locked'] ?? false;
+    dirty = false;
     notifyListeners();
   }
 

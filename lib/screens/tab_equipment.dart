@@ -51,13 +51,30 @@ class EquipmentTab extends StatelessWidget {
         },
       );
 
-  void _remove(Item item) {
-    character.equipment.remove(item);
+  void _remove(BuildContext context, Item item) {
+    final index = character.equipment.indexOf(item);
+    if (index < 0) return;
+    character.equipment.removeAt(index);
     character.touch();
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        content: Text('Removed ${item.name}'),
+        action: SnackBarAction(
+          label: 'Undo',
+          onPressed: () {
+            character.equipment
+                .insert(index.clamp(0, character.equipment.length), item);
+            character.touch();
+          },
+        ),
+      ));
   }
 
   Widget _buildWeapons(BuildContext context, List<Item> weapons) {
-    if (weapons.isEmpty) return const Text('—');
+    if (weapons.isEmpty) {
+      return const EmptyHint('No weapons yet — tap + to add.');
+    }
     if (context.isCompact) {
       return Column(
         children: [
@@ -70,7 +87,7 @@ class EquipmentTab extends StatelessWidget {
                     '${weapon.rangeMin}-${weapon.rangeMax} · Dmg '
                     '${weapon.damage} · Dls ${weapon.deadliness}'
                     '${weapon.qualities.isEmpty ? '' : '\n${weapon.qualities.join(', ')}'}'),
-                trailing: _removeButton(weapon),
+                trailing: _removeButton(context, weapon),
               ),
             ),
         ],
@@ -92,14 +109,16 @@ class EquipmentTab extends StatelessWidget {
             Text('${weapon.damage}'),
             Text('${weapon.deadliness}'),
             Text(weapon.qualities.join(', ')),
-            _removeButton(weapon),
+            _removeButton(context, weapon),
           ],
       ],
     );
   }
 
   Widget _buildArmor(BuildContext context, List<Item> armorItems) {
-    if (armorItems.isEmpty) return const Text('—');
+    if (armorItems.isEmpty) {
+      return const EmptyHint('No armor yet — tap + to add.');
+    }
     if (context.isCompact) {
       return Column(
         children: [
@@ -110,7 +129,7 @@ class EquipmentTab extends StatelessWidget {
                 subtitle: Text('Physical ${item.physicalResistance} · '
                     'Supernatural ${item.supernaturalResistance}'
                     '${item.qualities.isEmpty ? '' : '\n${item.qualities.join(', ')}'}'),
-                trailing: _removeButton(item),
+                trailing: _removeButton(context, item),
               ),
             ),
         ],
@@ -125,14 +144,16 @@ class EquipmentTab extends StatelessWidget {
             Text('${item.physicalResistance}'),
             Text('${item.supernaturalResistance}'),
             Text(item.qualities.join(', ')),
-            _removeButton(item),
+            _removeButton(context, item),
           ],
       ],
     );
   }
 
   Widget _buildOther(BuildContext context, List<Item> items) {
-    if (items.isEmpty) return const Text('—');
+    if (items.isEmpty) {
+      return const EmptyHint('No personal effects yet — tap + to add.');
+    }
     return Column(
       children: [
         for (final item in items)
@@ -143,17 +164,17 @@ class EquipmentTab extends StatelessWidget {
               subtitle: item.type == itemTypePersonalEffect
                   ? Text('${item.price} ${item.unit} · Rarity ${item.rarity}')
                   : Text(item.type),
-              trailing: _removeButton(item),
+              trailing: _removeButton(context, item),
             ),
           ),
       ],
     );
   }
 
-  Widget _removeButton(Item item) => IconButton(
+  Widget _removeButton(BuildContext context, Item item) => IconButton(
         tooltip: 'Remove',
         icon: const Icon(Icons.delete_outline),
-        onPressed: () => _remove(item),
+        onPressed: () => _remove(context, item),
       );
 
   Widget _scrollableTable(

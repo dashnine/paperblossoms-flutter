@@ -1,4 +1,5 @@
 import 'package:file_picker/file_picker.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../character.dart';
@@ -19,6 +20,10 @@ class _CharacterChooserState extends State<CharacterChooser> {
   List<CharacterSummary> _summaries = [];
   bool _loading = true;
 
+  /// One portrait read per character per refresh; FutureBuilder re-uses these
+  /// across rebuilds instead of re-reading the save file.
+  final Map<String, Future<Uint8List?>> _portraits = {};
+
   @override
   void initState() {
     super.initState();
@@ -30,9 +35,13 @@ class _CharacterChooserState extends State<CharacterChooser> {
     if (!mounted) return;
     setState(() {
       _summaries = summaries;
+      _portraits.clear();
       _loading = false;
     });
   }
+
+  Future<Uint8List?> _portraitOf(String uuid) =>
+      _portraits.putIfAbsent(uuid, () => characterStore.portraitOf(uuid));
 
   Future<void> _openCharacter(String uuid) async {
     await characterStore.load(uuid);
@@ -77,6 +86,10 @@ class _CharacterChooserState extends State<CharacterChooser> {
             child: const Text('Cancel'),
           ),
           FilledButton(
+            style: FilledButton.styleFrom(
+              backgroundColor: Theme.of(context).colorScheme.error,
+              foregroundColor: Theme.of(context).colorScheme.onError,
+            ),
             onPressed: () => Navigator.pop(context, true),
             child: const Text('Delete'),
           ),
@@ -114,27 +127,56 @@ class _CharacterChooserState extends State<CharacterChooser> {
         icon: const Icon(Icons.add),
         label: const Text('New Character'),
       ),
-      body: _loading
-          ? const Center(child: CircularProgressIndicator())
-          : _summaries.isEmpty
+      body: Stack(
+        fit: StackFit.expand,
+        children: [
+          // Petal backdrop on both states: prominent when empty, faint
+          // behind the list; fades in once loading settles.
+          AnimatedOpacity(
+            duration: const Duration(milliseconds: 600),
+            opacity: _loading ? 0 : (_summaries.isEmpty ? 0.45 : 0.32),
+            child: Image.asset(
+              'assets/images/sakura_PNG37.png',
+              fit: BoxFit.cover,
+            ),
+          ),
+          _loading
+              ? const Center(child: CircularProgressIndicator())
+              : _summaries.isEmpty
               ? _buildEmptyState(context)
               : _buildList(),
+        ],
+      ),
     );
   }
 
   Widget _buildEmptyState(BuildContext context) {
     return Center(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Image.asset('assets/images/sakura.png', width: 120),
-          const SizedBox(height: 16),
-          Text(
-            'No characters yet.\nCreate one to begin your story.',
-            textAlign: TextAlign.center,
-            style: Theme.of(context).textTheme.bodyLarge,
+      // Radial halo keeps the flower and text from blending into the
+      // petals behind them; surface color adapts to light/dark theme.
+      child: Container(
+        padding: const EdgeInsets.all(96),
+        decoration: BoxDecoration(
+          gradient: RadialGradient(
+            colors: [
+              Theme.of(context).colorScheme.surface,
+              Theme.of(context).colorScheme.surface.withValues(alpha: 0),
+            ],
+            stops: const [0.35, 1.0],
           ),
-        ],
+        ),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Image.asset('assets/images/sakura.png', width: 120),
+            const SizedBox(height: 16),
+            Text(
+              'No characters yet.\nCreate one to begin your story.',
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -145,9 +187,16 @@ class _CharacterChooserState extends State<CharacterChooser> {
       itemCount: _summaries.length,
       itemBuilder: (context, index) {
         final summary = _summaries[index];
+        // Empty for indexes written by older builds until their next save.
+        final detail = [
+          if (summary.clan.isNotEmpty) summary.clan,
+          if (summary.school.isNotEmpty) summary.school,
+          if (summary.rank > 0) 'Rank ${summary.rank}',
+        ].join(' · ');
         return ListTile(
-          leading: const Icon(Icons.person_outline),
+          leading: _portraitAvatar(summary.uuid),
           title: Text(summary.name),
+          subtitle: detail.isEmpty ? null : Text(detail),
           onTap: () => _openCharacter(summary.uuid),
           trailing: IconButton(
             tooltip: 'Delete',
@@ -155,6 +204,22 @@ class _CharacterChooserState extends State<CharacterChooser> {
             onPressed: () => _deleteCharacter(summary),
           ),
         );
+      },
+    );
+  }
+
+  Widget _portraitAvatar(String uuid) {
+    final colors = Theme.of(context).colorScheme;
+    final fallback = CircleAvatar(
+      backgroundColor: colors.surfaceContainerHighest,
+      child: Icon(Icons.person_outline, color: colors.onSurfaceVariant),
+    );
+    return FutureBuilder<Uint8List?>(
+      future: _portraitOf(uuid),
+      builder: (context, snapshot) {
+        final bytes = snapshot.data;
+        if (bytes == null) return fallback;
+        return CircleAvatar(backgroundImage: MemoryImage(bytes));
       },
     );
   }

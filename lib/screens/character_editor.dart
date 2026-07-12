@@ -47,6 +47,42 @@ class _CharacterEditorState extends State<CharacterEditor> {
         .showSnackBar(const SnackBar(content: Text('Saved')));
   }
 
+  /// Back with unsaved changes: offer save/discard instead of silently
+  /// dropping the edits.
+  Future<void> _confirmClose() async {
+    final colors = Theme.of(context).colorScheme;
+    final choice = await showDialog<String>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Unsaved changes'),
+        content: const Text('Save this character before closing?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'cancel'),
+            child: const Text('Keep editing'),
+          ),
+          TextButton(
+            style: TextButton.styleFrom(foregroundColor: colors.error),
+            onPressed: () => Navigator.pop(context, 'discard'),
+            child: const Text('Discard'),
+          ),
+          FilledButton(
+            onPressed: () => Navigator.pop(context, 'save'),
+            child: const Text('Save & close'),
+          ),
+        ],
+      ),
+    );
+    if (!mounted) return;
+    switch (choice) {
+      case 'save':
+        await characterStore.save();
+        if (mounted) Navigator.pop(context);
+      case 'discard':
+        Navigator.pop(context);
+    }
+  }
+
   Future<void> _exportPdf() async {
     final name = '${character.family} ${character.name}'.trim();
     await Printing.layoutPdf(
@@ -78,6 +114,8 @@ class _CharacterEditorState extends State<CharacterEditor> {
       bindings: {
         SingleActivator(LogicalKeyboardKey.keyP,
             meta: apple, control: !apple): _exportPdf,
+        SingleActivator(LogicalKeyboardKey.keyS,
+            meta: apple, control: !apple): _save,
       },
       // Without focus inside the subtree, key events never reach the
       // bindings on a freshly opened editor.
@@ -93,13 +131,18 @@ class _CharacterEditorState extends State<CharacterEditor> {
         listenable: character,
         builder: (context, _) {
           final title = '${character.family} ${character.name}'.trim();
-          return Scaffold(
+          final scaffold = Scaffold(
             appBar: AppBar(
               title: Text(title.isEmpty ? 'Unnamed Samurai' : title),
               actions: [
                 IconButton(
-                  tooltip: 'Save',
-                  icon: const Icon(Icons.save_outlined),
+                  tooltip:
+                      character.dirty ? 'Save (unsaved changes)' : 'Save',
+                  icon: Badge(
+                    isLabelVisible: character.dirty,
+                    smallSize: 8,
+                    child: const Icon(Icons.save_outlined),
+                  ),
                   onPressed: _save,
                 ),
                 PopupMenuButton<String>(
@@ -160,6 +203,13 @@ class _CharacterEditorState extends State<CharacterEditor> {
                 AdvancementTab(),
               ],
             ),
+          );
+          return PopScope(
+            canPop: !character.dirty,
+            onPopInvokedWithResult: (didPop, result) {
+              if (!didPop) _confirmClose();
+            },
+            child: scaffold,
           );
         },
       ),

@@ -6,6 +6,7 @@ import '../character_store.dart';
 import '../game_data.dart';
 import '../layout.dart';
 import '../screens/character_editor.dart';
+import '../theme.dart';
 import 'page1_clan_family.dart';
 import 'page2_school.dart';
 import 'page3_honor_glory.dart';
@@ -46,23 +47,25 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
     switch (page) {
       case 0:
         if (wizard.isSamurai) {
-          if (wizard.clan.isEmpty ||
-              wizard.family.isEmpty ||
-              wizard.familyRing.isEmpty) {
-            return 'Please answer all questions to advance.';
+          if (wizard.clan.isEmpty) return 'Choose a clan (Question 1).';
+          if (wizard.family.isEmpty) return 'Choose a family (Question 2).';
+          if (wizard.familyRing.isEmpty) {
+            return 'Choose your family ring increase.';
           }
         } else {
-          if (wizard.region.isEmpty ||
-              wizard.upbringing.isEmpty ||
-              wizard.upbringingRing.isEmpty) {
-            return 'Please answer all questions to advance.';
+          if (wizard.region.isEmpty) return 'Choose a region (Question 1).';
+          if (wizard.upbringing.isEmpty) {
+            return 'Choose an upbringing (Question 2).';
+          }
+          if (wizard.upbringingRing.isEmpty) {
+            return 'Choose your upbringing ring increase.';
           }
           final sets =
               gameData.upbringingByName(wizard.upbringing)?.skillIncreases ??
                   [];
           for (var i = 0; i < sets.length; i++) {
             if (wizard.upbringingSkills[i].isEmpty) {
-              return 'Please answer all questions to advance.';
+              return 'Choose upbringing skill ${i + 1}.';
             }
           }
         }
@@ -104,12 +107,14 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
         // Qt only checked Q13 here, but its combo boxes could never be
         // blank (they defaulted to their first entry); require an explicit
         // choice instead.
-        if (wizard.distinction.isEmpty ||
-            wizard.adversity.isEmpty ||
-            wizard.passion.isEmpty ||
-            wizard.anxiety.isEmpty) {
-          return 'Please answer all questions to advance.';
+        if (wizard.distinction.isEmpty) {
+          return 'Choose a distinction (Question 9).';
         }
+        if (wizard.adversity.isEmpty) {
+          return 'Choose an adversity (Question 10).';
+        }
+        if (wizard.passion.isEmpty) return 'Choose a passion (Question 11).';
+        if (wizard.anxiety.isEmpty) return 'Choose an anxiety (Question 12).';
         if (wizard.q13PickedAdvantage == null) {
           return 'Choose an option for Question 13.';
         }
@@ -163,24 +168,73 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
     );
   }
 
+  /// True once the user has answered anything; a blank wizard pops freely.
+  bool get _hasProgress =>
+      _page > 0 ||
+      wizard.clan.isNotEmpty ||
+      wizard.family.isNotEmpty ||
+      wizard.region.isNotEmpty ||
+      wizard.upbringing.isNotEmpty;
+
+  Future<void> _confirmDiscard() async {
+    final colors = Theme.of(context).colorScheme;
+    final discard = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Discard this character?'),
+        content: const Text('Your answers so far will be lost.'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: const Text('Keep editing'),
+          ),
+          FilledButton(
+            style: FilledButton.styleFrom(
+                backgroundColor: colors.error,
+                foregroundColor: colors.onError),
+            onPressed: () => Navigator.pop(context, true),
+            child: const Text('Discard'),
+          ),
+        ],
+      ),
+    );
+    if (discard == true && mounted) Navigator.pop(context);
+  }
+
   Widget _summaryPanel() {
     final rings = wizard.rawRings();
     final skills = wizard.rawSkills();
+    Widget row(String name, int value) => Padding(
+          padding: const EdgeInsets.symmetric(vertical: 1),
+          child: Row(
+            children: [
+              Expanded(child: Text(name)),
+              Text('$value',
+                  style: const TextStyle(fontWeight: FontWeight.bold)),
+            ],
+          ),
+        );
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text('Rings', style: Theme.of(context).textTheme.titleSmall),
-          for (final entry in rings.entries)
-            Text('  ${entry.key}: ${entry.value}'),
+          for (final entry in rings.entries) row(entry.key, entry.value),
           const SizedBox(height: 12),
           Text('Skills', style: Theme.of(context).textTheme.titleSmall),
-          if (skills.isEmpty) const Text('  —'),
-          for (final entry in skills.entries)
-            Text('  ${entry.key}: ${entry.value}'),
+          if (skills.isEmpty) const EmptyHint('No skills yet.'),
+          for (final entry in skills.entries) row(entry.key, entry.value),
         ],
       ),
+    );
+  }
+
+  void _showSummarySheet() {
+    showModalBottomSheet(
+      context: context,
+      showDragHandle: true,
+      builder: (context) => SafeArea(child: _summaryPanel()),
     );
   }
 
@@ -198,8 +252,22 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
     ];
     final content = pages[_page];
 
-    return Scaffold(
-      appBar: AppBar(title: Text(_titles[_page])),
+    final scaffold = Scaffold(
+      appBar: AppBar(
+        title: Text(_titles[_page]),
+        actions: [
+          if (!context.isExpanded)
+            IconButton(
+              tooltip: 'Rings & skills so far',
+              icon: const Icon(Icons.donut_small_outlined),
+              onPressed: _showSummarySheet,
+            ),
+        ],
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(4),
+          child: LinearProgressIndicator(value: (_page + 1) / 7),
+        ),
+      ),
       bottomNavigationBar: SafeArea(
         child: Padding(
           padding: const EdgeInsets.all(12),
@@ -230,6 +298,14 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
               ],
             )
           : content,
+    );
+
+    return PopScope(
+      canPop: !_hasProgress,
+      onPopInvokedWithResult: (didPop, result) {
+        if (!didPop) _confirmDiscard();
+      },
+      child: scaffold,
     );
   }
 }
