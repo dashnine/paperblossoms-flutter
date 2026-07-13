@@ -7,6 +7,7 @@ import 'package:pdf/widgets.dart' as pw;
 import 'character.dart';
 import 'derived_stats.dart';
 import 'game_data.dart';
+import 'item.dart';
 import 'rules_constants.dart';
 
 const _accent = PdfColor.fromInt(0xFFB03060); // sakuraDeep
@@ -103,6 +104,36 @@ Future<Uint8List> _buildSheet({
   String longDescFor(String name) {
     final full = gameData.descriptionFor(name);
     return full.isNotEmpty ? full : gameData.shortDescFor(name);
+  }
+
+  // Item description: a per-item override wins, then the user descriptions.
+  String itemDescFor(Item item) =>
+      item.description.isNotEmpty ? item.description : longDescFor(item.name);
+
+  // Compact "Name — description" paragraphs under an equipment table, one
+  // per described item (deduped by name; empty when none are described).
+  List<pw.Widget> itemDescriptions(Iterable<Item> items) {
+    final seen = <String>{};
+    final blocks = <pw.Widget>[];
+    for (final item in items) {
+      if (!seen.add(item.name)) continue;
+      final desc = itemDescFor(item);
+      if (desc.isEmpty) continue;
+      blocks.add(pw.Padding(
+        padding: const pw.EdgeInsets.only(top: 3),
+        child: pw.RichText(
+          text: pw.TextSpan(children: [
+            pw.TextSpan(
+                text: '${item.name} — ',
+                style: pw.TextStyle(
+                    fontSize: 8.5, fontWeight: pw.FontWeight.bold)),
+            pw.TextSpan(
+                text: desc, style: const pw.TextStyle(fontSize: 8.5)),
+          ]),
+        ),
+      ));
+    }
+    return blocks;
   }
 
   // A named entry with its full description, as the original render dialog
@@ -297,20 +328,22 @@ Future<Uint8List> _buildSheet({
           ['Name', 'Category', 'Skill', 'Grip', 'Range', 'Dmg', 'Dls',
               'Qualities'],
           [
-            for (final item in c.equipment)
-              if (item.isWeapon)
+            for (final group in Item.gripGroups(
+                c.equipment.where((item) => item.isWeapon)))
+              for (var i = 0; i < group.length; i++)
                 [
-                  item.name,
-                  item.category,
-                  item.skill,
-                  item.grip,
-                  '${item.rangeMin}-${item.rangeMax}',
-                  '${item.damage}',
-                  '${item.deadliness}',
-                  item.qualities.join(', '),
+                  i == 0 ? group.first.name : '',
+                  i == 0 ? group.first.category : '',
+                  i == 0 ? group.first.skill : '',
+                  group[i].grip,
+                  '${group[i].rangeMin}-${group[i].rangeMax}',
+                  '${group[i].damage}',
+                  '${group[i].deadliness}',
+                  i == 0 ? group.first.qualities.join(', ') : '',
                 ]
           ],
         ),
+      ...itemDescriptions(c.equipment.where((item) => item.isWeapon)),
       if (c.equipment.any((item) => item.isArmor)) header('Armor'),
       if (c.equipment.any((item) => item.isArmor))
         table(
@@ -326,6 +359,7 @@ Future<Uint8List> _buildSheet({
                 ]
           ],
         ),
+      ...itemDescriptions(c.equipment.where((item) => item.isArmor)),
       if (c.equipment.any((item) => !item.isWeapon && !item.isArmor))
         header('Personal Effects'),
       if (c.equipment.any((item) => !item.isWeapon && !item.isArmor))
@@ -335,6 +369,8 @@ Future<Uint8List> _buildSheet({
                 if (!item.isWeapon && !item.isArmor) item.name
             ].join(', '),
             style: const pw.TextStyle(fontSize: 9)),
+      ...itemDescriptions(
+          c.equipment.where((item) => !item.isWeapon && !item.isArmor)),
 
       // ---- Story ----
       if (c.ninjo.isNotEmpty) header('Ninjō'),

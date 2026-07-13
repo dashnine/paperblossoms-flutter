@@ -194,9 +194,11 @@ class _AddItemPageState extends State<AddItemPage> {
                   labelText: 'Qualities (comma-separated)'),
             ),
             if (_type == itemTypeWeapon)
-              for (final draft in _drafts) _GripEditor(draft: draft),
+              for (final draft in _drafts)
+                _GripEditor(key: ObjectKey(draft), draft: draft),
             if (_type == itemTypeArmor)
-              for (final draft in _drafts) _ArmorEditor(draft: draft),
+              for (final draft in _drafts)
+                _ArmorEditor(key: ObjectKey(draft), draft: draft),
             const SizedBox(height: 16),
             FilledButton(
               onPressed:
@@ -215,7 +217,7 @@ class _AddItemPageState extends State<AddItemPage> {
 class _GripEditor extends StatelessWidget {
   final Item draft;
 
-  const _GripEditor({required this.draft});
+  const _GripEditor({super.key, required this.draft});
 
   @override
   Widget build(BuildContext context) {
@@ -250,7 +252,7 @@ class _GripEditor extends StatelessWidget {
 class _ArmorEditor extends StatelessWidget {
   final Item draft;
 
-  const _ArmorEditor({required this.draft});
+  const _ArmorEditor({super.key, required this.draft});
 
   @override
   Widget build(BuildContext context) {

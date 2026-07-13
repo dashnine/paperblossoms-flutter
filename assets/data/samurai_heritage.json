@@ -1752,7 +1752,7 @@
         "result": "Medical Innovator",
         "other_effects": {
             "type": "Distinction",
-            "instructions": "Gain the Knowledgable Wilderness Guide distinction found in WotW page 102.",
+            "instructions": "Gain the Knowledgeable Wilderness Guide distinction found in WotW page 102.",
             "outcomes": [
                 {
                     "outcome": "Knowledgeable Wilderness Guide"
@@ -1799,7 +1799,7 @@
             "instructions": "You gain one Distinction of the following of your choice.",
             "outcomes": [
                 {
-                    "outcome": "Kissh\u016bten's Blessing"
+                    "outcome": "Kissh\u014dten's Blessing"
                 },
                 {
                     "outcome": "Famously Lucky"
@@ -1894,7 +1894,7 @@
             "min": 2,
             "max": 2
         },
-        "result": "Heart of a Horse",
+        "result": "Heart of the Horse",
         "other_effects": {
             "type": "starting item and distinction",
             "instructions": "You gain a horse (if you did not start with one), and you gain the Karmic Tie (Void) distinction (see page 108 of the Core Rulebook) with it.",
@@ -2132,35 +2132,35 @@
         "result": "Spiritual Debt",
         "other_effects": {
             "type": "Ring",
-            "instructions": "Roll a ten-sided die to determine the spirit's Ring. You may increase the value of your matching Ring by 1 and reduce the value of a different Ring by 1 (this still cannot raise a ring above 3.",
+            "instructions": "Roll a ten-sided die to determine the spirit's Ring. You may increase the value of your matching Ring by 1 and reduce the value of a different Ring by 1 (this still cannot raise a ring above 3).",
             "outcomes": [
                 {
                     "roll": {
                         "min": 1,
                         "max": 2
                     },
-                    "outcome": "Air Ring"
+                    "outcome": "Fire Ring"
                 },
                 {
                     "roll": {
                         "min": 3,
                         "max": 4
                     },
-                    "outcome": "Water Ring"
+                    "outcome": "Earth Ring"
                 },
                 {
                     "roll": {
                         "min": 5,
                         "max": 6
                     },
-                    "outcome": "Earth Ring"
+                    "outcome": "Water Ring"
                 },
                 {
                     "roll": {
                         "min": 7,
                         "max": 8
                     },
-                    "outcome": "Fire Ring"
+                    "outcome": "Air Ring"
                 },
                 {
                     "roll": {

@@ -52,6 +52,25 @@ class Item {
   bool get isWeapon => type == itemTypeWeapon;
   bool get isArmor => type == itemTypeArmor;
 
+  /// Regroups consecutive per-grip rows of one weapon (as emitted by
+  /// [Item.fromWeapon]) into a single group, so the UI and PDF can present
+  /// one weapon with multiple grips. A repeated grip name starts a new group,
+  /// keeping two copies of the same weapon separate.
+  static List<List<Item>> gripGroups(Iterable<Item> weapons) {
+    final groups = <List<Item>>[];
+    for (final weapon in weapons) {
+      final current = groups.isEmpty ? null : groups.last;
+      if (current != null &&
+          current.first.name == weapon.name &&
+          !current.any((item) => item.grip == weapon.grip)) {
+        current.add(weapon);
+      } else {
+        groups.add([weapon]);
+      }
+    }
+    return groups;
+  }
+
   /// Builds the weapon item for one grip, applying that grip's stat effects
   /// (the original app emits one row per grip).
   factory Item.fromWeapon(Weapon weapon, WeaponGrip grip) {

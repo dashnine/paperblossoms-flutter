@@ -33,6 +33,7 @@ const inkDark = Color(0xFF2B2B33);
 ThemeData lightTheme() => ThemeData(
       colorScheme: ColorScheme.fromSeed(seedColor: sakuraDeep),
       appBarTheme: const AppBarTheme(centerTitle: false),
+      snackBarTheme: const SnackBarThemeData(showCloseIcon: true),
       useMaterial3: true,
     );
 
@@ -55,6 +56,7 @@ ThemeData darkTheme() {
   return ThemeData(
     colorScheme: scheme,
     appBarTheme: const AppBarTheme(centerTitle: false),
+    snackBarTheme: const SnackBarThemeData(showCloseIcon: true),
     useMaterial3: true,
   );
 }

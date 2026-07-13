@@ -778,7 +778,7 @@
                     "book": "CotFW",
                     "page": 93
                 },
-                "ring": "Air",
+                "ring": "Water",
                 "types": ["Interpersonal", "Mental"],
                 "effects": ""
             }
@@ -2591,7 +2591,7 @@
                 "name": "Tip of the Tongue",
                 "reference": {
                     "book": "CotFW",
-                    "page": 96
+                    "page": 97
                 },
                 "ring": "Air",
                 "types": ["Mental"],

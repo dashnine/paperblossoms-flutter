@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/game_data.dart';
+import 'package:paperblossoms/wizard/wizard_state.dart';
 
 // Starting-outfit entries that are wizard directives rather than item names;
 // page 7 of the wizard resolves these specially.
@@ -335,6 +336,159 @@ void main() {
       final names = gameData.weapons.map((w) => w.name);
       expect(names, contains('Ganzu Ring Ax'));
       expect(names, isNot(contains('Ganzu Ring Axe')));
+    });
+
+    test("Kisshōten's Blessing heritage outcome resolves", () {
+      // Upstream's WotW "Revered Parent" heritage offers "Kisshūten's
+      // Blessing", which matches no advantage entry; the book (WotW p. 107,
+      // Core p. 108) prints "Kisshōten's Blessing". Patched in
+      // samurai_heritage.json — see docs/UPSTREAM_NOTES.md #20.
+      final advNames =
+          gameData.advantagesDisadvantages.map((a) => a.name).toSet();
+      final revered = gameData.heritageEntries
+          .firstWhere((h) => h.result == 'Revered Parent');
+      for (final o in revered.otherEffects.outcomes) {
+        expect(advNames, contains(o.outcome), reason: 'Revered Parent grant');
+      }
+    });
+
+    test('Spiritual Debt ring die mapping matches the book', () {
+      // Upstream copies Spirit Companion's 1-2 Air … 7-8 Fire mapping onto
+      // Spiritual Debt; the book (CotFW p. 98) rolls 1-2 Fire, 3-4 Earth,
+      // 5-6 Water, 7-8 Air, 9-10 Void. Patched in samurai_heritage.json —
+      // see docs/UPSTREAM_NOTES.md #21.
+      final debt = gameData.heritageEntries
+          .firstWhere((h) => h.result == 'Spiritual Debt');
+      expect([for (final o in debt.otherEffects.outcomes) o.outcome],
+          ['Fire Ring', 'Earth Ring', 'Water Ring', 'Air Ring', 'Void Ring']);
+    });
+
+    test('Heart of the Horse matches the book name', () {
+      // The book (CotFW p. 98) prints "Heart of the Horse", not upstream's
+      // "Heart of a Horse", and the wizard's auto-grant maps key on the
+      // exact string. Patched in samurai_heritage.json + wizard_state.dart
+      // — see docs/UPSTREAM_NOTES.md #22.
+      final results = gameData.heritageEntries.map((h) => h.result);
+      expect(results, contains('Heart of the Horse'));
+      expect(results, isNot(contains('Heart of a Horse')));
+      expect(WizardState.autoGrantedTraits, contains('Heart of the Horse'));
+      expect(WizardState.namedItemGrants, contains('Heart of the Horse'));
+    });
+
+    test('Cutting Wind Talons is rank 2', () {
+      // Upstream says rank 4; the book (WotW p. 109) prints Rank 2 — the
+      // Air kihō line runs 2/3/4 like every other ring's. Patched in
+      // techniques.json — see docs/UPSTREAM_NOTES.md #23.
+      final t = gameData.techniques
+          .firstWhere((t) => t.name == 'Cutting Wind Talons');
+      expect(t.rank, 2);
+    });
+
+    test('Solidify Gratitude is rank 2', () {
+      // Upstream says rank 3 (taken from a curriculum table's rank column);
+      // the technique block (CotFW p. 114) prints Rank 2. Patched in
+      // techniques.json — see docs/UPSTREAM_NOTES.md #24.
+      final t = gameData.techniques
+          .firstWhere((t) => t.name == 'Solidify Gratitude');
+      expect(t.rank, 2);
+    });
+
+    test('Dragonfly school matches the book (WotW p. 96)', () {
+      // Three deviations patched (docs/UPSTREAM_NOTES.md #25): the school
+      // starts with BOTH listed invocations (upstream made it a choice of
+      // one), rank 3 also lists Performance, and ranks 4-5 open ALL
+      // invocations (upstream kept them Air/Water only).
+      final school = gameData.schools
+          .firstWhere((s) => s.name == 'Dragonfly Grace of the Spirits School');
+      expect(school.startingTechniques.first.size, 2);
+      final r3Skills = [
+        for (final c in school.curriculum)
+          if (c.rank == 3 && c.type == 'skill') c.advance
+      ];
+      expect(r3Skills, contains('Performance'));
+      final lateGroups = [
+        for (final c in school.curriculum)
+          if (c.rank >= 4 && c.type == 'technique_group') c.advance
+      ];
+      expect(lateGroups, ['Invocations', 'Invocations']);
+    });
+
+    test('Naga Seer rank-5 capstone is learnable', () {
+      // Ever-Changing Waves is a rank-5 Water invocation and Invocations
+      // are not otherwise available to the tradition; the book (WotW p. 98)
+      // marks it special access, upstream did not — the capstone was
+      // unlearnable. Patched in schools.json — docs/UPSTREAM_NOTES.md #26.
+      final school = gameData.schools
+          .firstWhere((s) => s.name == 'Shinomen Naga Seer Tradition');
+      final entry = school.curriculum
+          .firstWhere((c) => c.advance == 'Ever-Changing Waves');
+      expect(entry.specialAccess, isTrue);
+    });
+
+    test('Kitsune Mediator has exactly two starting technique sets', () {
+      // Upstream added a third choice (Call to Ride / Shallow Waters)
+      // copy-pasted from the Iuchi Horse Lord Disciple; the book (CotFW
+      // p. 86) grants only Commune with the Spirits plus one shūji choice.
+      // Patched in schools.json — see docs/UPSTREAM_NOTES.md #27.
+      final school = gameData.schools
+          .firstWhere((s) => s.name == 'Kitsune Mediator School');
+      expect(school.startingTechniques, hasLength(2));
+    });
+
+    test('Ujik Nomad rank 2 teaches Stalking Leopard Style', () {
+      // Upstream duplicated Sudden Downpour Style into rank 2; the book
+      // (CotFW p. 92) lists Stalking Leopard Style there (Sudden Downpour
+      // Style stays at rank 3). Patched in schools.json —
+      // docs/UPSTREAM_NOTES.md #28.
+      final school =
+          gameData.schools.firstWhere((s) => s.name == 'Ujik Nomad Tradition');
+      final r2 = [
+        for (final c in school.curriculum)
+          if (c.rank == 2 && c.type == 'technique') c.advance
+      ];
+      expect(r2, contains('Stalking Leopard Style'));
+      expect(r2, isNot(contains('Sudden Downpour Style')));
+    });
+
+    test('Syncretic Philosophy is a Water distinction', () {
+      // Upstream says Air; the book header (CotFW p. 93) prints (Water).
+      // Patched in advantages_disadvantages.json — UPSTREAM_NOTES.md #29.
+      final e = gameData.advantagesDisadvantages
+          .firstWhere((a) => a.name == 'Syncretic Philosophy');
+      expect(e.ring, 'Water');
+    });
+
+    test('Saddle Cutter is a range 0-1 weapon', () {
+      // Upstream says range 1-2; the book (CotFW p. 100, Table 2-2) prints
+      // 0-1. Patched in weapons.json — see docs/UPSTREAM_NOTES.md #30.
+      final w =
+          gameData.weapons.firstWhere((w) => w.name == 'Saddle Cutter');
+      expect(w.rangeMin, 0);
+      expect(w.rangeMax, 1);
+    });
+
+    test('audited WotW/CotFW page references match the books', () {
+      // Assorted page-reference corrections from the book audit
+      // (docs/UPSTREAM_NOTES.md #31): the five later CotFW rituals sit on
+      // pp. 111-112 (not 110), Tip of the Tongue on p. 97, Temple Abbot on
+      // WotW p. 143, and Doomhunter on CotFW p. 134.
+      String techPage(String name) =>
+          gameData.techniques.firstWhere((t) => t.name == name).reference.page;
+      expect(techPage('Spiritual Survey'), '111');
+      expect(techPage('Shadow of Days'), '111');
+      expect(techPage('Protection of the Flock'), '111');
+      expect(techPage("Traveler's Experience"), '112');
+      expect(techPage("Wayfinder's Instincts"), '112');
+      expect(
+          gameData.advantagesDisadvantages
+              .firstWhere((a) => a.name == 'Tip of the Tongue')
+              .reference
+              .page,
+          '97');
+      String titlePage(String name) =>
+          gameData.titles.firstWhere((t) => t.name == name).reference.page;
+      expect(titlePage('Temple Abbot'), '143');
+      expect(titlePage('Doomhunter'), '134');
     });
 
     test('school starting skills resolve to skills', () {

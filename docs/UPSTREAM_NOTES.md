@@ -237,3 +237,147 @@ Upstream names the Children of the Five Winds weapon "Ganzu Ring Axe" in
 Sapper Ax". Both occurrences are patched together so the outfit reference
 still resolves. Guarded by the "Ganzu Ring Ax matches the book name" test
 in `test/game_data_validation_test.dart`.
+
+## 20. "Kisshūten's Blessing" broken heritage grant in `samurai_heritage.json` (patched here)
+
+The Writ of the Wilds "Revered Parent" heritage (WotW table 2-3, p. 107)
+offers a choice of "Kisshōten's Blessing" or "Famously Lucky". Upstream
+spells the first outcome "Kisshūten's Blessing" (u-macron), which matches
+no entry in `advantages_disadvantages.json` — the grant silently fails to
+resolve. Also fixed the same entry's instructions typo "Knowledgable" →
+"Knowledgeable" (Medical Innovator row). Guarded by the "Kisshōten's
+Blessing heritage outcome resolves" test in
+`test/game_data_validation_test.dart`.
+
+## 21. Spiritual Debt ring die mapping reversed in `samurai_heritage.json` (patched here)
+
+The CotFW "Spiritual Debt" heritage (table 2-1, p. 98) rolls 1–2: Fire,
+3–4: Earth, 5–6: Water, 7–8: Air, 9–10: Void. Upstream instead carries
+1–2: Air, 3–4: Water, 5–6: Earth, 7–8: Fire — a copy-paste of the
+previous row's ("Spirit Companion", which really is Air/Water/Earth/Fire)
+mapping — so rolled results grant the wrong ring. Also closed the
+unbalanced paren in its instructions text. Guarded by the "Spiritual Debt
+ring die mapping matches the book" test.
+
+## 22. "Heart of a Horse" heritage name in `samurai_heritage.json` (patched here)
+
+The book (CotFW table 2-1, p. 98) prints **Heart of the Horse**; upstream
+has "Heart of a Horse". Renamed in `samurai_heritage.json` together with
+the two hardcoded wizard maps that key on the exact string
+(`autoGrantedTraits` / `namedItemGrants` in `lib/wizard/wizard_state.dart`
+— the Qt equivalent is the heritage `switch` in
+`src/characterwizard/newcharwizardpage7.cpp`, which needs the same rename
+upstream). Guarded by the "Heart of the Horse matches the book name" test.
+
+## 23. Cutting Wind Talons wrong rank in `techniques.json` (patched here)
+
+Upstream lists the Writ of the Wilds Air kihō "Cutting Wind Talons" as
+rank 4; the technique block (WotW p. 109) prints **Rank 2**, and each
+ring's kihō line in that chapter runs rank 2/3/4 (Grace of the Gentle
+Breeze is the 3, Step of the Storm the 4). The Tengu Mask of Air rank-1
+curriculum lists it with special access, consistent with rank 2. Guarded
+by the "Cutting Wind Talons is rank 2" test.
+
+## 24. Solidify Gratitude wrong rank in `techniques.json` (patched here)
+
+Upstream lists the CotFW Earth shūji "Solidify Gratitude" as rank 3 —
+apparently read off a school-curriculum table's rank column; the
+technique block (CotFW p. 114) prints **Rank 2**. Rank 2 also makes the
+curricula coherent: Ide Emissary and Kitsune Mediator list it at rank 2
+without special access. Guarded by the "Solidify Gratitude is rank 2"
+test.
+
+## 25. Dragonfly Grace of the Spirits School deviations in `schools.json` (patched here)
+
+Three mismatches against the school's page (WotW p. 96):
+
+- **Starting techniques**: the book grants BOTH "Dominion of Suijin" and
+  "Reflections of P'an Ku" (no "choose one"); upstream made the pair a
+  choice of one (`size: 1` → `size: 2`).
+- **Rank 3 curriculum**: the book lists Courtesy, Performance, and
+  Martial Arts [Melee]; upstream omits **Performance**.
+- **Ranks 4–5 curriculum**: the book opens "Rank 1–4 Invocations" /
+  "Rank 1–5 Invocations" (all elements); upstream restricts both rows to
+  Air and Water Invocations only.
+
+Guarded by the "Dragonfly school matches the book (WotW p. 96)" test.
+
+## 26. Naga Seer rank-5 capstone unlearnable in `schools.json` (patched here)
+
+The Shinomen Naga Seer Tradition's rank-5 curriculum ends in
+"Ever-Changing Waves" — a rank-5 **Water invocation**, and Invocations
+are not among the tradition's available technique categories. The book
+(WotW p. 98) marks the row special access; upstream instead put the
+special-access flag on the rank-5 Kata/Shūji group rows (which the book
+does not mark) and left Ever-Changing Waves without it, making the
+capstone impossible to learn. Flags swapped to match the book. Guarded by
+the "Naga Seer rank-5 capstone is learnable" test.
+
+## 27. Kitsune Mediator extra starting techniques in `schools.json` (patched here)
+
+Upstream gives the CotFW Kitsune Mediator School a third starting
+technique choice — "Call to Ride" or "Shallow Waters" — copy-pasted from
+the Iuchi Horse Lord Disciple's list. The book (CotFW p. 86) grants only
+"Commune with the Spirits" plus one shūji (Appreciate the Scenery or
+Shallow Waters), so upstream hands every Mediator a free extra
+technique. Guarded by the "Kitsune Mediator has exactly two starting
+technique sets" test.
+
+## 28. Ujik Nomad rank-2 curriculum duplicate in `schools.json` (patched here)
+
+Upstream lists "Sudden Downpour Style" in BOTH rank 2 and rank 3 of the
+Ujik Nomad Tradition curriculum. The book (CotFW p. 92) lists **Stalking
+Leopard Style** at rank 2 (Sudden Downpour Style is the rank-3 entry).
+Guarded by the "Ujik Nomad rank 2 teaches Stalking Leopard Style" test.
+
+## 29. Syncretic Philosophy wrong ring in `advantages_disadvantages.json` (patched here)
+
+Upstream marks the CotFW distinction "Syncretic Philosophy" as Air; the
+book header (CotFW p. 93) prints **(Water)**. Guarded by the "Syncretic
+Philosophy is a Water distinction" test.
+
+## 30. Saddle Cutter wrong range in `weapons.json` (patched here)
+
+Upstream gives the CotFW Saddle Cutter range 1–2; the book (CotFW p. 100,
+Table 2-2) prints **0–1**. Damage 4, deadliness 6, and the rest of the
+row match. Guarded by the "Saddle Cutter is a range 0-1 weapon" test.
+
+## 31. Assorted WotW/CotFW page references (patched here)
+
+Book-audit page-reference corrections, all cosmetic:
+
+| File | Entry | Was | Book page |
+|---|---|---|---|
+| `techniques.json` | Spiritual Survey | CotFW 110 | 111 |
+| `techniques.json` | Shadow of Days | CotFW 110 | 111 |
+| `techniques.json` | Protection of the Flock | CotFW 110 | 111 |
+| `techniques.json` | Traveler's Experience | CotFW 110 | 112 |
+| `techniques.json` | Wayfinder's Instincts | CotFW 110 | 112 |
+| `advantages_disadvantages.json` | Tip of the Tongue | CotFW 96 | 97 |
+| `titles.json` | Temple Abbot | WotW 142 | 143 |
+| `titles.json` | Doomhunter | CotFW 135 | 134 |
+
+Guarded by the "audited WotW/CotFW page references match the books" test.
+
+## 32. WotW/CotFW quirks verified against the books (no change)
+
+Noted while auditing so nobody "fixes" them into bugs:
+
+- **Medical Innovator really grants Knowledgeable Wilderness Guide**
+  (WotW p. 107) despite the flavor mismatch.
+- Book-side typos where the data correctly uses the real name: the
+  Awakened Soul table prints "Trance of Past Lives" (technique is Trance
+  of Lives Past), the White Guard Veteran table prints "Stalking Panther
+  Style" (technique is Stalking Leopard Style), Laughing Mountain rank 3
+  prints "Trace of Lives Past", rank 4 prints "Bend the Storm" (Bend with
+  the Storm), and Table 2-2 prints the Ide Parasol Shield quality as
+  "Concealed" (Concealable).
+- Naga Armor / Nezumi Armor / Yobanjin Armor and the Carving Knife have
+  no purchase stats in WotW (outfit-only); their rarity/price in the data
+  are upstream inventions, as are the Shinjo Horsebow's (its profile
+  appears only in the p. 48 pregen).
+- Minor special-access flags upstream adds where the book prints none
+  (Laughing Mountain R5 Kihō, Woolen Hooves R4 Rituals, al-Zawira R5 Void
+  Shūji, Utaku R4/R5 techniques, Ujik R4 Pillar of Calm, Dragonfly R1 By
+  the Light of the Lord Moon): all are harmless or required for the row
+  to be learnable at all; left as-is.

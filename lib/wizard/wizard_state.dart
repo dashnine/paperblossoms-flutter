@@ -169,12 +169,12 @@ class WizardState {
     'Unforgivable Performance': "Benten's Curse",
     'Elegant Craftsman': 'Isolation',
     'Associated with a Natural Disaster': 'Whispers of Failure',
-    'Heart of a Horse': 'Karmic Tie',
+    'Heart of the Horse': 'Karmic Tie',
   };
 
   /// Heritage → fixed item grants (page 7's horse/estate mappings).
   static const namedItemGrants = {
-    'Heart of a Horse': 'Horse',
+    'Heart of the Horse': 'Horse',
     'Sacred Wilderness': "Estate somewhere in your clan's territory",
   };
 
@@ -689,6 +689,9 @@ class WizardState {
     character.ninjo = q6Text;
     character.giri = q5Text;
     character.notes = buildNotes();
+    // Chargen is done: lock identity so the finished fields can't be edited
+    // by accident. The user unlocks per-session via IdentityLockButton.
+    character.identityLocked = true;
     character.touch();
   }
 }

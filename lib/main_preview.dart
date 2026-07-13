@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'advance.dart';
 import 'character.dart';
 import 'game_data.dart';
+import 'game_data_models.dart';
 import 'item.dart';
 import 'rules_constants.dart';
 import 'screens/character_editor.dart';
@@ -78,6 +79,20 @@ void _seedDemoCharacter() {
     Item.fromArmor(gameData.armorByName('Ashigaru Armor')!),
     Item.fromPersonalEffect(gameData.personalEffects.first),
   ];
+  // Sample item descriptions (normally loaded from user_descriptions.json),
+  // for previewing description display on the Equipment tab and PDF.
+  gameData.descriptions.addAll(const [
+    Description(
+        name: 'Katana',
+        shortDesc: 'The samurai’s soul: a curved single-edged blade.',
+        description:
+            'The iconic sword of the samurai, a curved single-edged blade '
+            'worn edge-up in the belt. Drawing it in polite company is a '
+            'grave insult; striking from the draw is the essence of iaijutsu.'),
+    Description(
+        name: 'Ashigaru Armor',
+        shortDesc: 'Light lacquered infantry armor.'),
+  ]);
 }
 
 class _PreviewApp extends StatelessWidget {

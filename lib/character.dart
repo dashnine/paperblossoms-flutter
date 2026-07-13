@@ -151,7 +151,11 @@ class Character extends ChangeNotifier {
     equipment = [for (final e in json['equipment'] ?? []) Item.fromJson(e)];
     bonds = [for (final b in json['bonds'] ?? []) CharacterBond.fromJson(b)];
     portraitB64 = json['portrait'] ?? '';
-    identityLocked = json['identity_locked'] ?? false;
+    // A freshly loaded character always starts locked so its identity fields
+    // can't be edited by accident; the user unlocks per-session via
+    // IdentityLockButton. The persisted `identity_locked` is intentionally
+    // ignored here — loading is treated the same as finishing chargen.
+    identityLocked = true;
     dirty = false;
     notifyListeners();
   }

@@ -28564,7 +28564,7 @@
         ],
         "starting_techniques": [
             {
-                "size": 1,
+                "size": 2,
                 "set": [
                     "Dominion of Suijin",
                     "Reflections of P'an Ku"
@@ -28755,6 +28755,12 @@
             },
             {
                 "rank": 3,
+                "advance": "Performance",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "rank": 3,
                 "advance": "Martial Arts [Melee]",
                 "type": "skill",
                 "special_access": false
@@ -28816,17 +28822,7 @@
             },
             {
                 "rank": 4,
-                "advance": "Air Invocations",
-                "type": "technique_group",
-                "allowable_rank": {
-                    "max": 4,
-                    "min": 1
-                },
-                "special_access": false
-            },
-            {
-                "rank": 4,
-                "advance": "Water Invocations",
+                "advance": "Invocations",
                 "type": "technique_group",
                 "allowable_rank": {
                     "max": 4,
@@ -28871,17 +28867,7 @@
             },
             {
                 "rank": 5,
-                "advance": "Air Invocations",
-                "type": "technique_group",
-                "allowable_rank": {
-                    "max": 5,
-                    "min": 1
-                },
-                "special_access": false
-            },
-            {
-                "rank": 5,
-                "advance": "Water Invocations",
+                "advance": "Invocations",
                 "type": "technique_group",
                 "allowable_rank": {
                     "max": 5,
@@ -29460,7 +29446,7 @@
                 "rank": 5,
                 "advance": "Kata",
                 "type": "technique_group",
-                "special_access": true,
+                "special_access": false,
                 "allowable_rank": {
                     "max": 4,
                     "min": 1
@@ -29470,7 +29456,7 @@
                 "rank": 5,
                 "advance": "Sh\u016bji",
                 "type": "technique_group",
-                "special_access": true,
+                "special_access": false,
                 "allowable_rank": {
                     "max": 5,
                     "min": 1
@@ -29480,7 +29466,7 @@
                 "rank": 5,
                 "advance": "Ever-Changing Waves",
                 "type": "technique",
-                "special_access": false
+                "special_access": true
             }
         ],
         "mastery_ability": "Scaled Hide"
@@ -31355,13 +31341,6 @@
                 "size": 1,
                 "set": [
                     "Commune with the Spirits"
-                ]
-            },
-            {
-                "size": 1,
-                "set": [
-                    "Call to Ride",
-                    "Shallow Waters"
                 ]
             }
         ],
@@ -33427,7 +33406,7 @@
             },
             {
                 "rank": 2,
-                "advance": "Sudden Downpour Style",
+                "advance": "Stalking Leopard Style",
                 "type": "technique",
                 "special_access": false
             },

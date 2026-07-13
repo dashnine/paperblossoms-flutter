@@ -91,6 +91,7 @@ void main() {
     expect(character.baseRings, isEmpty);
     expect(character.honor, 0);
     expect(character.uuid, isNotEmpty);
-    expect(character.identityLocked, isFalse);
+    // Loading always locks identity, regardless of the saved/absent flag.
+    expect(character.identityLocked, isTrue);
   });
 }
