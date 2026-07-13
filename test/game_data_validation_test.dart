@@ -467,6 +467,227 @@ void main() {
       expect(w.rangeMax, 1);
     });
 
+    test('Jitte is a damage 3, deadliness 2 weapon', () {
+      // Upstream says damage 2 / deadliness 4; the book (Core p. 231,
+      // Table 5-1) prints DMG 3 / DLS 2, and no errata changes it.
+      // Patched in weapons.json — see docs/UPSTREAM_NOTES.md #33.
+      final w = gameData.weapons.firstWhere((w) => w.name == 'Jitte');
+      expect(w.damage, 3);
+      expect(w.deadliness, 2);
+    });
+
+    test('Kama is Concealable, not Ceremonial', () {
+      // Upstream gives the kama the Ceremonial quality; the book (Core
+      // p. 237, Table 5-2) prints Concealable, and no errata changes it.
+      // Patched in weapons.json — see docs/UPSTREAM_NOTES.md #34.
+      final w = gameData.weapons.firstWhere((w) => w.name == 'Kama');
+      expect(w.qualities, contains('Concealable'));
+      expect(w.qualities, isNot(contains('Ceremonial')));
+    });
+
+    test('Ikoma Bard School matches the book name', () {
+      // Upstream spells the Lion courtier school "Ikomo Bard School"; the
+      // family (and the book, Core p. 71) is Ikoma. Patched in schools.json
+      // — see docs/UPSTREAM_NOTES.md #36.
+      final names = gameData.schools.map((s) => s.name);
+      expect(names, contains('Ikoma Bard School'));
+      expect(names, isNot(contains('Ikomo Bard School')));
+    });
+
+    test('Hands of the Tides matches the book name', () {
+      // Upstream drops the article: "Hands of Tides". The technique block
+      // (Core p. 208) and the book index both print "Hands of the Tides".
+      // Patched in techniques.json plus every curriculum that lists it —
+      // see docs/UPSTREAM_NOTES.md #37.
+      final names = gameData.techniques.map((t) => t.name);
+      expect(names, contains('Hands of the Tides'));
+      expect(names, isNot(contains('Hands of Tides')));
+      final advances = [
+        for (final s in gameData.schools)
+          for (final c in s.curriculum) c.advance,
+        for (final t in gameData.titles)
+          for (final a in t.advancements) a.name,
+      ];
+      expect(advances, contains('Hands of the Tides'));
+      expect(advances, isNot(contains('Hands of Tides')));
+    });
+
+    test('The Body Is an Anvil matches the book name', () {
+      // The technique block (Core p. 186) and the index capitalize "Is";
+      // upstream has "The Body is an Anvil". Patched in techniques.json and
+      // the one curriculum listing it — see docs/UPSTREAM_NOTES.md #38.
+      final names = gameData.techniques.map((t) => t.name);
+      expect(names, contains('The Body Is an Anvil'));
+      expect(names, isNot(contains('The Body is an Anvil')));
+      final advances = [
+        for (final s in gameData.schools)
+          for (final c in s.curriculum) c.advance,
+      ];
+      expect(advances, isNot(contains('The Body is an Anvil')));
+    });
+
+    test('Kuni Purifier and Shinjo Outrider teach Skulduggery, not Skulk', () {
+      // Upstream misread the Skulduggery skill rows as the Skulk ninjutsu
+      // (Core p. 60 rank 1 and p. 85 rank 4 both print "Skulduggery Skill").
+      // Patched in schools.json — see docs/UPSTREAM_NOTES.md #39.
+      for (final (school, rank) in [
+        ('Kuni Purifier School', 1),
+        ('Shinjo Outrider School', 4),
+      ]) {
+        final s = gameData.schools.firstWhere((s) => s.name == school);
+        final rows = [
+          for (final c in s.curriculum)
+            if (c.rank == rank) (c.advance, c.type)
+        ];
+        expect(rows, contains(('Skulduggery', 'skill')), reason: school);
+        expect(rows, isNot(contains(('Skulk', 'technique'))), reason: school);
+      }
+    });
+
+    test('Kaiu Engineer rank 1 includes Smithing', () {
+      // Upstream omits the Smithing skill row from rank 1 (Core p. 59 lists
+      // Martial Arts [Ranged], Smithing, Tactics). Patched in schools.json —
+      // see docs/UPSTREAM_NOTES.md #40.
+      final s = gameData.schools
+          .firstWhere((s) => s.name == 'Kaiu Engineer School');
+      final r1Skills = [
+        for (final c in s.curriculum)
+          if (c.rank == 1 && c.type == 'skill') c.advance
+      ];
+      expect(r1Skills, contains('Smithing'));
+    });
+
+    test('Matsu Berserker rank 3 includes Composition', () {
+      // Upstream repeats Command at rank 3; the book (Core p. 73) prints
+      // Composition there (Command belongs to rank 4). Patched in
+      // schools.json — see docs/UPSTREAM_NOTES.md #41.
+      final s = gameData.schools
+          .firstWhere((s) => s.name == 'Matsu Berserker School');
+      List<String> skills(int rank) => [
+            for (final c in s.curriculum)
+              if (c.rank == rank && c.type == 'skill') c.advance
+          ];
+      expect(skills(3), contains('Composition'));
+      expect(skills(3), isNot(contains('Command')));
+      expect(skills(4), contains('Command'));
+    });
+
+    test('Asako Loremaster rank 4 grants Cleansing Spirit', () {
+      // Upstream lists the Cleansing Rite ritual; the book (Core p. 74)
+      // prints Cleansing Spirit (the Earth kihō, hence the special-access
+      // mark). Patched in schools.json — see docs/UPSTREAM_NOTES.md #42.
+      final s = gameData.schools
+          .firstWhere((s) => s.name == 'Asako Loremaster School');
+      final r4 = [
+        for (final c in s.curriculum)
+          if (c.rank == 4 && c.type == 'technique') c.advance
+      ];
+      expect(r4, contains('Cleansing Spirit'));
+      expect(r4, isNot(contains('Cleansing Rite')));
+    });
+
+    test('Worldly Rōnin rank 1 includes Fitness', () {
+      // Upstream omits the Fitness skill row from rank 1 (Core p. 87 lists
+      // Fitness, Martial Arts [Choose One], Performance). Patched in
+      // schools.json — see docs/UPSTREAM_NOTES.md #43.
+      final s =
+          gameData.schools.firstWhere((s) => s.name == 'Worldly Rōnin Path');
+      final r1Skills = [
+        for (final c in s.curriculum)
+          if (c.rank == 1 && c.type == 'skill') c.advance
+      ];
+      expect(r1Skills, contains('Fitness'));
+    });
+
+    test('Yasuki and Iuchi outfits start with traveling clothes', () {
+      // Upstream's first outfit entry for both schools is a second
+      // "Traveling Pack"; the books (Core pp. 61 and 83) open the lists
+      // with traveling clothes. Patched in schools.json — see
+      // docs/UPSTREAM_NOTES.md #44.
+      for (final name in [
+        'Yasuki Merchant School',
+        'Iuchi Meishōdō Master School'
+      ]) {
+        final s = gameData.schools.firstWhere((s) => s.name == name);
+        final items = [
+          for (final g in s.startingOutfit) ...g.options,
+        ];
+        expect(items, contains('Traveling Clothes'), reason: name);
+        expect(items.where((i) => i == 'Traveling Pack'), hasLength(1),
+            reason: name);
+      }
+    });
+
+    test('Paragon of Righteousness is a Virtue', () {
+      // Upstream types it Mental/Spiritual; the book (Core p. 108) types
+      // every Paragon tenet Mental/Virtue. Patched in
+      // advantages_disadvantages.json — see docs/UPSTREAM_NOTES.md #45.
+      final e = gameData.advantagesDisadvantages
+          .firstWhere((a) => a.name == 'Paragon of Righteousness');
+      expect(e.types, ['Mental', 'Virtue']);
+    });
+
+    test('Incurable Illness is typed Physical', () {
+      // Upstream appends a stray "(Appearance)" qualifier; the book (Core
+      // p. 123) types it plain Physical. Patched in
+      // advantages_disadvantages.json — see docs/UPSTREAM_NOTES.md #46.
+      final e = gameData.advantagesDisadvantages
+          .firstWhere((a) => a.name == 'Incurable Illness');
+      expect(e.types, ['Physical']);
+    });
+
+    test('Gaijin Name, Culture, or Appearance matches the book name', () {
+      // The book (Core p. 121) uses the serial comma in the adversity's
+      // name. Patched in advantages_disadvantages.json — see
+      // docs/UPSTREAM_NOTES.md #47.
+      final names = gameData.advantagesDisadvantages.map((a) => a.name);
+      expect(names, contains('Gaijin Name, Culture, or Appearance'));
+      expect(names, isNot(contains('Gaijin Name, Culture or Appearance')));
+    });
+
+    test('Utaku Stablemaster rank 1 includes the Kata group', () {
+      // Upstream omits the "Rank 1 Kata" technique-group row (CR p. 88 has
+      // it alongside the two special-access invocation/ritual rows).
+      // Patched in schools.json — see docs/UPSTREAM_NOTES.md #49.
+      final s = gameData.schools
+          .firstWhere((s) => s.name == 'Utaku Stablemaster School');
+      final r1Groups = [
+        for (final c in s.curriculum)
+          if (c.rank == 1 && c.type == 'technique_group') c.advance
+      ];
+      expect(r1Groups, contains('Kata'));
+    });
+
+    test('Shosuro Shadowweaver outfit has six shuriken and three vials', () {
+      // Upstream grants one shuriken and one vial of poison; the book (CR
+      // p. 87) grants six shuriken and three vials. Patched in schools.json
+      // — see docs/UPSTREAM_NOTES.md #50.
+      final s = gameData.schools
+          .firstWhere((s) => s.name == 'Shosuro Shadowweaver School');
+      final items = [
+        for (final g in s.startingOutfit) ...g.options,
+      ];
+      expect(items.where((i) => i == 'Shuriken'), hasLength(6));
+      expect(items.where((i) => i == 'Poison (per vial)'), hasLength(3));
+    });
+
+    test('audited CR page references match the book', () {
+      // Corrections from the Celestial Realms audit (docs/UPSTREAM_NOTES.md
+      // #51): the book opens the school chapter with Agasha Alchemist
+      // (p. 80) and Asahina Envoy (p. 81) — upstream numbered them as if
+      // they came last — and Religious Study sits on p. 91.
+      String schoolPage(String name) =>
+          gameData.schools.firstWhere((s) => s.name == name).reference.page;
+      expect(schoolPage('Agasha Alchemist School'), '80');
+      expect(schoolPage('Asahina Envoy School'), '81');
+      expect(
+          gameData.advantagesDisadvantages
+              .firstWhere((a) => a.name == 'Religious Study')
+              .reference
+              .page,
+          '91');
+    });
+
     test('audited WotW/CotFW page references match the books', () {
       // Assorted page-reference corrections from the book audit
       // (docs/UPSTREAM_NOTES.md #31): the five later CotFW rituals sit on
@@ -538,6 +759,28 @@ void main() {
                     'neither an item nor a known directive — the wizard '
                     'could not grant it');
           }
+        }
+      }
+    });
+
+    test('advantage-granting heritage outcomes resolve', () {
+      // Generalizes the Kisshōten's Blessing regression to every heritage
+      // row whose sub-table grants an advantage/disadvantage: each outcome
+      // must name a real entry, or the wizard's grant silently fails.
+      // "Ring Exchange" is a wizard directive (wizard_state handles it),
+      // not an advantage.
+      const directives = {'Ring Exchange'};
+      final advNames =
+          gameData.advantagesDisadvantages.map((a) => a.name).toSet();
+      const advTypes = {'Distinction', 'Passion', 'Adversity', 'Anxiety'};
+      for (final h in gameData.heritageEntries) {
+        if (!advTypes.contains(h.otherEffects.type)) continue;
+        for (final o in h.otherEffects.outcomes) {
+          expect(
+              advNames.contains(o.outcome) || directives.contains(o.outcome),
+              isTrue,
+              reason: 'heritage "${h.result}" (${h.source}) grants unknown '
+                  'advantage "${o.outcome}"');
         }
       }
     });

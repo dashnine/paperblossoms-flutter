@@ -381,3 +381,217 @@ Noted while auditing so nobody "fixes" them into bugs:
   Shūji, Utaku R4/R5 techniques, Ujik R4 Pillar of Calm, Dragonfly R1 By
   the Light of the Lord Moon): all are harmless or required for the row
   to be learnable at all; left as-is.
+
+## 33. Jitte wrong damage/deadliness in `weapons.json` (patched here)
+
+Upstream gives the Core jitte damage 2 / deadliness 4; the book (Core
+p. 231, Table 5-1) prints **DMG 3 / DLS 2**. Neither the v1.0 (11/2018)
+nor the final v3.0 (8/12/2020) FFG errata touches the jitte, so this is
+a data-entry error, not an errata artifact. Guarded by the "Jitte is a
+damage 3, deadliness 2 weapon" test.
+
+## 34. Kama wrong quality in `weapons.json` (patched here)
+
+Upstream gives the Core kama the **Ceremonial** quality; the book (Core
+p. 237, Table 5-2) prints **Concealable**. No FFG errata changes the
+kama. Guarded by the "Kama is Concealable, not Ceremonial" test.
+
+## 35. Core Table 5-1 rows that final errata later changed (no change)
+
+Noted while writing the Core gear descriptions: FFG's final errata
+(v3.0, 8/12/2020) raises the **Dao's deadliness to 6** and grants the
+**Jian's 2-hand grip Razor-Edged** in addition to +1 DLS. Upstream (and
+our data) matches the printed book instead, consistent with upstream's
+general book-not-errata stance. Left as-is; the descriptions mention the
+errata values in passing.
+
+## 36. "Ikomo Bard School" name error in `schools.json` (patched here)
+
+Upstream names the Lion courtier school **Ikomo** Bard School; the
+family is Ikoma and the book (Core p. 71) prints "Ikoma Bard School"
+(the string "Ikomo" appears nowhere in the book). Guarded by the "Ikoma
+Bard School matches the book name" test.
+
+## 37. "Hands of Tides" name error in `techniques.json` and curricula (patched here)
+
+Upstream drops the article from the rank-3 Water invocation: the
+technique block (Core p. 208) and the book's index both print **"Hands
+of the Tides"**, as do the Kitsu Medium and Iuchi Meishōdō Master
+curriculum tables that grant it. Renamed in techniques.json, five
+schools.json curricula, one titles.json advancement, and the
+description files. Guarded by the "Hands of the Tides matches the book
+name" test.
+
+## 38. "The Body is an Anvil" capitalization in `techniques.json` (patched here)
+
+The Earth kihō's block (Core p. 186) and the index print **"The Body Is
+an Anvil"** (capital "Is"); upstream lowercases it. Renamed in
+techniques.json, the one schools.json curriculum listing it, and the
+description files. Guarded by the "The Body Is an Anvil matches the
+book name" test.
+
+## 39. Skulduggery skill rows entered as the "Skulk" technique in `schools.json` (patched here)
+
+Two curriculum rows misread the **Skulduggery** skill as the **Skulk**
+ninjutsu (Core p. 226): Kuni Purifier rank 1 (Core p. 60 prints
+"Skulduggery  Skill") and Shinjo Outrider rank 4 (Core p. 85, same).
+Neither school could otherwise learn ninjutsu, and both lost a
+curriculum skill. The legitimate special-access Skulk rows in other
+schools (Hiruma, Bayushi, Shosuro, Soshi, Yogo, …) are unchanged.
+Guarded by the "Kuni Purifier and Shinjo Outrider teach Skulduggery,
+not Skulk" test.
+
+## 40. Kaiu Engineer rank 1 missing Smithing in `schools.json` (patched here)
+
+The book (Core p. 59) lists Martial Arts [Ranged], **Smithing**, and
+Tactics as the rank-1 skills; upstream omits Smithing (of all things,
+for the engineer school). Guarded by the "Kaiu Engineer rank 1 includes
+Smithing" test.
+
+## 41. Matsu Berserker rank 3 wrong skill in `schools.json` (patched here)
+
+Upstream repeats **Command** at rank 3; the book (Core p. 73) prints
+**Composition** there (Command is a rank-4 row, which the data already
+has). Guarded by the "Matsu Berserker rank 3 includes Composition"
+test.
+
+## 42. Asako Loremaster rank 4 wrong technique in `schools.json` (patched here)
+
+Upstream lists **Cleansing Rite** (the ritual, Core p. 212) at rank 4;
+the book (Core p. 74) prints **Cleansing Spirit** (the Earth kihō, Core
+p. 182) — which also explains the special-access mark, since the
+Loremasters cannot otherwise learn kihō. Guarded by the "Asako
+Loremaster rank 4 grants Cleansing Spirit" test.
+
+## 43. Worldly Rōnin rank 1 missing Fitness in `schools.json` (patched here)
+
+The book (Core p. 87) lists **Fitness**, Martial Arts [Choose One], and
+Performance as the rank-1 skills; upstream omits Fitness. (The data's
+expansion of "Martial Arts [Choose One]" into all three Martial Arts
+rows is equivalent and kept.) Guarded by the "Worldly Rōnin rank 1
+includes Fitness" test.
+
+## 44. Yasuki and Iuchi starting outfits begin with a second Traveling Pack in `schools.json` (patched here)
+
+Both schools' first outfit entry is "Traveling Pack" — duplicating the
+pack both books grant at the end of the list — where the books (Core
+p. 61 and p. 83) open with **traveling clothes**. The characters ended
+up with two packs and no clothes. Guarded by the "Yasuki and Iuchi
+outfits start with traveling clothes" test.
+
+## 45. Paragon of Righteousness wrong types in `advantages_disadvantages.json` (patched here)
+
+Upstream types it Mental, Spiritual; the book (Core p. 108) types every
+Paragon-of-a-Bushidō-Tenet distinction **Mental, Virtue** (the other
+six Paragon rows in the data already say so). Guarded by the "Paragon
+of Righteousness is a Virtue" test.
+
+## 46. Incurable Illness stray type qualifier in `advantages_disadvantages.json` (patched here)
+
+Upstream types it "Physical (Appearance)" — a qualifier copy-pasted
+from Gaijin Name, Culture, or Appearance; the book (Core p. 123) types
+it plain **Physical**. Guarded by the "Incurable Illness is typed
+Physical" test.
+
+## 47. "Gaijin Name, Culture or Appearance" missing comma in `advantages_disadvantages.json` (patched here)
+
+The book (Core p. 121) prints the adversity with the serial comma:
+**"Gaijin Name, Culture, or Appearance"**. Renamed here and in the
+description files. Guarded by the "Gaijin Name, Culture, or Appearance
+matches the book name" test.
+
+## 48. Core rulebook quirks verified against the book (no change)
+
+Recorded so nobody "fixes" these later. Everything below was checked
+against the Core rulebook PDF during the 2026-07 core data audit, which
+covered all 173 core techniques (names, ranks, restrictions, pages),
+all 31 school profiles and curricula, the 128 advantages/disadvantages,
+Tables 5-1/5-2/5-3 and the personal-effects costs, the Table 2-1
+heritage table (rows, modifiers, and every sub-table's die ranges), the
+Emerald Magistrate title, and every clan/family stat block — all clean
+except the entries above.
+
+- Book-side typos where the data correctly uses the real name: the Moto
+  Conqueror rank-1 table (p. 84) prints "Stir the Embers" (the shūji's
+  block on p. 219 and every other curriculum print "Stirring the
+  Embers"), the Bayushi Manipulator rank-1 table (p. 78) prints "The
+  Weight of Duty" (the block on p. 217 has no article), and the Emerald
+  Magistrate table (p. 305) and Kuni rank 3 (p. 60) print "Open Hand
+  Style" without the hyphen the block (p. 187) and the Worldly Rōnin
+  table use.
+- "+1 any two different rings" (Isawa Elementalist, Worldly Rōnin) is
+  modeled as `["any", "any"]` — correct, two increases.
+- The Asako Loremaster outfit's "ceremonial robes" is mapped to the
+  Ceremonial Clothes armor entry; "any one musical instrument" (Ikoma)
+  is modeled as a common/fine instrument choice; Hiruma and Kakita get
+  their quiver unconditionally although the book bundles it with the
+  yumi option — all harmless modeling choices.
+- Inconspicuous Garb (Soshi outfit, p. 80), the Attendant, mounts, the
+  journal, glass vials, and the arrow types have no purchase stats in
+  the book; their prices/rarities in the data are upstream inventions,
+  consistent with the WotW outfit-only items in #32.
+
+## 49. Utaku Stablemaster rank 1 missing the Kata group in `schools.json` (patched here)
+
+The book (CR p. 88) lists "Rank 1 Kata" as a technique-group row in the
+rank-1 curriculum, alongside the two special-access rows the data
+already has (Call Upon the Wind, Blessing of Fertile Fields); upstream
+omits the group. Guarded by the "Utaku Stablemaster rank 1 includes the
+Kata group" test.
+
+## 50. Shosuro Shadowweaver outfit quantities in `schools.json` (patched here)
+
+The book (CR p. 87) grants **six shuriken** and **three vials of
+poison**; upstream grants one of each (compare the Core Yogo
+Wardmaster, whose three shuriken upstream models as three entries).
+Guarded by the "Shosuro Shadowweaver outfit has six shuriken and three
+vials" test.
+
+## 51. Assorted Celestial Realms page references (patched here)
+
+The book opens the new-schools chapter with Agasha Alchemist (**p. 80**)
+and Asahina Envoy (**p. 81**); upstream numbered them 88/89 as if they
+were appended after Utaku (the other seven schools' pages are correct).
+Religious Study sits on **p. 91**, not 90. Guarded by the "audited CR
+page references match the book" test.
+
+## 52. Celestial Realms quirks verified against the book (no change)
+
+Recorded during the 2026-07 CR audit, which covered all 34 CR
+techniques (the 16 inversions verified by page and
+alphabetical-by-rank order, since their blocks print no rank line),
+all 9 school profiles and curricula, the 5 titles, 16
+advantages/disadvantages, the 7-row heritage table with every
+sub-table die range, Table 2-2 weapons (with grips), both armors, all
+item costs, and the Centipede/Moshi stat blocks. All clean except the
+entries above.
+
+- The Whip's quality is printed "**Ensnaring**, Mundane" (CR p. 98,
+  Table 2-2) — no such weapon quality exists in the system (Ensnaring
+  is a terrain quality); the data's **Snaring** is the evident intent.
+- The book labels the "Rank 1-4 Rituals" (Utaku) and "Rank 1-4 Ranged
+  Combat Kata" (Agasha) curriculum rows "Technique" instead of "Tech.
+  Grp."; the data correctly models them as groups.
+- Moon Cultist's "Disadvantage: Dark Secret" grant (CR p. 140) is not
+  representable in the titles schema (titles carry no
+  advantage/disadvantage field, matching upstream Qt); instead the app
+  hardcodes it, like the Qt original: addTitleFlow adds Dark Secret to
+  the character on taking the title (rules_constants.dart
+  titleMoonCultistGrant, alongside The Damned → Ferocity).
+- Dream Painter (rank-3 Air invocation) carries an extra harmless
+  special-access flag in the Shosuro Shadowweaver rank-3 row; the book
+  prints no "=" since the school already has Invocations — same class
+  as #32/#48.
+- "Elemental Deficiency [Ring]" uses brackets where the book prints
+  "(Ring)"; the parenthesis in the book header doubles as the ring
+  annotation, and the bracket suffix is the data's established
+  disambiguation convention.
+- Agasha Alchemist outfit simplifications: the book's "pouch of darts"
+  has no item entry (ammunition is covered by the quiver convention),
+  "one omamori (your choice)" is modeled as the generic Omamori, and
+  the "pouch of 5 blessed glass vials" maps to Set of glass vials.
+- The Priceless artifacts (Horagai of Sacred Rains, Daikoku's Mallet,
+  Golden Obi) carry no meaningful price in the data, and the CR
+  outfit-only items (Drafting Paper, Fine Set of Chisels, Pouch of
+  Incense, Religious Texts, Bag of Horse Treats) reference their school
+  pages with no purchase stats — same class as #32/#48.

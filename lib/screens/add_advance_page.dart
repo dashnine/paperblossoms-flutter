@@ -16,7 +16,12 @@ class AddAdvancePage extends StatefulWidget {
   final String? initialType;
   final String? initialOption;
 
-  const AddAdvancePage({super.key, this.initialType, this.initialOption});
+  /// Optional group pre-filter, e.g. tapping a curriculum skill_group or
+  /// technique_group entry ('Martial skills', 'Close Combat Kata', ...).
+  final String? initialGroup;
+
+  const AddAdvancePage(
+      {super.key, this.initialType, this.initialOption, this.initialGroup});
 
   @override
   State<AddAdvancePage> createState() => _AddAdvancePageState();
@@ -28,24 +33,58 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
   String _track = trackCurriculum;
   bool _halfXp = false;
   bool _removeRestrictions = false;
-  String _categoryFilter = '';
+  String _groupFilter = '';
   final _reasonController = TextEditingController();
+  final _searchController = TextEditingController();
+  final _techListController = ScrollController();
+  final _selectedTileKey = GlobalKey();
 
   @override
   void initState() {
     super.initState();
     _type = widget.initialType ?? advanceTypeSkill;
     _selection = widget.initialOption;
+    _groupFilter = widget.initialGroup ?? '';
     if (_type == advanceTypeTechnique && widget.initialOption != null) {
       final tech = gameDataTechnique(widget.initialOption!);
-      if (tech != null) _categoryFilter = tech.category;
+      if (tech != null) {
+        if (_groupFilter.isEmpty) _groupFilter = tech.category;
+        WidgetsBinding.instance
+            .addPostFrameCallback((_) => _revealSelectedTechnique());
+      }
     }
   }
 
   @override
   void dispose() {
     _reasonController.dispose();
+    _searchController.dispose();
+    _techListController.dispose();
     super.dispose();
+  }
+
+  /// Scroll the preselected technique into view. The list builds tiles
+  /// lazily, so the keyed tile may not exist yet; jump to a proportional
+  /// estimate and retry — the estimate converges as tiles get real extents.
+  void _revealSelectedTechnique([int attempts = 8]) {
+    final keyContext = _selectedTileKey.currentContext;
+    if (keyContext != null) {
+      Scrollable.ensureVisible(keyContext, alignment: 0.3);
+      return;
+    }
+    if (attempts == 0 || !mounted || !_techListController.hasClients) return;
+    final options = _techniqueOptions();
+    final index = options.indexWhere((t) => t.name == _selection);
+    if (index < 0) return;
+    final position = _techListController.position;
+    final estimate = (position.maxScrollExtent + position.viewportDimension) *
+            index /
+            options.length -
+        position.viewportDimension / 2;
+    _techListController
+        .jumpTo(estimate.clamp(0.0, position.maxScrollExtent));
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _revealSelectedTechnique(attempts - 1));
   }
 
   Technique? gameDataTechnique(String name) =>
@@ -56,7 +95,10 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
   List<String> _options() {
     switch (_type) {
       case advanceTypeSkill:
-        return purchasableSkills(character);
+        final skills = purchasableSkills(character);
+        if (_groupFilter.isEmpty) return skills;
+        final inGroup = gameData.skillsByGroup(_groupFilter);
+        return [for (final skill in skills) if (inGroup.contains(skill)) skill];
       case advanceTypeRing:
         return purchasableRings(character);
       default:
@@ -64,13 +106,60 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
     }
   }
 
+  List<Technique> _legalTechniques() =>
+      legalTechniques(character, removeRestrictions: _removeRestrictions);
+
+  /// Case- and macron-insensitive, so typing "kiho" finds "Kihō".
+  String _fold(String s) => s
+      .toLowerCase()
+      .replaceAll('ā', 'a')
+      .replaceAll('ō', 'o')
+      .replaceAll('ū', 'u');
+
   List<Technique> _techniqueOptions() {
-    final legal =
-        legalTechniques(character, removeRestrictions: _removeRestrictions);
+    final query = _fold(_searchController.text.trim());
     return [
-      for (final tech in legal)
-        if (_categoryFilter.isEmpty || tech.category == _categoryFilter) tech
+      for (final tech in _legalTechniques())
+        if ((_groupFilter.isEmpty ||
+                tech.category == _groupFilter ||
+                tech.subcategory == _groupFilter) &&
+            (query.isEmpty || _fold(tech.name).contains(query)))
+          tech
     ];
+  }
+
+  /// Categories with their subcategories indented beneath them; curriculum
+  /// technique groups name either level ('Kata', 'Close Combat Kata').
+  List<DropdownMenuEntry<String>> _techniqueGroupEntries() {
+    final entries = <DropdownMenuEntry<String>>[
+      const DropdownMenuEntry(value: '', label: 'All groups'),
+    ];
+    final seen = <String>{};
+    for (final tech in _legalTechniques()) {
+      if (seen.add(tech.category)) {
+        entries.add(
+            DropdownMenuEntry(value: tech.category, label: tech.category));
+      }
+      if (tech.subcategory.isNotEmpty &&
+          tech.subcategory != tech.category &&
+          seen.add(tech.subcategory)) {
+        entries.add(DropdownMenuEntry(
+          value: tech.subcategory,
+          label: tech.subcategory,
+          labelWidget: Padding(
+            padding: const EdgeInsets.only(left: 16),
+            child: Text(tech.subcategory),
+          ),
+        ));
+      }
+    }
+    // Keep a preset curriculum group selectable even when no technique is
+    // currently legal in it (e.g. all its ranks are above the character's).
+    if (_groupFilter.isNotEmpty && !seen.contains(_groupFilter)) {
+      entries
+          .add(DropdownMenuEntry(value: _groupFilter, label: _groupFilter));
+    }
+    return entries;
   }
 
   int? _cost() {
@@ -141,15 +230,34 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
             onSelectionChanged: (selection) => setState(() {
               _type = selection.single;
               _selection = null;
-              _categoryFilter = '';
+              _groupFilter = '';
+              _searchController.clear();
             }),
           ),
           if (_type != advanceTypeTechnique) ...[
             const SectionHeader('Advance'),
+            if (_type == advanceTypeSkill) ...[
+              DropdownMenu<String>(
+                width: 320,
+                initialSelection: _groupFilter,
+                label: const Text('Group'),
+                dropdownMenuEntries: [
+                  const DropdownMenuEntry(value: '', label: 'All groups'),
+                  for (final group in gameData.skillGroups)
+                    DropdownMenuEntry(value: group.name, label: group.name),
+                ],
+                onSelected: (value) => setState(() {
+                  _groupFilter = value ?? '';
+                  if (!_options().contains(_selection)) _selection = null;
+                }),
+              ),
+              const SizedBox(height: 8),
+            ],
             DropdownMenu<String>(
-              key: ValueKey(_type),
+              key: ValueKey('$_type:$_groupFilter'),
               width: 320,
               initialSelection: _selection,
+              label: Text(_type),
               enableFilter: true,
               requestFocusOnTap: true,
               dropdownMenuEntries: [
@@ -175,19 +283,17 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
             ),
             DropdownMenu<String>(
               width: 320,
-              initialSelection: _categoryFilter,
-              label: const Text('Category'),
-              dropdownMenuEntries: [
-                const DropdownMenuEntry(value: '', label: 'All categories'),
-                for (final category in {
-                  for (final t in _techniqueOptions()) t.category
-                })
-                  DropdownMenuEntry(value: category, label: category),
-              ],
-              onSelected: (value) =>
-                  setState(() => _categoryFilter = value ?? ''),
+              initialSelection: _groupFilter,
+              label: const Text('Group'),
+              dropdownMenuEntries: _techniqueGroupEntries(),
+              onSelected: (value) => setState(() {
+                _groupFilter = value ?? '';
+                if (!_techniqueOptions().any((t) => t.name == _selection)) {
+                  _selection = null;
+                }
+              }),
             ),
-            if (_categoryFilter == 'Mahō')
+            if (_groupFilter == 'Mahō')
               const Padding(
                 padding: EdgeInsets.only(top: 8),
                 child: Text(
@@ -195,13 +301,35 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
                     style: TextStyle(fontStyle: FontStyle.italic)),
               ),
             const SizedBox(height: 8),
+            TextField(
+              controller: _searchController,
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search),
+                labelText: 'Type to filter',
+                isDense: true,
+                suffixIcon: _searchController.text.isEmpty
+                    ? null
+                    : IconButton(
+                        tooltip: 'Clear filter',
+                        icon: const Icon(Icons.clear),
+                        onPressed: () =>
+                            setState(_searchController.clear),
+                      ),
+              ),
+              onChanged: (_) => setState(() {}),
+            ),
+            const SizedBox(height: 8),
             ConstrainedBox(
               constraints: const BoxConstraints(maxHeight: 320),
               child: Card(
                 child: ListView(
+                  controller: _techListController,
                   children: [
                     for (final tech in _techniqueOptions())
                       RadioListTile<String>(
+                        key: tech.name == _selection
+                            ? _selectedTileKey
+                            : null,
                         dense: true,
                         value: tech.name,
                         groupValue: _selection,

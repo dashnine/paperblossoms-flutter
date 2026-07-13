@@ -8,6 +8,7 @@ import 'game_data.dart';
 import 'game_data_models.dart';
 import 'item.dart';
 import 'rules_constants.dart';
+import 'screens/add_advance_page.dart';
 import 'screens/character_editor.dart';
 import 'screens/tools_page.dart';
 import 'theme.dart';
@@ -115,13 +116,27 @@ class _PreviewApp extends StatelessWidget {
         debugShowCheckedModeBanner: false,
         // WIZARD=true opens the Twenty Questions wizard, TOOLS=true the
         // tools page, instead of the editor.
-        home: const bool.fromEnvironment('WIZARD')
-            ? const NewCharacterWizard()
-            : const bool.fromEnvironment('TOOLS')
-                ? const ToolsPage()
-                : const CharacterEditor(
-                    initialTab: int.fromEnvironment('TAB')),
+        home: _home(),
       ),
     );
+  }
+
+  Widget _home() {
+    if (const bool.fromEnvironment('WIZARD')) return const NewCharacterWizard();
+    if (const bool.fromEnvironment('TOOLS')) return const ToolsPage();
+    // ADVANCE_TYPE (Skill/Ring/Technique, plus optional ADVANCE_OPTION and
+    // ADVANCE_GROUP) opens the Add Advance page directly — curriculum taps
+    // can't be automated on this machine.
+    const advanceType = String.fromEnvironment('ADVANCE_TYPE');
+    if (advanceType.isNotEmpty) {
+      const option = String.fromEnvironment('ADVANCE_OPTION');
+      const group = String.fromEnvironment('ADVANCE_GROUP');
+      return AddAdvancePage(
+        initialType: advanceType,
+        initialOption: option.isEmpty ? null : option,
+        initialGroup: group.isEmpty ? null : group,
+      );
+    }
+    return const CharacterEditor(initialTab: int.fromEnvironment('TAB'));
   }
 }

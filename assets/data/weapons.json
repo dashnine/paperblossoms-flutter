@@ -1150,8 +1150,8 @@
                     "min": 0,
                     "max": 0
                 },
-                "damage": 2,
-                "deadliness": 4,
+                "damage": 3,
+                "deadliness": 2,
                 "grips": [
                     {
                         "name": "1-hand",
@@ -2201,7 +2201,7 @@
                         "effects": []
                     }
                 ],
-                "qualities": ["Ceremonial"],
+                "qualities": ["Concealable"],
                 "rarity": 4,
                 "price": {
                     "value": 1,

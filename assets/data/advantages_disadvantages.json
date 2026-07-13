@@ -319,7 +319,7 @@
                     "page": 108
                 },
                 "ring": "Void",
-                "types": ["Mental", "Spiritual"],
+                "types": ["Mental", "Virtue"],
                 "effects": ""
             },
             {
@@ -1181,7 +1181,7 @@
                 "name": "Religious Study",
                 "reference": {
                     "book": "CR",
-                    "page": 90
+                    "page": 91
                 },
                 "ring": "Void",
                 "types": ["Mental", "Spiritual"],
@@ -1483,7 +1483,7 @@
                 "effects": ""
             },
             {
-                "name": "Gaijin Name, Culture or Appearance",
+                "name": "Gaijin Name, Culture, or Appearance",
                 "reference": {
                     "book": "Core",
                     "page": 121
@@ -1509,7 +1509,7 @@
                     "page": 122
                 },
                 "ring": "Earth",
-                "types": ["Physical (Appearance)"],
+                "types": ["Physical"],
                 "effects": ""
             },
             {

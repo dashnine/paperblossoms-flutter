@@ -758,6 +758,12 @@
             },
             {
                 "rank": 1,
+                "advance": "Smithing",
+                "type": "skill",
+                "special_access": false
+            },
+            {
+                "rank": 1,
                 "advance": "Tactics",
                 "type": "skill",
                 "special_access": false
@@ -1064,8 +1070,8 @@
             },
             {
                 "rank": 1,
-                "advance": "Skulk",
-                "type": "technique",
+                "advance": "Skulduggery",
+                "type": "skill",
                 "special_access": false
             },
             {
@@ -1321,7 +1327,7 @@
             {
                 "size": 1,
                 "set": [
-                    "Traveling Pack"
+                    "Traveling Clothes"
                 ]
             },
             {
@@ -4387,7 +4393,7 @@
         "mastery_ability": "Akodo's Final Lesson"
     },
     {
-        "name": "Ikomo Bard School",
+        "name": "Ikoma Bard School",
         "reference": {
             "book": "Core",
             "page": 71
@@ -4884,7 +4890,7 @@
             },
             {
                 "rank": 2,
-                "advance": "Hands of Tides",
+                "advance": "Hands of the Tides",
                 "type": "technique",
                 "special_access": false
             },
@@ -5221,7 +5227,7 @@
             },
             {
                 "rank": 3,
-                "advance": "Command",
+                "advance": "Composition",
                 "type": "skill",
                 "special_access": false
             },
@@ -5599,7 +5605,7 @@
             },
             {
                 "rank": 4,
-                "advance": "Cleansing Rite",
+                "advance": "Cleansing Spirit",
                 "type": "technique",
                 "special_access": true
             },
@@ -8213,7 +8219,7 @@
             {
                 "size": 1,
                 "set": [
-                    "Traveling Pack"
+                    "Traveling Clothes"
                 ]
             },
             {
@@ -8328,7 +8334,7 @@
             },
             {
                 "rank": 2,
-                "advance": "Hands of Tides",
+                "advance": "Hands of the Tides",
                 "type": "technique",
                 "special_access": true
             },
@@ -9038,8 +9044,8 @@
             },
             {
                 "rank": 4,
-                "advance": "Skulk",
-                "type": "technique",
+                "advance": "Skulduggery",
+                "type": "skill",
                 "special_access": false
             },
             {
@@ -9526,6 +9532,12 @@
                 "rank": 1,
                 "advance": "Trade skills",
                 "type": "skill_group",
+                "special_access": false
+            },
+            {
+                "rank": 1,
+                "advance": "Fitness",
+                "type": "skill",
                 "special_access": false
             },
             {
@@ -13518,7 +13530,7 @@
             },
             {
                 "rank": 1,
-                "advance": "The Body is an Anvil",
+                "advance": "The Body Is an Anvil",
                 "type": "technique",
                 "special_access": false
             },
@@ -14642,7 +14654,7 @@
             },
             {
                 "rank": 2,
-                "advance": "Hands of Tides",
+                "advance": "Hands of the Tides",
                 "type": "technique",
                 "special_access": true
             },
@@ -15202,7 +15214,7 @@
             },
             {
                 "rank": 2,
-                "advance": "Hands of Tides",
+                "advance": "Hands of the Tides",
                 "type": "technique",
                 "special_access": true
             },
@@ -19536,7 +19548,7 @@
             },
             {
                 "rank": 3,
-                "advance": "Hands of Tides",
+                "advance": "Hands of the Tides",
                 "type": "technique",
                 "special_access": true
             },
@@ -21579,7 +21591,7 @@
         "name": "Agasha Alchemist School",
         "reference": {
             "book": "CR",
-            "page": 88
+            "page": 80
         },
         "role": ["Shugenja"],
         "clan": "Dragon",
@@ -21863,10 +21875,10 @@
     },
     {
         "name": "Asahina Envoy School",
-        "reference": 
+        "reference":
         {
             "book": "CR",
-            "page": 89
+            "page": 81
         },
         "role": ["Courtier"],
         "clan": "Crane",
@@ -23583,6 +23595,34 @@
             },
             {
                 "size": 1,
+                "set": ["Shuriken"]
+            },
+            {
+                "size": 1,
+                "set": ["Shuriken"]
+            },
+            {
+                "size": 1,
+                "set": ["Shuriken"]
+            },
+            {
+                "size": 1,
+                "set": ["Shuriken"]
+            },
+            {
+                "size": 1,
+                "set": ["Shuriken"]
+            },
+            {
+                "size": 1,
+                "set": ["Poison (per vial)"]
+            },
+            {
+                "size": 1,
+                "set": ["Poison (per vial)"]
+            },
+            {
+                "size": 1,
                 "set": ["Poison (per vial)"]
             },
             {
@@ -23903,6 +23943,12 @@
                 "rank": 1,
                 "advance": "Survival",
                 "type": "skill",
+                "special_access": false
+            },
+            {
+                "rank": 1,
+                "advance": "Kata",
+                "type": "technique_group",
                 "special_access": false
             },
             {

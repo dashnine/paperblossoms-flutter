@@ -29,7 +29,7 @@ void main() {
 
   Future<Advance?> runAdvancePage(WidgetTester tester,
       Future<void> Function(WidgetTester) drive,
-      {String? initialType, String? initialOption}) async {
+      {String? initialType, String? initialOption, String? initialGroup}) async {
     Advance? result;
     await tester.pumpWidget(MaterialApp(
       home: Builder(
@@ -40,7 +40,8 @@ void main() {
               MaterialPageRoute(
                   builder: (context) => AddAdvancePage(
                       initialType: initialType,
-                      initialOption: initialOption)),
+                      initialOption: initialOption,
+                      initialGroup: initialGroup)),
             );
           },
           child: const Text('open'),
@@ -113,6 +114,66 @@ void main() {
         initialType: advanceTypeTechnique,
         initialOption: 'Striking as Earth');
     expect(advance, isNull);
+  });
+
+  testWidgets('technique group tap pre-filters the list', (tester) async {
+    tester.view.physicalSize = const Size(900, 1400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await runAdvancePage(tester, (tester) async {
+      // Subcategory groups filter too, not just top-level categories.
+      expect(find.text('Trip the Leg'), findsOneWidget);
+      expect(find.text('Striking as Earth'), findsNothing);
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+    }, initialType: advanceTypeTechnique, initialGroup: 'Close Combat Kata');
+  });
+
+  testWidgets('type-to-filter narrows techniques, macron-insensitively',
+      (tester) async {
+    tester.view.physicalSize = const Size(900, 1400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await runAdvancePage(tester, (tester) async {
+      await tester.enterText(
+          find.widgetWithText(TextField, 'Type to filter'), 'chikusho');
+      await tester.pumpAndSettle();
+      expect(find.text("Chikushō-dō's Guile"), findsOneWidget);
+      expect(find.text('Striking as Earth'), findsNothing);
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+    }, initialType: advanceTypeTechnique);
+  });
+
+  testWidgets('preselected technique is scrolled into view', (tester) async {
+    tester.view.physicalSize = const Size(900, 1400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await runAdvancePage(tester, (tester) async {
+      // Deep in the Kata list, so only visible if the reveal scroll ran.
+      expect(find.text("Warrior's Resolve").hitTestable(), findsOneWidget);
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+    },
+        initialType: advanceTypeTechnique,
+        initialOption: "Warrior's Resolve");
+  });
+
+  testWidgets('skill group tap pre-filters the advance dropdown',
+      (tester) async {
+    tester.view.physicalSize = const Size(900, 1400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await runAdvancePage(tester, (tester) async {
+      // Group dropdown preset from the curriculum entry.
+      expect(find.text('Martial skills'), findsWidgets);
+      // DropdownMenu lays its entries out in a hidden measurement layer,
+      // so the filtered advance options are findable without opening it.
+      expect(find.text('Fitness'), findsWidgets);
+      expect(find.text('Courtesy'), findsNothing);
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+    }, initialType: advanceTypeSkill, initialGroup: 'Martial skills');
   });
 
   test('The Damned grants Ferocity exactly once', () {

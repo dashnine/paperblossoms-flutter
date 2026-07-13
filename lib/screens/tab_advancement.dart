@@ -17,12 +17,16 @@ class AdvancementTab extends StatelessWidget {
   const AdvancementTab({super.key});
 
   Future<void> _addAdvance(BuildContext context,
-      {String? initialType, String? initialOption}) async {
+      {String? initialType,
+      String? initialOption,
+      String? initialGroup}) async {
     final advance = await Navigator.push<Advance>(
       context,
       MaterialPageRoute(
           builder: (context) => AddAdvancePage(
-              initialType: initialType, initialOption: initialOption)),
+              initialType: initialType,
+              initialOption: initialOption,
+              initialGroup: initialGroup)),
     );
     if (advance == null) return;
     character.advanceStack.add(advance);
@@ -37,12 +41,14 @@ class AdvancementTab extends StatelessWidget {
         _addAdvance(context,
             initialType: advanceTypeSkill, initialOption: entry.advance);
       case entryTypeSkillGroup:
-        _addAdvance(context, initialType: advanceTypeSkill);
+        _addAdvance(context,
+            initialType: advanceTypeSkill, initialGroup: entry.advance);
       case entryTypeTechnique:
         _addAdvance(context,
             initialType: advanceTypeTechnique, initialOption: entry.advance);
       case entryTypeTechniqueGroup:
-        _addAdvance(context, initialType: advanceTypeTechnique);
+        _addAdvance(context,
+            initialType: advanceTypeTechnique, initialGroup: entry.advance);
     }
   }
 
