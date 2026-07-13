@@ -78,6 +78,7 @@ class Item {
     var deadliness = weapon.deadliness;
     var rangeMin = weapon.rangeMin;
     var rangeMax = weapon.rangeMax;
+    final qualities = List.of(weapon.qualities);
     for (final effect in grip.effects) {
       final value = effect.value is int ? effect.value as int : 0;
       switch (effect.attribute) {
@@ -87,6 +88,8 @@ class Item {
           deadliness += value;
         case 'range':
           rangeMax += value;
+        case 'quality':
+          if (effect.value is String) qualities.add(effect.value as String);
       }
     }
     return Item(
@@ -97,7 +100,7 @@ class Item {
       price: weapon.price.value,
       unit: weapon.price.unit,
       rarity: weapon.rarity,
-      qualities: List.of(weapon.qualities),
+      qualities: qualities,
       category: weapon.category,
       skill: weapon.skill,
       grip: grip.name,

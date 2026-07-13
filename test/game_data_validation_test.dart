@@ -748,6 +748,56 @@ void main() {
           '72');
     });
 
+    test('Asako Inquisitor starting skills include Meditation', () {
+      // The book (SL p. 88) offers six skills to choose three from;
+      // upstream dropped Meditation. Patched in schools.json — see
+      // docs/UPSTREAM_NOTES.md #59.
+      final s = gameData.schools
+          .firstWhere((s) => s.name == 'Asako Inquisitor School');
+      expect(s.startingSkills.options, contains('Meditation'));
+      expect(s.startingSkills.options, hasLength(6));
+      expect(s.startingSkills.size, 3);
+    });
+
+    test("Harvester's Skulk is special access", () {
+      // The book (SL p. 128) marks the Skulk row "=" — required, since
+      // the title is how a Crab learns ninjutsu at all. Patched in
+      // titles.json — see docs/UPSTREAM_NOTES.md #60.
+      final t = gameData.titles.firstWhere((t) => t.name == 'Harvester');
+      final skulk = t.advancements.firstWhere((a) => a.name == 'Skulk');
+      expect(skulk.specialAccess, isTrue);
+    });
+
+    test('SL ritual role restrictions match the book', () {
+      // The blocks (SL p. 114) print "(Shugenja)" on Craft Shikigami and
+      // "(Artisan)" on Blessing of Steel; upstream drops both. Patched in
+      // techniques.json — see docs/UPSTREAM_NOTES.md #61.
+      String restrictionOf(String name) => gameData.techniques
+          .firstWhere((t) => t.name == name)
+          .restriction;
+      expect(restrictionOf('Craft Shikigami'), 'Shugenja');
+      expect(restrictionOf('Blessing of Steel'), 'Artisan');
+    });
+
+    test("Hasegawa's Denial requires school rank 3", () {
+      // The scroll's prerequisites (SL p. 108) include "school rank 3";
+      // upstream models it rank 1 like the other two scrolls (whose
+      // prerequisites carry no rank). Patched in techniques.json — see
+      // docs/UPSTREAM_NOTES.md #62.
+      final t =
+          gameData.techniques.firstWhere((t) => t.name == "Hasegawa's Denial");
+      expect(t.rank, 3);
+    });
+
+    test('The Blood Price phantom is not a learnable technique', () {
+      // SL pp. 115-116 "The Blood Price" is the mahō blood-sacrifice
+      // rules section, not a technique; upstream ships it as a rank-1
+      // mahō entry. Removed here (nothing references it) — see
+      // docs/UPSTREAM_NOTES.md #63.
+      final names = gameData.techniques.map((t) => t.name);
+      expect(names, isNot(contains('The Blood Price')));
+    });
+
     test('audited WotW/CotFW page references match the books', () {
       // Assorted page-reference corrections from the book audit
       // (docs/UPSTREAM_NOTES.md #31): the five later CotFW rituals sit on

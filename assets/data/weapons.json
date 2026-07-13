@@ -361,7 +361,7 @@
                         "effects": [
                             {
                                 "attribute": "quality",
-                                "value": "Razor-Edged"
+                                "value": "Razor-edged"
                             }
                         ]
                     }
@@ -3097,7 +3097,7 @@
                             },
                             {
                                 "attribute": "quality",
-                                "value": "Razor-Edged"
+                                "value": "Razor-edged"
                             }
                         ]
                     }

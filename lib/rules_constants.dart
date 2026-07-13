@@ -44,6 +44,12 @@ const titleTheDamned = 'The Damned';
 const titleTheDamnedGrant = 'Ferocity';
 const titleMoonCultist = 'Moon Cultist';
 const titleMoonCultistGrant = 'Dark Secret';
+const titleGrants = {
+  titleTheDamned: titleTheDamnedGrant,
+  titleMoonCultist: titleMoonCultistGrant,
+  'Covert Agent': 'Dark Secret',
+  'Dreaded Enforcer': 'Whispers of Cruelty',
+};
 
 // Curriculum XP needed to advance out of each school rank (core book p.98).
 const rankXpThresholds = [20, 24, 32, 44, 60];

@@ -6,6 +6,7 @@ import 'package:paperblossoms/game_data.dart';
 import 'package:paperblossoms/rules_constants.dart';
 import 'package:paperblossoms/screens/add_advance_page.dart';
 import 'package:paperblossoms/screens/add_title_page.dart';
+import 'package:paperblossoms/screens/tab_advancement.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -184,6 +185,154 @@ void main() {
       await tester.pageBack();
       await tester.pumpAndSettle();
     }, initialType: advanceTypeSkill, initialGroup: 'Martial skills');
+  });
+
+  testWidgets('technique page lays out without overflow at 320px width',
+      (tester) async {
+    tester.view.physicalSize = const Size(320, 700);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(const MaterialApp(
+        home: AddAdvancePage(initialType: advanceTypeTechnique)));
+    await tester.pumpAndSettle();
+    // Rendering overflows would have thrown via FlutterError.onError.
+    expect(find.text('Type to filter'), findsOneWidget);
+  });
+
+  testWidgets('buying from the curriculum confirms and marks the entry',
+      (tester) async {
+    tester.view.physicalSize = const Size(900, 1400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    // Like CharacterEditor, rebuild the tab whenever the character changes.
+    // NOT const: an identical const child would let Flutter skip the rebuild.
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: ListenableBuilder(
+          listenable: character,
+          // ignore: prefer_const_constructors
+          builder: (context, _) => AdvancementTab(),
+        ),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Rushing Avalanche Style'));
+    await tester.tap(find.text('Rushing Avalanche Style'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(
+        find.widgetWithText(FilledButton, 'Add Advance'));
+    await tester.tap(find.widgetWithText(FilledButton, 'Add Advance'));
+    await tester.pumpAndSettle();
+    // Back on the tab: purchase SnackBar plus a disabled, checkmarked row.
+    expect(find.text('Added Rushing Avalanche Style — 3 XP (Curriculum)'),
+        findsOneWidget);
+    final row = tester.widget<ListTile>(find.ancestor(
+        of: find.text('Rushing Avalanche Style').first,
+        matching: find.byType(ListTile)));
+    expect(row.enabled, isFalse);
+    expect(find.byIcon(Icons.check_circle), findsWidgets);
+  });
+
+  testWidgets('curriculum ranks collapse; expanding reveals other ranks',
+      (tester) async {
+    tester.view.physicalSize = const Size(900, 1400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await tester.pumpWidget(
+        const MaterialApp(home: Scaffold(body: AdvancementTab())));
+    await tester.pumpAndSettle();
+    // Current rank (1) is expanded, rank 2 is collapsed.
+    expect(find.text('Rushing Avalanche Style'), findsOneWidget);
+    expect(find.text('Touchstone of Courage'), findsNothing);
+    await tester.tap(find.text('Rank 2'));
+    await tester.pumpAndSettle();
+    expect(find.text('Touchstone of Courage'), findsOneWidget);
+  });
+
+  testWidgets('ranking up expands the new rank and collapses the old',
+      (tester) async {
+    tester.view.physicalSize = const Size(900, 1400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    // 18 curriculum XP: one matching buy away from the rank-2 threshold (20).
+    character.advanceStack = [
+      Advance(
+          type: advanceTypeSkill,
+          name: 'Medicine',
+          track: trackCurriculum,
+          cost: 18),
+    ];
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: ListenableBuilder(
+          listenable: character,
+          // ignore: prefer_const_constructors
+          builder: (context, _) => AdvancementTab(),
+        ),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    expect(find.text('Honest Assessment'), findsOneWidget); // rank 1 open
+    expect(find.text('Touchstone of Courage'), findsNothing); // rank 2 shut
+    // Rushing Avalanche Style matches the rank-1 curriculum: +3 XP -> rank 2.
+    await tester.ensureVisible(find.text('Rushing Avalanche Style'));
+    await tester.tap(find.text('Rushing Avalanche Style'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(
+        find.widgetWithText(FilledButton, 'Add Advance'));
+    await tester.tap(find.widgetWithText(FilledButton, 'Add Advance'));
+    await tester.pumpAndSettle();
+    expect(find.textContaining('school rank is now 2'), findsOneWidget);
+    expect(find.text('Touchstone of Courage'), findsOneWidget); // rank 2 open
+    expect(find.text('Honest Assessment'), findsNothing); // rank 1 shut
+  });
+
+  testWidgets('title advancement rows buy on the Title track',
+      (tester) async {
+    tester.view.physicalSize = const Size(900, 1400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    character.titles = ['Deathseeker'];
+    // ignore: prefer_const_constructors
+    await tester.pumpWidget(MaterialApp(
+      home: Scaffold(
+        body: ListenableBuilder(
+          listenable: character,
+          // ignore: prefer_const_constructors
+          builder: (context, _) => AdvancementTab(),
+        ),
+      ),
+    ));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text('Deathseeker'));
+    await tester.tap(find.text('Deathseeker'));
+    await tester.pumpAndSettle();
+    await tester.ensureVisible(find.text("A Samurai's Fate"));
+    await tester.tap(find.text("A Samurai's Fate"));
+    await tester.pumpAndSettle();
+    // The Title track is preselected; buy as-is.
+    await tester.ensureVisible(
+        find.widgetWithText(FilledButton, 'Add Advance'));
+    await tester.tap(find.widgetWithText(FilledButton, 'Add Advance'));
+    await tester.pumpAndSettle();
+    expect(character.advanceStack.last.name, "A Samurai's Fate");
+    expect(character.advanceStack.last.track, trackTitle);
+  });
+
+  testWidgets('Enter selects the single filtered technique', (tester) async {
+    tester.view.physicalSize = const Size(900, 1400);
+    tester.view.devicePixelRatio = 1.0;
+    addTearDown(tester.view.reset);
+    await runAdvancePage(tester, (tester) async {
+      await tester.enterText(
+          find.widgetWithText(TextField, 'Type to filter'), 'chikusho');
+      await tester.pumpAndSettle();
+      await tester.testTextInput.receiveAction(TextInputAction.done);
+      await tester.pumpAndSettle();
+      expect(find.text('Cost: 3 XP'), findsOneWidget);
+      await tester.pageBack();
+      await tester.pumpAndSettle();
+    }, initialType: advanceTypeTechnique);
   });
 
   test('The Damned grants Ferocity exactly once', () {

@@ -12624,7 +12624,7 @@
         "ring_increase": ["Fire", "Void"],
         "starting_skills": {
             "size": 3,
-            "set": ["Courtesy", "Martial Arts [Melee]", "Martial Arts [Unarmed]", "Performance", "Theology"]
+            "set": ["Courtesy", "Martial Arts [Melee]", "Martial Arts [Unarmed]", "Meditation", "Performance", "Theology"]
         },
         "honor": 35,
         "techniques_available": ["Invocations", "Rituals", "Sh\u016bji"],
@@ -16705,7 +16705,7 @@
                 "special_access": false
             }
         ],
-        "mastery_ability": "Victory is the Greatest Honor"
+        "mastery_ability": "Victory Is the Greatest Honor"
     },
     {
         "name": "Mercenary Ninja Training",

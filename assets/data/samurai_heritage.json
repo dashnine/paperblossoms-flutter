@@ -830,7 +830,7 @@
         },
         "other_effects": {
             "type": "Skill",
-            "instructions": "You gain the Benten's Curse (air) disadvantage (see page 116 of the core rulebook). Rolla ten-sided die to determine a skill that will help redeem your family.",
+            "instructions": "You gain the Benten's Curse (Air) disadvantage (see page 116 of the core rulebook). Roll a ten-sided die to determine a skill that will help redeem your family.",
             "outcomes": [
                 {
                     "roll": {
@@ -953,7 +953,7 @@
         },
         "other_effects": {
             "type": "Anxiety and other",
-            "instructions": "You gain the Isolation anxiety (see page 103). Choose one of your character's rings; you may reduce the value of this ring by 1 to increase the value of your Fire or Air Ring bi 1 (this still cannot raise it above 3).",
+            "instructions": "You gain the Isolation anxiety (see page 103). Choose one of your character's rings; you may reduce the value of this ring by 1 to increase the value of your Fire or Air Ring by 1 (this still cannot raise it above 3).",
             "outcomes": [
                 {
                     "outcome": "Isolation"

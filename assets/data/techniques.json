@@ -1961,6 +1961,7 @@
                     },
                     {
                         "name": "Craft Shikigami",
+                        "restriction": "Shugenja",
                         "rank": 2,
                         "reference": {
                             "book": "SL",
@@ -2116,6 +2117,7 @@
                 "techniques": [
                     {
                         "name": "Blessing of Steel",
+                        "restriction": "Artisan",
                         "rank": 2,
                         "reference": {
                             "book": "SL",
@@ -3331,15 +3333,6 @@
                         "xp": 3
                     },
                     {
-                        "name": "The Blood Price",
-                        "rank": 1,
-                        "reference": {
-                            "book": "SL",
-                            "page": 116
-                        },
-                        "xp": 3
-                    },
-                    {
                         "name": "Accursed Summoning",
                         "rank": 1,
                         "reference": {
@@ -3631,7 +3624,7 @@
                     },
                     {
                         "name": "Hasegawa's Denial",
-                        "rank": 1,
+                        "rank": 3,
                         "reference": {
                             "book": "SL",
                             "page": 108

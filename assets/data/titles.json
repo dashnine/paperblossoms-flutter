@@ -671,7 +671,7 @@
             {
                 "name": "Skulk",
                 "type": "technique",
-                "special_access": false
+                "special_access": true
             }
         ],
         "social_awards": [
@@ -1027,7 +1027,7 @@
                 "special_access": false
             },
             {
-                "rank": 1,
+                "rank": 3,
                 "name": "Earth Shūji",
                 "type": "technique_group",
                 "special_access": true

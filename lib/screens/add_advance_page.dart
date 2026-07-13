@@ -5,6 +5,7 @@ import '../character.dart';
 import '../derived_stats.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
+import '../layout.dart';
 import '../rules_constants.dart';
 import '../theme.dart';
 
@@ -20,8 +21,16 @@ class AddAdvancePage extends StatefulWidget {
   /// technique_group entry ('Martial skills', 'Close Combat Kata', ...).
   final String? initialGroup;
 
+  /// Optional track preset ([trackCurriculum]/[trackTitle]), e.g. tapping a
+  /// title advancement row.
+  final String? initialTrack;
+
   const AddAdvancePage(
-      {super.key, this.initialType, this.initialOption, this.initialGroup});
+      {super.key,
+      this.initialType,
+      this.initialOption,
+      this.initialGroup,
+      this.initialTrack});
 
   @override
   State<AddAdvancePage> createState() => _AddAdvancePageState();
@@ -45,6 +54,7 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
     _type = widget.initialType ?? advanceTypeSkill;
     _selection = widget.initialOption;
     _groupFilter = widget.initialGroup ?? '';
+    _track = widget.initialTrack ?? trackCurriculum;
     if (_type == advanceTypeTechnique && widget.initialOption != null) {
       final tech = gameDataTechnique(widget.initialOption!);
       if (tech != null) {
@@ -217,11 +227,21 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
   Widget build(BuildContext context) {
     final error = _validationError();
     final cost = _cost();
+    // Fixed menus would clip on sub-360px phones; the page itself is capped
+    // so a desktop window doesn't stretch radios and buttons edge to edge.
+    final menuWidth =
+        (MediaQuery.sizeOf(context).width - 32).clamp(160.0, 320.0);
+    // Let the technique list use tall windows instead of a fixed 320px.
+    final listMaxHeight =
+        (MediaQuery.sizeOf(context).height * 0.5).clamp(320.0, 720.0);
     return Scaffold(
       appBar: AppBar(title: const Text('Add Advance')),
-      body: ListView(
-        padding: const EdgeInsets.all(16),
-        children: [
+      body: Center(
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 560),
+          child: ListView(
+            padding: const EdgeInsets.all(16),
+            children: [
           SegmentedButton<String>(
             segments: const [
               ButtonSegment(value: advanceTypeSkill, label: Text('Skill')),
@@ -241,7 +261,7 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
             const SectionHeader('Advance'),
             if (_type == advanceTypeSkill) ...[
               DropdownMenu<String>(
-                width: 320,
+                width: menuWidth,
                 initialSelection: _groupFilter,
                 label: const Text('Group'),
                 dropdownMenuEntries: [
@@ -258,7 +278,7 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
             ],
             DropdownMenu<String>(
               key: ValueKey('$_type:$_groupFilter'),
-              width: 320,
+              width: menuWidth,
               initialSelection: _selection,
               label: Text(_type),
               enableFilter: true,
@@ -270,22 +290,9 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
               onSelected: (value) => setState(() => _selection = value),
             ),
           ] else ...[
-            SectionHeader(
-              'Technique',
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  const Text('Ignore restrictions'),
-                  Checkbox(
-                    value: _removeRestrictions,
-                    onChanged: (value) => setState(
-                        () => _removeRestrictions = value ?? false),
-                  ),
-                ],
-              ),
-            ),
+            const SectionHeader('Technique'),
             DropdownMenu<String>(
-              width: 320,
+              width: menuWidth,
               initialSelection: _groupFilter,
               label: const Text('Group'),
               dropdownMenuEntries: _techniqueGroupEntries(),
@@ -306,6 +313,9 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
             const SizedBox(height: 8),
             TextField(
               controller: _searchController,
+              // A physical keyboard is a safe assumption outside compact;
+              // on phones autofocus would pop the on-screen keyboard.
+              autofocus: !context.isCompact,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.search),
                 labelText: 'Type to filter',
@@ -323,10 +333,17 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
                       ),
               ),
               onChanged: (_) => setState(() {}),
+              // Enter picks the technique once the filter narrows to one.
+              onSubmitted: (_) {
+                final options = _techniqueOptions();
+                if (options.length == 1) {
+                  setState(() => _selection = options.single.name);
+                }
+              },
             ),
             const SizedBox(height: 8),
             ConstrainedBox(
-              constraints: const BoxConstraints(maxHeight: 320),
+              constraints: BoxConstraints(maxHeight: listMaxHeight),
               child: Card(
                 child: ListView(
                   controller: _techListController,
@@ -363,6 +380,13 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
                   ],
                 ),
               ),
+            ),
+            CheckboxListTile(
+              dense: true,
+              value: _removeRestrictions,
+              title: const Text('Ignore restrictions (rank, school access)'),
+              onChanged: (value) =>
+                  setState(() => _removeRestrictions = value ?? false),
             ),
           ],
           const SectionHeader('Track'),
@@ -403,7 +427,9 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
             onPressed: error == null ? _submit : null,
             child: const Text('Add Advance'),
           ),
-        ],
+            ],
+          ),
+        ),
       ),
     );
   }

@@ -173,14 +173,23 @@ We have NOT patched anything: the entry is kept as-is for parity with the
 Qt app, and our description file (docs/fields_of_victory_descriptions.json)
 documents the gap instead of inventing mechanics. Follow-ups to consider:
 
-- Check FFG/EDGE errata and community errata threads for an official
-  resolution (a likely candidate rename is one of the printed Fire shūji,
-  e.g. "Sting of Warrior's Pride", which the same school gets at rank 1-2).
+- ~~Check FFG/EDGE errata and community errata threads for an official
+  resolution~~ **Done 2026-07-13, negative result**: FFG's final errata
+  (v3.0, 8/12/2020) predates Fields of Victory (2021) and Edge Studio
+  never published errata for any L5R book, so no official document can
+  cover this. The name appears nowhere on the indexed web outside the
+  book — no Reddit/forum threads, no community errata (lynks.se covers
+  older editions only), no code repositories. The upstream entry came in
+  via PaperBlossoms PR #216 (Aug 2021), which transcribed the curriculum
+  table faithfully and invented the stub so the row resolves. There is
+  nothing to populate the technique from.
 - Decide whether to file this upstream (dashnine/PaperBlossoms) as a data
   issue: the technique is selectable and costs XP but has no rules text
   in any book.
 - If errata ever names a replacement, update techniques.json, the Isawa
   Tensai curricula in schools.json, and the description file together.
+  (A plausible in-book candidate remains "Sting of Warrior's Pride", but
+  applying that would be speculation, not correction.)
 
 ## 14. "Rejuvinating Breath" typo in `techniques.json` and `titles.json` (patched here)
 
@@ -664,3 +673,73 @@ and the 5 PoW bonds. All clean except the entries above.
   Rations' "1-3 bu" as [cheap] 1 bu / [expensive] 3 bu; both fine.
 - PoW outfit-only items (scrying tools, holy books, half-finished art,
   etc.) have no purchase stats — same class as #32/#48/#52.
+
+## 59. Asako Inquisitor starting skills missing Meditation in `schools.json` (patched here)
+
+The book (SL p. 88) lists six starting skills to choose three from
+(Courtesy, Martial Arts [Melee], Martial Arts [Unarmed], **Meditation**,
+Performance, Theology); upstream offers only five, dropping Meditation.
+Guarded by the "Asako Inquisitor starting skills include Meditation"
+test.
+
+## 60. Harvester title Skulk row not special access in `titles.json` (patched here)
+
+The book (SL p. 128) marks "= Skulk" in the Harvester track; upstream
+sets special_access false. Since Skulk is a ninjutsu no Crab school can
+otherwise learn, the row was unlearnable without the flag — same class
+as the WotW Naga Seer capstone (#26). Guarded by the "Harvester's Skulk
+is special access" test.
+
+## 61. SL ritual role restrictions dropped in `techniques.json` (patched here)
+
+The blocks (SL p. 114) print **Craft Shikigami (Shugenja)** and
+**Blessing of Steel (Artisan)**; upstream stores no restriction for
+either, although it stores the parenthetical restriction everywhere
+else (clans, regions, Moon Cultist, Kolat…). The field is display-only
+in both apps. Guarded by the "SL ritual role restrictions match the
+book" test.
+
+## 62. Hasegawa's Denial ignores its rank prerequisite in `techniques.json` (patched here)
+
+The signature scroll's prerequisites (SL p. 108) are "Crab Clan
+shugenja, **school rank 3**"; upstream models it rank 1 like the other
+two scrolls (whose prerequisites have no rank component). Rank is the
+one prerequisite the schema can express, so our copy sets rank 3.
+Guarded by the "Hasegawa's Denial requires school rank 3" test.
+
+## 63. Shadowlands quirks verified against the book (no change)
+
+Recorded during the 2026-07 SL audit, which covered all 18 techniques
+(signature scrolls, new rituals, and the 12 mahō), 8 school profiles
+and curricula, 4 titles, 14 advantages/disadvantages, the 6-row
+heritage table with sub-table die ranges, Table 2-1 weapons (including
+the siege weapons and Prepare (2)), Table 2-2 armor, and all item
+costs. All clean except the entries above.
+
+- "The Blood Price" (SL pp. 115-116) is a mahō *rules section* (the
+  blood-sacrifice mechanic), not a technique with an activation block;
+  upstream lists it as a learnable rank-1 mahō entry (3 XP). Unlike
+  "Incite True Nature" (#13), nothing in any curriculum or title
+  references it, so we **removed the phantom entry** from
+  techniques.json and both description files rather than keep it
+  selectable. (Upstream fix: delete the row from techniques.json.)
+  Guarded by the "The Blood Price phantom is not a learnable technique"
+  test. A character who had already "learned" it renders as a custom
+  technique and can be removed by hand.
+- The Toritaka Phantom Hunter rank-5 table prints "= Flowing Water
+  Cut", a technique that exists nowhere; upstream reads it as the Core
+  kata **Flowing Water Strike** with special access (correct, since the
+  school lacks Kata) — a reasonable resolution, left as-is.
+- Book-side table wordings the data correctly normalizes: Toritaka's
+  starting "By the Light of Lord Moon" (block has "the Lord Moon"),
+  Mirumoto Taoist Blade rank 4 "Martial Ats [Unarmed]", and Harvester's
+  "= Rank 1-2 Rituals  Technique" row mislabeled Technique.
+- Kakita Swordsmith outfit maps the book's "smithing hammer" to the
+  Smithy's Kit and its "personally crafted katana with Kakita pattern"
+  to the invented Kakita Katana item (rarity 11, outfit-only) — same
+  invented-stats class as #32/#48/#52/#58.
+- Blood and Mortar's "your glory rank is treated as 1 higher while on
+  the Wall" rider is narrative-conditional and not representable.
+- Signature scrolls' clan/title prerequisites (Witch Hunter, Crab Clan,
+  shugenja) are not representable in the technique schema; only
+  Hasegawa's rank prerequisite could be captured (#62).

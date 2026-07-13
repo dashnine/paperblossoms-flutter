@@ -19,18 +19,31 @@ class AdvancementTab extends StatelessWidget {
   Future<void> _addAdvance(BuildContext context,
       {String? initialType,
       String? initialOption,
-      String? initialGroup}) async {
+      String? initialGroup,
+      String? initialTrack}) async {
+    final rankBefore = recalcRank(character).rank;
     final advance = await Navigator.push<Advance>(
       context,
       MaterialPageRoute(
           builder: (context) => AddAdvancePage(
               initialType: initialType,
               initialOption: initialOption,
-              initialGroup: initialGroup)),
+              initialGroup: initialGroup,
+              initialTrack: initialTrack)),
     );
     if (advance == null) return;
     character.advanceStack.add(advance);
     character.touch();
+    if (!context.mounted) return;
+    final rankAfter = recalcRank(character).rank;
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        content: Text(rankAfter > rankBefore
+            ? 'Added ${advance.name} — school rank is now $rankAfter!'
+            : 'Added ${advance.name} — ${advance.cost} XP '
+                '(${advance.track})'),
+      ));
   }
 
   /// Tapping a curriculum entry preselects it in the advance page (the
@@ -49,6 +62,33 @@ class AdvancementTab extends StatelessWidget {
       case entryTypeTechniqueGroup:
         _addAdvance(context,
             initialType: advanceTypeTechnique, initialGroup: entry.advance);
+    }
+  }
+
+  /// Tapping an advancement row of the in-progress title buys it on the
+  /// Title track, mirroring the curriculum shortcut.
+  void _buyTitleEntry(BuildContext context, TitleAdvancement entry) {
+    switch (entry.type) {
+      case entryTypeSkill:
+        _addAdvance(context,
+            initialType: advanceTypeSkill,
+            initialOption: entry.name,
+            initialTrack: trackTitle);
+      case entryTypeSkillGroup:
+        _addAdvance(context,
+            initialType: advanceTypeSkill,
+            initialGroup: entry.name,
+            initialTrack: trackTitle);
+      case entryTypeTechnique:
+        _addAdvance(context,
+            initialType: advanceTypeTechnique,
+            initialOption: entry.name,
+            initialTrack: trackTitle);
+      case entryTypeTechniqueGroup:
+        _addAdvance(context,
+            initialType: advanceTypeTechnique,
+            initialGroup: entry.name,
+            initialTrack: trackTitle);
     }
   }
 
@@ -146,7 +186,13 @@ class AdvancementTab extends StatelessWidget {
 
   Widget _buildCurriculum(BuildContext context, int currentRank) {
     final school = gameData.schoolByName(character.school);
+    final skillRanks = effectiveSkillRanks(character);
     final theme = Theme.of(context);
+    final byRank = <int, List<CurriculumEntry>>{};
+    for (final entry in school?.curriculum ?? const <CurriculumEntry>[]) {
+      byRank.putIfAbsent(entry.rank, () => []).add(entry);
+    }
+    final ranks = byRank.keys.toList()..sort();
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -161,38 +207,78 @@ class AdvancementTab extends StatelessWidget {
         if (school == null)
           const EmptyHint('No school chosen, so there is no curriculum.')
         else
-          for (final entry in school.curriculum)
-            ListTile(
+          // One collapsible section per rank so the common case — buying
+          // within the current rank — doesn't require scrolling past the
+          // whole chart.
+          for (final rank in ranks)
+            ExpansionTile(
+              // Keyed on the current rank too: ranking up (or down) remints
+              // the keys, so expansion resets to just-the-current-rank open.
+              key: PageStorageKey('curriculum-rank-$rank@$currentRank'),
               dense: true,
-              visualDensity: VisualDensity.compact,
+              initiallyExpanded: rank == currentRank,
               leading: CircleAvatar(
                 radius: 12,
-                backgroundColor: entry.rank == currentRank
+                backgroundColor: rank == currentRank
                     ? theme.colorScheme.primary
                     : theme.colorScheme.surfaceContainerHighest,
-                child: Text('${entry.rank}',
+                child: Text('$rank',
                     style: TextStyle(
                       fontSize: 12,
-                      color: entry.rank == currentRank
+                      color: rank == currentRank
                           ? theme.colorScheme.onPrimary
                           : theme.colorScheme.onSurface,
                     )),
               ),
-              title: Text(entry.advance),
-              subtitle: Text([
-                entry.type.replaceAll('_', ' '),
-                if (entry.specialAccess) 'special access',
-                if (entry.minAllowableRank > 0 || entry.maxAllowableRank > 0)
-                  'ranks ${entry.minAllowableRank}-${entry.maxAllowableRank}',
-              ].join(' · ')),
-              trailing: Tooltip(
-                message: 'Buy this advance',
-                child: Icon(Icons.add_circle_outline,
-                    color: theme.colorScheme.primary),
-              ),
-              onTap: () => _buyCurriculumEntry(context, entry),
+              title: Text('Rank $rank'),
+              subtitle: rank == currentRank ? const Text('current') : null,
+              children: [
+                for (final entry in byRank[rank]!)
+                  _curriculumTile(context, entry, skillRanks),
+              ],
             ),
       ],
+    );
+  }
+
+  Widget _curriculumTile(BuildContext context, CurriculumEntry entry,
+      Map<String, int> skillRanks) {
+    final theme = Theme.of(context);
+    final skillRank =
+        entry.type == entryTypeSkill ? (skillRanks[entry.advance] ?? 0) : 0;
+    // "Done" entries: a learned technique, or a skill at the rank-5 cap.
+    // Group entries are open-ended and never marked.
+    final done = switch (entry.type) {
+      entryTypeTechnique => alreadyLearned(character, entry.advance),
+      entryTypeSkill => skillRank >= 5,
+      _ => false,
+    };
+    return ListTile(
+      dense: true,
+      visualDensity: VisualDensity.compact,
+      enabled: !done,
+      title: Text(entry.advance),
+      subtitle: Text([
+        entry.type.replaceAll('_', ' '),
+        if (skillRank > 0) 'rank $skillRank',
+        if (entry.specialAccess) 'special access',
+        if (entry.minAllowableRank > 0 || entry.maxAllowableRank > 0)
+          'ranks ${entry.minAllowableRank}-${entry.maxAllowableRank}',
+      ].join(' · ')),
+      trailing: done
+          ? Tooltip(
+              message: entry.type == entryTypeSkill
+                  ? 'At rank 5'
+                  : 'Already learned',
+              child:
+                  Icon(Icons.check_circle, color: theme.colorScheme.outline),
+            )
+          : Tooltip(
+              message: 'Buy this advance',
+              child: Icon(Icons.add_circle_outline,
+                  color: theme.colorScheme.primary),
+            ),
+      onTap: done ? null : () => _buyCurriculumEntry(context, entry),
     );
   }
 
@@ -223,20 +309,48 @@ class AdvancementTab extends StatelessWidget {
                 : 'Completed — ${gameData.titleByName(title)?.titleAbility ?? ''}'),
             children: [
               for (final advancement
-                  in gameData.titleByName(title)?.advancements ?? [])
-                ListTile(
-                  dense: true,
-                  visualDensity: VisualDensity.compact,
-                  title: Text(advancement.name),
-                  subtitle: Text([
-                    advancement.type.replaceAll('_', ' '),
-                    if (advancement.specialAccess) 'special access',
-                    if (advancement.rank > 0) 'max rank ${advancement.rank}',
-                  ].join(' · ')),
-                ),
+                  in gameData.titleByName(title)?.advancements ??
+                      const <TitleAdvancement>[])
+                _titleAdvancementTile(
+                    context, advancement, title == currentTitle),
             ],
           ),
       ],
+    );
+  }
+
+  /// A row of a title's advancement track. Rows of the in-progress title
+  /// buy on tap; completed titles and learned techniques stay inert.
+  Widget _titleAdvancementTile(
+      BuildContext context, TitleAdvancement entry, bool inProgress) {
+    final theme = Theme.of(context);
+    final learned = entry.type == entryTypeTechnique &&
+        alreadyLearned(character, entry.name);
+    final buyable = inProgress && !learned;
+    return ListTile(
+      dense: true,
+      visualDensity: VisualDensity.compact,
+      enabled: !learned,
+      title: Text(entry.name),
+      subtitle: Text([
+        entry.type.replaceAll('_', ' '),
+        if (entry.specialAccess) 'special access',
+        if (entry.rank > 0) 'max rank ${entry.rank}',
+      ].join(' · ')),
+      trailing: learned
+          ? Tooltip(
+              message: 'Already learned',
+              child:
+                  Icon(Icons.check_circle, color: theme.colorScheme.outline),
+            )
+          : buyable
+              ? Tooltip(
+                  message: 'Buy this advance',
+                  child: Icon(Icons.add_circle_outline,
+                      color: theme.colorScheme.primary),
+                )
+              : null,
+      onTap: buyable ? () => _buyTitleEntry(context, entry) : null,
     );
   }
 
