@@ -595,3 +595,72 @@ entries above.
   outfit-only items (Drafting Paper, Fine Set of Chisels, Pouch of
   Incense, Religious Texts, Bag of Horse Treats) reference their school
   pages with no purchase stats — same class as #32/#48.
+
+## 53. Assorted Path of Waves page references (patched here)
+
+Landslide Strike's technique block is on **p. 89** (upstream transposed
+it to 98), Balancing Salve is on **p. 96** (not 95), and Many Mouths is
+on **p. 72** (not 71). Guarded by the "audited PoW page references
+match the book" test.
+
+## 54. The Wandering Blade outfit missing its trinket in `schools.json` (patched here)
+
+The book (PoW p. 48) ends the outfit list with "and one trinket (see
+page 219)" — as every PoW school outfit does — but upstream drops it
+for this school alone. Guarded by the "Wandering Blade outfit includes
+a trinket" test.
+
+## 55. Urumi wrong range in `weapons.json` (patched here)
+
+Upstream gives the urumi range 1-3; the book (PoW p. 113, Table 3-1)
+prints **1-2**. Guarded by the "Urumi is a range 1-2 weapon" test.
+
+## 56. Military upbringing grants both rings in `upbringings.json` (patched here)
+
+Upstream's ring choice set has size 2, granting **both** +1 Earth and
++1 Fire; the book (PoW p. 45) reads "+1 Earth or +1 Fire", one choice
+like every other upbringing. Guarded by the "Military upbringing grants
+one ring choice" test.
+
+## 57. Tradesperson upbringing missing from `upbringings.json` (patched here)
+
+The book lists thirteen upbringings; upstream ships twelve, omitting
+the last one, **Tradesperson** (PoW p. 46: +1 Air or +1 Water,
++1 Commerce, +1 Aesthetics, status -6 [minimum 0], starting wealth
+2 koku). Added here. Guarded by the "Tradesperson upbringing exists and
+matches the book" test.
+
+## 58. Path of Waves quirks verified against the book (no change)
+
+Recorded during the 2026-07 PoW audit, which covered all 53 techniques
+(including the Summoning Mantra template), 12 school profiles and
+curricula, 4 titles, 20 advantages/disadvantages, Table 3-1 weapons
+with grips, all personal-effect costs, the 10 regions, 13 upbringings,
+and the 5 PoW bonds. All clean except the entries above.
+
+- Book-side curriculum-table typos where the data correctly uses the
+  block name: "Void's Embrace Style" (Wandering Blade rank 4; the block
+  on p. 105 prints "Void Embrace Style"), "Ruse of Moon's Reflection"
+  (Treasure Hunter and School of Leaves rank 4; block and index print
+  "Ruse of the Moon's Reflection"), "Iron Shield Style" (Qamarist
+  Shield Bearer rank 2; the block prints "Iron Shell Style"), "Breath
+  of the Wind Style" (Qamarist Alchemist rank 3; the Core block has no
+  "the"), "Way of the Willlow" (Mystic of the Mountain rank 2, triple
+  l), "Bend the Storm" (Mystic rank 5 — same recurring typo as in
+  WotW), and "Summon(ing) Mantra: [One Implement]" table wordings for
+  the technique whose block is "Summoning Mantra: [Implement Name]".
+- Book-side special-access omissions where the data correctly (and
+  necessarily) sets the flag: Voice of the Wilds rank 5 lists
+  Ever-Changing Waves (rank-5 Water invocation, Invocations not
+  available) with no "=", and Ivory Kingdoms Sage rank 1 lists Bellow
+  of Resolve (Earth shūji, Shūji not available) with no "=". Without
+  special access those rows would be unlearnable — the inverse of the
+  WotW Naga Seer bug (#26), fixed upstream this time.
+- Ghostlands Warrior and Astradhari status awards are "+0 (+10/+25 in
+  the Ivory Kingdoms)"; the conditional bonus is not representable in
+  the social-award schema and is modeled as base +0.
+- The Alchemy Kit's "Cost for components: 10 koku. Rarity: 1-9" is
+  modeled as [common] r1 / [rare] r9 entries, both 10 koku; Travel
+  Rations' "1-3 bu" as [cheap] 1 bu / [expensive] 3 bu; both fine.
+- PoW outfit-only items (scrying tools, holy books, half-finished art,
+  etc.) have no purchase stats — same class as #32/#48/#52.

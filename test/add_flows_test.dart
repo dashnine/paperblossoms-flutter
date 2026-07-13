@@ -145,12 +145,22 @@ void main() {
     }, initialType: advanceTypeTechnique);
   });
 
-  testWidgets('preselected technique is scrolled into view', (tester) async {
+  testWidgets('preselected technique pre-fills the filter and survives clear',
+      (tester) async {
     tester.view.physicalSize = const Size(900, 1400);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
     await runAdvancePage(tester, (tester) async {
-      // Deep in the Kata list, so only visible if the reveal scroll ran.
+      // The filter is pre-filled with the tapped technique's name, so the
+      // list shows it immediately.
+      expect(
+          find.widgetWithText(TextField, "Warrior's Resolve"), findsOneWidget);
+      expect(find.text("Warrior's Resolve").hitTestable(), findsWidgets);
+      // Clearing the filter re-reveals the selection: it sits deep in the
+      // Kata list, so it stays visible only if the reveal scroll ran.
+      await tester.tap(find.byTooltip('Clear filter'));
+      await tester.pumpAndSettle();
+      expect(find.text('Type to filter'), findsOneWidget);
       expect(find.text("Warrior's Resolve").hitTestable(), findsOneWidget);
       await tester.pageBack();
       await tester.pumpAndSettle();

@@ -543,7 +543,7 @@
                         "rank": 2,
                         "reference": {
                             "book": "PoW",
-                            "page": 98
+                            "page": 89
                         },
                         "xp": 3
                     },
@@ -2000,7 +2000,7 @@
                         "rank": 1,
                         "reference": {
                             "book": "PoW",
-                            "page": 95
+                            "page": 96
                         },
                         "xp": 3,
                         "restriction": "Qamarist Region"

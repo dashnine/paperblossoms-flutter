@@ -211,7 +211,7 @@
             "page": 45
         },
         "ring_increase": {
-            "size": 2,
+            "size": 1,
             "set": [
                 "Earth",
                 "Fire"
@@ -346,5 +346,34 @@
             "unit": "zeni"
         },
         "starting_item": "One day's rations"
+    },
+    {
+        "name": "Tradesperson",
+        "reference": {
+            "book": "PoW",
+            "page": 46
+        },
+        "ring_increase": {
+            "size": 1,
+            "set": [
+                "Air",
+                "Water"
+            ]
+        },
+        "skill_increases": [
+            {
+                "size": 1,
+                "set": ["Commerce"]
+            },
+            {
+                "size": 1,
+                "set": ["Aesthetics"]
+            }
+        ],
+        "status_modification": -6,
+        "starting_wealth": {
+            "value": 2,
+            "unit": "koku"
+        }
     }
 ]

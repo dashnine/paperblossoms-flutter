@@ -49,6 +49,9 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
       final tech = gameDataTechnique(widget.initialOption!);
       if (tech != null) {
         if (_groupFilter.isEmpty) _groupFilter = tech.category;
+        // Pre-fill the filter so the tapped technique isn't lost in the
+        // list; clearing it re-reveals the selection by scrolling.
+        _searchController.text = widget.initialOption!;
         WidgetsBinding.instance
             .addPostFrameCallback((_) => _revealSelectedTechnique());
       }
@@ -312,8 +315,11 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
                     : IconButton(
                         tooltip: 'Clear filter',
                         icon: const Icon(Icons.clear),
-                        onPressed: () =>
-                            setState(_searchController.clear),
+                        onPressed: () {
+                          setState(_searchController.clear);
+                          WidgetsBinding.instance.addPostFrameCallback(
+                              (_) => _revealSelectedTechnique());
+                        },
                       ),
               ),
               onChanged: (_) => setState(() {}),

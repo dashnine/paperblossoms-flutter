@@ -688,6 +688,66 @@ void main() {
           '91');
     });
 
+    test('Wandering Blade outfit includes a trinket', () {
+      // The book (PoW p. 48) ends the outfit with "and one trinket";
+      // upstream omits it (every other PoW school outfit has one).
+      // Patched in schools.json — see docs/UPSTREAM_NOTES.md #54.
+      final s =
+          gameData.schools.firstWhere((s) => s.name == 'The Wandering Blade');
+      final items = [
+        for (final g in s.startingOutfit) ...g.options,
+      ];
+      expect(items, contains('Trinket'));
+    });
+
+    test('Urumi is a range 1-2 weapon', () {
+      // Upstream says range 1-3; the book (PoW p. 113, Table 3-1) prints
+      // 1-2. Patched in weapons.json — see docs/UPSTREAM_NOTES.md #55.
+      final w = gameData.weapons.firstWhere((w) => w.name == 'Urumi');
+      expect(w.rangeMin, 1);
+      expect(w.rangeMax, 2);
+    });
+
+    test('Military upbringing grants one ring choice', () {
+      // Upstream grants BOTH +1 Earth and +1 Fire (size 2); the book (PoW
+      // p. 45) reads "+1 Earth or +1 Fire" like every other upbringing.
+      // Patched in upbringings.json — see docs/UPSTREAM_NOTES.md #56.
+      final u = gameData.upbringings.firstWhere((u) => u.name == 'Military');
+      expect(u.ringIncrease.size, 1);
+      expect(u.ringIncrease.options, ['Earth', 'Fire']);
+    });
+
+    test('Tradesperson upbringing exists and matches the book', () {
+      // Upstream omits the last of the thirteen PoW upbringings entirely
+      // (PoW p. 46: +1 Air or Water, +1 Commerce, +1 Aesthetics, status -6,
+      // 2 koku). Added to upbringings.json — see docs/UPSTREAM_NOTES.md #57.
+      final u =
+          gameData.upbringings.firstWhere((u) => u.name == 'Tradesperson');
+      expect(u.ringIncrease.options, ['Air', 'Water']);
+      expect(u.ringIncrease.size, 1);
+      final skills = [for (final s in u.skillIncreases) ...s.options];
+      expect(skills, containsAll(['Commerce', 'Aesthetics']));
+      expect(u.statusModification, -6);
+      expect(u.startingWealth.value, 2);
+      expect(u.startingWealth.unit, 'koku');
+    });
+
+    test('audited PoW page references match the book', () {
+      // Corrections from the Path of Waves audit (docs/UPSTREAM_NOTES.md
+      // #53): Landslide Strike's block is on p. 89 (upstream transposed
+      // 98), Balancing Salve on p. 96, and Many Mouths on p. 72.
+      String techPage(String name) =>
+          gameData.techniques.firstWhere((t) => t.name == name).reference.page;
+      expect(techPage('Landslide Strike'), '89');
+      expect(techPage('Balancing Salve'), '96');
+      expect(
+          gameData.advantagesDisadvantages
+              .firstWhere((a) => a.name == 'Many Mouths')
+              .reference
+              .page,
+          '72');
+    });
+
     test('audited WotW/CotFW page references match the books', () {
       // Assorted page-reference corrections from the book audit
       // (docs/UPSTREAM_NOTES.md #31): the five later CotFW rituals sit on

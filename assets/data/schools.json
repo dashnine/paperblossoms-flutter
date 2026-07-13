@@ -18339,6 +18339,10 @@
             {
                 "size": 1,
                 "set": ["Two Items of Rarity 4 or Lower"]
+            },
+            {
+                "size": 1,
+                "set": ["Trinket"]
             }
         ],
         "curriculum": [
