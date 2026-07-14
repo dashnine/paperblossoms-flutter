@@ -30,9 +30,9 @@ and regenerate the SQLite DB with `data/scripts/json_to_db.py`.
 | Kitsuki Investigator School | 5 | Skulduggery | `technique` | `skill` |
 | Asako Loremaster School | 2 | Air Shūji | `skill_group` | `technique_group` |
 | Shinjo Outrider School | 4 | Skulk | `skill` | `technique` |
-| Miya Cartographer School | 5 | Artisan's Appraisal | `skill_group` | `technique` |
+| Miya Cartographer School | 5 | Artisan's Appraisal | `skill_group` | ~~`technique`~~ superseded by #75: the *name* was wrong (book row is "Artisan Skills Skl. Grp.") |
 | Moto Avenger School | 4 | Earth Invocations | `skill` | `technique_group` |
-| Storm Fleet Tide Seer | 2 | Tea Ceremony | `skill` | `technique` |
+| Storm Fleet Tide Seer | 2 | Tea Ceremony | `skill` | ~~`technique`~~ superseded by #78: the *name* was wrong (book row is "Theology  Skill") |
 | Student of the Talon | 5 | Kata | `technique` | `technique_group` |
 | Ivory Kingdoms Sage Tradition | 5 | Kata | `technique` | `technique_group` |
 | Shinomen Naga Seer Tradition | 3 | Kata | `technique` | `technique_group` |
@@ -163,11 +163,20 @@ references the ability by name, so the rename is safe. Guarded by the
 Upstream `techniques.json` lists "Incite True Nature" as a learnable
 rank-3 Fire shūji (3 XP) citing FoV p. 79. That page is the Isawa Tensai
 School profile, and the technique's only appearance in the entire book is
-in that school's rank-4 curriculum table — Fields of Victory never prints
-an activation/effects block for it, and the curriculum entry lacks the
-bold marker the book uses for new-in-this-book techniques. It looks like
-a technique that was renamed or cut during development but left in the
-curriculum table (no official FFG errata found as of 2026-07-12).
+in that school's rank-3 curriculum row (an unmarked "Technique" row
+between "= Rank 1–4 Inspired Element Invocations" and "= Battle in the
+Mind") — Fields of Victory never prints an activation/effects block for
+it, and the curriculum entry lacks the bold marker the book uses for
+new-in-this-book techniques. It looks like a technique that was renamed
+or cut during development but left in the curriculum table (no official
+FFG errata found as of 2026-07-12).
+
+**In-situ recheck (2026-07-13, FoV audit)**: the same table's rank-1 row
+lists "= Sting of Warrior's Pride", which has a real block on p. 98 —
+so both names coexist in one curriculum and the "renamed to Sting of
+Warrior's Pride" theory is disproven. Data's synthetic rank 3 matches
+the row's curriculum rank. This is confirmed as a genuine book-side
+phantom with no candidate replacement anywhere in the book.
 
 We have NOT patched anything: the entry is kept as-is for parity with the
 Qt app, and our description file (docs/fields_of_victory_descriptions.json)
@@ -188,8 +197,9 @@ documents the gap instead of inventing mechanics. Follow-ups to consider:
   in any book.
 - If errata ever names a replacement, update techniques.json, the Isawa
   Tensai curricula in schools.json, and the description file together.
-  (A plausible in-book candidate remains "Sting of Warrior's Pride", but
-  applying that would be speculation, not correction.)
+  (~~A plausible in-book candidate remains "Sting of Warrior's Pride"~~
+  — disproven by the 2026-07-13 in-situ recheck: both names appear as
+  separate rows in the same Isawa Tensai curriculum table.)
 
 ## 14. "Rejuvinating Breath" typo in `techniques.json` and `titles.json` (patched here)
 
@@ -743,3 +753,285 @@ costs. All clean except the entries above.
 - Signature scrolls' clan/title prerequisites (Witch Hunter, Crab Clan,
   shugenja) are not representable in the technique schema; only
   Hasegawa's rank prerequisite could be captured (#62).
+
+## 64. Esteemed Negotiator Earth Shūji capped at rank 1 in `titles.json` (patched here)
+
+The book's advancement table (CoS p. 129) prints "= Rank 1–3 Earth
+Shūji"; upstream stores the row with rank 1, and the engine treats a
+title advancement's rank as the group's *maximum* rank, so only rank-1
+Earth shūji were purchasable. Our copy sets rank 3 (matching how
+Kenshinzen's Rank 1–5 groups and Kyuden Asako Shieldbearer's Rank 1–3
+Kata are already stored). Guarded by the "Esteemed Negotiator Earth
+Shūji group spans ranks 1-3" test.
+
+## 65. Covert Agent and Dreaded Enforcer immediate effects not applied (patched here, app-side)
+
+Both CoS titles list a disadvantage under **Immediate Effects**: Covert
+Agent grants Dark Secret (p. 129) and Dreaded Enforcer grants Whispers
+of Cruelty (p. 129). The original app (and ours, until now) only
+special-cased The Damned → Ferocity and Moon Cultist → Dark Secret.
+The special cases are now a `titleGrants` map in rules_constants.dart
+covering all four titles, and the grant skips a disadvantage the
+character already has. Guarded by the "title disadvantage grants
+resolve to real titles and entries" test.
+
+## 66. Grip "quality" effects silently dropped by the item builder (patched here, app-side)
+
+Weapons whose alternate grip adds a quality (Kusarifundo 2-hand:
+Snaring, CoS p. 111; Flyssa 2-hand and Sake Bottle & Cups thrown:
+Razor-edged, PoW) never showed that quality, because Item.fromWeapon
+only applied damage/deadliness/range grip effects. The builder now
+appends string-valued `quality` effects to the item's quality list.
+The two PoW grip values also spelled the quality "Razor-Edged", not
+matching the canonical "Razor-edged" used by qualities.json and the
+other 20 weapons — normalized. Guarded by the "grip quality effects
+name real qualities and reach the built item" test.
+
+## 67. Three CoS items misnamed in `personal_effects.json` (patched here)
+
+Against the entries on CoS pp. 106-108: "Perfomers' Boat" is a typo
+for **Performers' Boat**; "Portable Ladder" is actually **Rope Ladder**
+in the book (the invented name echoes the preceding Portable Boat);
+and "Mari" drops the parenthetical the book and its sibling entries
+carry, now **Mari (Ball)**. Renamed in personal_effects.json and both
+description files; nothing else referenced the old names. Guarded by
+the "CoS items carry their printed names" test.
+
+## 68. CoS cosmetic text fixes (patched here)
+
+- Ikoma Shadow School's mastery ability is printed "Victory **Is** the
+  Greatest Honor" (CoS p. 92); upstream lowercases "is". Renamed in
+  schools.json and both description files. Guarded by the "Ikoma
+  Shadow mastery ability matches book capitalization" test.
+- The five CoS bond abilities are printed in title case ("Strong Roots
+  Grow Deep", "Just Like Old Times", "With You, the Storm Subsides",
+  "I Will Surpass You!", "They Were Responsible!", pp. 136-138);
+  upstream sentence-cases them. Guarded by the "CoS bond abilities use
+  the printed title case" test.
+- samurai_heritage.json instruction typos: "Rolla ten-sided die",
+  "Benten's Curse (air)", and "Fire or Air Ring bi 1" (user-visible
+  strings; book has "Roll a", "(Air)", "by 1").
+
+## 69. Courts of Stone quirks verified against the book (no change)
+
+Recorded during the 2026-07 CoS audit, which covered all 24 techniques,
+10 school profiles and curricula, 9 titles, 16 advantages/
+disadvantages, the Deer/Shika clan blocks, the 6-row heritage table
+with sub-table die ranges, Table 2-2 weapons, Table 2-3 armor, the 25
+priced items (pp. 105-109), and the 5 bonds. All clean except the
+entries above.
+
+- The technique block header prints "Beware **The** Smallest Mouse"
+  (p. 118) but all three curriculum tables that reference it print
+  lowercase "the"; data keeps the standard lowercase form.
+- The Dreaded Enforcer advancement table header prints "Dread
+  Enforcer" and lists "**The** Stillness of Death"; the prose heading
+  (p. 129) and the technique block (p. 123, "Stillness of Death Rank
+  5") disagree, and blocks win — data correct on both counts.
+- The Covert Agent table prints "What's Yours **is** Mine"; the block
+  prints "Is" — data follows the block.
+- Esteemed Negotiator's "Glory Award: +10 (to a **minimum** of 65)"
+  (p. 129) is a book typo for maximum; data stores a max constraint
+  like every other positive award.
+- Castellan's ability is printed "Every Stone Has **its** Place"
+  (p. 128); data keeps standard title case ("Its"), matching the
+  Triumph **over/Over** the Lion heritage row treatment.
+- Togashi Chronicler's rank-3 row prints "**Mediation** Skill"
+  (p. 97) — no such skill exists; data reads Meditation.
+- Mercenary Ninja Training's outfit "3 shuriken or blowgun" (p. 93)
+  is an or-choice with a quantity, which the outfit schema can't
+  express; data offers 1 shuriken or 1 blowgun (upstream parity).
+- "Overconfidence in [Feature] (Various)" (p. 101) is one book entry
+  with a Pick One list; data's five expanded entries match its
+  ring/type mapping exactly.
+- "Support of the Kakita Dueling Academy" has no distinction block
+  anywhere — it exists only as a heritage-row grant (p. 104); data
+  mirrors Core's "Support of [One Group]" (Water, Interpersonal),
+  which is the right template.
+- Heritage row 1's "1-3: Martial Arts [Choose One]" is expanded by
+  data into sub-rolls 1/2/3 for Melee/Ranged/Unarmed (random rather
+  than chosen — upstream parity).
+- The wizard already handles the row-10 "Anxiety and other" type and
+  its "Air/Fire ring exchange" outcome (wizard_state.dart) — no change
+  needed.
+
+## 70. Isawa Tensai variants cite the wrong page in `schools.json` (patched here)
+
+All four Isawa Tensai School entries (Fire/Water/Air/Earth) referenced
+FoV p. 75, which is the Hida Battle Leader School; the Tensai profile
+and curriculum are on **p. 79**. Guarded by the "Isawa Tensai variants
+reference their real page" test.
+
+## 71. Beseech Doji's Wisdom modeled as rank 4 in `techniques.json` (patched here)
+
+The block (FoV p. 96) prints "Beseech Doji's Wisdom  Rank 2", and the
+Ide Messenger rank-2 curriculum lists it as an unmarked (in-curriculum)
+row; upstream stores rank 4, which would also have made that row
+unlearnable until school rank 4. Our copy sets rank 2. Guarded by the
+"Beseech Doji's Wisdom is rank 2" test.
+
+## 72. Yogo Penitent Order outfit grants one shuriken instead of three (patched here)
+
+The book (FoV p. 81) lists "3 shuriken (throwing stars)" in the starting
+outfit; upstream grants a single Shuriken set. Duplicated to three sets,
+following the Shosuro Shadowweaver precedent (#49). Guarded by the
+"Yogo Penitent outfit grants three shuriken" test.
+
+## 73. FoV small reference/stat corrections (patched here)
+
+- Beseech Shinjo's Empathy cited p. 98; the block is on **p. 97**.
+  Guarded by the "Beseech Shinjo's Empathy cites page 97" test.
+- Animal Helm had rarity 9; the entry (FoV p. 90) prints **Rarity: 5**
+  (cost 1 koku matches). Guarded by the "Animal Helm rarity matches the
+  book" test.
+- samurai_heritage.json row 9 (Mighty Conqueror) instruction typo
+  "rarity 6 or lowe" → "lower" (user-visible string).
+
+## 74. Fields of Victory quirks verified against the book (no change)
+
+Recorded during the 2026-07 FoV audit, which covered all 33 techniques,
+13 school profiles and curricula (including the four-variant Isawa
+Tensai encoding), 14 titles, 11 advantages/disadvantages, the 10-row
+heritage table with sub-table die ranges, Table 2-2 weapons, the item
+entries on pp. 90-91, and the nine item patterns (pp. 93-94). All clean
+except the entries above. See also the #13 in-situ recheck note
+(Incite True Nature confirmed as a book-side phantom).
+
+- The Daidoji Harrier rank-3 table prints "= Imbue Outburst"; no such
+  technique exists — the block (p. 96), the Akodo Soldier table, and
+  the Master Saboteur title all say **Imbue Thunder**. Data follows
+  the block.
+- The War College Graduate table prints "Beseech Akodo's Judgement";
+  the block (p. 95) spells **Judgment**. Data follows the block.
+- Sumai Master's "Status Award: +10 (to a **minimum** of 35)" is a book
+  typo for maximum (same class as CoS Esteemed Negotiator, #69); data
+  stores a max constraint.
+- General and War College Graduate group rows are mislabeled
+  "Technique" instead of "Tech. Grp." in the book; data uses
+  technique_group with the printed rank bounds.
+- Isawa Tensai's printed "Rings: +2 any one ring" is modeled as four
+  fixed-element variants (+2 to the inspired element). The book text
+  technically allows any ring, but the four-variant encoding exists to
+  model the inspired element and is upstream parity.
+- The Beseech techniques are **rituals** (the book's p. 95 section);
+  upstream shelves them under element-named subcategories of Rituals
+  ("Void", "Fire"…) while Beseech Doji's Wisdom sits in the unnamed
+  subcategory — harmless, since group expansion matches the Rituals
+  category, and Doji's Wisdom genuinely has no fixed ring (its block
+  offers opportunities in all four elements).
+- Sumai Garb has no stat block anywhere in FoV (it appears only in the
+  Ichirō Grappler outfit); the armor entry (rarity 2, 1 koku, no
+  resistance) is an upstream invention so the outfit resolves — same
+  class as SL's Smithy's Kit.
+- Book-side outfit wordings the data normalizes: "small drum" →
+  Musical Instrument (common) (Ichirō Grappler), "smithing hammer" →
+  Smithy's Kit (Ichirō Ironsmith), "1-2 bonded animals" → choice of
+  Bonded Animal / Two Bonded Animals (Matsu Beastmaster).
+- Agasha Ascetic's starting ritual "Commune with Spirits" is the book
+  abbreviating Core's **Commune with the Spirits**; data uses the
+  canonical name.
+- Blasting Powder's printed qualities "Ceremonial, Forbidden to
+  non-shugenja" include a phrase that is not a real item quality; data
+  stores it verbatim as display text.
+- FoV heritage row 10 grants "Support of [One Group]" (Seppun, Otomo,
+  Miya, or Imperial Legions); data expands this into four selectable
+  Water/Interpersonal distinctions mirroring Core's template — no
+  blocks exist for them in any book.
+
+## 75. Miya Cartographer rank 5 lists a phantom "Artisan's Appraisal" in `schools.json` (patched here)
+
+The book's rank-5 row (EE p. 232) is "**Artisan Skills  Skl. Grp.**";
+upstream transcribed it as "Artisan's Appraisal" (echoing the school's
+starting shūji) with type skill_group. Our #1 pass "fixed" that row's
+type to technique — which made the wrong name resolve; the 2026-07 EE
+audit against the page shows the *name* was the error. The row is now
+`Artisan skills` / `skill_group`, superseding the #1 table entry for
+this school. Guarded by the "Miya Cartographer rank 5 has the Artisan
+skills group" test.
+
+## 76. `allowable_rank` dict form dropped by the Dart model (patched here, app-side)
+
+All 84 `allowable_rank` values in schools.json use the object form
+(`{"min": 1, "max": 2}`), but `CurriculumEntry.fromJson` only parsed
+the `"min-max"` string form, so every bound was silently unset and the
+engine fell back to the row's curriculum rank. Rows whose printed
+bound is wider than their rank — e.g. the Isawa Tensai "Rank 1–2
+Inspired Element Invocations" at rank 1, or any "Rank 1–5" group on a
+rank-4 row — were clamped too low. Found during the EE audit; a
+port-side bug, not upstream data. Guarded by the "allowable_rank dict
+form parses into curriculum bounds" test.
+
+## 77. Emerald Empire quirks verified against the book (no change)
+
+Recorded during the 2026-07 EE audit, which covered both techniques,
+all 9 school profiles and curricula (pp. 232-240), 9 titles
+(pp. 249-253), 26 advantages/disadvantages, the Imperial Families clan
+block and Miya/Otomo/Seppun family blocks (pp. 228-231), and the two
+outfit items. All clean except the entries above.
+
+- EE positive status awards genuinely use floor wording ("+10 (to a
+  minimum of 40)"), unlike CoS/FoV's typos — data's min constraints
+  are correct here, and Monastic Acolyte's "Your status becomes 25"
+  maps to the equals constraint.
+- Shinseist Monk rank 5's "[Choose one skill group]" row is expanded
+  by data into all five skill-group rows (the schema cannot express a
+  choose-one group; any group then counts as in-curriculum) — upstream
+  parity.
+- Book outfit wordings the data normalizes: "personal chop" → Personal
+  Seal or Chop; Miya Herald's "yumi and quiver of arrows or tessen"
+  loses the quiver-follows-yumi coupling (schema limitation);
+  Kitsune Impersonator's "take the starting outfit of any one other
+  school" is the "Kitsune Starting Outfit" wizard directive.
+- "Assortment of Maps in Scroll Cases" and "Satchel of Imperial
+  Proclamations" are outfit-only inventions with no price entries
+  (same class as SL's Smithy's Kit).
+
+## 78. Mantis DLC school errors in `schools.json` (patched here)
+
+Against the DLC (mantis_clan_dlc2.pdf, printed page = PDF index + 1):
+
+- Storm Fleet Sailor's starting shūji is "**choose one**: All in Jest,
+  Stirring the Embers" (p. 5); upstream grants both as separate sets
+  (three starting techniques instead of two). Merged into one
+  choose-one set. Guarded by the "Storm Fleet Sailor shūji is a
+  choose-one set" test.
+- Storm Fleet Sailor's starting outfit drops the book's closing item,
+  "fishing rod and line" (p. 5) — the item exists in
+  personal_effects.json but was never granted. Appended. Guarded by
+  the "Storm Fleet Sailor outfit includes the fishing rod" test.
+- Storm Fleet Tide Seer's rank-2 row is "**Theology**  Skill" (p. 6);
+  upstream transcribed it as "Tea Ceremony", and our #1 pass re-typed
+  that to technique — the *name* was the error, same class as #75.
+  The row is now Theology / skill, superseding the #1 table entry for
+  this school. Guarded by the "Storm Fleet Tide Seer rank 2 studies
+  Theology" test.
+
+## 79. Eku missing two qualities in `weapons.json` (patched here)
+
+Table 1-1 (Mantis p. 8) lists the Eku's qualities as "Cumbersome,
+Durable, Mundane"; upstream stores only Cumbersome. Guarded by the
+"Eku carries its printed qualities" test.
+
+## 80. Mantis DLC quirks verified against the book (no change)
+
+Recorded during the 2026-07 Mantis audit, which covered the clan and
+Families of the Fleet block (p. 4), both Storm Fleet schools (pp. 5-6,
+profiles + curricula), Osano-wo's Boast, the four advantages/
+disadvantages (p. 7), Table 1-1 weapons, Table 1-2 armor, and the item
+entries (p. 9). All clean except the entries above.
+
+- The DLC prints its own **Astrolabe** (p. 9: 30 koku, rarity 10), but
+  the data's single Astrolabe entry is CotFW's (1 koku, rarity 8) and
+  item names must be unique. The newer book's version wins; the Mantis
+  variant is dropped.
+- The Tide Seer rank-2 table prints "= Hand of the Tides" (singular)
+  and "Call upon the Wind" (lowercase); data follows the Core blocks
+  ("Hands of the Tides", "Call Upon the Wind").
+- "Rope (twenty feet)" (2 koku) and "Playing Cards" (25 zeni) appear
+  only in the Sailor's outfit with no printed prices — the prices are
+  upstream inventions so the items are purchasable.
+- The Tide Seer's "divination set (cards, shells, or dice)" outfit
+  line maps to the existing Divination Kit item.
+- Small-caps extraction renders headers like "Blood of Osano-Wo" and
+  "KnotWork"; data's "Blood of Osano-wo" / "Knotwork" match the
+  running text.

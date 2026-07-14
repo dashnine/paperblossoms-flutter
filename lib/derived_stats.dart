@@ -58,6 +58,222 @@ int focus(Map<String, int> rings) =>
 int vigilance(Map<String, int> rings) =>
     (((rings[ringWater] ?? 0) + (rings[ringAir] ?? 0)) / 2.0).round();
 
+/// Core p.268: after suffering fatigue, a character whose fatigue exceeds
+/// their endurance suffers the Incapacitated condition; it is removed when
+/// fatigue drops back to endurance or lower.
+bool isIncapacitated(Character c, Map<String, int> rings) =>
+    c.fatigue > endurance(rings);
+
+/// Core p.272: a character whose strife exceeds their composure is
+/// Compromised; the condition is removed when strife is reduced to their
+/// composure or lower (e.g. by unmasking).
+bool isCompromised(Character c, Map<String, int> rings) =>
+    c.strife > composure(rings);
+
+// ---- Critical strikes (core p.270, Table 6-6) ----
+
+/// Conditions a player tracks by hand (core p.271-273). Compromised and
+/// Incapacitated are excluded: they are derived from strife/fatigue above.
+/// Dying takes a round count; the Wounded pair takes the affected ring.
+const trackableConditions = [
+  'Afflicted',
+  'Bleeding',
+  'Burning',
+  'Dazed',
+  'Disoriented',
+  'Dying',
+  'Enraged',
+  'Exhausted',
+  'Immobilized',
+  'Intoxicated',
+  'Lightly Wounded',
+  'Prone',
+  'Severely Wounded',
+  'Silenced',
+  'Unconscious',
+];
+
+const conditionBleeding = 'Bleeding';
+const conditionDying = 'Dying';
+const conditionLightlyWounded = 'Lightly Wounded';
+const conditionSeverelyWounded = 'Severely Wounded';
+
+/// One-line paraphrased effect per condition (core p.271-273), keyed by the
+/// base name without the ring/rounds qualifier.
+const conditionSummaries = {
+  'Afflicted': 'Haunted by a malevolent spirit: vigilance counts as 1, the '
+      'GM may corrupt one kept die, and being Compromised triggers worse.',
+  'Bleeding': 'Suffer unreducible damage equal to strife symbols on kept '
+      'dice; removed by a TN 2 Medicine (Earth) Support action.',
+  'Burning': 'After each action, suffer 3 strife and 3 unreducible damage '
+      '(crit severity 5); smothered with TN 2 Fitness (Water).',
+  'Dazed': '+2 TN on Attack and Scheme checks; ends after a turn without '
+      'either action.',
+  'Disoriented': '+2 TN on Movement and Support checks; ends after a turn '
+      'without either action.',
+  'Dying': 'Perish once the allotted rounds pass unless removed by a TN 4 '
+      'Medicine (Air) Support action.',
+  'Enraged': 'Critical strikes by and against the character gain +2 '
+      'severity; TN 3 Meditation (Void) or scene end removes.',
+  'Exhausted': 'No end-of-scene fatigue/strife recovery; removed by six or '
+      'more hours of sleep.',
+  'Immobilized': 'No Movement actions or stance changes; ends after a turn '
+      'without a Movement action.',
+  'Intoxicated': 'All strife suffered and removed is doubled; sober up at '
+      'scene end with TN 3 Fitness (Water).',
+  'Lightly Wounded': '+1 TN on checks with the affected ring; wounded '
+      'lightly again on that ring becomes Severely Wounded.',
+  'Prone': 'Move at most 1 range band; harder to hit at range; may stand '
+      'after a turn without a Movement action.',
+  'Severely Wounded': '+3 TN on checks with the affected ring; wounded '
+      'again on that ring inflicts a severity-8 Permanent Injury.',
+  'Silenced': '+3 TN on Scheme checks and checks to activate invocations, '
+      'mahō, and shūji.',
+  'Unconscious': 'Cannot act or defend; critical strikes suffered gain +10 '
+      'severity; spend 1 Void point to awaken.',
+};
+
+/// Core p.270: on a successful TN 1 Fitness check the victim reduces the
+/// severity by 1 plus bonus successes, to a minimum of 0.
+int mitigatedSeverity(int severity, bool checkSucceeded, int bonusSuccesses) =>
+    checkSucceeded ? (severity - 1 - bonusSuccesses).clamp(0, severity) : severity;
+
+/// One row of Table 6-6: Results of Critical Strikes by Severity.
+class CritBand {
+  final String name;
+  final String effect; // the row's mechanical effect, summarized
+
+  /// '' | Lightly Wounded | Severely Wounded, suffered for the resist ring.
+  final String woundCondition;
+  final bool bleeding; // Bleeding inflicted outright
+  final bool bleedingIfRazorEdged; // Bleeding only from Razor-Edged attacks
+  final bool scar; // choose a scar adversity for the resist ring
+  final int dyingRounds; // 0 when the row does not inflict Dying
+  final bool fatal;
+
+  const CritBand({
+    required this.name,
+    required this.effect,
+    this.woundCondition = '',
+    this.bleeding = false,
+    this.bleedingIfRazorEdged = false,
+    this.scar = false,
+    this.dyingRounds = 0,
+    this.fatal = false,
+  });
+}
+
+/// Table 6-6 row for a final (post-mitigation) severity.
+CritBand critBand(int severity) {
+  if (severity <= 2) {
+    return const CritBand(
+      name: 'Close Call',
+      effect: 'No blood drawn. If the character is wearing armor, '
+          'the armor gains the Damaged quality.',
+    );
+  }
+  if (severity <= 4) {
+    return const CritBand(
+      name: 'Flesh Wound',
+      effect: 'Lightly Wounded for the ring used to resist; '
+          'Bleeding as well if the attack was Razor-Edged.',
+      woundCondition: conditionLightlyWounded,
+      bleedingIfRazorEdged: true,
+    );
+  }
+  if (severity <= 6) {
+    return const CritBand(
+      name: 'Debilitating Gash',
+      effect: 'Severely Wounded for the ring used to resist; '
+          'Bleeding as well if the attack was Razor-Edged.',
+      woundCondition: conditionSeverelyWounded,
+      bleedingIfRazorEdged: true,
+    );
+  }
+  if (severity <= 8) {
+    return const CritBand(
+      name: 'Permanent Injury',
+      effect: 'Bleeding, then choose one scar for the ring used to resist: '
+          'Air (Maimed Visage or Nerve Damage), Earth (Damaged Organ or '
+          'Fractured Spine), Fire (Lost Fingers or Maimed Arm), '
+          'Water (Lost Eye or Lost Foot), Void (Lost Memories).',
+      bleeding: true,
+      scar: true,
+    );
+  }
+  if (severity <= 11) {
+    return const CritBand(
+      name: 'Maiming Blow',
+      effect: 'Bleeding, then choose one scar for the ring used to resist: '
+          'Air (Deafness or Muteness), Earth (Damaged Heart or Damaged '
+          'Organ), Fire (Lost Arm or Lost Hand), Water (Blindness or '
+          'Lost Leg), Void (Cognitive Lapses).',
+      bleeding: true,
+      scar: true,
+    );
+  }
+  if (severity <= 13) {
+    return const CritBand(
+      name: 'Agonizing Death',
+      effect: 'Severely Wounded for the ring used to resist, '
+          'plus Bleeding and Dying (3 rounds).',
+      woundCondition: conditionSeverelyWounded,
+      bleeding: true,
+      dyingRounds: 3,
+    );
+  }
+  if (severity <= 15) {
+    return const CritBand(
+      name: 'Swift Death',
+      effect: 'Severely Wounded for the ring used to resist, '
+          'plus Bleeding and Dying (1 round).',
+      woundCondition: conditionSeverelyWounded,
+      bleeding: true,
+      dyingRounds: 1,
+    );
+  }
+  return const CritBand(
+    name: 'Instant Death',
+    effect: 'The character dies immediately.',
+    fatal: true,
+  );
+}
+
+/// Adds a resolved condition string to [c] without notifying, applying the
+/// wounded-escalation rule (core p.273): suffering Lightly Wounded again for
+/// the same ring upgrades it to Severely Wounded, and a wound never
+/// downgrades one already Severely Wounded (the book's follow-on severity-8
+/// critical strike in that case is left to the table). Exact duplicates of
+/// other conditions are dropped. Returns true if anything changed.
+bool addCondition(Character c, String condition) {
+  if (condition.startsWith(conditionLightlyWounded)) {
+    final severe = condition.replaceFirst(
+        conditionLightlyWounded, conditionSeverelyWounded);
+    if (c.conditions.contains(severe)) return false;
+    if (c.conditions.remove(condition)) {
+      c.conditions.add(severe);
+      return true;
+    }
+  }
+  if (c.conditions.contains(condition)) return false;
+  c.conditions.add(condition);
+  return true;
+}
+
+/// The condition strings a Table 6-6 row adds to the character, with the
+/// resist ring and Dying rounds resolved into the stored display form.
+List<String> critConditions(CritBand band, String resistRing,
+    {required bool razorEdged}) {
+  return [
+    if (band.woundCondition.isNotEmpty)
+      '${band.woundCondition} ($resistRing)',
+    if (band.bleeding || (band.bleedingIfRazorEdged && razorEdged))
+      conditionBleeding,
+    if (band.dyingRounds == 1) '$conditionDying (1 round)',
+    if (band.dyingRounds > 1) '$conditionDying (${band.dyingRounds} rounds)',
+  ];
+}
+
 int xpSpent(Character c) =>
     c.advanceStack.fold(0, (sum, advance) => sum + advance.cost);
 

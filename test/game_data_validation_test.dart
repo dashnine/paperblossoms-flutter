@@ -1,5 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/game_data.dart';
+import 'package:paperblossoms/item.dart';
+import 'package:paperblossoms/rules_constants.dart';
 import 'package:paperblossoms/wizard/wizard_state.dart';
 
 // Starting-outfit entries that are wizard directives rather than item names;
@@ -985,6 +987,182 @@ void main() {
       expect(gameData.itemTypeOf('Katana'), 'Weapon');
       expect(gameData.itemTypeOf('Ashigaru Armor'), 'Armor');
       expect(gameData.itemTypeOf('Nonexistent Thing'), '');
+    });
+  });
+
+  group('Courts of Stone fixes', () {
+    test('Esteemed Negotiator Earth Shūji group spans ranks 1-3 (CoS p.129)',
+        () {
+      final title =
+          gameData.titles.firstWhere((t) => t.name == 'Esteemed Negotiator');
+      final row = title.advancements.firstWhere((a) => a.name == 'Earth Shūji');
+      expect(row.rank, 3);
+      expect(row.specialAccess, isTrue);
+    });
+
+    test('title disadvantage grants resolve to real titles and entries', () {
+      final titleNames = {for (final t in gameData.titles) t.name};
+      final advNames = {
+        for (final a in gameData.advantagesDisadvantages) a.name
+      };
+      titleGrants.forEach((title, grant) {
+        expect(titleNames, contains(title));
+        expect(advNames, contains(grant));
+      });
+      expect(titleGrants['Covert Agent'], 'Dark Secret');
+      expect(titleGrants['Dreaded Enforcer'], 'Whispers of Cruelty');
+    });
+
+    test('Ikoma Shadow mastery ability matches book capitalization', () {
+      final school =
+          gameData.schools.firstWhere((s) => s.name == 'Ikoma Shadow School');
+      expect(school.masteryAbility, 'Victory Is the Greatest Honor');
+    });
+
+    test('CoS items carry their printed names', () {
+      final names = {for (final p in gameData.personalEffects) p.name};
+      expect(names, contains("Performers' Boat"));
+      expect(names, contains('Rope Ladder'));
+      expect(names, contains('Mari (Ball)'));
+      expect(names, isNot(contains("Perfomers' Boat")));
+      expect(names, isNot(contains('Portable Ladder')));
+      expect(names, isNot(contains('Mari')));
+    });
+
+    test('CoS bond abilities use the printed title case', () {
+      final family = gameData.bonds.firstWhere((b) => b.name == 'Family');
+      expect(family.ability, 'Strong Roots Grow Deep');
+    });
+
+    test('grip quality effects name real qualities and reach the built item',
+        () {
+      final qualityNames = {for (final q in gameData.qualities) q.name};
+      for (final weapon in gameData.weapons) {
+        for (final grip in weapon.grips) {
+          for (final effect in grip.effects) {
+            if (effect.attribute == 'quality') {
+              expect(qualityNames, contains(effect.value),
+                  reason: '${weapon.name} ${grip.name}');
+            }
+          }
+        }
+      }
+      final kusarifundo = gameData.weaponByName('Kusarifundo')!;
+      final twoHand = kusarifundo.grips.firstWhere((g) => g.name == '2-hand');
+      final item = Item.fromWeapon(kusarifundo, twoHand);
+      expect(item.qualities, contains('Snaring'));
+    });
+  });
+
+  group('Fields of Victory fixes', () {
+    test('Isawa Tensai variants reference their real page (FoV p.79)', () {
+      final variants = [
+        for (final s in gameData.schools)
+          if (s.name.startsWith('Isawa Tensai School (')) s
+      ];
+      expect(variants, hasLength(4));
+      for (final school in variants) {
+        expect(school.reference.page, '79', reason: school.name);
+      }
+    });
+
+    test("Beseech Doji's Wisdom is rank 2 (FoV p.96)", () {
+      final tech = gameData.techniques
+          .firstWhere((t) => t.name == "Beseech Doji's Wisdom");
+      expect(tech.rank, 2);
+    });
+
+    test("Beseech Shinjo's Empathy cites page 97", () {
+      final tech = gameData.techniques
+          .firstWhere((t) => t.name == "Beseech Shinjo's Empathy");
+      expect(tech.reference.page, '97');
+    });
+
+    test('Yogo Penitent outfit grants three shuriken (FoV p.81)', () {
+      final school =
+          gameData.schools.firstWhere((s) => s.name == 'Yogo Penitent Order');
+      final shurikenSets = [
+        for (final set in school.startingOutfit)
+          if (set.options.contains('Shuriken')) set
+      ];
+      expect(shurikenSets, hasLength(3));
+    });
+
+    test('Animal Helm rarity matches the book (FoV p.90)', () {
+      final helm = gameData.personalEffects
+          .firstWhere((p) => p.name == 'Animal Helm');
+      expect(helm.rarity, 5);
+    });
+
+    test('allowable_rank dict form parses into curriculum bounds', () {
+      final tensai = gameData.schools
+          .firstWhere((s) => s.name == 'Isawa Tensai School (Fire)');
+      final r1Group = tensai.curriculum.firstWhere(
+          (a) => a.rank == 1 && a.advance == 'Fire Invocations');
+      expect(r1Group.minAllowableRank, 1);
+      expect(r1Group.maxAllowableRank, 2);
+      final bounded = [
+        for (final school in gameData.schools)
+          for (final a in school.curriculum)
+            if (a.maxAllowableRank > 0) a
+      ];
+      expect(bounded.length, greaterThanOrEqualTo(84));
+    });
+  });
+
+  group('Emerald Empire fixes', () {
+    test('Miya Cartographer rank 5 has the Artisan skills group (EE p.232)',
+        () {
+      final school = gameData.schools
+          .firstWhere((s) => s.name == 'Miya Cartographer School');
+      final r5 = [
+        for (final a in school.curriculum)
+          if (a.rank == 5) a
+      ];
+      expect(
+          r5.any((a) => a.advance == 'Artisan skills' && a.type == 'skill_group'),
+          isTrue);
+      expect(r5.any((a) => a.advance == "Artisan's Appraisal"), isFalse);
+    });
+  });
+
+  group('Mantis DLC fixes', () {
+    test('Storm Fleet Sailor shūji is a choose-one set (Mantis p.5)', () {
+      final school = gameData.schools
+          .firstWhere((s) => s.name == 'Storm Fleet Sailor School');
+      expect(school.startingTechniques, hasLength(2));
+      final shuji = school.startingTechniques[1];
+      expect(shuji.size, 1);
+      expect(shuji.options,
+          containsAll(['All in Jest', 'Stirring the Embers']));
+    });
+
+    test('Storm Fleet Sailor outfit includes the fishing rod (Mantis p.5)',
+        () {
+      final school = gameData.schools
+          .firstWhere((s) => s.name == 'Storm Fleet Sailor School');
+      expect(
+          school.startingOutfit
+              .any((s) => s.options.contains('Fishing Rod and Line')),
+          isTrue);
+    });
+
+    test('Storm Fleet Tide Seer rank 2 studies Theology (Mantis p.6)', () {
+      final school = gameData.schools
+          .firstWhere((s) => s.name == 'Storm Fleet Tide Seer');
+      final r2 = [
+        for (final a in school.curriculum)
+          if (a.rank == 2) a
+      ];
+      expect(r2.any((a) => a.advance == 'Theology' && a.type == 'skill'),
+          isTrue);
+      expect(r2.any((a) => a.advance == 'Tea Ceremony'), isFalse);
+    });
+
+    test('Eku carries its printed qualities (Mantis p.8)', () {
+      final eku = gameData.weaponByName('Eku')!;
+      expect(eku.qualities,
+          containsAll(['Cumbersome', 'Durable', 'Mundane']));
     });
   });
 }

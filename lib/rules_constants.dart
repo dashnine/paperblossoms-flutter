@@ -59,6 +59,11 @@ const characterTypeSamurai = 'Samurai';
 const characterTypeRonin = 'Rōnin';
 const characterTypeGaijin = 'Gaijin';
 
+// Advantage/disadvantage category and the type tag marking the permanent
+// injuries a critical strike assigns (core p.270, Table 6-6, severity 7-11).
+const categoryAdversities = 'Adversities';
+const typeScar = 'Scar';
+
 // Item types.
 const itemTypeWeapon = 'Weapon';
 const itemTypeArmor = 'Armor';

@@ -9,6 +9,8 @@ import '../widgets/identity_lock_button.dart';
 import '../widgets/int_spinner.dart';
 import '../widgets/portrait_picker.dart';
 import '../widgets/ring_viewer.dart';
+import 'critical_strike_dialog.dart';
+import 'pickers.dart';
 
 /// Tab 1: identity, portrait, rings, derived attributes, social standing,
 /// wealth, skills, and abilities (mainwindow.ui Character Data page).
@@ -208,8 +210,152 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
             StatTile(label: 'School Rank', value: '${rank.rank}'),
           ],
         ),
+        const SectionHeader('Fatigue & Strife'),
+        Wrap(
+          spacing: 24,
+          runSpacing: 8,
+          children: [
+            // Each track pairs its spinner with its own clear button so the
+            // shortcut sits under the number it resets.
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IntSpinner(
+                    label: 'Fatigue / ${endurance(rings)}',
+                    value: character.fatigue,
+                    onChanged: (v) {
+                      character.fatigue = v;
+                      character.touch();
+                    }),
+                Tooltip(
+                  message: 'Clear all fatigue',
+                  child: TextButton(
+                    onPressed: character.fatigue > 0
+                        ? () {
+                            character.fatigue = 0;
+                            character.touch();
+                          }
+                        : null,
+                    child: const Text('Recover'),
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                IntSpinner(
+                    label: 'Strife / ${composure(rings)}',
+                    value: character.strife,
+                    onChanged: (v) {
+                      character.strife = v;
+                      character.touch();
+                    }),
+                Tooltip(
+                  message: 'Clear all strife',
+                  child: TextButton(
+                    onPressed: character.strife > 0
+                        ? () {
+                            character.strife = 0;
+                            character.touch();
+                          }
+                        : null,
+                    child: const Text('Unmask'),
+                  ),
+                ),
+              ],
+            ),
+          ],
+        ),
+        SectionHeader(
+          'Conditions',
+          trailing: IconButton(
+            icon: const Icon(Icons.add),
+            tooltip: 'Add condition',
+            onPressed: () => _addCondition(context),
+          ),
+        ),
+        if (character.conditions.isEmpty &&
+            !isIncapacitated(character, rings) &&
+            !isCompromised(character, rings))
+          const EmptyHint('No conditions.')
+        else
+          Wrap(
+            spacing: 8,
+            runSpacing: 8,
+            children: [
+              // Derived from fatigue/strife, so no delete affordance: they
+              // clear themselves when the tracks drop back under the limit.
+              if (isIncapacitated(character, rings))
+                _derivedChip(context, 'Incapacitated',
+                    'Fatigue exceeds endurance: no actions requiring checks '
+                    'and no defending against damage.'),
+              if (isCompromised(character, rings))
+                _derivedChip(context, 'Compromised',
+                    'Strife exceeds composure: cannot keep dice showing '
+                    'strife; vigilance counts as 1.'),
+              for (final condition in character.conditions)
+                Tooltip(
+                  message:
+                      conditionSummaries[condition.split(' (').first] ?? '',
+                  child: InputChip(
+                    label: Text(condition),
+                    onDeleted: () {
+                      character.conditions.remove(condition);
+                      character.touch();
+                    },
+                  ),
+                ),
+            ],
+          ),
+        Align(
+          alignment: Alignment.centerLeft,
+          child: TextButton.icon(
+            icon: const Icon(Icons.bolt),
+            label: const Text('Critical strike…'),
+            onPressed: () => criticalStrikeFlow(context),
+          ),
+        ),
       ],
     );
+  }
+
+  Widget _derivedChip(BuildContext context, String label, String rule) {
+    final colors = Theme.of(context).colorScheme;
+    return Tooltip(
+      message: rule,
+      child: Chip(
+        label: Text(label),
+        labelStyle: TextStyle(color: colors.onErrorContainer),
+        backgroundColor: colors.errorContainer,
+        side: BorderSide(color: colors.error),
+      ),
+    );
+  }
+
+  Future<void> _addCondition(BuildContext context) async {
+    final options = <String>[
+      for (final condition in trackableConditions)
+        if (condition == conditionDying) ...[
+          '$conditionDying (1 round)',
+          for (var rounds = 2; rounds <= 5; rounds++)
+            '$conditionDying ($rounds rounds)',
+        ] else if (condition == conditionLightlyWounded ||
+            condition == conditionSeverelyWounded) ...[
+          for (final ring in gameData.ringNames()) '$condition ($ring)',
+        ] else
+          condition
+    ]..removeWhere(character.conditions.contains);
+    final choice = await pick<String>(
+      context,
+      title: 'Add condition',
+      items: options,
+      labelOf: (condition) => condition,
+      descriptionOf: (condition) =>
+          conditionSummaries[condition.split(' (').first] ?? '',
+    );
+    if (choice == null) return;
+    if (addCondition(character, choice)) character.touch();
   }
 
   Widget _buildSkillsPanel(BuildContext context) {

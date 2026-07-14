@@ -1571,7 +1571,7 @@
                         "effects": []
                     }
                 ],
-                "qualities": ["Cumbersome"],
+                "qualities": ["Cumbersome", "Durable", "Mundane"],
                 "rarity": 5,
                 "price": {
                     "value": 3,

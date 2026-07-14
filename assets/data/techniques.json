@@ -2136,7 +2136,7 @@
                     },
                     {
                         "name": "Beseech Doji's Wisdom",
-                        "rank": 4,
+                        "rank": 2,
                         "reference": {
                             "book": "FoV",
                             "page": 96
@@ -2285,7 +2285,7 @@
                         "rank": 2,
                         "reference": {
                             "book": "FoV",
-                            "page": 98
+                            "page": 97
                         },
                         "xp": 3
                     },

@@ -55,6 +55,14 @@ class Character extends ChangeNotifier {
   int bu = 0;
   int zeni = 0;
   int totalXP = 0;
+  int fatigue = 0;
+  int strife = 0;
+
+  /// Active conditions (core rulebook ch.6), stored as display strings with
+  /// their qualifier resolved, e.g. 'Bleeding', 'Lightly Wounded (Fire)',
+  /// 'Dying (3 rounds)'. Compromised and Incapacitated are NOT stored — they
+  /// are derived from strife/composure and fatigue/endurance.
+  List<String> conditions = [];
   List<Advance> advanceStack = [];
   List<Item> equipment = [];
   List<CharacterBond> bonds = [];
@@ -113,6 +121,9 @@ class Character extends ChangeNotifier {
     bu = 0;
     zeni = 0;
     totalXP = 0;
+    fatigue = 0;
+    strife = 0;
+    conditions = [];
     advanceStack = [];
     equipment = [];
     bonds = [];
@@ -145,6 +156,9 @@ class Character extends ChangeNotifier {
     bu = json['bu'] ?? 0;
     zeni = json['zeni'] ?? 0;
     totalXP = json['total_xp'] ?? 0;
+    fatigue = json['fatigue'] ?? 0;
+    strife = json['strife'] ?? 0;
+    conditions = List<String>.from(json['conditions'] ?? []);
     advanceStack = [
       for (final a in json['advance_stack'] ?? []) Advance.fromJson(a)
     ];
@@ -183,6 +197,9 @@ class Character extends ChangeNotifier {
         'bu': bu,
         'zeni': zeni,
         'total_xp': totalXP,
+        'fatigue': fatigue,
+        'strife': strife,
+        'conditions': conditions,
         'advance_stack': [for (final a in advanceStack) a.toJson()],
         'equipment': [for (final e in equipment) e.toJson()],
         'bonds': [for (final b in bonds) b.toJson()],

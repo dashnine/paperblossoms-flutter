@@ -10067,8 +10067,8 @@
             },
             {
                 "rank": 5,
-                "advance": "Artisan's Appraisal",
-                "type": "technique",
+                "advance": "Artisan skills",
+                "type": "skill_group",
                 "special_access": false
             },
             {
@@ -14815,11 +14815,7 @@
             },
             {
                 "size": 1,
-                "set": ["All in Jest"]
-            },
-            {
-                "size": 1,
-                "set": ["Stirring the Embers"]
+                "set": ["All in Jest", "Stirring the Embers"]
             }
         ],
         "school_ability": "Sailor's Fortune",
@@ -14859,6 +14855,10 @@
             {
                 "size": 1,
                 "set": ["Dice and Cup", "Playing Cards"]
+            },
+            {
+                "size": 1,
+                "set": ["Fishing Rod and Line"]
             }
         ],
         "curriculum": [
@@ -15202,8 +15202,8 @@
             },
             {
                 "rank": 2,
-                "advance": "Tea Ceremony",
-                "type": "technique",
+                "advance": "Theology",
+                "type": "skill",
                 "special_access": false
             },
             {
@@ -26841,7 +26841,7 @@
         "clan": "Phoenix",
         "reference": {
             "book": "FoV",
-            "page": 75
+            "page": 79
         },
         "role": [
             "Shugenja"
@@ -27129,7 +27129,7 @@
         "clan": "Phoenix",
         "reference": {
             "book": "FoV",
-            "page": 75
+            "page": 79
         },
         "role": [
             "Shugenja"
@@ -27417,7 +27417,7 @@
         "clan": "Phoenix",
         "reference": {
             "book": "FoV",
-            "page": 75
+            "page": 79
         },
         "role": [
             "Shugenja"
@@ -27705,7 +27705,7 @@
         "clan": "Phoenix",
         "reference": {
             "book": "FoV",
-            "page": 75
+            "page": 79
         },
         "role": [
             "Shugenja"
@@ -28331,6 +28331,14 @@
             {
                 "size": 1,
                 "set": [ "B\u014d", "Yari" ]
+            },
+            {
+                "size": 1,
+                "set": [ "Shuriken" ]
+            },
+            {
+                "size": 1,
+                "set": [ "Shuriken" ]
             },
             {
                 "size": 1,

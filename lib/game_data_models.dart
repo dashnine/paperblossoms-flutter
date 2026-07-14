@@ -149,6 +149,9 @@ class CurriculumEntry {
       final parts = range.split('-');
       minRank = int.tryParse(parts[0]) ?? 0;
       maxRank = int.tryParse(parts[1]) ?? 0;
+    } else if (range is Map) {
+      minRank = range['min'] ?? 0;
+      maxRank = range['max'] ?? 0;
     }
     return CurriculumEntry(
       rank: json['rank'] ?? 1,

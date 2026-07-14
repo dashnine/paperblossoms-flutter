@@ -86,6 +86,51 @@ Future<Uint8List> _buildSheet({
         pw.Text(label, style: const pw.TextStyle(fontSize: 8)),
       ]);
 
+  // A pen-and-paper tracking row: one empty tick box per point up to
+  // [limit], then a few grey overflow boxes for the state past the limit
+  // (Incapacitated / Compromised). Current in-app values are deliberately
+  // not printed — a printout is filled in by hand at the table.
+  pw.Widget tickRow(String label, int limit, String overflowLabel) {
+    pw.Widget box({bool grey = false}) => pw.Container(
+          width: 9,
+          height: 9,
+          margin: const pw.EdgeInsets.only(right: 2),
+          decoration: pw.BoxDecoration(
+            border: pw.Border.all(
+                color: grey ? PdfColors.grey500 : PdfColors.grey800,
+                width: 0.8),
+          ),
+        );
+    return pw.Padding(
+      padding: const pw.EdgeInsets.only(bottom: 5),
+      child: pw.Row(
+        crossAxisAlignment: pw.CrossAxisAlignment.center,
+        children: [
+          pw.SizedBox(
+              width: 80,
+              child: pw.Text(label, style: const pw.TextStyle(fontSize: 9))),
+          for (var i = 0; i < limit; i++) box(),
+          pw.SizedBox(width: 6),
+          for (var i = 0; i < 4; i++) box(grey: true),
+          pw.SizedBox(width: 4),
+          pw.Text('→ $overflowLabel',
+              style: const pw.TextStyle(
+                  fontSize: 7.5, color: PdfColors.grey600)),
+        ],
+      ),
+    );
+  }
+
+  // A ruled blank line to write conditions/notes on by hand.
+  pw.Widget writeInLine() => pw.Container(
+        height: 13,
+        margin: const pw.EdgeInsets.only(bottom: 3),
+        decoration: const pw.BoxDecoration(
+          border: pw.Border(
+              bottom: pw.BorderSide(color: PdfColors.grey500, width: 0.7)),
+        ),
+      );
+
   pw.Widget table(List<String> columns, List<List<String>> rows) =>
       pw.TableHelper.fromTextArray(
         headers: columns,
@@ -240,6 +285,25 @@ Future<Uint8List> _buildSheet({
             padding: const pw.EdgeInsets.only(right: 18),
             child: stat(ring, '${rings[ring] ?? 0}'),
           ),
+      ]),
+
+      // ---- Fatigue / strife / conditions, tracked by hand ----
+      header('Fatigue, Strife & Conditions'),
+      tickRow('Fatigue / ${endurance(rings)}', endurance(rings),
+          'Incapacitated'),
+      tickRow('Strife / ${composure(rings)}', composure(rings),
+          'Compromised'),
+      pw.SizedBox(height: 2),
+      pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.end, children: [
+        pw.SizedBox(
+            width: 80,
+            child: pw.Text('Conditions',
+                style: const pw.TextStyle(fontSize: 9))),
+        pw.Expanded(child: writeInLine()),
+      ]),
+      pw.Row(children: [
+        pw.SizedBox(width: 80),
+        pw.Expanded(child: writeInLine()),
       ]),
 
       // ---- Social / wealth ----

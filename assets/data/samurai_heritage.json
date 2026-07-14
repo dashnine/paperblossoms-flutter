@@ -1599,7 +1599,7 @@
         "result": "Mighty Conqueror",
         "other_effects": {
             "type": "other",
-            "instructions": "Choose one: double your starting koku, add one item of rarity 6 or lowe to your starting items that is a battlefield heirloom (see page 90) in addition to its other properties, or gain the Glorious Deeds passion (see page 83).",
+            "instructions": "Choose one: double your starting koku, add one item of rarity 6 or lower to your starting items that is a battlefield heirloom (see page 90) in addition to its other properties, or gain the Glorious Deeds passion (see page 83).",
             "outcomes": [
                 {
                     "outcome": "Double your starting koku"

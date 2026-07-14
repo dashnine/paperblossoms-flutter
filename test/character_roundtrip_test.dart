@@ -29,6 +29,9 @@ void main() {
     character.bu = 1;
     character.zeni = 5;
     character.totalXP = 10;
+    character.fatigue = 5;
+    character.strife = 3;
+    character.conditions = ['Bleeding', 'Lightly Wounded (Fire)'];
     character.advanceStack = [
       Advance(
           type: advanceTypeSkill,
@@ -73,6 +76,9 @@ void main() {
     expect(character.advanceStack[1].isFree, isTrue);
     expect(character.equipment.single.qualities, ['Ceremonial', 'Razor-Edged']);
     expect(character.bonds.single.rank, 2);
+    expect(character.fatigue, 5);
+    expect(character.strife, 3);
+    expect(character.conditions, ['Bleeding', 'Lightly Wounded (Fire)']);
   });
 
   test('portraitBytes decodes valid data and nulls out corrupt data', () {
@@ -90,6 +96,9 @@ void main() {
     expect(character.advanceStack, isEmpty);
     expect(character.baseRings, isEmpty);
     expect(character.honor, 0);
+    expect(character.fatigue, 0);
+    expect(character.strife, 0);
+    expect(character.conditions, isEmpty);
     expect(character.uuid, isNotEmpty);
     // Loading always locks identity, regardless of the saved/absent flag.
     expect(character.identityLocked, isTrue);

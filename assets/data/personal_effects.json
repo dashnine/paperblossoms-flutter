@@ -742,7 +742,7 @@
         "rarity": 2
     },
     {
-        "name": "Mari",
+        "name": "Mari (Ball)",
         "reference": {
             "book": "CoS",
             "page": 106
@@ -779,7 +779,7 @@
         "rarity": 7
     },
     {
-        "name": "Perfomers' Boat",
+        "name": "Performers' Boat",
         "reference": {
             "book": "CoS",
             "page": 106
@@ -938,7 +938,7 @@
         "rarity": 2
     },
     {
-        "name": "Portable Ladder",
+        "name": "Rope Ladder",
         "reference": {
             "book": "CoS",
             "page": 108
@@ -1471,7 +1471,7 @@
             "value": 1,
             "unit": "koku"
         },
-        "rarity": 9,
+        "rarity": 5,
         "qualities": ["Wargear"]
     },
     {
