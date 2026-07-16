@@ -3,7 +3,9 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 
 import '../character_store.dart';
+import '../data_l10n.dart';
 import '../game_data.dart';
+import '../l10n/l10n.dart';
 import '../layout.dart';
 import '../screens/character_editor.dart';
 import '../theme.dart';
@@ -32,75 +34,76 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
   late final WizardState wizard = widget.initialState ?? WizardState();
   int _page = 0;
 
-  static const _titles = [
-    'Part 1: Clan and Family',
-    'Part 2: Role and School',
-    'Part 3: Honor and Glory',
-    'Part 4: Strengths and Weaknesses',
-    'Part 5: Personality and Behavior',
-    'Part 6: Ancestry and Family',
-    'Part 7: Death',
-  ];
+  List<String> _titles(AppLocalizations l10n) => [
+        l10n.wizPart1,
+        l10n.wizPart2,
+        l10n.wizPart3,
+        l10n.wizPart4,
+        l10n.wizPart5,
+        l10n.wizPart6,
+        l10n.wizPart7,
+      ];
 
   /// Per-page validation, ported from each page's validatePage().
   String? _validate(int page) {
+    final l10n = context.l10n;
     switch (page) {
       case 0:
         if (wizard.isSamurai) {
-          if (wizard.clan.isEmpty) return 'Choose a clan (Question 1).';
-          if (wizard.family.isEmpty) return 'Choose a family (Question 2).';
+          if (wizard.clan.isEmpty) return l10n.wizErrChooseClan;
+          if (wizard.family.isEmpty) return l10n.wizErrChooseFamily;
           if (wizard.familyRing.isEmpty) {
-            return 'Choose your family ring increase.';
+            return l10n.wizErrChooseFamilyRing;
           }
         } else {
-          if (wizard.region.isEmpty) return 'Choose a region (Question 1).';
+          if (wizard.region.isEmpty) return l10n.wizErrChooseRegion;
           if (wizard.upbringing.isEmpty) {
-            return 'Choose an upbringing (Question 2).';
+            return l10n.wizErrChooseUpbringing;
           }
           if (wizard.upbringingRing.isEmpty) {
-            return 'Choose your upbringing ring increase.';
+            return l10n.wizErrChooseUpbringingRing;
           }
           final sets =
               gameData.upbringingByName(wizard.upbringing)?.skillIncreases ??
                   [];
           for (var i = 0; i < sets.length; i++) {
             if (wizard.upbringingSkills[i].isEmpty) {
-              return 'Choose upbringing skill ${i + 1}.';
+              return l10n.wizErrChooseUpbringingSkill(i + 1);
             }
           }
         }
         return null;
       case 1:
         final school = gameData.schoolByName(wizard.school);
-        if (school == null) return 'Choose a school.';
+        if (school == null) return l10n.wizErrChooseSchool;
         if (wizard.schoolSkills.length < school.startingSkills.size) {
-          return 'Insufficient skills selected.';
+          return l10n.wizErrInsufficientSkills;
         }
         if (wizard.ringChoices.any((ring) => ring.isEmpty)) {
-          return 'Choose your school ring increases.';
+          return l10n.wizErrSchoolRings;
         }
         if (wizard.schoolSpecialRing.isEmpty) {
-          return 'Choose your standout ring.';
+          return l10n.wizErrStandoutRing;
         }
         if (wizard.techChoices.any((tech) => tech.isEmpty)) {
-          return 'Choose your starting techniques.';
+          return l10n.wizErrStartingTechniques;
         }
         return null;
       case 2:
         if (wizard.q7Positive == null) {
-          return 'Choose an option for Question 7.';
+          return l10n.wizErrQ7Option;
         }
         if (wizard.q7Positive == false && wizard.q7Skill.isEmpty) {
-          return 'Choose a skill for Question 7.';
+          return l10n.wizErrQ7Skill;
         }
         if (wizard.q8Choice.isEmpty) {
-          return 'Choose an option for Question 8.';
+          return l10n.wizErrQ8Option;
         }
         if (wizard.q8Choice == 'neg' && wizard.q8Skill.isEmpty) {
-          return 'Choose a skill for Question 8.';
+          return l10n.wizErrQ8Skill;
         }
         if (wizard.q8Choice == 'mid' && wizard.q8Item.isEmpty) {
-          return 'Choose an item for Question 8.';
+          return l10n.wizErrQ8Item;
         }
         return null;
       case 3:
@@ -108,38 +111,38 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
         // blank (they defaulted to their first entry); require an explicit
         // choice instead.
         if (wizard.distinction.isEmpty) {
-          return 'Choose a distinction (Question 9).';
+          return l10n.wizErrDistinction;
         }
         if (wizard.adversity.isEmpty) {
-          return 'Choose an adversity (Question 10).';
+          return l10n.wizErrAdversity;
         }
-        if (wizard.passion.isEmpty) return 'Choose a passion (Question 11).';
-        if (wizard.anxiety.isEmpty) return 'Choose an anxiety (Question 12).';
+        if (wizard.passion.isEmpty) return l10n.wizErrPassion;
+        if (wizard.anxiety.isEmpty) return l10n.wizErrAnxiety;
         if (wizard.q13PickedAdvantage == null) {
-          return 'Choose an option for Question 13.';
+          return l10n.wizErrQ13Option;
         }
         if (wizard.q13PickedAdvantage == true &&
             wizard.q13Advantage.isEmpty) {
-          return 'Choose an advantage for Question 13.';
+          return l10n.wizErrQ13Advantage;
         }
         if (wizard.q13PickedAdvantage == false &&
             (wizard.q13Disadvantage.isEmpty || wizard.q13Skill.isEmpty)) {
-          return 'Choose a disadvantage and skill for Question 13.';
+          return l10n.wizErrQ13DisadvSkill;
         }
         return null;
       case 4:
         if (wizard.q16Item.isEmpty) {
-          return 'Choose a memento item for Question 16.';
+          return l10n.wizErrQ16Item;
         }
         return null;
       case 5:
         return null;
       case 6:
         if (wizard.calcRings().overflow > 0) {
-          return 'Please select replacement ring(s).';
+          return l10n.wizErrReplacementRings;
         }
         if (wizard.calcSkills().overflow > 0) {
-          return 'Please select replacement skill(s).';
+          return l10n.wizErrReplacementSkills;
         }
         return null;
       default:
@@ -181,19 +184,19 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
     final discard = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Discard this character?'),
-        content: const Text('Your answers so far will be lost.'),
+        title: Text(context.l10n.wizDiscardTitle),
+        content: Text(context.l10n.wizDiscardBody),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Keep editing'),
+            child: Text(context.l10n.keepEditing),
           ),
           FilledButton(
             style: FilledButton.styleFrom(
                 backgroundColor: colors.error,
                 foregroundColor: colors.onError),
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Discard'),
+            child: Text(context.l10n.discard),
           ),
         ],
       ),
@@ -219,12 +222,16 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Rings', style: Theme.of(context).textTheme.titleSmall),
-          for (final entry in rings.entries) row(entry.key, entry.value),
+          Text(context.l10n.ringsSection,
+              style: Theme.of(context).textTheme.titleSmall),
+          for (final entry in rings.entries)
+            row(trData(entry.key), entry.value),
           const SizedBox(height: 12),
-          Text('Skills', style: Theme.of(context).textTheme.titleSmall),
-          if (skills.isEmpty) const EmptyHint('No skills yet.'),
-          for (final entry in skills.entries) row(entry.key, entry.value),
+          Text(context.l10n.skillsSection,
+              style: Theme.of(context).textTheme.titleSmall),
+          if (skills.isEmpty) EmptyHint(context.l10n.wizNoSkillsYet),
+          for (final entry in skills.entries)
+            row(trData(entry.key), entry.value),
         ],
       ),
     );
@@ -254,11 +261,11 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
 
     final scaffold = Scaffold(
       appBar: AppBar(
-        title: Text(_titles[_page]),
+        title: Text(_titles(context.l10n)[_page]),
         actions: [
           if (!context.isExpanded)
             IconButton(
-              tooltip: 'Rings & skills so far',
+              tooltip: context.l10n.wizSummaryTooltip,
               icon: const Icon(Icons.donut_small_outlined),
               onPressed: _showSummarySheet,
             ),
@@ -273,17 +280,18 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
           padding: const EdgeInsets.all(12),
           child: Row(
             children: [
-              Text('Step ${_page + 1} of 7'),
+              Text(context.l10n.wizStepOf(_page + 1, 7)),
               const Spacer(),
               if (_page > 0)
                 OutlinedButton(
                   onPressed: () => setState(() => _page--),
-                  child: const Text('Back'),
+                  child: Text(context.l10n.back),
                 ),
               const SizedBox(width: 12),
               FilledButton(
                 onPressed: _next,
-                child: Text(_page == 6 ? 'Finish' : 'Next'),
+                child: Text(
+                    _page == 6 ? context.l10n.finish : context.l10n.next),
               ),
             ],
           ),

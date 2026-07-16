@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../character.dart';
+import '../data_l10n.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
+import '../l10n/l10n.dart';
 import 'pickers.dart';
 
 /// Picks a bond (port of AddBondDialog). Returns true if one was added.
@@ -14,10 +16,10 @@ Future<bool> addBondFlow(BuildContext context) async {
   ];
   final choice = await pick<Bond>(
     context,
-    title: 'Add Bond',
+    title: context.l10n.addBondTitle,
     items: options,
     labelOf: (bond) => bond.name,
-    subtitleOf: (bond) => bond.ability,
+    subtitleOf: (bond) => trData(bond.ability),
     descriptionOf: (bond) => gameData.shortDescFor(bond.name),
   );
   if (choice == null) return false;

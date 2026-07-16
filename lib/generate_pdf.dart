@@ -1,13 +1,16 @@
 import 'dart:typed_data';
+import 'dart:ui' show Locale;
 
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
 import 'character.dart';
+import 'data_l10n.dart';
 import 'derived_stats.dart';
 import 'game_data.dart';
 import 'item.dart';
+import 'l10n/app_localizations.dart';
 import 'rules_constants.dart';
 
 const _accent = PdfColor.fromInt(0xFFB03060); // sakuraDeep
@@ -19,21 +22,28 @@ const _light = PdfColor.fromInt(0xFFF3E3EA);
 Future<Uint8List> buildCharacterSheetPdf({
   bool showSkills = true,
   bool showPortrait = true,
+  AppLocalizations? strings,
 }) async {
+  // Sheet chrome follows the interface language; callers with a BuildContext
+  // pass AppLocalizations.of(context). Data names on the sheet follow the
+  // content language separately (via the data overlay at display sites).
+  final l10n = strings ?? lookupAppLocalizations(const Locale('en'));
   try {
-    return await _buildSheet(showSkills: showSkills, showPortrait: showPortrait);
+    return await _buildSheet(
+        showSkills: showSkills, showPortrait: showPortrait, l10n: l10n);
   } catch (_) {
     // The portrait is the sheet's only per-character binary input; corrupt
     // bytes surface as a parse error inside doc.save(). Render the rest of
     // the sheet without it rather than failing the whole export.
     if (!showPortrait || character.portraitB64.isEmpty) rethrow;
-    return _buildSheet(showSkills: showSkills, showPortrait: false);
+    return _buildSheet(showSkills: showSkills, showPortrait: false, l10n: l10n);
   }
 }
 
 Future<Uint8List> _buildSheet({
   required bool showSkills,
   required bool showPortrait,
+  required AppLocalizations l10n,
 }) async {
   final c = character;
 
@@ -169,7 +179,7 @@ Future<Uint8List> _buildSheet({
         child: pw.RichText(
           text: pw.TextSpan(children: [
             pw.TextSpan(
-                text: '${item.name} — ',
+                text: '${trData(item.name)} — ',
                 style: pw.TextStyle(
                     fontSize: 8.5, fontWeight: pw.FontWeight.bold)),
             pw.TextSpan(
@@ -182,7 +192,9 @@ Future<Uint8List> _buildSheet({
   }
 
   // A named entry with its full description, as the original render dialog
-  // lays out abilities, techniques and advantages/disadvantages.
+  // lays out abilities, techniques and advantages/disadvantages. [name] is
+  // the canonical English key (descriptions stay keyed by it); display is
+  // translated here.
   pw.Widget entry(String name, String meta) {
     final desc = longDescFor(name);
     return pw.Padding(
@@ -193,7 +205,7 @@ Future<Uint8List> _buildSheet({
           pw.RichText(
             text: pw.TextSpan(children: [
               pw.TextSpan(
-                  text: name,
+                  text: trData(name),
                   style: pw.TextStyle(
                       fontSize: 9.5, fontWeight: pw.FontWeight.bold)),
               if (meta.isNotEmpty)
@@ -243,27 +255,27 @@ Future<Uint8List> _buildSheet({
                     style: pw.TextStyle(
                         fontSize: 22, fontWeight: pw.FontWeight.bold)),
                 pw.Text([
-                  if (c.clan.isNotEmpty) c.clan,
-                  if (c.school.isNotEmpty) c.school,
-                  'Rank ${rank.rank}',
+                  if (c.clan.isNotEmpty) trData(c.clan),
+                  if (c.school.isNotEmpty) trData(c.school),
+                  l10n.rankN(rank.rank),
                   if (c.heritage.isNotEmpty && c.heritage != 'None')
-                    'Heritage: ${c.heritage}',
+                    l10n.heritageHeader(trData(c.heritage)),
                 ].join(' · ')),
                 pw.SizedBox(height: 6),
                 pw.Row(children: [
-                  stat('Honor', '${c.honor}'),
+                  stat(l10n.honor, '${c.honor}'),
                   pw.SizedBox(width: 14),
-                  stat('Glory', '${c.glory}'),
+                  stat(l10n.glory, '${c.glory}'),
                   pw.SizedBox(width: 14),
-                  stat('Status', '${c.status}'),
+                  stat(l10n.statusLabel, '${c.status}'),
                   pw.SizedBox(width: 22),
-                  stat('Endurance', '${endurance(rings)}'),
+                  stat(l10n.endurance, '${endurance(rings)}'),
                   pw.SizedBox(width: 14),
-                  stat('Composure', '${composure(rings)}'),
+                  stat(l10n.composure, '${composure(rings)}'),
                   pw.SizedBox(width: 14),
-                  stat('Focus', '${focus(rings)}'),
+                  stat(l10n.focusStat, '${focus(rings)}'),
                   pw.SizedBox(width: 14),
-                  stat('Vigilance', '${vigilance(rings)}'),
+                  stat(l10n.vigilance, '${vigilance(rings)}'),
                 ]),
               ],
             ),
@@ -278,26 +290,26 @@ Future<Uint8List> _buildSheet({
       ),
 
       // ---- Rings ----
-      header('Rings'),
+      header(l10n.ringsSection),
       pw.Row(children: [
         for (final ring in [ringAir, ringEarth, ringFire, ringWater, ringVoid])
           pw.Padding(
             padding: const pw.EdgeInsets.only(right: 18),
-            child: stat(ring, '${rings[ring] ?? 0}'),
+            child: stat(trData(ring), '${rings[ring] ?? 0}'),
           ),
       ]),
 
       // ---- Fatigue / strife / conditions, tracked by hand ----
-      header('Fatigue, Strife & Conditions'),
-      tickRow('Fatigue / ${endurance(rings)}', endurance(rings),
-          'Incapacitated'),
-      tickRow('Strife / ${composure(rings)}', composure(rings),
-          'Compromised'),
+      header(l10n.pdfFatigueStrifeConditions),
+      tickRow(l10n.fatigueOf(endurance(rings)), endurance(rings),
+          trData('Incapacitated')),
+      tickRow(l10n.strifeOf(composure(rings)), composure(rings),
+          trData('Compromised')),
       pw.SizedBox(height: 2),
       pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.end, children: [
         pw.SizedBox(
             width: 80,
-            child: pw.Text('Conditions',
+            child: pw.Text(l10n.conditionsSection,
                 style: const pw.TextStyle(fontSize: 9))),
         pw.Expanded(child: writeInLine()),
       ]),
@@ -307,47 +319,48 @@ Future<Uint8List> _buildSheet({
       ]),
 
       // ---- Social / wealth ----
-      header('Wealth & Progress'),
-      pw.Text('Wealth: ${c.koku} koku, ${c.bu} bu, ${c.zeni} zeni    ·    '
-          'XP: ${xpSpent(c)} spent / ${c.totalXP} total    ·    '
-          'XP in rank: ${rank.curriculumXP}'
-          '${title.currentTitle.isEmpty ? '' : '    ·    Title: ${title.currentTitle} (${title.titleXP} XP)'}'),
+      header(l10n.pdfWealthProgress),
+      pw.Text(l10n.pdfWealthLine(c.koku, c.bu, c.zeni, xpSpent(c), c.totalXP,
+              rank.curriculumXP) +
+          (title.currentTitle.isEmpty
+              ? ''
+              : l10n.pdfTitlePart(trData(title.currentTitle), title.titleXP))),
 
       // ---- Abilities ----
-      if (abilityList.isNotEmpty) header('Abilities'),
+      if (abilityList.isNotEmpty) header(l10n.abilitiesSection),
       for (final ability in abilityList) entry(ability, ''),
 
       // ---- Skills ----
       if (showSkills) ...[
-        header('Skills'),
+        header(l10n.skillsSection),
         table(
-          ['Skill', 'Rank', 'Group'],
+          [l10n.colSkill, l10n.rankLabel, l10n.groupLabel],
           [
             for (final group in gameData.skillGroups)
               for (final skill in group.skills)
-                [skill, '${skills[skill] ?? 0}', group.name]
+                [trData(skill), '${skills[skill] ?? 0}', trData(group.name)]
           ],
         ),
       ] else ...[
-        header('Skills'),
+        header(l10n.skillsSection),
         pw.Text(
             [
               for (final entry in skills.entries)
-                if (entry.value > 0) '${entry.key} ${entry.value}'
+                if (entry.value > 0) '${trData(entry.key)} ${entry.value}'
             ].join(', '),
             style: const pw.TextStyle(fontSize: 9)),
       ],
 
       // ---- Techniques ----
-      if (techniqueNames.isNotEmpty) header('Techniques'),
+      if (techniqueNames.isNotEmpty) header(l10n.techniquesSection),
       for (final name in techniqueNames)
         entry(
           name,
           [
             if ((gameData.techniqueByName(name)?.category ?? '').isNotEmpty)
-              gameData.techniqueByName(name)!.category,
+              trData(gameData.techniqueByName(name)!.category),
             if (gameData.techniqueByName(name)?.rank != null)
-              'Rank ${gameData.techniqueByName(name)!.rank}',
+              l10n.rankN(gameData.techniqueByName(name)!.rank),
             if ('${gameData.techniqueByName(name)?.reference ?? ''}'
                 .isNotEmpty)
               '${gameData.techniqueByName(name)!.reference}',
@@ -355,15 +368,15 @@ Future<Uint8List> _buildSheet({
         ),
 
       // ---- Traits ----
-      if (c.advDisadv.isNotEmpty) header('Distinctions & Adversities'),
+      if (c.advDisadv.isNotEmpty) header(l10n.pdfTraitsHeader),
       for (final name in c.advDisadv)
         entry(
           name,
           [
             if ((gameData.advDisadvByName(name)?.category ?? '').isNotEmpty)
-              gameData.advDisadvByName(name)!.category,
+              trData(gameData.advDisadvByName(name)!.category),
             if ((gameData.advDisadvByName(name)?.ring ?? '').isNotEmpty)
-              gameData.advDisadvByName(name)!.ring,
+              trData(gameData.advDisadvByName(name)!.ring),
             if ('${gameData.advDisadvByName(name)?.reference ?? ''}'
                 .isNotEmpty)
               '${gameData.advDisadvByName(name)!.reference}',
@@ -371,79 +384,93 @@ Future<Uint8List> _buildSheet({
         ),
 
       // ---- Bonds ----
-      if (c.bonds.isNotEmpty) header('Bonds'),
+      if (c.bonds.isNotEmpty) header(l10n.bondsSection),
       if (c.bonds.isNotEmpty)
         table(
-          ['Bond', 'Rank', 'Ability'],
+          [l10n.bondLabel, l10n.rankLabel, l10n.colAbility],
           [
             for (final bond in c.bonds)
               [
-                bond.name,
+                trData(bond.name),
                 '${bond.rank}',
-                gameData.bondByName(bond.name)?.ability ?? '',
+                trData(gameData.bondByName(bond.name)?.ability ?? ''),
               ]
           ],
         ),
 
       // ---- Equipment ----
-      if (c.equipment.any((item) => item.isWeapon)) header('Weapons'),
+      if (c.equipment.any((item) => item.isWeapon))
+        header(l10n.weaponsSection),
       if (c.equipment.any((item) => item.isWeapon))
         table(
-          ['Name', 'Category', 'Skill', 'Grip', 'Range', 'Dmg', 'Dls',
-              'Qualities'],
+          [
+            l10n.colName,
+            l10n.colCategory,
+            l10n.colSkill,
+            l10n.colGrip,
+            l10n.colRange,
+            l10n.colDamage,
+            l10n.colDeadliness,
+            l10n.colQualities
+          ],
           [
             for (final group in Item.gripGroups(
                 c.equipment.where((item) => item.isWeapon)))
               for (var i = 0; i < group.length; i++)
                 [
-                  i == 0 ? group.first.name : '',
-                  i == 0 ? group.first.category : '',
-                  i == 0 ? group.first.skill : '',
-                  group[i].grip,
+                  i == 0 ? trData(group.first.name) : '',
+                  i == 0 ? trData(group.first.category) : '',
+                  i == 0 ? trData(group.first.skill) : '',
+                  trData(group[i].grip),
                   '${group[i].rangeMin}-${group[i].rangeMax}',
                   '${group[i].damage}',
                   '${group[i].deadliness}',
-                  i == 0 ? group.first.qualities.join(', ') : '',
+                  i == 0 ? group.first.qualities.map(trData).join(', ') : '',
                 ]
           ],
         ),
       ...itemDescriptions(c.equipment.where((item) => item.isWeapon)),
-      if (c.equipment.any((item) => item.isArmor)) header('Armor'),
+      if (c.equipment.any((item) => item.isArmor)) header(l10n.armorSection),
       if (c.equipment.any((item) => item.isArmor))
         table(
-          ['Name', 'Physical', 'Supernatural', 'Qualities'],
+          [
+            l10n.colName,
+            l10n.colPhysical,
+            l10n.colSupernatural,
+            l10n.colQualities
+          ],
           [
             for (final item in c.equipment)
               if (item.isArmor)
                 [
-                  item.name,
+                  trData(item.name),
                   '${item.physicalResistance}',
                   '${item.supernaturalResistance}',
-                  item.qualities.join(', '),
+                  item.qualities.map(trData).join(', '),
                 ]
           ],
         ),
       ...itemDescriptions(c.equipment.where((item) => item.isArmor)),
       if (c.equipment.any((item) => !item.isWeapon && !item.isArmor))
-        header('Personal Effects'),
+        header(l10n.personalEffectsSection),
       if (c.equipment.any((item) => !item.isWeapon && !item.isArmor))
         pw.Text(
             [
               for (final item in c.equipment)
-                if (!item.isWeapon && !item.isArmor) item.name
+                if (!item.isWeapon && !item.isArmor) trData(item.name)
             ].join(', '),
             style: const pw.TextStyle(fontSize: 9)),
       ...itemDescriptions(
           c.equipment.where((item) => !item.isWeapon && !item.isArmor)),
 
       // ---- Story ----
-      if (c.ninjo.isNotEmpty) header('Ninjō'),
+      if (c.ninjo.isNotEmpty) header(l10n.ninjoHeader),
       if (c.ninjo.isNotEmpty)
         pw.Text(c.ninjo, style: const pw.TextStyle(fontSize: 9)),
-      if (c.giri.isNotEmpty) header('Giri'),
+      if (c.giri.isNotEmpty) header(l10n.giriHeader),
       if (c.giri.isNotEmpty)
         pw.Text(c.giri, style: const pw.TextStyle(fontSize: 9)),
-      if (c.notes.isNotEmpty) header('Notes'),
+      if (c.notes.isNotEmpty) header(l10n.notesSection),
       if (c.notes.isNotEmpty)
         pw.Text(c.notes, style: const pw.TextStyle(fontSize: 8)),
     ],

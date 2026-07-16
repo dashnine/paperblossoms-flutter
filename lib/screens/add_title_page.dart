@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart' hide Title;
 
 import '../character.dart';
+import '../data_l10n.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
+import '../l10n/l10n.dart';
 import '../rules_constants.dart';
 import 'pickers.dart';
 
@@ -16,11 +18,11 @@ Future<bool> addTitleFlow(BuildContext context) async {
   ];
   final choice = await pick<Title>(
     context,
-    title: 'Add Title',
+    title: context.l10n.addTitleTitle,
     items: options,
     labelOf: (title) => title.name,
-    subtitleOf: (title) => '${title.xpToCompletion} XP'
-        '${title.titleAbility.isEmpty ? '' : ' · ${title.titleAbility}'}',
+    subtitleOf: (title) => context.l10n.xpAmount(title.xpToCompletion) +
+        (title.titleAbility.isEmpty ? '' : ' · ${trData(title.titleAbility)}'),
     descriptionOf: (title) => gameData.shortDescFor(title.titleAbility),
   );
   if (choice == null) return false;

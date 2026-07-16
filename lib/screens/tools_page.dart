@@ -5,6 +5,8 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../game_data.dart';
+import '../l10n/l10n.dart';
+import '../locale_controllers.dart';
 import '../theme.dart';
 import '../user_data_store.dart';
 import 'descriptions_editor.dart';
@@ -46,17 +48,17 @@ class _ToolsPageState extends State<ToolsPage> {
       final count =
           await userDataStore.importDescriptions(utf8.decode(bytes));
       if (!mounted) return;
-      _showMessage('Imported $count description${count == 1 ? '' : 's'}.');
+      _showMessage(context.l10n.importedDescriptions(count));
     } on FormatException {
       if (!mounted) return;
-      _showMessage("Couldn't read that file as descriptions JSON or CSV.");
+      _showMessage(context.l10n.couldNotReadDescriptionsFile);
     }
   }
 
   Future<void> _exportDescriptions() async {
     final count = gameData.descriptions.length;
     if (count == 0) {
-      _showMessage('No descriptions to export.');
+      _showMessage(context.l10n.noDescriptionsToExport);
       return;
     }
     final bytes = utf8.encode(userDataStore.exportDescriptionsJson());
@@ -75,7 +77,7 @@ class _ToolsPageState extends State<ToolsPage> {
       await File(path).writeAsBytes(bytes);
       if (!mounted) return;
     }
-    _showMessage('Exported $count description${count == 1 ? '' : 's'}.');
+    _showMessage(context.l10n.exportedDescriptions(count));
   }
 
   Future<void> _reloadHomebrew() async {
@@ -84,36 +86,38 @@ class _ToolsPageState extends State<ToolsPage> {
     setState(() {});
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(userDataStore.loadedHomebrewFiles.isEmpty
-            ? 'No homebrew files found.'
-            : 'Merged: ${userDataStore.loadedHomebrewFiles.join(', ')}')));
+            ? context.l10n.noHomebrewFilesFound
+            : context.l10n
+                .mergedFiles(userDataStore.loadedHomebrewFiles.join(', ')))));
   }
 
   @override
   Widget build(BuildContext context) {
+    final l10n = context.l10n;
     return Scaffold(
-      appBar: AppBar(title: const Text('Tools')),
+      appBar: AppBar(title: Text(l10n.toolsTitle)),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          const SectionHeader('Appearance'),
+          SectionHeader(l10n.appearanceSection),
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 8),
             child: ListenableBuilder(
               listenable: themeController,
               builder: (context, _) => SegmentedButton<ThemeMode>(
-                segments: const [
+                segments: [
                   ButtonSegment(
                       value: ThemeMode.light,
-                      label: Text('Light'),
-                      icon: Icon(Icons.light_mode_outlined)),
+                      label: Text(l10n.themeLight),
+                      icon: const Icon(Icons.light_mode_outlined)),
                   ButtonSegment(
                       value: ThemeMode.dark,
-                      label: Text('Dark'),
-                      icon: Icon(Icons.dark_mode_outlined)),
+                      label: Text(l10n.themeDark),
+                      icon: const Icon(Icons.dark_mode_outlined)),
                   ButtonSegment(
                       value: ThemeMode.system,
-                      label: Text('System'),
-                      icon: Icon(Icons.brightness_auto_outlined)),
+                      label: Text(l10n.themeSystem),
+                      icon: const Icon(Icons.brightness_auto_outlined)),
                 ],
                 selected: {themeController.value},
                 onSelectionChanged: (selection) =>
@@ -121,14 +125,77 @@ class _ToolsPageState extends State<ToolsPage> {
               ),
             ),
           ),
-          const SectionHeader('Rules text'),
+          SectionHeader(l10n.languageSection),
+          // Interface and game-content languages are deliberately
+          // independent: a table can play with a French interface and the
+          // English terms of their printed books, or vice versa. Either can
+          // revert to English with one tap.
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: ListenableBuilder(
+              listenable: localeController,
+              builder: (context, _) => Row(
+                children: [
+                  SizedBox(
+                      width: 110, child: Text(l10n.languageInterface)),
+                  Expanded(
+                    child: SegmentedButton<String>(
+                      segments: [
+                        const ButtonSegment(
+                            value: 'en', label: Text('English')),
+                        const ButtonSegment(
+                            value: 'fr', label: Text('Français')),
+                        ButtonSegment(
+                            value: 'system', label: Text(l10n.themeSystem)),
+                      ],
+                      selected: {
+                        localeController.value?.languageCode ?? 'system'
+                      },
+                      onSelectionChanged: (selection) => localeController.set(
+                          selection.single == 'system'
+                              ? null
+                              : Locale(selection.single)),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4),
+            child: ListenableBuilder(
+              listenable: contentLocaleController,
+              builder: (context, _) => Row(
+                children: [
+                  SizedBox(width: 110, child: Text(l10n.languageContent)),
+                  Expanded(
+                    child: SegmentedButton<String>(
+                      segments: [
+                        const ButtonSegment(
+                            value: 'en', label: Text('English')),
+                        const ButtonSegment(
+                            value: 'fr', label: Text('Français')),
+                        ButtonSegment(
+                            value: 'match',
+                            label: Text(l10n.languageMatchInterface)),
+                      ],
+                      selected: {contentLocaleController.value ?? 'match'},
+                      onSelectionChanged: (selection) =>
+                          contentLocaleController.set(
+                              selection.single == 'match'
+                                  ? null
+                                  : selection.single),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          SectionHeader(l10n.rulesTextSection),
           ListTile(
             leading: const Icon(Icons.notes_outlined),
-            title: const Text('Edit rules descriptions'),
-            subtitle: const Text(
-                'The bundled data ships no rules text. If you own the '
-                'books, enter your own descriptions here; they appear in '
-                'the editor and on the PDF sheet.'),
+            title: Text(l10n.editRulesDescriptions),
+            subtitle: Text(l10n.editRulesDescriptionsSubtitle),
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
@@ -137,37 +204,29 @@ class _ToolsPageState extends State<ToolsPage> {
           ),
           ListTile(
             leading: const Icon(Icons.file_open_outlined),
-            title: const Text('Import descriptions…'),
-            subtitle: const Text(
-                'Merge descriptions from an exported JSON file or the '
-                'original Paper Blossoms user_descriptions.csv; imported '
-                'entries overwrite same-name ones.'),
+            title: Text(l10n.importDescriptions),
+            subtitle: Text(l10n.importDescriptionsSubtitle),
             onTap: _importDescriptions,
           ),
           ListTile(
             leading: const Icon(Icons.save_alt_outlined),
-            title: const Text('Export descriptions…'),
-            subtitle: const Text(
-                'Save all descriptions to a JSON file for backup or '
-                'sharing.'),
+            title: Text(l10n.exportDescriptions),
+            subtitle: Text(l10n.exportDescriptionsSubtitle),
             onTap: _exportDescriptions,
           ),
-          const SectionHeader('Homebrew content'),
+          SectionHeader(l10n.homebrewSection),
           ListTile(
             leading: const Icon(Icons.folder_outlined),
-            title: const Text('Homebrew folder'),
-            subtitle: Text(
-                '$_homebrewPath\n\nDrop JSON files named like the bundled '
-                'data (weapons.json, titles.json, techniques.json, …) with '
-                'the same structure; entries are merged after the official '
-                'content on launch.'),
+            title: Text(l10n.homebrewFolder),
+            subtitle: Text(l10n.homebrewFolderSubtitle(_homebrewPath)),
           ),
           ListTile(
             leading: const Icon(Icons.refresh),
-            title: const Text('Reload homebrew now'),
+            title: Text(l10n.reloadHomebrew),
             subtitle: Text(userDataStore.loadedHomebrewFiles.isEmpty
-                ? 'Nothing merged this session.'
-                : 'Merged: ${userDataStore.loadedHomebrewFiles.join(', ')}'),
+                ? l10n.nothingMergedThisSession
+                : l10n.mergedFiles(
+                    userDataStore.loadedHomebrewFiles.join(', '))),
             onTap: _reloadHomebrew,
           ),
         ],

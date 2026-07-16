@@ -5,6 +5,8 @@ import 'package:paperblossoms/rules_constants.dart';
 import 'package:paperblossoms/wizard/page3_honor_glory.dart';
 import 'package:paperblossoms/wizard/wizard_state.dart';
 
+import 'test_app.dart';
+
 // Regression: picking a Q7 skill used to remove that skill from its own
 // dropdown's options, leaving the form field holding a value with zero
 // matching items and tripping the framework assertion.
@@ -28,14 +30,12 @@ void main() {
       ..familyRing = 'Earth'
       ..school = 'Hida Defender School';
 
-    await tester.pumpWidget(MaterialApp(
-      home: StatefulBuilder(
-        builder: (context, setState) => Scaffold(
-          body: Page3HonorGlory(
-              wizard: wizard, onChanged: () => setState(() {})),
-        ),
+    await tester.pumpWidget(testApp(StatefulBuilder(
+      builder: (context, setState) => Scaffold(
+        body: Page3HonorGlory(
+            wizard: wizard, onChanged: () => setState(() {})),
       ),
-    ));
+    )));
     await tester.pumpAndSettle();
 
     // Q7 negative reveals the skill dropdown.

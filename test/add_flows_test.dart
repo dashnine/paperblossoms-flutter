@@ -8,6 +8,8 @@ import 'package:paperblossoms/screens/add_advance_page.dart';
 import 'package:paperblossoms/screens/add_title_page.dart';
 import 'package:paperblossoms/screens/tab_advancement.dart';
 
+import 'test_app.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -32,23 +34,21 @@ void main() {
       Future<void> Function(WidgetTester) drive,
       {String? initialType, String? initialOption, String? initialGroup}) async {
     Advance? result;
-    await tester.pumpWidget(MaterialApp(
-      home: Builder(
-        builder: (context) => ElevatedButton(
-          onPressed: () async {
-            result = await Navigator.push<Advance>(
-              context,
-              MaterialPageRoute(
-                  builder: (context) => AddAdvancePage(
-                      initialType: initialType,
-                      initialOption: initialOption,
-                      initialGroup: initialGroup)),
-            );
-          },
-          child: const Text('open'),
-        ),
+    await tester.pumpWidget(testApp(Builder(
+      builder: (context) => ElevatedButton(
+        onPressed: () async {
+          result = await Navigator.push<Advance>(
+            context,
+            MaterialPageRoute(
+                builder: (context) => AddAdvancePage(
+                    initialType: initialType,
+                    initialOption: initialOption,
+                    initialGroup: initialGroup)),
+          );
+        },
+        child: const Text('open'),
       ),
-    ));
+    )));
     await tester.tap(find.text('open'));
     await tester.pumpAndSettle();
     await drive(tester);
@@ -192,8 +192,8 @@ void main() {
     tester.view.physicalSize = const Size(320, 700);
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
-    await tester.pumpWidget(const MaterialApp(
-        home: AddAdvancePage(initialType: advanceTypeTechnique)));
+    await tester.pumpWidget(
+        testApp(const AddAdvancePage(initialType: advanceTypeTechnique)));
     await tester.pumpAndSettle();
     // Rendering overflows would have thrown via FlutterError.onError.
     expect(find.text('Type to filter'), findsOneWidget);
@@ -206,15 +206,13 @@ void main() {
     addTearDown(tester.view.reset);
     // Like CharacterEditor, rebuild the tab whenever the character changes.
     // NOT const: an identical const child would let Flutter skip the rebuild.
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: ListenableBuilder(
-          listenable: character,
-          // ignore: prefer_const_constructors
-          builder: (context, _) => AdvancementTab(),
-        ),
+    await tester.pumpWidget(testApp(Scaffold(
+      body: ListenableBuilder(
+        listenable: character,
+        // ignore: prefer_const_constructors
+        builder: (context, _) => AdvancementTab(),
       ),
-    ));
+    )));
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('Rushing Avalanche Style'));
     await tester.tap(find.text('Rushing Avalanche Style'));
@@ -239,7 +237,7 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
     await tester.pumpWidget(
-        const MaterialApp(home: Scaffold(body: AdvancementTab())));
+        testApp(const Scaffold(body: AdvancementTab())));
     await tester.pumpAndSettle();
     // Current rank (1) is expanded, rank 2 is collapsed.
     expect(find.text('Rushing Avalanche Style'), findsOneWidget);
@@ -262,15 +260,13 @@ void main() {
           track: trackCurriculum,
           cost: 18),
     ];
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: ListenableBuilder(
-          listenable: character,
-          // ignore: prefer_const_constructors
-          builder: (context, _) => AdvancementTab(),
-        ),
+    await tester.pumpWidget(testApp(Scaffold(
+      body: ListenableBuilder(
+        listenable: character,
+        // ignore: prefer_const_constructors
+        builder: (context, _) => AdvancementTab(),
       ),
-    ));
+    )));
     await tester.pumpAndSettle();
     expect(find.text('Honest Assessment'), findsOneWidget); // rank 1 open
     expect(find.text('Touchstone of Courage'), findsNothing); // rank 2 shut
@@ -294,15 +290,13 @@ void main() {
     addTearDown(tester.view.reset);
     character.titles = ['Deathseeker'];
     // ignore: prefer_const_constructors
-    await tester.pumpWidget(MaterialApp(
-      home: Scaffold(
-        body: ListenableBuilder(
-          listenable: character,
-          // ignore: prefer_const_constructors
-          builder: (context, _) => AdvancementTab(),
-        ),
+    await tester.pumpWidget(testApp(Scaffold(
+      body: ListenableBuilder(
+        listenable: character,
+        // ignore: prefer_const_constructors
+        builder: (context, _) => AdvancementTab(),
       ),
-    ));
+    )));
     await tester.pumpAndSettle();
     await tester.ensureVisible(find.text('Deathseeker'));
     await tester.tap(find.text('Deathseeker'));
@@ -342,14 +336,12 @@ void main() {
   });
 
   testWidgets('addTitleFlow applies The Damned grant', (tester) async {
-    await tester.pumpWidget(MaterialApp(
-      home: Builder(
-        builder: (context) => ElevatedButton(
-          onPressed: () => addTitleFlow(context),
-          child: const Text('open'),
-        ),
+    await tester.pumpWidget(testApp(Builder(
+      builder: (context) => ElevatedButton(
+        onPressed: () => addTitleFlow(context),
+        child: const Text('open'),
       ),
-    ));
+    )));
     await tester.tap(find.text('open'));
     await tester.pumpAndSettle();
     await tester.enterText(find.byType(TextField), 'The Damned');

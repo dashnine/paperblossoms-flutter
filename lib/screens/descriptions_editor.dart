@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../data_l10n.dart';
 import '../game_data.dart';
+import '../l10n/l10n.dart';
 import '../user_data_store.dart';
 
 /// Editor for user-entered rules descriptions (port of
@@ -34,15 +36,15 @@ class _DescriptionsEditorState extends State<DescriptionsEditor> {
             children: [
               TextField(
                 controller: shortController,
-                decoration:
-                    const InputDecoration(labelText: 'Short description'),
+                decoration: InputDecoration(
+                    labelText: context.l10n.shortDescriptionLabel),
               ),
               TextField(
                 controller: descController,
                 minLines: 4,
                 maxLines: 8,
-                decoration:
-                    const InputDecoration(labelText: 'Full description'),
+                decoration: InputDecoration(
+                    labelText: context.l10n.fullDescriptionLabel),
               ),
             ],
           ),
@@ -50,11 +52,11 @@ class _DescriptionsEditorState extends State<DescriptionsEditor> {
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(context.l10n.cancel),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Save'),
+            child: Text(context.l10n.save),
           ),
         ],
       ),
@@ -70,16 +72,17 @@ class _DescriptionsEditorState extends State<DescriptionsEditor> {
 
   @override
   Widget build(BuildContext context) {
-    final query = _query.toLowerCase();
+    final query = dataL10n.sortKey(_query);
     final names = [
       for (final name in gameData.describableNames())
-        if (name.toLowerCase().contains(query) &&
+        if ((dataL10n.sortKey(name).contains(query) ||
+                dataL10n.sortKey(trData(name)).contains(query)) &&
             (!_onlyDescribed || gameData.descriptionFor(name).isNotEmpty ||
                 gameData.shortDescFor(name).isNotEmpty))
           name
     ];
     return Scaffold(
-      appBar: AppBar(title: const Text('Rules Descriptions')),
+      appBar: AppBar(title: Text(context.l10n.rulesDescriptionsTitle)),
       body: Column(
         children: [
           Padding(
@@ -88,18 +91,18 @@ class _DescriptionsEditorState extends State<DescriptionsEditor> {
               children: [
                 Expanded(
                   child: TextField(
-                    decoration: const InputDecoration(
-                      prefixIcon: Icon(Icons.search),
-                      hintText: 'Search…',
+                    decoration: InputDecoration(
+                      prefixIcon: const Icon(Icons.search),
+                      hintText: context.l10n.searchHint,
                       isDense: true,
-                      border: OutlineInputBorder(),
+                      border: const OutlineInputBorder(),
                     ),
                     onChanged: (value) => setState(() => _query = value),
                   ),
                 ),
                 const SizedBox(width: 8),
                 FilterChip(
-                  label: const Text('With text'),
+                  label: Text(context.l10n.withText),
                   selected: _onlyDescribed,
                   onSelected: (value) =>
                       setState(() => _onlyDescribed = value),
@@ -117,7 +120,7 @@ class _DescriptionsEditorState extends State<DescriptionsEditor> {
                     short.isNotEmpty || gameData.descriptionFor(name).isNotEmpty;
                 return ListTile(
                   dense: true,
-                  title: Text(name),
+                  title: Text(trData(name)),
                   subtitle: short.isEmpty ? null : Text(short),
                   trailing: hasText
                       ? const Icon(Icons.notes_outlined)

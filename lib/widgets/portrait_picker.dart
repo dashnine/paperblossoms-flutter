@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
+import '../l10n/l10n.dart';
+
 import '../character.dart';
 
 /// Tappable character portrait (port of the original ClickLabel): tap to pick
@@ -51,8 +53,8 @@ class PortraitPicker extends StatelessWidget {
         Icon(Icons.add_a_photo_outlined, color: theme.colorScheme.outline);
     return Tooltip(
       message: hasPortrait
-          ? 'Tap to change portrait, long-press to remove'
-          : 'Tap to add a portrait',
+          ? context.l10n.changePortraitTooltip
+          : context.l10n.addPortraitTooltip,
       child: InkWell(
         onTap: () => _pick(context),
         onLongPress: hasPortrait ? _clear : null,

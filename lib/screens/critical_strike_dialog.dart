@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 
 import '../character.dart';
 import '../derived_stats.dart';
+import '../data_l10n.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
+import '../l10n/l10n.dart';
 import '../rules_constants.dart';
 import '../widgets/int_spinner.dart';
 import 'pickers.dart';
@@ -56,12 +58,13 @@ Future<void> criticalStrikeFlow(BuildContext context) async {
       });
     final choice = await pick<AdvDisadv>(
       context,
-      title: '${band.name}: choose a scar (${result.resistRing})',
+      title: context.l10n
+          .chooseScarTitle(trData(band.name), trData(result.resistRing)),
       items: scars,
       labelOf: (entry) => entry.name,
       subtitleOf: (entry) => [
-        entry.ring,
-        if (entry.types.isNotEmpty) entry.types.join(', '),
+        trData(entry.ring),
+        if (entry.types.isNotEmpty) entry.types.map(trData).join(', '),
       ].join(' · '),
       descriptionOf: (entry) => gameData.shortDescFor(entry.name),
     );
@@ -74,8 +77,8 @@ Future<void> criticalStrikeFlow(BuildContext context) async {
   if (changed) character.touch();
   if (context.mounted) {
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text('Severity ${result.finalSeverity}: ${band.name} — '
-            '${band.effect}')));
+        content: Text(context.l10n.severityResult(
+            result.finalSeverity, trData(band.name), trData(band.effect)))));
   }
 }
 
@@ -100,7 +103,7 @@ class _CritStrikeDialogState extends State<_CritStrikeDialog> {
         mitigatedSeverity(_severity, _checkSucceeded, _bonusSuccesses);
     final band = critBand(finalSeverity);
     return AlertDialog(
-      title: const Text('Critical strike'),
+      title: Text(context.l10n.criticalStrikeTitle),
       content: SizedBox(
         width: 400,
         child: SingleChildScrollView(
@@ -109,26 +112,26 @@ class _CritStrikeDialogState extends State<_CritStrikeDialog> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               IntSpinner(
-                label: 'Severity (deadliness of the source)',
+                label: context.l10n.severityLabel,
                 value: _severity,
                 onChanged: (v) => setState(() => _severity = v),
               ),
               CheckboxListTile(
                 dense: true,
                 contentPadding: EdgeInsets.zero,
-                title: const Text('Attack was Razor-Edged'),
+                title: Text(context.l10n.razorEdgedLabel),
                 value: _razorEdged,
                 onChanged: (v) => setState(() => _razorEdged = v ?? false),
               ),
               DropdownButtonFormField<String>(
                 value: _resistRing,
-                decoration: const InputDecoration(
-                  labelText: 'Ring used to resist',
-                  helperText: 'Stance ring in a conflict, any in a narrative',
+                decoration: InputDecoration(
+                  labelText: context.l10n.ringUsedToResist,
+                  helperText: context.l10n.ringResistHelper,
                 ),
                 items: [
                   for (final ring in gameData.ringNames())
-                    DropdownMenuItem(value: ring, child: Text(ring)),
+                    DropdownMenuItem(value: ring, child: Text(trData(ring))),
                 ],
                 onChanged: (v) =>
                     setState(() => _resistRing = v ?? _resistRing),
@@ -136,23 +139,25 @@ class _CritStrikeDialogState extends State<_CritStrikeDialog> {
               CheckboxListTile(
                 dense: true,
                 contentPadding: EdgeInsets.zero,
-                title: const Text('TN 1 Fitness check succeeded'),
-                subtitle: const Text('Roll your own dice; enter the result'),
+                title: Text(context.l10n.tnFitnessCheck),
+                subtitle: Text(context.l10n.rollOwnDice),
                 value: _checkSucceeded,
                 onChanged: (v) =>
                     setState(() => _checkSucceeded = v ?? false),
               ),
               if (_checkSucceeded)
                 IntSpinner(
-                  label: 'Bonus successes (severity −1 each, on top of −1)',
+                  label: context.l10n.bonusSuccessesLabel,
                   value: _bonusSuccesses,
                   onChanged: (v) => setState(() => _bonusSuccesses = v),
                 ),
               const Divider(),
-              Text('Final severity $finalSeverity — ${band.name}',
+              Text(
+                  context.l10n
+                      .finalSeverityLine(finalSeverity, trData(band.name)),
                   style: theme.textTheme.titleSmall),
               const SizedBox(height: 4),
-              Text(band.effect, style: theme.textTheme.bodySmall),
+              Text(trData(band.effect), style: theme.textTheme.bodySmall),
             ],
           ),
         ),
@@ -160,7 +165,7 @@ class _CritStrikeDialogState extends State<_CritStrikeDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(context.l10n.cancel),
         ),
         FilledButton(
           onPressed: () => Navigator.pop(
@@ -170,7 +175,7 @@ class _CritStrikeDialogState extends State<_CritStrikeDialog> {
                 resistRing: _resistRing,
                 razorEdged: _razorEdged,
               )),
-          child: const Text('Apply'),
+          child: Text(context.l10n.apply),
         ),
       ],
     );

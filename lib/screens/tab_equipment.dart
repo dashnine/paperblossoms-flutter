@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../character.dart';
+import '../data_l10n.dart';
 import '../game_data.dart';
 import '../item.dart';
+import '../l10n/l10n.dart';
 import '../layout.dart';
 import '../rules_constants.dart';
 import '../theme.dart';
@@ -26,20 +28,20 @@ class EquipmentTab extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       children: [
         SectionHeader(
-          'Weapons',
+          context.l10n.weaponsSection,
           trailing: _addButton(context),
         ),
         _buildWeapons(context, weapons),
-        const SectionHeader('Armor'),
+        SectionHeader(context.l10n.armorSection),
         _buildArmor(context, armor),
-        const SectionHeader('Personal Effects'),
+        SectionHeader(context.l10n.personalEffectsSection),
         _buildOther(context, other),
       ],
     );
   }
 
   Widget _addButton(BuildContext context) => IconButton(
-        tooltip: 'Add item',
+        tooltip: context.l10n.addItem,
         icon: const Icon(Icons.add),
         onPressed: () async {
           final items = await Navigator.push<List<Item>>(
@@ -72,9 +74,10 @@ class EquipmentTab extends StatelessWidget {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(SnackBar(
-        content: Text('Removed ${entries.first.item.name}'),
+        content:
+            Text(context.l10n.removedName(trData(entries.first.item.name))),
         action: SnackBarAction(
-          label: 'Undo',
+          label: context.l10n.undo,
           onPressed: () {
             for (final entry in entries) {
               character.equipment.insert(
@@ -97,7 +100,7 @@ class EquipmentTab extends StatelessWidget {
 
   Widget _buildWeapons(BuildContext context, List<Item> weapons) {
     if (weapons.isEmpty) {
-      return const EmptyHint('No weapons yet — tap + to add.');
+      return EmptyHint(context.l10n.noWeaponsYet);
     }
     final groups = Item.gripGroups(weapons);
     // Cards below desktop width: the full stat table only fits expanded.
@@ -107,16 +110,21 @@ class EquipmentTab extends StatelessWidget {
           for (final group in groups)
             Card(
               child: ListTile(
-                title: Text(group.first.name),
+                title: Text(trData(group.first.name)),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('${group.first.category} · ${group.first.skill}'
-                        '${group.first.qualities.isEmpty ? '' : ' · ${group.first.qualities.join(', ')}'}'),
+                    Text(
+                        '${trData(group.first.category)} · ${trData(group.first.skill)}'
+                        '${group.first.qualities.isEmpty ? '' : ' · ${group.first.qualities.map(trData).join(', ')}'}'),
                     for (final grip in group)
                       Text(
-                          '${grip.grip}: Range ${grip.rangeMin}-${grip.rangeMax}'
-                          ' · Dmg ${grip.damage} · Dls ${grip.deadliness}',
+                          context.l10n.gripStats(
+                              trData(grip.grip),
+                              grip.rangeMin,
+                              grip.rangeMax,
+                              '${grip.damage}',
+                              '${grip.deadliness}'),
                           style: Theme.of(context).textTheme.bodySmall),
                     _description(context, group.first),
                   ],
@@ -128,22 +136,29 @@ class EquipmentTab extends StatelessWidget {
       );
     }
     return _scrollableTable(
-      columns: const [
-        'Name', 'Category', 'Skill', 'Grip', 'Range', 'Dmg', 'Dls',
-        'Qualities', ''
+      columns: [
+        context.l10n.colName,
+        context.l10n.colCategory,
+        context.l10n.colSkill,
+        context.l10n.colGrip,
+        context.l10n.colRange,
+        context.l10n.colDamage,
+        context.l10n.colDeadliness,
+        context.l10n.colQualities,
+        ''
       ],
       rows: [
         for (final group in groups)
           for (var i = 0; i < group.length; i++)
             [
               i == 0 ? _nameCell(context, group.first) : const Text(''),
-              Text(i == 0 ? group.first.category : ''),
-              Text(i == 0 ? group.first.skill : ''),
-              Text(group[i].grip),
+              Text(i == 0 ? trData(group.first.category) : ''),
+              Text(i == 0 ? trData(group.first.skill) : ''),
+              Text(trData(group[i].grip)),
               Text('${group[i].rangeMin}-${group[i].rangeMax}'),
               Text('${group[i].damage}'),
               Text('${group[i].deadliness}'),
-              Text(i == 0 ? group.first.qualities.join(', ') : ''),
+              Text(i == 0 ? group.first.qualities.map(trData).join(', ') : ''),
               i == 0
                   ? _removeGroupButton(context, group)
                   : const SizedBox.shrink(),
@@ -172,7 +187,7 @@ class EquipmentTab extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(item.name),
+        Text(trData(item.name)),
         if (short.isNotEmpty)
           SizedBox(
             width: 260,
@@ -193,7 +208,7 @@ class EquipmentTab extends StatelessWidget {
 
   Widget _buildArmor(BuildContext context, List<Item> armorItems) {
     if (armorItems.isEmpty) {
-      return const EmptyHint('No armor yet — tap + to add.');
+      return EmptyHint(context.l10n.noArmorYet);
     }
     if (!context.isExpanded) {
       return Column(
@@ -201,13 +216,15 @@ class EquipmentTab extends StatelessWidget {
           for (final item in armorItems)
             Card(
               child: ListTile(
-                title: Text(item.name),
+                title: Text(trData(item.name)),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text('Physical ${item.physicalResistance} · '
-                        'Supernatural ${item.supernaturalResistance}'
-                        '${item.qualities.isEmpty ? '' : '\n${item.qualities.join(', ')}'}'),
+                    Text(context.l10n.armorStats(item.physicalResistance,
+                            item.supernaturalResistance) +
+                        (item.qualities.isEmpty
+                            ? ''
+                            : '\n${item.qualities.map(trData).join(', ')}')),
                     _description(context, item),
                   ],
                 ),
@@ -218,14 +235,20 @@ class EquipmentTab extends StatelessWidget {
       );
     }
     return _scrollableTable(
-      columns: const ['Name', 'Physical', 'Supernatural', 'Qualities', ''],
+      columns: [
+        context.l10n.colName,
+        context.l10n.colPhysical,
+        context.l10n.colSupernatural,
+        context.l10n.colQualities,
+        ''
+      ],
       rows: [
         for (final item in armorItems)
           [
             _nameCell(context, item),
             Text('${item.physicalResistance}'),
             Text('${item.supernaturalResistance}'),
-            Text(item.qualities.join(', ')),
+            Text(item.qualities.map(trData).join(', ')),
             _removeButton(context, item),
           ],
       ],
@@ -234,7 +257,7 @@ class EquipmentTab extends StatelessWidget {
 
   Widget _buildOther(BuildContext context, List<Item> items) {
     if (items.isEmpty) {
-      return const EmptyHint('No personal effects yet — tap + to add.');
+      return EmptyHint(context.l10n.noPersonalEffectsYet);
     }
     return Column(
       children: [
@@ -242,14 +265,14 @@ class EquipmentTab extends StatelessWidget {
           Card(
             child: ListTile(
               dense: true,
-              title: Text(item.name),
+              title: Text(trData(item.name)),
               subtitle: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   item.type == itemTypePersonalEffect
-                      ? Text(
-                          '${item.price} ${item.unit} · Rarity ${item.rarity}')
-                      : Text(item.type),
+                      ? Text(context.l10n
+                          .priceLine(item.price, item.unit, item.rarity))
+                      : Text(trData(item.type)),
                   _description(context, item),
                 ],
               ),
@@ -261,14 +284,14 @@ class EquipmentTab extends StatelessWidget {
   }
 
   Widget _removeButton(BuildContext context, Item item) => IconButton(
-        tooltip: 'Remove',
+        tooltip: context.l10n.remove,
         icon: const Icon(Icons.delete_outline),
         onPressed: () => _remove(context, item),
       );
 
   Widget _removeGroupButton(BuildContext context, List<Item> group) =>
       IconButton(
-        tooltip: 'Remove',
+        tooltip: context.l10n.remove,
         icon: const Icon(Icons.delete_outline),
         onPressed: () => _removeGroup(context, group),
       );

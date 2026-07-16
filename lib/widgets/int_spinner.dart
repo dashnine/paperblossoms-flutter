@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../l10n/l10n.dart';
+
 /// Labeled integer value with -/+ buttons; works with mouse and touch.
 /// Tapping the number opens a dialog to type a value directly, so large
 /// jumps (e.g. Glory 0 → 44) don't need dozens of taps.
@@ -43,7 +45,7 @@ class IntSpinner extends StatelessWidget {
               onPressed: value > min ? () => onChanged(value - 1) : null,
             ),
             Tooltip(
-              message: 'Tap to type a value',
+              message: context.l10n.tapToTypeValue,
               child: InkWell(
                 onTap: () => _editValue(context),
                 borderRadius: BorderRadius.circular(6),
@@ -110,12 +112,12 @@ class _IntEntryDialogState extends State<_IntEntryDialog> {
       actions: [
         TextButton(
           onPressed: () => Navigator.pop(context),
-          child: const Text('Cancel'),
+          child: Text(context.l10n.cancel),
         ),
         FilledButton(
           onPressed: () =>
               Navigator.pop(context, int.tryParse(_controller.text)),
-          child: const Text('OK'),
+          child: Text(context.l10n.ok),
         ),
       ],
     );

@@ -11,6 +11,8 @@ import 'package:paperblossoms/screens/character_editor.dart';
 import 'package:paperblossoms/theme.dart';
 import 'package:paperblossoms/widgets/identity_lock_button.dart';
 
+import 'test_app.dart';
+
 // 1×1 transparent PNG, valid image bytes for Image.memory.
 const _tinyPngB64 =
     'iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mNkYPhf'
@@ -66,10 +68,8 @@ Future<void> pumpEditor(WidgetTester tester, Size size) async {
   tester.view.physicalSize = size;
   tester.view.devicePixelRatio = 1.0;
   addTearDown(tester.view.reset);
-  await tester.pumpWidget(MaterialApp(
-    theme: lightTheme(),
-    home: const CharacterEditor(),
-  ));
+  await tester.pumpWidget(
+      testApp(const CharacterEditor(), theme: lightTheme()));
   await tester.pumpAndSettle();
 }
 

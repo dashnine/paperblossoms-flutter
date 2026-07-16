@@ -4,9 +4,12 @@ import 'package:flutter/material.dart';
 
 import 'advance.dart';
 import 'character.dart';
+import 'data_l10n.dart';
 import 'game_data.dart';
 import 'game_data_models.dart';
 import 'item.dart';
+import 'l10n/l10n.dart';
+import 'locale_controllers.dart';
 import 'rules_constants.dart';
 import 'screens/add_advance_page.dart';
 import 'screens/character_editor.dart';
@@ -18,6 +21,9 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await gameData.load();
   await themeController.load();
+  // LOCALE=fr also loads the data overlay so previews show translated names.
+  await dataL10n
+      .setLocale(const String.fromEnvironment('LOCALE', defaultValue: 'en'));
   _seedDemoCharacter();
   // PORTRAIT_LATER=true injects a portrait 5s after launch, mimicking what
   // PortraitPicker does after the (unautomatable) native file dialog returns
@@ -105,6 +111,10 @@ class _PreviewApp extends StatelessWidget {
       listenable: themeController,
       builder: (context, _) => MaterialApp(
         title: 'Paper Blossoms (preview)',
+        // LOCALE=fr previews the interface in another supported language.
+        locale: Locale(const String.fromEnvironment('LOCALE', defaultValue: 'en')),
+        localizationsDelegates: AppLocalizations.localizationsDelegates,
+        supportedLocales: supportedUiLocales,
         theme: lightTheme(),
         darkTheme: darkTheme(),
         // DARK=true forces the dark theme regardless of the user setting or

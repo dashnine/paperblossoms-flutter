@@ -1,0 +1,887 @@
+{
+  "@@locale": "en",
+  "appTitle": "Paper Blossoms",
+
+  "cancel": "Cancel",
+  "delete": "Delete",
+
+  "importCharacterTooltip": "Import character",
+  "newCharacter": "New Character",
+  "noCharactersYet": "No characters yet.\nCreate one to begin your story.",
+  "deleteCharacterTitle": "Delete {name}?",
+  "@deleteCharacterTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteCannotBeUndone": "This cannot be undone.",
+  "rankN": "Rank {rank}",
+  "@rankN": {
+    "placeholders": {
+      "rank": {
+        "type": "int"
+      }
+    }
+  },
+
+  "toolsTitle": "Tools",
+  "languageSection": "Language",
+  "languageInterface": "Interface",
+  "languageContent": "Game content",
+  "languageMatchInterface": "Match interface",
+  "appearanceSection": "Appearance",
+  "themeLight": "Light",
+  "themeDark": "Dark",
+  "themeSystem": "System",
+  "rulesTextSection": "Rules text",
+  "editRulesDescriptions": "Edit rules descriptions",
+  "editRulesDescriptionsSubtitle": "The bundled data ships no rules text. If you own the books, enter your own descriptions here; they appear in the editor and on the PDF sheet.",
+  "importDescriptions": "Import descriptions…",
+  "importDescriptionsSubtitle": "Merge descriptions from an exported JSON file or the original Paper Blossoms user_descriptions.csv; imported entries overwrite same-name ones.",
+  "exportDescriptions": "Export descriptions…",
+  "exportDescriptionsSubtitle": "Save all descriptions to a JSON file for backup or sharing.",
+  "homebrewSection": "Homebrew content",
+  "homebrewFolder": "Homebrew folder",
+  "homebrewFolderSubtitle": "{path}\n\nDrop JSON files named like the bundled data (weapons.json, titles.json, techniques.json, …) with the same structure; entries are merged after the official content on launch.",
+  "@homebrewFolderSubtitle": {
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "reloadHomebrew": "Reload homebrew now",
+  "nothingMergedThisSession": "Nothing merged this session.",
+  "mergedFiles": "Merged: {files}",
+  "@mergedFiles": {
+    "placeholders": {
+      "files": {
+        "type": "String"
+      }
+    }
+  },
+  "noHomebrewFilesFound": "No homebrew files found.",
+  "importedDescriptions": "{count, plural, =1{Imported 1 description.} other{Imported {count} descriptions.}}",
+  "@importedDescriptions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "exportedDescriptions": "{count, plural, =1{Exported 1 description.} other{Exported {count} descriptions.}}",
+  "@exportedDescriptions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "couldNotReadDescriptionsFile": "Couldn't read that file as descriptions JSON or CSV.",
+  "noDescriptionsToExport": "No descriptions to export.",
+
+  "tabCharacter": "Character",
+  "tabBackground": "Background",
+  "tabTraits": "Traits",
+  "tabBonds": "Bonds",
+  "tabTechniques": "Techniques",
+  "tabEquipment": "Equipment",
+  "tabAdvancement": "Advancement",
+  "unnamedSamurai": "Unnamed Samurai",
+  "saved": "Saved",
+  "save": "Save",
+  "saveUnsavedTooltip": "Save (unsaved changes)",
+  "exportTooltip": "Export",
+  "printExportPdf": "Print / export PDF sheet…",
+  "shareCharacterJson": "Share character JSON…",
+  "fullSkillTableOnSheet": "Full skill table on sheet",
+  "portraitOnSheet": "Portrait on sheet",
+  "unsavedChanges": "Unsaved changes",
+  "saveBeforeClosing": "Save this character before closing?",
+  "keepEditing": "Keep editing",
+  "discard": "Discard",
+  "saveAndClose": "Save & close",
+  "characterExported": "Character exported.",
+
+  "nameLabel": "Name",
+  "familyLabel": "Family",
+  "noClan": "No clan",
+  "noSchool": "No school",
+  "socialStandingSection": "Social Standing",
+  "honor": "Honor",
+  "glory": "Glory",
+  "statusLabel": "Status",
+  "wealthSection": "Wealth",
+  "koku": "Koku",
+  "bu": "Bu",
+  "zeni": "Zeni",
+  "abilitiesSection": "Abilities",
+  "noAbilitiesYet": "No abilities yet.",
+  "ringsSection": "Rings",
+  "derivedAttributesSection": "Derived Attributes",
+  "endurance": "Endurance",
+  "composure": "Composure",
+  "focusStat": "Focus",
+  "vigilance": "Vigilance",
+  "schoolRank": "School Rank",
+  "fatigueStrifeSection": "Fatigue & Strife",
+  "fatigueOf": "Fatigue / {max}",
+  "@fatigueOf": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "strifeOf": "Strife / {max}",
+  "@strifeOf": {
+    "placeholders": {
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "clearAllFatigue": "Clear all fatigue",
+  "recover": "Recover",
+  "clearAllStrife": "Clear all strife",
+  "unmask": "Unmask",
+  "conditionsSection": "Conditions",
+  "addCondition": "Add condition",
+  "noConditions": "No conditions.",
+  "incapacitatedRule": "Fatigue exceeds endurance: no actions requiring checks and no defending against damage.",
+  "compromisedRule": "Strife exceeds composure: cannot keep dice showing strife; vigilance counts as 1.",
+  "criticalStrike": "Critical strike…",
+  "skillsSection": "Skills",
+
+  "heritageSection": "Heritage",
+  "ninjoSection": "Ninjō (personal desire)",
+  "giriSection": "Giri (duty)",
+  "notesSection": "Notes",
+
+  "add": "Add",
+  "remove": "Remove",
+  "undo": "Undo",
+  "removedName": "Removed {name}",
+  "@removedName": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "unknownCustomSection": "Unknown (custom or missing data)",
+
+  "bondsSection": "Bonds",
+  "addBond": "Add bond",
+  "noBondsYet": "No bonds formed yet — tap + to add.",
+  "rankLabel": "Rank",
+
+  "techniquesSection": "Techniques",
+  "noTechniquesYet": "No techniques known yet.",
+  "restrictionLabel": "Restriction: {restriction}",
+  "@restrictionLabel": {
+    "placeholders": {
+      "restriction": {
+        "type": "String"
+      }
+    }
+  },
+  "customOrUnknownTechnique": "Custom or unknown technique",
+
+  "weaponsSection": "Weapons",
+  "armorSection": "Armor",
+  "personalEffectsSection": "Personal Effects",
+  "addItem": "Add item",
+  "noWeaponsYet": "No weapons yet — tap + to add.",
+  "noArmorYet": "No armor yet — tap + to add.",
+  "noPersonalEffectsYet": "No personal effects yet — tap + to add.",
+  "gripStats": "{grip}: Range {min}-{max} · Dmg {damage} · Dls {deadliness}",
+  "@gripStats": {
+    "placeholders": {
+      "grip": {
+        "type": "String"
+      },
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      },
+      "damage": {
+        "type": "String"
+      },
+      "deadliness": {
+        "type": "String"
+      }
+    }
+  },
+  "armorStats": "Physical {physical} · Supernatural {supernatural}",
+  "@armorStats": {
+    "placeholders": {
+      "physical": {
+        "type": "int"
+      },
+      "supernatural": {
+        "type": "int"
+      }
+    }
+  },
+  "priceLine": "{price} {unit} · Rarity {rarity}",
+  "@priceLine": {
+    "placeholders": {
+      "price": {
+        "type": "int"
+      },
+      "unit": {
+        "type": "String"
+      },
+      "rarity": {
+        "type": "int"
+      }
+    }
+  },
+  "colName": "Name",
+  "colCategory": "Category",
+  "colSkill": "Skill",
+  "colGrip": "Grip",
+  "colRange": "Range",
+  "colDamage": "Dmg",
+  "colDeadliness": "Dls",
+  "colQualities": "Qualities",
+  "colPhysical": "Physical",
+  "colSupernatural": "Supernatural",
+
+  "addedAdvanceRankUp": "Added {name} — school rank is now {rank}!",
+  "@addedAdvanceRankUp": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "rank": {
+        "type": "int"
+      }
+    }
+  },
+  "addedAdvance": "Added {name} — {cost} XP ({track})",
+  "@addedAdvance": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "cost": {
+        "type": "int"
+      },
+      "track": {
+        "type": "String"
+      }
+    }
+  },
+  "xpInRank": "XP in Rank",
+  "xpSpentLabel": "XP Spent",
+  "noTitleInProgress": "No title in progress",
+  "currentTitleLine": "Current title: {title} — {xp} / {total} XP",
+  "@currentTitleLine": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "xp": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "curriculumSection": "Curriculum — {school}",
+  "@curriculumSection": {
+    "placeholders": {
+      "school": {
+        "type": "String"
+      }
+    }
+  },
+  "noSchoolFallback": "no school",
+  "addAdvance": "Add advance",
+  "noSchoolNoCurriculum": "No school chosen, so there is no curriculum.",
+  "currentLabel": "current",
+  "skillRankLabel": "rank {rank}",
+  "@skillRankLabel": {
+    "placeholders": {
+      "rank": {
+        "type": "int"
+      }
+    }
+  },
+  "specialAccess": "special access",
+  "ranksRange": "ranks {min}-{max}",
+  "@ranksRange": {
+    "placeholders": {
+      "min": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "atRank5": "At rank 5",
+  "alreadyLearnedLabel": "Already learned",
+  "buyThisAdvance": "Buy this advance",
+  "titlesSection": "Titles",
+  "addTitle": "Add title",
+  "finishCurrentTitleFirst": "Finish the current title first",
+  "noTitlesYet": "No titles yet — tap + to add.",
+  "inProgressLabel": "In progress",
+  "completedWithAbility": "Completed — {ability}",
+  "@completedWithAbility": {
+    "placeholders": {
+      "ability": {
+        "type": "String"
+      }
+    }
+  },
+  "maxRankLabel": "max rank {rank}",
+  "@maxRankLabel": {
+    "placeholders": {
+      "rank": {
+        "type": "int"
+      }
+    }
+  },
+  "advancesTakenSection": "Advances Taken",
+  "noAdvancesYet": "No advances purchased yet — tap + or a curriculum entry.",
+  "advanceSubtitle": "{type} · {track} · {cost} XP",
+  "@advanceSubtitle": {
+    "placeholders": {
+      "type": {
+        "type": "String"
+      },
+      "track": {
+        "type": "String"
+      },
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
+
+  "addAdvanceTitle": "Add Advance",
+  "advTypeSkill": "Skill",
+  "advTypeRing": "Ring",
+  "advTypeTechnique": "Technique",
+  "advanceSection": "Advance",
+  "groupLabel": "Group",
+  "allGroups": "All groups",
+  "mahoWarning": "Mahō is forbidden. Learning it has consequences.",
+  "typeToFilter": "Type to filter",
+  "clearFilter": "Clear filter",
+  "techSubtitle": "{subcategory} · Rank {rank} · {xp} XP",
+  "@techSubtitle": {
+    "placeholders": {
+      "subcategory": {
+        "type": "String"
+      },
+      "rank": {
+        "type": "int"
+      },
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "ignoreRestrictions": "Ignore restrictions (rank, school access)",
+  "trackSection": "Track",
+  "trackCurriculumLabel": "Curriculum",
+  "trackTitleLabel": "Title",
+  "trackFreeLabel": "Free (no XP cost)",
+  "reasonOptional": "Reason (optional)",
+  "halfXpLabel": "Half XP (school/title discount)",
+  "chooseAnAdvance": "Choose an advance.",
+  "alreadyLearnedError": "'{name}' is already learned.",
+  "@alreadyLearnedError": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "costXp": "Cost: {cost} XP",
+  "@costXp": {
+    "placeholders": {
+      "cost": {
+        "type": "int"
+      }
+    }
+  },
+
+  "addItemTitle": "Add Item",
+  "itemWeapon": "Weapon",
+  "itemArmor": "Armor",
+  "itemPersonalEffect": "Personal Effect",
+  "chooseWeapon": "Choose Weapon",
+  "chooseArmor": "Choose Armor",
+  "choosePersonalEffect": "Choose Personal Effect",
+  "weaponPickSubtitle": "{category} · {skill} · Dmg {damage} · Dls {deadliness}",
+  "@weaponPickSubtitle": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      },
+      "skill": {
+        "type": "String"
+      },
+      "damage": {
+        "type": "String"
+      },
+      "deadliness": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseFromBook": "Choose from book…",
+  "changeBaseItem": "Change base item…",
+  "customItem": "Custom item",
+  "detailsSection": "Details",
+  "priceLabel": "Price",
+  "rarityLabel": "Rarity",
+  "qualitiesCommaSeparated": "Qualities (comma-separated)",
+  "addNGrips": "Add ({count} grips)",
+  "@addNGrips": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gripEditorLabel": "Grip: {grip}",
+  "@gripEditorLabel": {
+    "placeholders": {
+      "grip": {
+        "type": "String"
+      }
+    }
+  },
+  "minRange": "Min range",
+  "maxRange": "Max range",
+  "damageLabel": "Damage",
+  "deadlinessLabel": "Deadliness",
+
+  "addTrait": "Add Trait",
+  "addCategoryLower": "Add {category}",
+  "@addCategoryLower": {
+    "placeholders": {
+      "category": {
+        "type": "String"
+      }
+    }
+  },
+  "addBondTitle": "Add Bond",
+  "addTitleTitle": "Add Title",
+  "xpAmount": "{xp} XP",
+  "@xpAmount": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+
+  "criticalStrikeTitle": "Critical strike",
+  "severityLabel": "Severity (deadliness of the source)",
+  "razorEdgedLabel": "Attack was Razor-Edged",
+  "ringUsedToResist": "Ring used to resist",
+  "ringResistHelper": "Stance ring in a conflict, any in a narrative",
+  "tnFitnessCheck": "TN 1 Fitness check succeeded",
+  "rollOwnDice": "Roll your own dice; enter the result",
+  "bonusSuccessesLabel": "Bonus successes (severity −1 each, on top of −1)",
+  "finalSeverityLine": "Final severity {severity} — {band}",
+  "@finalSeverityLine": {
+    "placeholders": {
+      "severity": {
+        "type": "int"
+      },
+      "band": {
+        "type": "String"
+      }
+    }
+  },
+  "apply": "Apply",
+  "chooseScarTitle": "{band}: choose a scar ({ring})",
+  "@chooseScarTitle": {
+    "placeholders": {
+      "band": {
+        "type": "String"
+      },
+      "ring": {
+        "type": "String"
+      }
+    }
+  },
+  "severityResult": "Severity {severity}: {band} — {effect}",
+  "@severityResult": {
+    "placeholders": {
+      "severity": {
+        "type": "int"
+      },
+      "band": {
+        "type": "String"
+      },
+      "effect": {
+        "type": "String"
+      }
+    }
+  },
+
+  "rulesDescriptionsTitle": "Rules Descriptions",
+  "shortDescriptionLabel": "Short description",
+  "fullDescriptionLabel": "Full description",
+  "searchHint": "Search…",
+  "withText": "With text",
+
+  "wizPart1": "Part 1: Clan and Family",
+  "wizPart2": "Part 2: Role and School",
+  "wizPart3": "Part 3: Honor and Glory",
+  "wizPart4": "Part 4: Strengths and Weaknesses",
+  "wizPart5": "Part 5: Personality and Behavior",
+  "wizPart6": "Part 6: Ancestry and Family",
+  "wizPart7": "Part 7: Death",
+  "wizErrChooseClan": "Choose a clan (Question 1).",
+  "wizErrChooseFamily": "Choose a family (Question 2).",
+  "wizErrChooseFamilyRing": "Choose your family ring increase.",
+  "wizErrChooseRegion": "Choose a region (Question 1).",
+  "wizErrChooseUpbringing": "Choose an upbringing (Question 2).",
+  "wizErrChooseUpbringingRing": "Choose your upbringing ring increase.",
+  "wizErrChooseUpbringingSkill": "Choose upbringing skill {n}.",
+  "@wizErrChooseUpbringingSkill": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "wizErrChooseSchool": "Choose a school.",
+  "wizErrInsufficientSkills": "Insufficient skills selected.",
+  "wizErrSchoolRings": "Choose your school ring increases.",
+  "wizErrStandoutRing": "Choose your standout ring.",
+  "wizErrStartingTechniques": "Choose your starting techniques.",
+  "wizErrQ7Option": "Choose an option for Question 7.",
+  "wizErrQ7Skill": "Choose a skill for Question 7.",
+  "wizErrQ8Option": "Choose an option for Question 8.",
+  "wizErrQ8Skill": "Choose a skill for Question 8.",
+  "wizErrQ8Item": "Choose an item for Question 8.",
+  "wizErrDistinction": "Choose a distinction (Question 9).",
+  "wizErrAdversity": "Choose an adversity (Question 10).",
+  "wizErrPassion": "Choose a passion (Question 11).",
+  "wizErrAnxiety": "Choose an anxiety (Question 12).",
+  "wizErrQ13Option": "Choose an option for Question 13.",
+  "wizErrQ13Advantage": "Choose an advantage for Question 13.",
+  "wizErrQ13DisadvSkill": "Choose a disadvantage and skill for Question 13.",
+  "wizErrQ16Item": "Choose a memento item for Question 16.",
+  "wizErrReplacementRings": "Please select replacement ring(s).",
+  "wizErrReplacementSkills": "Please select replacement skill(s).",
+  "wizDiscardTitle": "Discard this character?",
+  "wizDiscardBody": "Your answers so far will be lost.",
+  "wizSummaryTooltip": "Rings & skills so far",
+  "wizNoSkillsYet": "No skills yet.",
+  "wizStepOf": "Step {page} of {total}",
+  "@wizStepOf": {
+    "placeholders": {
+      "page": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "back": "Back",
+  "next": "Next",
+  "finish": "Finish",
+
+  "characterTypeLabel": "Character type",
+  "wizQ1Clan": "1. What clan does your character belong to?",
+  "clanLabel": "Clan",
+  "clanStatsLine": "+1 {ring} · +1 {skill} · Status {status} · {reference}",
+  "@clanStatsLine": {
+    "placeholders": {
+      "ring": {
+        "type": "String"
+      },
+      "skill": {
+        "type": "String"
+      },
+      "status": {
+        "type": "int"
+      },
+      "reference": {
+        "type": "String"
+      }
+    }
+  },
+  "wizQ2Family": "2. What family does your character belong to?",
+  "familyStatsLine": "+1 {skills} · Glory {glory} · Wealth {wealth} koku",
+  "@familyStatsLine": {
+    "placeholders": {
+      "skills": {
+        "type": "String"
+      },
+      "glory": {
+        "type": "int"
+      },
+      "wealth": {
+        "type": "int"
+      }
+    }
+  },
+  "familyRingIncrease": "Family ring increase",
+  "wizQ1Region": "1. Where does your character come from?",
+  "regionLabel": "Region",
+  "wizQ2Upbringing": "2. What was your character's upbringing?",
+  "upbringingLabel": "Upbringing",
+  "upbringingRingIncrease": "Upbringing ring increase",
+  "upbringingSkillN": "Upbringing skill {n}",
+  "@upbringingSkillN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+
+  "wizQ3Samurai": "3. What is your school, and what roles does that school fall into?",
+  "wizQ3Ronin": "3. What is your school, and what are its associated roles?",
+  "showSchoolsOutsideClan": "Show schools outside my clan",
+  "schoolLabel": "School",
+  "schoolStatsLine": "{roles} · Honor {honor} · {reference}",
+  "@schoolStatsLine": {
+    "placeholders": {
+      "roles": {
+        "type": "String"
+      },
+      "honor": {
+        "type": "int"
+      },
+      "reference": {
+        "type": "String"
+      }
+    }
+  },
+  "kitsuneImpersonate": "School to impersonate (outfit source)",
+  "additionalBurden": "Additional burden",
+  "chooseSchoolSkills": "Choose {size} school skills ({chosen} chosen)",
+  "@chooseSchoolSkills": {
+    "placeholders": {
+      "size": {
+        "type": "int"
+      },
+      "chosen": {
+        "type": "int"
+      }
+    }
+  },
+  "schoolRingIncreases": "School ring increases",
+  "fixedRings": "Fixed: +1 {rings}",
+  "@fixedRings": {
+    "placeholders": {
+      "rings": {
+        "type": "String"
+      }
+    }
+  },
+  "ringOfYourChoice": "Ring of your choice",
+  "wizQ4Samurai": "4. How do you stand out within your school? (+1 ring)",
+  "wizQ4Ronin": "4. What gets you in and out of trouble? (+1 ring)",
+  "standoutRing": "Standout ring",
+  "describeIt": "Describe it",
+  "startingTechniqueFixed": "Starting technique: {name}",
+  "@startingTechniqueFixed": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "chooseStartingTechnique": "Choose a starting technique",
+  "startingOutfit": "Starting outfit",
+  "chooseAnItem": "Choose an item",
+  "includedItems": "Included: {items}",
+  "@includedItems": {
+    "placeholders": {
+      "items": {
+        "type": "String"
+      }
+    }
+  },
+
+  "wizQ5Samurai": "5. Who is your lord, and what is your duty to them? (Giri)",
+  "wizQ5Ronin": "5. What is your past, and how does it affect you?",
+  "answerLabel": "Answer",
+  "wizQ6Samurai": "6. What do you long for, and how might this impede your duty? (Ninjō)",
+  "wizQ6Ronin": "6. What do you long for, and how might your past impact your Ninjō?",
+  "wizQ7Samurai": "7. What is your relationship with your clan?",
+  "wizQ7Ronin": "7. What are you known for?",
+  "q7Positive": "Positive (+5 Glory)",
+  "q7Negative": "Negative (+1 rank in a skill you do not have)",
+  "wizQ8": "8. What do you think of Bushidō?",
+  "q8Pos": "Staunch orthodox belief (+10 Honor)",
+  "q8Mid": "Pragmatic survivor (one item of rarity 5 or lower)",
+  "q8Neg": "Diverges from common beliefs (+1 skill rank)",
+  "itemLabel": "Item",
+
+  "wizQ9": "9. What is your greatest accomplishment so far? (Distinction)",
+  "distinctionLabel": "Distinction",
+  "wizQ10": "10. What holds your character back? (Adversity)",
+  "adversityLabel": "Adversity",
+  "wizQ11": "11. What activity makes you feel at peace? (Passion)",
+  "passionLabel": "Passion",
+  "wizQ12": "12. What concern or fear keeps you up at night? (Anxiety)",
+  "anxietyLabel": "Anxiety",
+  "wizQ13": "13. Who is the person you trust most, and what is the nature of the relationship?",
+  "q13GainAdvantage": "Gain an advantage",
+  "q13GainDisadvantage": "Gain a disadvantage and +1 skill rank",
+  "advantageLabel": "Advantage",
+  "disadvantageLabel": "Disadvantage",
+  "describeRelationship": "Describe the relationship",
+
+  "wizQ14Samurai": "14. What do people notice first upon encountering you?",
+  "wizQ14Ronin": "14. What is your character's most prized possession?",
+  "possessionRarity5": "Possession (rarity 5 or lower)",
+  "wizQ15": "15. How do you react to stressful situations?",
+  "wizQ16Samurai": "16. What are your preexisting relationships with other clans, families, organizations, and traditions?",
+  "wizQ16Ronin": "16. What are your relationships to your family, the clans, peasants, and others?",
+  "mementoRarity7": "Memento item (rarity 7 or lower)",
+  "describeThem": "Describe them",
+
+  "wizQ17Parents": "17. How would your parents describe you? (+1 skill rank)",
+  "wizQ17Raised": "18. Who raised you? (+1 skill rank)",
+  "wizQ17Bond": "17. With whom do you share a bond?",
+  "bondLabel": "Bond",
+  "wizQ18Ancestry": "18. What is your duty to your family, and who among your ancestors do you exemplify?",
+  "heritageTable": "Heritage table",
+  "ancestorN": "Ancestor {n}",
+  "@ancestorN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "rollTooltip": "Roll (1d10)",
+  "heritageHeader": "Heritage: {name}",
+  "@heritageHeader": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "grantedLabel": "Granted: {name}",
+  "@grantedLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "bonusSkill": "Bonus skill",
+  "traitGained": "Trait gained",
+  "heirloomCategory": "Heirloom category",
+  "lostHeirloomCategory": "Lost heirloom category",
+  "techniqueGroupLabel": "Technique group",
+  "effectLabel": "Effect",
+  "giftLabel": "Gift",
+  "ringToRaise": "Ring to raise",
+  "ringToLower": "Ring to lower",
+  "qualityYourChoice": "Quality (your choice)",
+  "qualityGmChoice": "Quality (GM's choice)",
+
+  "wizQ19": "19. What is your name?",
+  "personalNameLabel": "Personal name",
+  "wizQ20": "20. How should your character die?",
+  "answerOptional": "Answer (optional)",
+  "ringOverflowMsg": "A ring exceeds the creation cap of 3. Choose {n} replacement ring(s):",
+  "@ringOverflowMsg": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "skillOverflowMsg": "A skill exceeds the creation cap of 3. Choose {n} replacement skill(s):",
+  "@skillOverflowMsg": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "replacementRingN": "Replacement ring {n}",
+  "@replacementRingN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "replacementSkillN": "Replacement skill {n}",
+  "@replacementSkillN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "readyHeader": "Ready",
+  "finishCreates": "Finish creates the character and opens the editor.",
+
+  "ok": "OK",
+  "tapToTypeValue": "Tap to type a value",
+  "unlockIdentityTooltip": "Unlock name, family, ninjō, and giri",
+  "lockIdentityTooltip": "Lock name, family, ninjō, and giri",
+  "changePortraitTooltip": "Tap to change portrait, long-press to remove",
+  "addPortraitTooltip": "Tap to add a portrait",
+
+  "pdfFatigueStrifeConditions": "Fatigue, Strife & Conditions",
+  "pdfWealthProgress": "Wealth & Progress",
+  "pdfWealthLine": "Wealth: {koku} koku, {bu} bu, {zeni} zeni    ·    XP: {spent} spent / {total} total    ·    XP in rank: {inRank}",
+  "@pdfWealthLine": {
+    "placeholders": {
+      "koku": {
+        "type": "int"
+      },
+      "bu": {
+        "type": "int"
+      },
+      "zeni": {
+        "type": "int"
+      },
+      "spent": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      },
+      "inRank": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfTitlePart": "    ·    Title: {title} ({xp} XP)",
+  "@pdfTitlePart": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfTraitsHeader": "Distinctions & Adversities",
+  "colAbility": "Ability",
+  "ninjoHeader": "Ninjō",
+  "giriHeader": "Giri"
+}

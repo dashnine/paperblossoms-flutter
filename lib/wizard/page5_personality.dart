@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../game_data.dart';
+import '../l10n/l10n.dart';
 import 'wizard_state.dart';
 import 'wizard_widgets.dart';
 
@@ -52,12 +53,11 @@ class _Page5PersonalityState extends State<Page5Personality> {
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        QuestionHeader(samurai
-            ? '14. What do people notice first upon encountering you?'
-            : "14. What is your character's most prized possession?"),
+        QuestionHeader(
+            samurai ? context.l10n.wizQ14Samurai : context.l10n.wizQ14Ronin),
         if (!samurai)
           WizDropdown(
-            label: 'Possession (rarity 5 or lower)',
+            label: context.l10n.possessionRarity5,
             value: wizard.q14Item,
             options: _itemsUnderRarity(5),
             onChanged: (value) {
@@ -66,21 +66,18 @@ class _Page5PersonalityState extends State<Page5Personality> {
             },
           ),
         WizTextArea(
-            label: 'Describe it',
+            label: context.l10n.describeIt,
             controller: _q14,
             onChanged: (value) => wizard.q14Text = value),
-        const QuestionHeader('15. How do you react to stressful situations?'),
+        QuestionHeader(context.l10n.wizQ15),
         WizTextArea(
-            label: 'Answer',
+            label: context.l10n.answerLabel,
             controller: _q15,
             onChanged: (value) => wizard.q15Text = value),
-        QuestionHeader(samurai
-            ? '16. What are your preexisting relationships with other '
-                'clans, families, organizations, and traditions?'
-            : '16. What are your relationships to your family, the clans, '
-                'peasants, and others?'),
+        QuestionHeader(
+            samurai ? context.l10n.wizQ16Samurai : context.l10n.wizQ16Ronin),
         WizDropdown(
-          label: 'Memento item (rarity 7 or lower)',
+          label: context.l10n.mementoRarity7,
           value: wizard.q16Item,
           options: _itemsUnderRarity(7),
           onChanged: (value) {
@@ -89,7 +86,7 @@ class _Page5PersonalityState extends State<Page5Personality> {
           },
         ),
         WizTextArea(
-            label: 'Describe them',
+            label: context.l10n.describeThem,
             controller: _q16,
             onChanged: (value) => wizard.q16Text = value),
       ],

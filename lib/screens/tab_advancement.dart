@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../advance.dart';
 import '../character.dart';
+import '../data_l10n.dart';
 import '../derived_stats.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
+import '../l10n/l10n.dart';
 import '../layout.dart';
 import '../rules_constants.dart';
 import '../theme.dart';
@@ -40,9 +42,9 @@ class AdvancementTab extends StatelessWidget {
       ..hideCurrentSnackBar()
       ..showSnackBar(SnackBar(
         content: Text(rankAfter > rankBefore
-            ? 'Added ${advance.name} — school rank is now $rankAfter!'
-            : 'Added ${advance.name} — ${advance.cost} XP '
-                '(${advance.track})'),
+            ? context.l10n.addedAdvanceRankUp(trData(advance.name), rankAfter)
+            : context.l10n.addedAdvance(
+                trData(advance.name), advance.cost, trData(advance.track))),
       ));
   }
 
@@ -147,13 +149,15 @@ class AdvancementTab extends StatelessWidget {
           runSpacing: 12,
           crossAxisAlignment: WrapCrossAlignment.center,
           children: [
-            StatTile(label: 'School Rank', value: '${rank.rank}'),
+            StatTile(label: context.l10n.schoolRank, value: '${rank.rank}'),
             StatTile(
-                label: 'XP in Rank',
+                label: context.l10n.xpInRank,
                 value: threshold == null
                     ? '${rank.curriculumXP}'
                     : '${rank.curriculumXP} / $threshold'),
-            StatTile(label: 'XP Spent', value: '${xpSpent(character)}'),
+            StatTile(
+                label: context.l10n.xpSpentLabel,
+                value: '${xpSpent(character)}'),
           ],
         ),
         if (threshold != null)
@@ -170,9 +174,12 @@ class AdvancementTab extends StatelessWidget {
           padding: const EdgeInsets.only(top: 12),
           child: Text(
             title.currentTitle.isEmpty
-                ? 'No title in progress'
-                : 'Current title: ${title.currentTitle} — ${title.titleXP} / '
-                    '${gameData.titleByName(title.currentTitle)?.xpToCompletion ?? 0} XP',
+                ? context.l10n.noTitleInProgress
+                : context.l10n.currentTitleLine(
+                    trData(title.currentTitle),
+                    title.titleXP,
+                    gameData.titleByName(title.currentTitle)?.xpToCompletion ??
+                        0),
             style: theme.textTheme.titleSmall?.copyWith(
               color: title.currentTitle.isEmpty
                   ? theme.colorScheme.outline
@@ -197,15 +204,16 @@ class AdvancementTab extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionHeader(
-          'Curriculum — ${school?.name ?? 'no school'}',
+          context.l10n.curriculumSection(
+              school == null ? context.l10n.noSchoolFallback : trData(school.name)),
           trailing: IconButton(
-            tooltip: 'Add advance',
+            tooltip: context.l10n.addAdvance,
             icon: const Icon(Icons.add),
             onPressed: () => _addAdvance(context),
           ),
         ),
         if (school == null)
-          const EmptyHint('No school chosen, so there is no curriculum.')
+          EmptyHint(context.l10n.noSchoolNoCurriculum)
         else
           // One collapsible section per rank so the common case — buying
           // within the current rank — doesn't require scrolling past the
@@ -230,8 +238,10 @@ class AdvancementTab extends StatelessWidget {
                           : theme.colorScheme.onSurface,
                     )),
               ),
-              title: Text('Rank $rank'),
-              subtitle: rank == currentRank ? const Text('current') : null,
+              title: Text(context.l10n.rankN(rank)),
+              subtitle: rank == currentRank
+                  ? Text(context.l10n.currentLabel)
+                  : null,
               children: [
                 for (final entry in byRank[rank]!)
                   _curriculumTile(context, entry, skillRanks),
@@ -257,24 +267,25 @@ class AdvancementTab extends StatelessWidget {
       dense: true,
       visualDensity: VisualDensity.compact,
       enabled: !done,
-      title: Text(entry.advance),
+      title: Text(trData(entry.advance)),
       subtitle: Text([
-        entry.type.replaceAll('_', ' '),
-        if (skillRank > 0) 'rank $skillRank',
-        if (entry.specialAccess) 'special access',
+        trData(entry.type.replaceAll('_', ' ')),
+        if (skillRank > 0) context.l10n.skillRankLabel(skillRank),
+        if (entry.specialAccess) context.l10n.specialAccess,
         if (entry.minAllowableRank > 0 || entry.maxAllowableRank > 0)
-          'ranks ${entry.minAllowableRank}-${entry.maxAllowableRank}',
+          context.l10n
+              .ranksRange(entry.minAllowableRank, entry.maxAllowableRank),
       ].join(' · ')),
       trailing: done
           ? Tooltip(
               message: entry.type == entryTypeSkill
-                  ? 'At rank 5'
-                  : 'Already learned',
+                  ? context.l10n.atRank5
+                  : context.l10n.alreadyLearnedLabel,
               child:
                   Icon(Icons.check_circle, color: theme.colorScheme.outline),
             )
           : Tooltip(
-              message: 'Buy this advance',
+              message: context.l10n.buyThisAdvance,
               child: Icon(Icons.add_circle_outline,
                   color: theme.colorScheme.primary),
             ),
@@ -287,26 +298,26 @@ class AdvancementTab extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SectionHeader(
-          'Titles',
+          context.l10n.titlesSection,
           trailing: IconButton(
             tooltip: currentTitle.isEmpty
-                ? 'Add title'
-                : 'Finish the current title first',
+                ? context.l10n.addTitle
+                : context.l10n.finishCurrentTitleFirst,
             icon: const Icon(Icons.add),
             // Like the original, adding is blocked while a title is open.
             onPressed:
                 currentTitle.isEmpty ? () => addTitleFlow(context) : null,
           ),
         ),
-        if (character.titles.isEmpty)
-          const EmptyHint('No titles yet — tap + to add.'),
+        if (character.titles.isEmpty) EmptyHint(context.l10n.noTitlesYet),
         for (final title in character.titles)
           ExpansionTile(
             dense: true,
-            title: Text(title),
+            title: Text(trData(title)),
             subtitle: Text(title == currentTitle
-                ? 'In progress'
-                : 'Completed — ${gameData.titleByName(title)?.titleAbility ?? ''}'),
+                ? context.l10n.inProgressLabel
+                : context.l10n.completedWithAbility(
+                    trData(gameData.titleByName(title)?.titleAbility ?? ''))),
             children: [
               for (final advancement
                   in gameData.titleByName(title)?.advancements ??
@@ -331,21 +342,21 @@ class AdvancementTab extends StatelessWidget {
       dense: true,
       visualDensity: VisualDensity.compact,
       enabled: !learned,
-      title: Text(entry.name),
+      title: Text(trData(entry.name)),
       subtitle: Text([
-        entry.type.replaceAll('_', ' '),
-        if (entry.specialAccess) 'special access',
-        if (entry.rank > 0) 'max rank ${entry.rank}',
+        trData(entry.type.replaceAll('_', ' ')),
+        if (entry.specialAccess) context.l10n.specialAccess,
+        if (entry.rank > 0) context.l10n.maxRankLabel(entry.rank),
       ].join(' · ')),
       trailing: learned
           ? Tooltip(
-              message: 'Already learned',
+              message: context.l10n.alreadyLearnedLabel,
               child:
                   Icon(Icons.check_circle, color: theme.colorScheme.outline),
             )
           : buyable
               ? Tooltip(
-                  message: 'Buy this advance',
+                  message: context.l10n.buyThisAdvance,
                   child: Icon(Icons.add_circle_outline,
                       color: theme.colorScheme.primary),
                 )
@@ -360,9 +371,9 @@ class AdvancementTab extends StatelessWidget {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(SnackBar(
-        content: Text('Removed ${advance.name}'),
+        content: Text(context.l10n.removedName(trData(advance.name))),
         action: SnackBarAction(
-          label: 'Undo',
+          label: context.l10n.undo,
           onPressed: () {
             character.advanceStack
                 .insert(index.clamp(0, character.advanceStack.length), advance);
@@ -376,20 +387,20 @@ class AdvancementTab extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionHeader('Advances Taken'),
+        SectionHeader(context.l10n.advancesTakenSection),
         if (character.advanceStack.isEmpty)
-          const EmptyHint(
-              'No advances purchased yet — tap + or a curriculum entry.'),
+          EmptyHint(context.l10n.noAdvancesYet),
         for (var i = character.advanceStack.length - 1; i >= 0; i--)
           ListTile(
             dense: true,
             visualDensity: VisualDensity.compact,
-            title: Text(character.advanceStack[i].name),
-            subtitle: Text('${character.advanceStack[i].type} · '
-                '${character.advanceStack[i].track} · '
-                '${character.advanceStack[i].cost} XP'),
+            title: Text(trData(character.advanceStack[i].name)),
+            subtitle: Text(context.l10n.advanceSubtitle(
+                trData(character.advanceStack[i].type),
+                trData(character.advanceStack[i].track),
+                character.advanceStack[i].cost)),
             trailing: IconButton(
-              tooltip: 'Remove',
+              tooltip: context.l10n.remove,
               icon: const Icon(Icons.delete_outline),
               onPressed: () => _removeAdvance(context, i),
             ),

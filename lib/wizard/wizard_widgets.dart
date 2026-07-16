@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 
+import '../data_l10n.dart';
 import '../game_data.dart';
 
 /// Labeled dropdown over strings; the wizard's workhorse control.
+///
+/// Options are canonical English data names: the selected value passed to
+/// [onChanged] (and stored in wizard state / saves) is always the English
+/// string, while menu rows and the closed field render through [trData].
 ///
 /// Options that have a user-entered short description (techniques, traits,
 /// items, ...) show it under their name in the menu, and the selected
@@ -59,7 +64,8 @@ class WizDropdown extends StatelessWidget {
                   for (final option in items)
                     Align(
                       alignment: AlignmentDirectional.centerStart,
-                      child: Text(option, overflow: TextOverflow.ellipsis),
+                      child:
+                          Text(trData(option), overflow: TextOverflow.ellipsis),
                     ),
                 ]
             : null,
@@ -68,14 +74,14 @@ class WizDropdown extends StatelessWidget {
             DropdownMenuItem(
               value: option,
               child: descriptions[option]!.isEmpty
-                  ? Text(option)
+                  ? Text(trData(option))
                   : Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(option),
+                          Text(trData(option)),
                           Text(
                             descriptions[option]!,
                             maxLines: 2,

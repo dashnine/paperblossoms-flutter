@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../character.dart';
+import '../l10n/l10n.dart';
 
 /// Toggles [Character.identityLocked]: while locked, the rarely-changing
 /// identity fields (name, family, ninjō, giri) are read-only so they can't
@@ -17,8 +18,8 @@ class IdentityLockButton extends StatelessWidget {
         final locked = character.identityLocked;
         return IconButton(
           tooltip: locked
-              ? 'Unlock name, family, ninjō, and giri'
-              : 'Lock name, family, ninjō, and giri',
+              ? context.l10n.unlockIdentityTooltip
+              : context.l10n.lockIdentityTooltip,
           icon: Icon(locked ? Icons.lock_outline : Icons.lock_open_outlined),
           onPressed: () {
             character.identityLocked = !locked;

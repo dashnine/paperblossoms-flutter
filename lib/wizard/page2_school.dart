@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../data_l10n.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
+import '../l10n/l10n.dart';
 import 'wizard_state.dart';
 import 'wizard_widgets.dart';
 
@@ -64,12 +66,11 @@ class Page2School extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       children: [
         QuestionHeader(wizard.isSamurai
-            ? '3. What is your school, and what roles does that school '
-                'fall into?'
-            : '3. What is your school, and what are its associated roles?'),
+            ? context.l10n.wizQ3Samurai
+            : context.l10n.wizQ3Ronin),
         CheckboxListTile(
           dense: true,
-          title: const Text('Show schools outside my clan'),
+          title: Text(context.l10n.showSchoolsOutsideClan),
           value: wizard.unrestrictedSchool,
           onChanged: (value) {
             wizard.unrestrictedSchool = value ?? false;
@@ -77,14 +78,14 @@ class Page2School extends StatelessWidget {
           },
         ),
         WizDropdown(
-          label: 'School',
+          label: context.l10n.schoolLabel,
           value: wizard.school,
           options: wizard.schoolOptions(),
           onChanged: _selectSchool,
         ),
         if (school != null) ...[
-          Text('${school.role.join(', ')} · Honor ${school.honor} · '
-              '${school.reference}'),
+          Text(context.l10n.schoolStatsLine(school.role.map(trData).join(', '),
+              school.honor, '${school.reference}')),
           ..._schoolDetail(context, school),
         ],
       ],
@@ -97,7 +98,7 @@ class Page2School extends StatelessWidget {
     // Special-case schools, as in the original.
     if (school.name == 'Kitsune Impersonator Tradition') {
       widgets.add(WizDropdown(
-        label: 'School to impersonate (outfit source)',
+        label: context.l10n.kitsuneImpersonate,
         value: wizard.kitsuneSchool,
         options: [
           for (final s in gameData.schools)
@@ -112,7 +113,7 @@ class Page2School extends StatelessWidget {
     }
     if (school.name == "Mazoku's Enforcer Tradition") {
       widgets.add(WizDropdown(
-        label: 'Additional burden',
+        label: context.l10n.additionalBurden,
         value: wizard.schoolOtherChoice,
         options: const ['Haunting', 'Omen of Bad Luck'],
         onChanged: (value) {
@@ -123,16 +124,15 @@ class Page2School extends StatelessWidget {
     }
 
     // Skills.
-    widgets.add(QuestionHeader(
-        'Choose ${school.startingSkills.size} school skills '
-        '(${wizard.schoolSkills.length} chosen)'));
+    widgets.add(QuestionHeader(context.l10n.chooseSchoolSkills(
+        school.startingSkills.size, wizard.schoolSkills.length)));
     widgets.add(Wrap(
       spacing: 8,
       runSpacing: 4,
       children: [
         for (final skill in school.startingSkills.options)
           FilterChip(
-            label: Text(skill),
+            label: Text(trData(skill)),
             selected: wizard.schoolSkills.contains(skill),
             onSelected: (selected) {
               if (selected &&
@@ -153,15 +153,18 @@ class Page2School extends StatelessWidget {
         if (school.ringIncrease[i] == 'any') i
     ];
     if (school.ringIncrease.isNotEmpty) {
-      widgets.add(const QuestionHeader('School ring increases'));
+      widgets.add(QuestionHeader(context.l10n.schoolRingIncreases));
       final fixed = [
         for (final ring in school.ringIncrease)
           if (ring != 'any') ring
       ];
-      if (fixed.isNotEmpty) widgets.add(Text('Fixed: +1 ${fixed.join(', +1 ')}'));
+      if (fixed.isNotEmpty) {
+        widgets.add(
+            Text(context.l10n.fixedRings(fixed.map(trData).join(', +1 '))));
+      }
       for (final index in anyRingIndexes) {
         widgets.add(WizDropdown(
-          label: 'Ring of your choice',
+          label: context.l10n.ringOfYourChoice,
           value: wizard.ringChoices[index],
           options: gameData.ringNames(),
           onChanged: (value) {
@@ -175,10 +178,10 @@ class Page2School extends StatelessWidget {
     // Q4 standout ring (samurai only in the original's phrasing, but the
     // control applies to all types).
     widgets.add(QuestionHeader(wizard.isSamurai
-        ? '4. How do you stand out within your school? (+1 ring)'
-        : '4. What gets you in and out of trouble? (+1 ring)'));
+        ? context.l10n.wizQ4Samurai
+        : context.l10n.wizQ4Ronin));
     widgets.add(WizDropdown(
-      label: 'Standout ring',
+      label: context.l10n.standoutRing,
       value: wizard.schoolSpecialRing,
       options: gameData.ringNames(),
       onChanged: (value) {
@@ -188,7 +191,7 @@ class Page2School extends StatelessWidget {
     ));
     widgets.add(TextFormField(
       initialValue: wizard.q4Text,
-      decoration: const InputDecoration(labelText: 'Describe it'),
+      decoration: InputDecoration(labelText: context.l10n.describeIt),
       onChanged: (value) => wizard.q4Text = value,
     ));
 
@@ -200,12 +203,13 @@ class Page2School extends StatelessWidget {
         if (set.options.length == 1) {
           widgets.add(Padding(
             padding: const EdgeInsets.only(top: 8),
-            child: Text('Starting technique: ${set.options.single}'),
+            child: Text(context.l10n
+                .startingTechniqueFixed(trData(set.options.single))),
           ));
           continue;
         }
         widgets.add(WizDropdown(
-          label: 'Choose a starting technique',
+          label: context.l10n.chooseStartingTechnique,
           value: wizard.techChoices[slot],
           options: wizard.expandTechniqueOptions(set),
           onChanged: (value) {
@@ -217,7 +221,7 @@ class Page2School extends StatelessWidget {
     }
 
     // Outfit.
-    widgets.add(const QuestionHeader('Starting outfit'));
+    widgets.add(QuestionHeader(context.l10n.startingOutfit));
     final outfitSource = school.name == 'Kitsune Impersonator Tradition' &&
             wizard.kitsuneSchool.isNotEmpty
         ? gameData.schoolByName(wizard.kitsuneSchool) ?? school
@@ -231,7 +235,7 @@ class Page2School extends StatelessWidget {
           final slot = equipSlot++;
           if (slot >= wizard.equipChoices.length) continue;
           widgets.add(WizDropdown(
-            label: 'Choose an item',
+            label: context.l10n.chooseAnItem,
             value: wizard.equipChoices[slot],
             options: set.options,
             onChanged: (value) {
@@ -250,7 +254,8 @@ class Page2School extends StatelessWidget {
       }
     }
     if (fixedItems.isNotEmpty) {
-      widgets.add(Text('Included: ${fixedItems.join(', ')}'));
+      widgets.add(Text(
+          context.l10n.includedItems(fixedItems.map(trData).join(', '))));
     }
     var specialSlot = 0;
     for (final directive in specialDirectives) {

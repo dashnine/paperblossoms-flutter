@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 
+import '../data_l10n.dart';
 import '../rules_constants.dart';
 
 const _ringColors = {
@@ -67,7 +68,7 @@ class _RingPainter extends CustomPainter {
 
       final label = TextPainter(
         text: TextSpan(
-          text: '$ring\n$rank',
+          text: '${trData(ring)}\n$rank',
           style: TextStyle(
               color: textColor, fontSize: size.shortestSide * 0.045),
         ),

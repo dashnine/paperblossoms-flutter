@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../data_l10n.dart';
 import '../game_data.dart';
+import '../l10n/l10n.dart';
 import '../rules_constants.dart';
 import 'wizard_state.dart';
 import 'wizard_widgets.dart';
@@ -19,7 +21,7 @@ class Page1ClanFamily extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       children: [
         WizDropdown(
-          label: 'Character type',
+          label: context.l10n.characterTypeLabel,
           value: wizard.characterType,
           options: const [
             characterTypeSamurai,
@@ -42,18 +44,21 @@ class Page1ClanFamily extends StatelessWidget {
             onChanged();
           },
         ),
-        if (wizard.isSamurai) ..._samuraiQuestions() else ..._roninQuestions(),
+        if (wizard.isSamurai)
+          ..._samuraiQuestions(context)
+        else
+          ..._roninQuestions(context),
       ],
     );
   }
 
-  List<Widget> _samuraiQuestions() {
+  List<Widget> _samuraiQuestions(BuildContext context) {
     final clanData = gameData.clanByName(wizard.clan);
     final familyData = gameData.familyByName(wizard.clan, wizard.family);
     return [
-      const QuestionHeader('1. What clan does your character belong to?'),
+      QuestionHeader(context.l10n.wizQ1Clan),
       WizDropdown(
-        label: 'Clan',
+        label: context.l10n.clanLabel,
         value: wizard.clan,
         options: [for (final clan in gameData.clans) clan.name],
         onChanged: (value) {
@@ -67,11 +72,14 @@ class Page1ClanFamily extends StatelessWidget {
         },
       ),
       if (clanData != null)
-        Text('+1 ${clanData.ringIncrease} · +1 ${clanData.skillIncrease} · '
-            'Status ${clanData.status} · ${clanData.reference}'),
-      const QuestionHeader('2. What family does your character belong to?'),
+        Text(context.l10n.clanStatsLine(
+            trData(clanData.ringIncrease),
+            trData(clanData.skillIncrease),
+            clanData.status,
+            '${clanData.reference}')),
+      QuestionHeader(context.l10n.wizQ2Family),
       WizDropdown(
-        label: 'Family',
+        label: context.l10n.familyLabel,
         value: wizard.family,
         options: [
           for (final family in gameData.familiesOf(wizard.clan)) family.name
@@ -84,10 +92,12 @@ class Page1ClanFamily extends StatelessWidget {
         },
       ),
       if (familyData != null) ...[
-        Text('+1 ${familyData.skillIncrease.join(', +1 ')} · '
-            'Glory ${familyData.glory} · Wealth ${familyData.wealth} koku'),
+        Text(context.l10n.familyStatsLine(
+            familyData.skillIncrease.map(trData).join(', +1 '),
+            familyData.glory,
+            familyData.wealth)),
         WizDropdown(
-          label: 'Family ring increase',
+          label: context.l10n.familyRingIncrease,
           value: wizard.familyRing,
           options: familyData.ringIncrease,
           onChanged: (value) {
@@ -99,7 +109,7 @@ class Page1ClanFamily extends StatelessWidget {
     ];
   }
 
-  List<Widget> _roninQuestions() {
+  List<Widget> _roninQuestions(BuildContext context) {
     // Peasants use rōnin regions, like the original.
     final regionType = wizard.characterType == characterTypeGaijin
         ? characterTypeGaijin
@@ -108,9 +118,9 @@ class Page1ClanFamily extends StatelessWidget {
     List<String> expandAny(List<String> options, List<String> all) =>
         options.length == 1 && options.single == 'any' ? all : options;
     return [
-      const QuestionHeader('1. Where does your character come from?'),
+      QuestionHeader(context.l10n.wizQ1Region),
       WizDropdown(
-        label: 'Region',
+        label: context.l10n.regionLabel,
         value: wizard.region,
         options: [
           for (final region in gameData.regionsByType(regionType)) region.name
@@ -123,9 +133,9 @@ class Page1ClanFamily extends StatelessWidget {
           onChanged();
         },
       ),
-      const QuestionHeader('2. What was your character\'s upbringing?'),
+      QuestionHeader(context.l10n.wizQ2Upbringing),
       WizDropdown(
-        label: 'Upbringing',
+        label: context.l10n.upbringingLabel,
         value: wizard.upbringing,
         options: [for (final u in gameData.upbringings) u.name],
         onChanged: (value) {
@@ -138,7 +148,7 @@ class Page1ClanFamily extends StatelessWidget {
       ),
       if (upbringingData != null) ...[
         WizDropdown(
-          label: 'Upbringing ring increase',
+          label: context.l10n.upbringingRingIncrease,
           value: wizard.upbringingRing,
           options: expandAny(
               upbringingData.ringIncrease.options, gameData.ringNames()),
@@ -149,7 +159,7 @@ class Page1ClanFamily extends StatelessWidget {
         ),
         for (var i = 0; i < upbringingData.skillIncreases.length; i++)
           WizDropdown(
-            label: 'Upbringing skill ${i + 1}',
+            label: context.l10n.upbringingSkillN(i + 1),
             value: wizard.upbringingSkills[i],
             options: expandAny(upbringingData.skillIncreases[i].options,
                 gameData.allSkills()),

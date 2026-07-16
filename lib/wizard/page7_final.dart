@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
+import '../data_l10n.dart';
 import '../game_data.dart';
+import '../l10n/l10n.dart';
 import 'wizard_state.dart';
 import 'wizard_widgets.dart';
 
@@ -19,43 +21,43 @@ class Page7Final extends StatelessWidget {
     final skills = wizard.calcSkills();
     final ringText = [
       for (final entry in rings.rings.entries)
-        '${entry.key} ${entry.value}'
+        '${trData(entry.key)} ${entry.value}'
     ].join(', ');
     final skillText = [
       for (final entry in skills.skills.entries)
-        if (entry.value > 0) '${entry.key} ${entry.value}'
+        if (entry.value > 0) '${trData(entry.key)} ${entry.value}'
     ].join(', ');
 
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [
-        const QuestionHeader('19. What is your name?'),
+        QuestionHeader(context.l10n.wizQ19),
         TextFormField(
           initialValue: wizard.personalName,
-          decoration: const InputDecoration(labelText: 'Personal name'),
+          decoration:
+              InputDecoration(labelText: context.l10n.personalNameLabel),
           onChanged: (value) {
             wizard.personalName = value;
             onChanged();
           },
         ),
-        const QuestionHeader('20. How should your character die?'),
+        QuestionHeader(context.l10n.wizQ20),
         TextFormField(
           initialValue: wizard.q20Text,
-          decoration: const InputDecoration(labelText: 'Answer (optional)'),
+          decoration: InputDecoration(labelText: context.l10n.answerOptional),
           onChanged: (value) => wizard.q20Text = value,
         ),
-        const QuestionHeader('Rings'),
+        QuestionHeader(context.l10n.ringsSection),
         Text(ringText),
         if (rings.overflow > 0) ...[
           Text(
-            'A ring exceeds the creation cap of 3. Choose '
-            '${rings.overflow} replacement ring(s):',
+            context.l10n.ringOverflowMsg(rings.overflow),
             style: TextStyle(color: Theme.of(context).colorScheme.error),
           ),
           for (var i = 0; i < 2; i++)
             if (i == 0 || wizard.replacementRings[0].isNotEmpty)
               WizDropdown(
-                label: 'Replacement ring ${i + 1}',
+                label: context.l10n.replacementRingN(i + 1),
                 value: wizard.replacementRings[i],
                 options: [
                   for (final entry in rings.rings.entries)
@@ -67,18 +69,17 @@ class Page7Final extends StatelessWidget {
                 },
               ),
         ],
-        const QuestionHeader('Skills'),
+        QuestionHeader(context.l10n.skillsSection),
         Text(skillText),
         if (skills.overflow > 0) ...[
           Text(
-            'A skill exceeds the creation cap of 3. Choose '
-            '${skills.overflow} replacement skill(s):',
+            context.l10n.skillOverflowMsg(skills.overflow),
             style: TextStyle(color: Theme.of(context).colorScheme.error),
           ),
           for (var i = 0; i < 3; i++)
             if (i == 0 || wizard.replacementSkills[i - 1].isNotEmpty)
               WizDropdown(
-                label: 'Replacement skill ${i + 1}',
+                label: context.l10n.replacementSkillN(i + 1),
                 value: wizard.replacementSkills[i],
                 options: [
                   for (final skill in gameData.allSkills())
@@ -90,13 +91,13 @@ class Page7Final extends StatelessWidget {
                 },
               ),
         ],
-        const QuestionHeader('Techniques'),
+        QuestionHeader(context.l10n.techniquesSection),
         Text([
           for (final tech in wizard.techChoices)
-            if (tech.isNotEmpty) tech
+            if (tech.isNotEmpty) trData(tech)
         ].join(', ')),
-        const QuestionHeader('Ready'),
-        const Text('Finish creates the character and opens the editor.'),
+        QuestionHeader(context.l10n.readyHeader),
+        Text(context.l10n.finishCreates),
       ],
     );
   }

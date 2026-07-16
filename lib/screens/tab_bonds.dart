@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 import '../character.dart';
+import '../data_l10n.dart';
 import '../game_data.dart';
+import '../l10n/l10n.dart';
 import '../theme.dart';
 import '../widgets/int_spinner.dart';
 import 'add_bond_page.dart';
@@ -19,9 +21,9 @@ class BondsTab extends StatelessWidget {
     ScaffoldMessenger.of(context)
       ..hideCurrentSnackBar()
       ..showSnackBar(SnackBar(
-        content: Text('Removed ${bond.name}'),
+        content: Text(context.l10n.removedName(trData(bond.name))),
         action: SnackBarAction(
-          label: 'Undo',
+          label: context.l10n.undo,
           onPressed: () {
             character.bonds
                 .insert(index.clamp(0, character.bonds.length), bond);
@@ -37,28 +39,27 @@ class BondsTab extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       children: [
         SectionHeader(
-          'Bonds',
+          context.l10n.bondsSection,
           trailing: IconButton(
-            tooltip: 'Add bond',
+            tooltip: context.l10n.addBond,
             icon: const Icon(Icons.add),
             onPressed: () => addBondFlow(context),
           ),
         ),
-        if (character.bonds.isEmpty)
-          const EmptyHint('No bonds formed yet — tap + to add.'),
+        if (character.bonds.isEmpty) EmptyHint(context.l10n.noBondsYet),
         for (final bond in character.bonds)
           Card(
             child: ListTile(
-              title: Text(bond.name),
+              title: Text(trData(bond.name)),
               subtitle: Text([
-                gameData.bondByName(bond.name)?.ability ?? '',
+                trData(gameData.bondByName(bond.name)?.ability ?? ''),
                 gameData.shortDescFor(bond.name),
               ].where((s) => s.isNotEmpty).join(' · ')),
               trailing: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   IntSpinner(
-                    label: 'Rank',
+                    label: context.l10n.rankLabel,
                     value: bond.rank,
                     min: 1,
                     max: 5,
@@ -68,7 +69,7 @@ class BondsTab extends StatelessWidget {
                     },
                   ),
                   IconButton(
-                    tooltip: 'Remove',
+                    tooltip: context.l10n.remove,
                     icon: const Icon(Icons.delete_outline),
                     onPressed: () => _removeBond(context, bond),
                   ),

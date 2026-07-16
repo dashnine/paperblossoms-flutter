@@ -2,7 +2,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../data_l10n.dart';
 import '../game_data.dart';
+import '../l10n/l10n.dart';
 import 'wizard_state.dart';
 import 'wizard_widgets.dart';
 
@@ -49,10 +51,10 @@ class Page6Ancestry extends StatelessWidget {
       padding: const EdgeInsets.all(16),
       children: [
         QuestionHeader(wizard.isSamurai
-            ? '17. How would your parents describe you? (+1 skill rank)'
-            : '18. Who raised you? (+1 skill rank)'),
+            ? context.l10n.wizQ17Parents
+            : context.l10n.wizQ17Raised),
         WizDropdown(
-          label: 'Skill',
+          label: context.l10n.advTypeSkill,
           value: wizard.parentSkill,
           options: wizard.unheldSkillOptions(except: wizard.parentSkill),
           onChanged: (value) {
@@ -61,30 +63,35 @@ class Page6Ancestry extends StatelessWidget {
           },
         ),
         _describeField(
+            context: context,
             key: 'q17', initial: wizard.q17Text,
             onChanged: (value) => wizard.q17Text = value),
-        if (wizard.isSamurai) ..._samuraiAncestry(context) else ..._roninBond(),
+        if (wizard.isSamurai)
+          ..._samuraiAncestry(context)
+        else
+          ..._roninBond(context),
       ],
     );
   }
 
   Widget _describeField(
-      {required String key,
+      {required BuildContext context,
+      required String key,
       required String initial,
       required ValueChanged<String> onChanged}) {
     return TextFormField(
       key: ValueKey(key),
       initialValue: initial,
-      decoration: const InputDecoration(labelText: 'Describe it'),
+      decoration: InputDecoration(labelText: context.l10n.describeIt),
       onChanged: onChanged,
     );
   }
 
-  List<Widget> _roninBond() {
+  List<Widget> _roninBond(BuildContext context) {
     return [
-      const QuestionHeader('17. With whom do you share a bond?'),
+      QuestionHeader(context.l10n.wizQ17Bond),
       WizDropdown(
-        label: 'Bond',
+        label: context.l10n.bondLabel,
         value: wizard.roninBond,
         options: [for (final bond in gameData.bonds) bond.name],
         onChanged: (value) {
@@ -93,6 +100,7 @@ class Page6Ancestry extends StatelessWidget {
         },
       ),
       _describeField(
+          context: context,
           key: 'q17ronin',
           initial: wizard.q17RoninText,
           onChanged: (value) => wizard.q17RoninText = value),
@@ -102,11 +110,9 @@ class Page6Ancestry extends StatelessWidget {
   List<Widget> _samuraiAncestry(BuildContext context) {
     final names = _ancestorNames();
     return [
-      const QuestionHeader(
-          '18. What is your duty to your family, and who among your '
-          'ancestors do you exemplify?'),
+      QuestionHeader(context.l10n.wizQ18Ancestry),
       WizDropdown(
-        label: 'Heritage table',
+        label: context.l10n.heritageTable,
         value: wizard.heritageSource,
         options: heritageSources,
         onChanged: (value) {
@@ -133,7 +139,7 @@ class Page6Ancestry extends StatelessWidget {
             ),
             Expanded(
               child: WizDropdown(
-                label: 'Ancestor $which',
+                label: context.l10n.ancestorN(which),
                 value: which == 1 ? wizard.ancestor1 : wizard.ancestor2,
                 options: names,
                 onChanged: (value) {
@@ -148,7 +154,7 @@ class Page6Ancestry extends StatelessWidget {
               ),
             ),
             IconButton(
-              tooltip: 'Roll (1d10)',
+              tooltip: context.l10n.rollTooltip,
               icon: const Icon(Icons.casino_outlined),
               onPressed: () => _roll(which),
             ),
@@ -177,10 +183,10 @@ class Page6Ancestry extends StatelessWidget {
     final options = wizard.heritageEffectOptions();
     final auto = WizardState.autoGrantedTraits[entry.result];
     final widgets = <Widget>[
-      QuestionHeader('Heritage: ${entry.result}'),
+      QuestionHeader(context.l10n.heritageHeader(trData(entry.result))),
       if (entry.otherEffects.instructions.isNotEmpty)
-        Text(entry.otherEffects.instructions),
-      if (auto != null) Text('Granted: $auto'),
+        Text(trData(entry.otherEffects.instructions)),
+      if (auto != null) Text(context.l10n.grantedLabel(trData(auto))),
     ];
 
     void primaryDropdown(String label) {
@@ -202,7 +208,7 @@ class Page6Ancestry extends StatelessWidget {
             ),
           ),
           IconButton(
-            tooltip: 'Roll (1d10)',
+            tooltip: context.l10n.rollTooltip,
             icon: const Icon(Icons.casino_outlined),
             onPressed: () {
               final roll = _random.nextInt(10) + 1;
@@ -225,17 +231,17 @@ class Page6Ancestry extends StatelessWidget {
 
     switch (kind) {
       case HeritageEffectKind.skill:
-        primaryDropdown('Bonus skill');
+        primaryDropdown(context.l10n.bonusSkill);
       case HeritageEffectKind.trait:
-        primaryDropdown('Trait gained');
+        primaryDropdown(context.l10n.traitGained);
       case HeritageEffectKind.startingItem:
       case HeritageEffectKind.lostHeirloom:
         primaryDropdown(kind == HeritageEffectKind.lostHeirloom
-            ? 'Lost heirloom category'
-            : 'Heirloom category');
+            ? context.l10n.lostHeirloomCategory
+            : context.l10n.heirloomCategory);
         if (wizard.q18OtherEffects.isNotEmpty) {
           widgets.add(WizDropdown(
-            label: 'Item',
+            label: context.l10n.itemLabel,
             value: wizard.q18Secondary,
             options: _itemOptionsFor(wizard.q18OtherEffects),
             onChanged: (value) {
@@ -247,7 +253,7 @@ class Page6Ancestry extends StatelessWidget {
             for (final quality in gameData.qualities) quality.name
           ];
           widgets.add(WizDropdown(
-            label: 'Quality (your choice)',
+            label: context.l10n.qualityYourChoice,
             value: wizard.q18Special1,
             options: qualityNames,
             onChanged: (value) {
@@ -256,7 +262,7 @@ class Page6Ancestry extends StatelessWidget {
             },
           ));
           widgets.add(WizDropdown(
-            label: "Quality (GM's choice)",
+            label: context.l10n.qualityGmChoice,
             value: wizard.q18Special2,
             options: qualityNames,
             onChanged: (value) {
@@ -266,10 +272,10 @@ class Page6Ancestry extends StatelessWidget {
           ));
         }
       case HeritageEffectKind.technique:
-        primaryDropdown('Technique group');
+        primaryDropdown(context.l10n.techniqueGroupLabel);
         if (wizard.q18OtherEffects.isNotEmpty) {
           widgets.add(WizDropdown(
-            label: 'Technique',
+            label: context.l10n.advTypeTechnique,
             value: wizard.q18Secondary,
             options: _techniqueOptionsFor(wizard.q18OtherEffects),
             onChanged: (value) {
@@ -279,12 +285,12 @@ class Page6Ancestry extends StatelessWidget {
           ));
         }
       case HeritageEffectKind.ringExchange:
-        primaryDropdown('Effect');
+        primaryDropdown(context.l10n.effectLabel);
         if (wizard.q18OtherEffects.isNotEmpty) {
           if (wizard.q18OtherEffects.endsWith(' Ring')) {
             // Spiritual Debt: raise the named ring, lower a chosen one.
             widgets.add(WizDropdown(
-              label: 'Ring to lower',
+              label: context.l10n.ringToLower,
               value: wizard.q18Special2,
               options: gameData.ringNames(),
               onChanged: (value) {
@@ -294,7 +300,7 @@ class Page6Ancestry extends StatelessWidget {
             ));
           } else {
             widgets.add(WizDropdown(
-              label: 'Ring to raise',
+              label: context.l10n.ringToRaise,
               value: wizard.q18Special1,
               options: gameData.ringNames(),
               onChanged: (value) {
@@ -303,7 +309,7 @@ class Page6Ancestry extends StatelessWidget {
               },
             ));
             widgets.add(WizDropdown(
-              label: 'Ring to lower',
+              label: context.l10n.ringToLower,
               value: wizard.q18Special2,
               options: gameData.ringNames(),
               onChanged: (value) {
@@ -314,12 +320,12 @@ class Page6Ancestry extends StatelessWidget {
           }
         }
       case HeritageEffectKind.namedItem:
-        primaryDropdown('Gift');
+        primaryDropdown(context.l10n.giftLabel);
       case HeritageEffectKind.mixed:
-        primaryDropdown('Effect');
+        primaryDropdown(context.l10n.effectLabel);
         if (wizard.q18OtherEffects == 'Ring Exchange') {
           widgets.add(WizDropdown(
-            label: 'Ring to raise',
+            label: context.l10n.ringToRaise,
             value: wizard.q18Special1,
             options: gameData.ringNames(),
             onChanged: (value) {
@@ -328,7 +334,7 @@ class Page6Ancestry extends StatelessWidget {
             },
           ));
           widgets.add(WizDropdown(
-            label: 'Ring to lower',
+            label: context.l10n.ringToLower,
             value: wizard.q18Special2,
             options: gameData.ringNames(),
             onChanged: (value) {
@@ -338,7 +344,7 @@ class Page6Ancestry extends StatelessWidget {
           ));
         } else if (wizard.q18OtherEffects == 'Item (Rank 6 or Lower)') {
           widgets.add(WizDropdown(
-            label: 'Item',
+            label: context.l10n.itemLabel,
             value: wizard.q18Secondary,
             options: _itemOptionsFor('another item', maxRarity: 6),
             onChanged: (value) {

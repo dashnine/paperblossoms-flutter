@@ -6,6 +6,8 @@ import 'package:paperblossoms/game_data.dart';
 import 'package:paperblossoms/rules_constants.dart';
 import 'package:paperblossoms/screens/tab_character_data.dart';
 
+import 'test_app.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -120,17 +122,15 @@ void main() {
       tester.view.physicalSize = const Size(2000, 2000);
       tester.view.devicePixelRatio = 1.0;
       addTearDown(tester.view.reset);
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: ListenableBuilder(
-            listenable: character,
-            // NOT const — an identical const child would let Flutter skip
-            // rebuilding on notify (same pitfall noted in character_editor).
-            // ignore: prefer_const_constructors
-            builder: (context, _) => CharacterDataTab(),
-          ),
+      await tester.pumpWidget(testApp(Scaffold(
+        body: ListenableBuilder(
+          listenable: character,
+          // NOT const — an identical const child would let Flutter skip
+          // rebuilding on notify (same pitfall noted in character_editor).
+          // ignore: prefer_const_constructors
+          builder: (context, _) => CharacterDataTab(),
         ),
-      ));
+      )));
     }
 
     testWidgets('chips appear when thresholds are exceeded', (tester) async {

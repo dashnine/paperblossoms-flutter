@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../character.dart';
+import '../data_l10n.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
+import '../l10n/l10n.dart';
 import 'pickers.dart';
 
 /// Picks a distinction/adversity/passion/anxiety (port of AddDisadvDialog),
@@ -16,13 +18,15 @@ Future<bool> addTraitFlow(BuildContext context, {String? category}) async {
   ];
   final choice = await pick<AdvDisadv>(
     context,
-    title: category == null ? 'Add Trait' : 'Add ${category.toLowerCase()}',
+    title: category == null
+        ? context.l10n.addTrait
+        : context.l10n.addCategoryLower(trData(category).toLowerCase()),
     items: options,
     labelOf: (entry) => entry.name,
     subtitleOf: (entry) => [
-      if (category == null) entry.category,
-      if (entry.ring.isNotEmpty) entry.ring,
-      if (entry.types.isNotEmpty) entry.types.join(', '),
+      if (category == null) trData(entry.category),
+      if (entry.ring.isNotEmpty) trData(entry.ring),
+      if (entry.types.isNotEmpty) entry.types.map(trData).join(', '),
     ].join(' · '),
     descriptionOf: (entry) => gameData.shortDescFor(entry.name),
   );

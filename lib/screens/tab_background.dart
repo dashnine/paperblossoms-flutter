@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 
 import '../character.dart';
+import '../data_l10n.dart';
+import '../l10n/l10n.dart';
 import '../theme.dart';
 import '../widgets/identity_lock_button.dart';
 
@@ -39,11 +41,11 @@ class _BackgroundTabState extends State<BackgroundTab> {
       padding: const EdgeInsets.all(16),
       children: [
         if (character.heritage.isNotEmpty) ...[
-          const SectionHeader('Heritage'),
-          Text(character.heritage),
+          SectionHeader(context.l10n.heritageSection),
+          Text(trData(character.heritage)),
         ],
-        const SectionHeader('Ninjō (personal desire)',
-            trailing: IdentityLockButton()),
+        SectionHeader(context.l10n.ninjoSection,
+            trailing: const IdentityLockButton()),
         TextField(
           controller: _ninjoController,
           enabled: !character.identityLocked,
@@ -55,7 +57,7 @@ class _BackgroundTabState extends State<BackgroundTab> {
             character.touch();
           },
         ),
-        const SectionHeader('Giri (duty)'),
+        SectionHeader(context.l10n.giriSection),
         TextField(
           controller: _giriController,
           enabled: !character.identityLocked,
@@ -67,7 +69,7 @@ class _BackgroundTabState extends State<BackgroundTab> {
             character.touch();
           },
         ),
-        const SectionHeader('Notes'),
+        SectionHeader(context.l10n.notesSection),
         TextField(
           controller: _notesController,
           maxLines: 12,

@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../character.dart';
+import '../data_l10n.dart';
 import '../derived_stats.dart';
 import '../game_data.dart';
+import '../l10n/l10n.dart';
 import '../layout.dart';
 import '../theme.dart';
 import '../widgets/identity_lock_button.dart';
@@ -81,7 +83,8 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
                   TextField(
                     controller: _nameController,
                     enabled: !character.identityLocked,
-                    decoration: const InputDecoration(labelText: 'Name'),
+                    decoration:
+                        InputDecoration(labelText: context.l10n.nameLabel),
                     onChanged: (value) {
                       character.name = value;
                       character.touch();
@@ -91,7 +94,8 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
                   TextField(
                     controller: _familyController,
                     enabled: !character.identityLocked,
-                    decoration: const InputDecoration(labelText: 'Family'),
+                    decoration:
+                        InputDecoration(labelText: context.l10n.familyLabel),
                     onChanged: (value) {
                       character.family = value;
                       character.touch();
@@ -104,14 +108,15 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
           ],
         ),
         const SizedBox(height: 8),
-        Text('${character.clan.isEmpty ? 'No clan' : character.clan} · '
-            '${character.school.isEmpty ? 'No school' : character.school}'),
-        const SectionHeader('Social Standing'),
+        Text(
+            '${character.clan.isEmpty ? context.l10n.noClan : trData(character.clan)} · '
+            '${character.school.isEmpty ? context.l10n.noSchool : trData(character.school)}'),
+        SectionHeader(context.l10n.socialStandingSection),
         Wrap(
           spacing: 12,
           children: [
             IntSpinner(
-                label: 'Honor',
+                label: context.l10n.honor,
                 value: character.honor,
                 max: 100,
                 onChanged: (v) {
@@ -119,7 +124,7 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
                   character.touch();
                 }),
             IntSpinner(
-                label: 'Glory',
+                label: context.l10n.glory,
                 value: character.glory,
                 max: 100,
                 onChanged: (v) {
@@ -127,7 +132,7 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
                   character.touch();
                 }),
             IntSpinner(
-                label: 'Status',
+                label: context.l10n.statusLabel,
                 value: character.status,
                 max: 100,
                 onChanged: (v) {
@@ -136,26 +141,26 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
                 }),
           ],
         ),
-        const SectionHeader('Wealth'),
+        SectionHeader(context.l10n.wealthSection),
         Wrap(
           spacing: 12,
           children: [
             IntSpinner(
-                label: 'Koku',
+                label: context.l10n.koku,
                 value: character.koku,
                 onChanged: (v) {
                   character.koku = v;
                   character.touch();
                 }),
             IntSpinner(
-                label: 'Bu',
+                label: context.l10n.bu,
                 value: character.bu,
                 onChanged: (v) {
                   character.bu = v;
                   character.touch();
                 }),
             IntSpinner(
-                label: 'Zeni',
+                label: context.l10n.zeni,
                 value: character.zeni,
                 onChanged: (v) {
                   character.zeni = v;
@@ -163,7 +168,7 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
                 }),
           ],
         ),
-        const SectionHeader('Abilities'),
+        SectionHeader(context.l10n.abilitiesSection),
         ..._buildAbilities(context),
       ],
     );
@@ -173,15 +178,17 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
     final rank = recalcRank(character).rank;
     final currentTitle = recalcTitle(character).currentTitle;
     final abilityList = abilities(character, rank, currentTitle);
-    if (abilityList.isEmpty) return [const EmptyHint('No abilities yet.')];
+    if (abilityList.isEmpty) {
+      return [EmptyHint(context.l10n.noAbilitiesYet)];
+    }
     return [
       for (final ability in abilityList)
         Padding(
           padding: const EdgeInsets.only(bottom: 4),
           child: Text(
             gameData.shortDescFor(ability).isEmpty
-                ? ability
-                : '$ability — ${gameData.shortDescFor(ability)}',
+                ? trData(ability)
+                : '${trData(ability)} — ${gameData.shortDescFor(ability)}',
           ),
         ),
     ];
@@ -193,24 +200,27 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionHeader('Rings'),
+        SectionHeader(context.l10n.ringsSection),
         ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 340, maxHeight: 340),
           child: RingViewer(rings: rings),
         ),
-        const SectionHeader('Derived Attributes'),
+        SectionHeader(context.l10n.derivedAttributesSection),
         Wrap(
           spacing: 24,
           runSpacing: 12,
           children: [
-            StatTile(label: 'Endurance', value: '${endurance(rings)}'),
-            StatTile(label: 'Composure', value: '${composure(rings)}'),
-            StatTile(label: 'Focus', value: '${focus(rings)}'),
-            StatTile(label: 'Vigilance', value: '${vigilance(rings)}'),
-            StatTile(label: 'School Rank', value: '${rank.rank}'),
+            StatTile(
+                label: context.l10n.endurance, value: '${endurance(rings)}'),
+            StatTile(
+                label: context.l10n.composure, value: '${composure(rings)}'),
+            StatTile(label: context.l10n.focusStat, value: '${focus(rings)}'),
+            StatTile(
+                label: context.l10n.vigilance, value: '${vigilance(rings)}'),
+            StatTile(label: context.l10n.schoolRank, value: '${rank.rank}'),
           ],
         ),
-        const SectionHeader('Fatigue & Strife'),
+        SectionHeader(context.l10n.fatigueStrifeSection),
         Wrap(
           spacing: 24,
           runSpacing: 8,
@@ -221,14 +231,14 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IntSpinner(
-                    label: 'Fatigue / ${endurance(rings)}',
+                    label: context.l10n.fatigueOf(endurance(rings)),
                     value: character.fatigue,
                     onChanged: (v) {
                       character.fatigue = v;
                       character.touch();
                     }),
                 Tooltip(
-                  message: 'Clear all fatigue',
+                  message: context.l10n.clearAllFatigue,
                   child: TextButton(
                     onPressed: character.fatigue > 0
                         ? () {
@@ -236,7 +246,7 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
                             character.touch();
                           }
                         : null,
-                    child: const Text('Recover'),
+                    child: Text(context.l10n.recover),
                   ),
                 ),
               ],
@@ -245,14 +255,14 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 IntSpinner(
-                    label: 'Strife / ${composure(rings)}',
+                    label: context.l10n.strifeOf(composure(rings)),
                     value: character.strife,
                     onChanged: (v) {
                       character.strife = v;
                       character.touch();
                     }),
                 Tooltip(
-                  message: 'Clear all strife',
+                  message: context.l10n.clearAllStrife,
                   child: TextButton(
                     onPressed: character.strife > 0
                         ? () {
@@ -260,7 +270,7 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
                             character.touch();
                           }
                         : null,
-                    child: const Text('Unmask'),
+                    child: Text(context.l10n.unmask),
                   ),
                 ),
               ],
@@ -268,17 +278,17 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
           ],
         ),
         SectionHeader(
-          'Conditions',
+          context.l10n.conditionsSection,
           trailing: IconButton(
             icon: const Icon(Icons.add),
-            tooltip: 'Add condition',
+            tooltip: context.l10n.addCondition,
             onPressed: () => _addCondition(context),
           ),
         ),
         if (character.conditions.isEmpty &&
             !isIncapacitated(character, rings) &&
             !isCompromised(character, rings))
-          const EmptyHint('No conditions.')
+          EmptyHint(context.l10n.noConditions)
         else
           Wrap(
             spacing: 8,
@@ -287,19 +297,17 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
               // Derived from fatigue/strife, so no delete affordance: they
               // clear themselves when the tracks drop back under the limit.
               if (isIncapacitated(character, rings))
-                _derivedChip(context, 'Incapacitated',
-                    'Fatigue exceeds endurance: no actions requiring checks '
-                    'and no defending against damage.'),
+                _derivedChip(context, trData('Incapacitated'),
+                    context.l10n.incapacitatedRule),
               if (isCompromised(character, rings))
-                _derivedChip(context, 'Compromised',
-                    'Strife exceeds composure: cannot keep dice showing '
-                    'strife; vigilance counts as 1.'),
+                _derivedChip(context, trData('Compromised'),
+                    context.l10n.compromisedRule),
               for (final condition in character.conditions)
                 Tooltip(
-                  message:
-                      conditionSummaries[condition.split(' (').first] ?? '',
+                  message: trData(
+                      conditionSummaries[condition.split(' (').first] ?? ''),
                   child: InputChip(
-                    label: Text(condition),
+                    label: Text(dataL10n.trCondition(condition)),
                     onDeleted: () {
                       character.conditions.remove(condition);
                       character.touch();
@@ -312,7 +320,7 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
           alignment: Alignment.centerLeft,
           child: TextButton.icon(
             icon: const Icon(Icons.bolt),
-            label: const Text('Critical strike…'),
+            label: Text(context.l10n.criticalStrike),
             onPressed: () => criticalStrikeFlow(context),
           ),
         ),
@@ -348,11 +356,11 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
     ]..removeWhere(character.conditions.contains);
     final choice = await pick<String>(
       context,
-      title: 'Add condition',
+      title: context.l10n.addCondition,
       items: options,
       labelOf: (condition) => condition,
       descriptionOf: (condition) =>
-          conditionSummaries[condition.split(' (').first] ?? '',
+          trData(conditionSummaries[condition.split(' (').first] ?? ''),
     );
     if (choice == null) return;
     if (addCondition(character, choice)) character.touch();
@@ -365,11 +373,11 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        const SectionHeader('Skills'),
+        SectionHeader(context.l10n.skillsSection),
         for (final group in groups) ...[
           Padding(
             padding: const EdgeInsets.only(top: 8, bottom: 2),
-            child: Text(group.name,
+            child: Text(trData(group.name),
                 style: Theme.of(context).textTheme.labelLarge),
           ),
           for (final skill in group.skills)
@@ -389,7 +397,7 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
     return Row(
       children: [
         Expanded(
-          child: Text(skill,
+          child: Text(trData(skill),
               style: trained ? null : TextStyle(color: colors.outline)),
         ),
         Text('$rank',

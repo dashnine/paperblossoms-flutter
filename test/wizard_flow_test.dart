@@ -10,6 +10,8 @@ import 'package:paperblossoms/screens/character_editor.dart';
 import 'package:paperblossoms/wizard/wizard_shell.dart';
 import 'package:paperblossoms/wizard/wizard_state.dart';
 
+import 'test_app.dart';
+
 WizardState completeBuild() => WizardState()
   ..characterType = characterTypeSamurai
   ..clan = 'Crab'
@@ -60,9 +62,8 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
 
-    await tester.pumpWidget(MaterialApp(
-      home: NewCharacterWizard(initialState: completeBuild()),
-    ));
+    await tester
+        .pumpWidget(testApp(NewCharacterWizard(initialState: completeBuild())));
     await tester.pumpAndSettle();
     expect(find.text('Part 1: Clan and Family'), findsOneWidget);
 
@@ -104,7 +105,7 @@ void main() {
     tester.view.devicePixelRatio = 1.0;
     addTearDown(tester.view.reset);
 
-    await tester.pumpWidget(const MaterialApp(home: NewCharacterWizard()));
+    await tester.pumpWidget(testApp(const NewCharacterWizard()));
     await tester.pumpAndSettle();
     await tester.tap(find.text('Next'));
     await tester.pumpAndSettle();
@@ -120,9 +121,8 @@ void main() {
     addTearDown(tester.view.reset);
 
     final build = completeBuild()..passion = '';
-    await tester.pumpWidget(MaterialApp(
-      home: NewCharacterWizard(initialState: build),
-    ));
+    await tester
+        .pumpWidget(testApp(NewCharacterWizard(initialState: build)));
     await tester.pumpAndSettle();
     for (var page = 1; page <= 3; page++) {
       await tester.tap(find.text('Next'));
@@ -148,9 +148,8 @@ void main() {
     addTearDown(tester.view.reset);
 
     final build = completeBuild()..q13Advantage = '';
-    await tester.pumpWidget(MaterialApp(
-      home: NewCharacterWizard(initialState: build),
-    ));
+    await tester
+        .pumpWidget(testApp(NewCharacterWizard(initialState: build)));
     await tester.pumpAndSettle();
     for (var page = 1; page <= 3; page++) {
       await tester.tap(find.text('Next'));
@@ -169,9 +168,8 @@ void main() {
     addTearDown(tester.view.reset);
 
     final build = completeBuild()..familyRing = 'Earth'; // Earth 4 -> capped
-    await tester.pumpWidget(MaterialApp(
-      home: NewCharacterWizard(initialState: build),
-    ));
+    await tester
+        .pumpWidget(testApp(NewCharacterWizard(initialState: build)));
     await tester.pumpAndSettle();
     for (var page = 1; page <= 6; page++) {
       await tester.tap(find.text('Next'));

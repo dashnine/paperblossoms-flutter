@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 
 import '../advance.dart';
 import '../character.dart';
+import '../data_l10n.dart';
 import '../derived_stats.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
+import '../l10n/l10n.dart';
 import '../layout.dart';
 import '../rules_constants.dart';
 import '../theme.dart';
@@ -122,12 +124,8 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
   List<Technique> _legalTechniques() =>
       legalTechniques(character, removeRestrictions: _removeRestrictions);
 
-  /// Case- and macron-insensitive, so typing "kiho" finds "Kihō".
-  String _fold(String s) => s
-      .toLowerCase()
-      .replaceAll('ā', 'a')
-      .replaceAll('ō', 'o')
-      .replaceAll('ū', 'u');
+  /// Case- and diacritic-insensitive, so typing "kiho" finds "Kihō".
+  String _fold(String s) => dataL10n.sortKey(s);
 
   List<Technique> _techniqueOptions() {
     final query = _fold(_searchController.text.trim());
@@ -136,7 +134,9 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
         if ((_groupFilter.isEmpty ||
                 tech.category == _groupFilter ||
                 tech.subcategory == _groupFilter) &&
-            (query.isEmpty || _fold(tech.name).contains(query)))
+            (query.isEmpty ||
+                _fold(tech.name).contains(query) ||
+                _fold(trData(tech.name)).contains(query)))
           tech
     ];
   }
@@ -145,23 +145,23 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
   /// technique groups name either level ('Kata', 'Close Combat Kata').
   List<DropdownMenuEntry<String>> _techniqueGroupEntries() {
     final entries = <DropdownMenuEntry<String>>[
-      const DropdownMenuEntry(value: '', label: 'All groups'),
+      DropdownMenuEntry(value: '', label: context.l10n.allGroups),
     ];
     final seen = <String>{};
     for (final tech in _legalTechniques()) {
       if (seen.add(tech.category)) {
-        entries.add(
-            DropdownMenuEntry(value: tech.category, label: tech.category));
+        entries.add(DropdownMenuEntry(
+            value: tech.category, label: trData(tech.category)));
       }
       if (tech.subcategory.isNotEmpty &&
           tech.subcategory != tech.category &&
           seen.add(tech.subcategory)) {
         entries.add(DropdownMenuEntry(
           value: tech.subcategory,
-          label: tech.subcategory,
+          label: trData(tech.subcategory),
           labelWidget: Padding(
             padding: const EdgeInsets.only(left: 16),
-            child: Text(tech.subcategory),
+            child: Text(trData(tech.subcategory)),
           ),
         ));
       }
@@ -169,8 +169,8 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
     // Keep a preset curriculum group selectable even when no technique is
     // currently legal in it (e.g. all its ranks are above the character's).
     if (_groupFilter.isNotEmpty && !seen.contains(_groupFilter)) {
-      entries
-          .add(DropdownMenuEntry(value: _groupFilter, label: _groupFilter));
+      entries.add(
+          DropdownMenuEntry(value: _groupFilter, label: trData(_groupFilter)));
     }
     return entries;
   }
@@ -198,13 +198,21 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
   bool get _isTitle => _track == trackTitle;
 
   String? _validationError() {
-    if (_selection == null) return 'Choose an advance.';
+    if (_selection == null) return context.l10n.chooseAnAdvance;
     if (_type == advanceTypeTechnique &&
         alreadyLearned(character, _selection!)) {
-      return "'$_selection' is already learned.";
+      return context.l10n.alreadyLearnedError(trData(_selection!));
     }
     return null;
   }
+
+  /// Localized display label for an advance-type constant (the constants
+  /// themselves are canonical English and appear in saves).
+  String _typeLabel(String type) => switch (type) {
+        advanceTypeSkill => context.l10n.advTypeSkill,
+        advanceTypeRing => context.l10n.advTypeRing,
+        _ => context.l10n.advTypeTechnique,
+      };
 
   void _submit() {
     final cost = _isFree ? 0 : (_cost() ?? 0);
@@ -235,7 +243,7 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
     final listMaxHeight =
         (MediaQuery.sizeOf(context).height * 0.5).clamp(320.0, 720.0);
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Advance')),
+      appBar: AppBar(title: Text(context.l10n.addAdvanceTitle)),
       body: Center(
         child: ConstrainedBox(
           constraints: const BoxConstraints(maxWidth: 560),
@@ -243,11 +251,15 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
             padding: const EdgeInsets.all(16),
             children: [
           SegmentedButton<String>(
-            segments: const [
-              ButtonSegment(value: advanceTypeSkill, label: Text('Skill')),
-              ButtonSegment(value: advanceTypeRing, label: Text('Ring')),
+            segments: [
               ButtonSegment(
-                  value: advanceTypeTechnique, label: Text('Technique')),
+                  value: advanceTypeSkill,
+                  label: Text(context.l10n.advTypeSkill)),
+              ButtonSegment(
+                  value: advanceTypeRing, label: Text(context.l10n.advTypeRing)),
+              ButtonSegment(
+                  value: advanceTypeTechnique,
+                  label: Text(context.l10n.advTypeTechnique)),
             ],
             selected: {_type},
             onSelectionChanged: (selection) => setState(() {
@@ -258,16 +270,17 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
             }),
           ),
           if (_type != advanceTypeTechnique) ...[
-            const SectionHeader('Advance'),
+            SectionHeader(context.l10n.advanceSection),
             if (_type == advanceTypeSkill) ...[
               DropdownMenu<String>(
                 width: menuWidth,
                 initialSelection: _groupFilter,
-                label: const Text('Group'),
+                label: Text(context.l10n.groupLabel),
                 dropdownMenuEntries: [
-                  const DropdownMenuEntry(value: '', label: 'All groups'),
+                  DropdownMenuEntry(value: '', label: context.l10n.allGroups),
                   for (final group in gameData.skillGroups)
-                    DropdownMenuEntry(value: group.name, label: group.name),
+                    DropdownMenuEntry(
+                        value: group.name, label: trData(group.name)),
                 ],
                 onSelected: (value) => setState(() {
                   _groupFilter = value ?? '';
@@ -280,21 +293,21 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
               key: ValueKey('$_type:$_groupFilter'),
               width: menuWidth,
               initialSelection: _selection,
-              label: Text(_type),
+              label: Text(_typeLabel(_type)),
               enableFilter: true,
               requestFocusOnTap: true,
               dropdownMenuEntries: [
                 for (final option in _options())
-                  DropdownMenuEntry(value: option, label: option),
+                  DropdownMenuEntry(value: option, label: trData(option)),
               ],
               onSelected: (value) => setState(() => _selection = value),
             ),
           ] else ...[
-            const SectionHeader('Technique'),
+            SectionHeader(context.l10n.advTypeTechnique),
             DropdownMenu<String>(
               width: menuWidth,
               initialSelection: _groupFilter,
-              label: const Text('Group'),
+              label: Text(context.l10n.groupLabel),
               dropdownMenuEntries: _techniqueGroupEntries(),
               onSelected: (value) => setState(() {
                 _groupFilter = value ?? '';
@@ -304,11 +317,10 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
               }),
             ),
             if (_groupFilter == 'Mahō')
-              const Padding(
-                padding: EdgeInsets.only(top: 8),
-                child: Text(
-                    'Mahō is forbidden. Learning it has consequences.',
-                    style: TextStyle(fontStyle: FontStyle.italic)),
+              Padding(
+                padding: const EdgeInsets.only(top: 8),
+                child: Text(context.l10n.mahoWarning,
+                    style: const TextStyle(fontStyle: FontStyle.italic)),
               ),
             const SizedBox(height: 8),
             TextField(
@@ -318,12 +330,12 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
               autofocus: !context.isCompact,
               decoration: InputDecoration(
                 prefixIcon: const Icon(Icons.search),
-                labelText: 'Type to filter',
+                labelText: context.l10n.typeToFilter,
                 isDense: true,
                 suffixIcon: _searchController.text.isEmpty
                     ? null
                     : IconButton(
-                        tooltip: 'Clear filter',
+                        tooltip: context.l10n.clearFilter,
                         icon: const Icon(Icons.clear),
                         onPressed: () {
                           setState(_searchController.clear);
@@ -356,12 +368,12 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
                         dense: true,
                         value: tech.name,
                         groupValue: _selection,
-                        title: Text(tech.name),
+                        title: Text(trData(tech.name)),
                         subtitle: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Text('${tech.subcategory} · Rank ${tech.rank} · '
-                                '${tech.xp} XP'),
+                            Text(context.l10n.techSubtitle(
+                                trData(tech.subcategory), tech.rank, tech.xp)),
                             if (gameData
                                 .shortDescFor(tech.name)
                                 .isNotEmpty)
@@ -384,16 +396,16 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
             CheckboxListTile(
               dense: true,
               value: _removeRestrictions,
-              title: const Text('Ignore restrictions (rank, school access)'),
+              title: Text(context.l10n.ignoreRestrictions),
               onChanged: (value) =>
                   setState(() => _removeRestrictions = value ?? false),
             ),
           ],
-          const SectionHeader('Track'),
+          SectionHeader(context.l10n.trackSection),
           for (final (value, label) in [
-            (trackCurriculum, 'Curriculum'),
-            (trackTitle, 'Title'),
-            ('Free', 'Free (no XP cost)'),
+            (trackCurriculum, context.l10n.trackCurriculumLabel),
+            (trackTitle, context.l10n.trackTitleLabel),
+            ('Free', context.l10n.trackFreeLabel),
           ])
             RadioListTile<String>(
               value: value,
@@ -407,12 +419,12 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
             TextField(
               controller: _reasonController,
               decoration:
-                  const InputDecoration(labelText: 'Reason (optional)'),
+                  InputDecoration(labelText: context.l10n.reasonOptional),
             ),
           CheckboxListTile(
             dense: true,
             value: _halfXp,
-            title: const Text('Half XP (school/title discount)'),
+            title: Text(context.l10n.halfXpLabel),
             onChanged: (value) => setState(() => _halfXp = value ?? false),
           ),
           const SizedBox(height: 8),
@@ -420,12 +432,12 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
             Text(error,
                 style: TextStyle(color: Theme.of(context).colorScheme.error))
           else if (!_isFree && cost != null)
-            Text('Cost: $cost XP',
+            Text(context.l10n.costXp(cost),
                 style: Theme.of(context).textTheme.titleMedium),
           const SizedBox(height: 16),
           FilledButton(
             onPressed: error == null ? _submit : null,
-            child: const Text('Add Advance'),
+            child: Text(context.l10n.addAdvanceTitle),
           ),
             ],
           ),

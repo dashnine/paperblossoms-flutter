@@ -14,6 +14,8 @@ import 'package:paperblossoms/widgets/int_spinner.dart';
 import 'package:paperblossoms/wizard/wizard_shell.dart';
 import 'package:paperblossoms/wizard/wizard_state.dart';
 
+import 'test_app.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -25,16 +27,14 @@ void main() {
     testWidgets('tapping the value opens a dialog and clamps to max',
         (tester) async {
       int? result;
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: IntSpinner(
-            label: 'Glory',
-            value: 40,
-            max: 100,
-            onChanged: (v) => result = v,
-          ),
+      await tester.pumpWidget(testApp(Scaffold(
+        body: IntSpinner(
+          label: 'Glory',
+          value: 40,
+          max: 100,
+          onChanged: (v) => result = v,
         ),
-      ));
+      )));
       await tester.tap(find.text('40'));
       await tester.pumpAndSettle();
       expect(find.byType(AlertDialog), findsOneWidget);
@@ -51,10 +51,8 @@ void main() {
 
   group('editor unsaved-changes guard', () {
     Future<NavigatorState> pumpEditorRoute(WidgetTester tester) async {
-      await tester.pumpWidget(MaterialApp(
-        theme: lightTheme(),
-        home: const Scaffold(body: Text('chooser')),
-      ));
+      await tester.pumpWidget(testApp(const Scaffold(body: Text('chooser')),
+          theme: lightTheme()));
       final nav = tester.state<NavigatorState>(find.byType(Navigator));
       nav.push(
           MaterialPageRoute(builder: (context) => const CharacterEditor()));
@@ -98,10 +96,8 @@ void main() {
   group('wizard discard guard', () {
     Future<NavigatorState> pumpWizardRoute(
         WidgetTester tester, WizardState state) async {
-      await tester.pumpWidget(MaterialApp(
-        theme: lightTheme(),
-        home: const Scaffold(body: Text('chooser')),
-      ));
+      await tester.pumpWidget(testApp(const Scaffold(body: Text('chooser')),
+          theme: lightTheme()));
       final nav = tester.state<NavigatorState>(find.byType(Navigator));
       nav.push(MaterialPageRoute(
           builder: (context) => NewCharacterWizard(initialState: state)));
@@ -145,14 +141,12 @@ void main() {
       final katana = gameData.weaponByName('Katana')!;
       character.equipment = [Item.fromWeapon(katana, katana.grips.first)];
 
-      await tester.pumpWidget(MaterialApp(
-        home: Scaffold(
-          body: ListenableBuilder(
-            listenable: character,
-            builder: (context, _) => const EquipmentTab(),
-          ),
+      await tester.pumpWidget(testApp(Scaffold(
+        body: ListenableBuilder(
+          listenable: character,
+          builder: (context, _) => const EquipmentTab(),
         ),
-      ));
+      )));
       await tester.pumpAndSettle();
 
       await tester.tap(find.byTooltip('Remove').first);

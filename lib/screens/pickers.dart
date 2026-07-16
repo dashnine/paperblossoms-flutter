@@ -1,7 +1,15 @@
 import 'package:flutter/material.dart';
 
+import '../data_l10n.dart';
+import '../l10n/l10n.dart';
+
 /// Searchable list page; pops with the tapped item. Used by the add-title,
 /// add-bond, add-trait, and add-item flows.
+///
+/// Labels render through the data-translation overlay ([trData]); the popped
+/// item is the object itself, so canonical English names are never affected.
+/// Search matches both the displayed (possibly translated) label and the
+/// English original, case- and diacritic-insensitively.
 class PickerPage<T> extends StatefulWidget {
   final String title;
   final List<T> items;
@@ -29,18 +37,23 @@ class _PickerPageState<T> extends State<PickerPage<T>> {
 
   @override
   Widget build(BuildContext context) {
-    final query = _query.toLowerCase();
+    final query = dataL10n.sortKey(_query);
+    bool matchesQuery(T item) {
+      if (query.isEmpty) return true;
+      final english = widget.labelOf(item);
+      return dataL10n.sortKey(english).contains(query) ||
+          dataL10n.sortKey(dataL10n.trCondition(english)).contains(query) ||
+          dataL10n
+              .sortKey(widget.subtitleOf?.call(item) ?? '')
+              .contains(query) ||
+          dataL10n
+              .sortKey(widget.descriptionOf?.call(item) ?? '')
+              .contains(query);
+    }
+
     final matches = [
       for (final item in widget.items)
-        if (widget.labelOf(item).toLowerCase().contains(query) ||
-            (widget.subtitleOf?.call(item).toLowerCase().contains(query) ??
-                false) ||
-            (widget.descriptionOf
-                    ?.call(item)
-                    .toLowerCase()
-                    .contains(query) ??
-                false))
-          item
+        if (matchesQuery(item)) item
     ];
     return Scaffold(
       appBar: AppBar(title: Text(widget.title)),
@@ -50,11 +63,11 @@ class _PickerPageState<T> extends State<PickerPage<T>> {
             padding: const EdgeInsets.all(12),
             child: TextField(
               autofocus: true,
-              decoration: const InputDecoration(
-                prefixIcon: Icon(Icons.search),
-                hintText: 'Search…',
+              decoration: InputDecoration(
+                prefixIcon: const Icon(Icons.search),
+                hintText: context.l10n.searchHint,
                 isDense: true,
-                border: OutlineInputBorder(),
+                border: const OutlineInputBorder(),
               ),
               onChanged: (value) => setState(() => _query = value),
             ),
@@ -67,7 +80,7 @@ class _PickerPageState<T> extends State<PickerPage<T>> {
                 final subtitle = widget.subtitleOf?.call(item) ?? '';
                 final description = widget.descriptionOf?.call(item) ?? '';
                 return ListTile(
-                  title: Text(widget.labelOf(item)),
+                  title: Text(dataL10n.trCondition(widget.labelOf(item))),
                   subtitle: subtitle.isEmpty && description.isEmpty
                       ? null
                       : Column(

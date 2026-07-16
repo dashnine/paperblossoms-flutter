@@ -1,9 +1,13 @@
+import 'dart:convert';
+
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../character.dart';
 import '../character_store.dart';
+import '../data_l10n.dart';
+import '../l10n/l10n.dart';
 import '../wizard/wizard_shell.dart';
 import 'character_editor.dart';
 import 'tools_page.dart';
@@ -70,7 +74,10 @@ class _CharacterChooserState extends State<CharacterChooser> {
     );
     final bytes = result?.files.single.bytes;
     if (bytes == null) return;
-    await characterStore.importJson(String.fromCharCodes(bytes));
+    // Proper UTF-8 decode (String.fromCharCodes garbles multibyte
+    // characters, e.g. accented names); malformed bytes degrade to
+    // replacement characters instead of failing the import.
+    await characterStore.importJson(utf8.decode(bytes, allowMalformed: true));
     _refresh();
   }
 
@@ -78,12 +85,12 @@ class _CharacterChooserState extends State<CharacterChooser> {
     final confirmed = await showDialog<bool>(
       context: context,
       builder: (context) => AlertDialog(
-        title: Text('Delete ${summary.name}?'),
-        content: const Text('This cannot be undone.'),
+        title: Text(context.l10n.deleteCharacterTitle(summary.name)),
+        content: Text(context.l10n.deleteCannotBeUndone),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, false),
-            child: const Text('Cancel'),
+            child: Text(context.l10n.cancel),
           ),
           FilledButton(
             style: FilledButton.styleFrom(
@@ -91,7 +98,7 @@ class _CharacterChooserState extends State<CharacterChooser> {
               foregroundColor: Theme.of(context).colorScheme.onError,
             ),
             onPressed: () => Navigator.pop(context, true),
-            child: const Text('Delete'),
+            child: Text(context.l10n.delete),
           ),
         ],
       ),
@@ -105,15 +112,15 @@ class _CharacterChooserState extends State<CharacterChooser> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Paper Blossoms'),
+        title: Text(context.l10n.appTitle),
         actions: [
           IconButton(
-            tooltip: 'Import character',
+            tooltip: context.l10n.importCharacterTooltip,
             icon: const Icon(Icons.file_open_outlined),
             onPressed: _importCharacter,
           ),
           IconButton(
-            tooltip: 'Tools',
+            tooltip: context.l10n.toolsTitle,
             icon: const Icon(Icons.handyman_outlined),
             onPressed: () => Navigator.push(
               context,
@@ -125,7 +132,7 @@ class _CharacterChooserState extends State<CharacterChooser> {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: _newCharacter,
         icon: const Icon(Icons.add),
-        label: const Text('New Character'),
+        label: Text(context.l10n.newCharacter),
       ),
       body: Stack(
         fit: StackFit.expand,
@@ -171,7 +178,7 @@ class _CharacterChooserState extends State<CharacterChooser> {
             Image.asset('assets/images/sakura.png', width: 120),
             const SizedBox(height: 16),
             Text(
-              'No characters yet.\nCreate one to begin your story.',
+              context.l10n.noCharactersYet,
               textAlign: TextAlign.center,
               style: Theme.of(context).textTheme.bodyLarge,
             ),
@@ -188,10 +195,11 @@ class _CharacterChooserState extends State<CharacterChooser> {
       itemBuilder: (context, index) {
         final summary = _summaries[index];
         // Empty for indexes written by older builds until their next save.
+        // Stored index keeps English names; translate only for display.
         final detail = [
-          if (summary.clan.isNotEmpty) summary.clan,
-          if (summary.school.isNotEmpty) summary.school,
-          if (summary.rank > 0) 'Rank ${summary.rank}',
+          if (summary.clan.isNotEmpty) trData(summary.clan),
+          if (summary.school.isNotEmpty) trData(summary.school),
+          if (summary.rank > 0) context.l10n.rankN(summary.rank),
         ].join(' · ');
         return ListTile(
           leading: _portraitAvatar(summary.uuid),
@@ -199,7 +207,7 @@ class _CharacterChooserState extends State<CharacterChooser> {
           subtitle: detail.isEmpty ? null : Text(detail),
           onTap: () => _openCharacter(summary.uuid),
           trailing: IconButton(
-            tooltip: 'Delete',
+            tooltip: context.l10n.delete,
             icon: const Icon(Icons.delete_outline),
             onPressed: () => _deleteCharacter(summary),
           ),

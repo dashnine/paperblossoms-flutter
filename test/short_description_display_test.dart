@@ -8,6 +8,8 @@ import 'package:paperblossoms/screens/add_advance_page.dart';
 import 'package:paperblossoms/screens/pickers.dart';
 import 'package:paperblossoms/wizard/wizard_widgets.dart';
 
+import 'test_app.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
 
@@ -64,14 +66,12 @@ void main() {
 
   testWidgets('PickerPage shows the description line and searches it',
       (tester) async {
-    await tester.pumpWidget(MaterialApp(
-      home: PickerPage<String>(
-        title: 'Add Trait',
-        items: const ['Adopted Peasant', 'Undescribed Option'],
-        labelOf: (name) => name,
-        descriptionOf: gameData.shortDescFor,
-      ),
-    ));
+    await tester.pumpWidget(testApp(PickerPage<String>(
+      title: 'Add Trait',
+      items: const ['Adopted Peasant', 'Undescribed Option'],
+      labelOf: (name) => name,
+      descriptionOf: gameData.shortDescFor,
+    )));
     expect(find.text('Raised among commoners.'), findsOneWidget);
 
     await tester.enterText(find.byType(TextField), 'commoners');
@@ -94,11 +94,9 @@ void main() {
       ringWater: 1,
       ringVoid: 1,
     };
-    await tester.pumpWidget(const MaterialApp(
-      home: AddAdvancePage(
-          initialType: advanceTypeTechnique,
-          initialOption: 'Striking as Earth'),
-    ));
+    await tester.pumpWidget(testApp(const AddAdvancePage(
+        initialType: advanceTypeTechnique,
+        initialOption: 'Striking as Earth')));
     await tester.pumpAndSettle();
     expect(find.text('Guarded kata stance.'), findsOneWidget);
   });

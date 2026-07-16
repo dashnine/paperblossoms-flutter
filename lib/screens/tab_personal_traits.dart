@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../character.dart';
+import '../data_l10n.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
+import '../l10n/l10n.dart';
 import '../theme.dart';
 import 'add_trait_page.dart';
 
@@ -43,9 +45,9 @@ class PersonalTraitsTab extends StatelessWidget {
       children: [
         for (final category in byCategory.keys) ...[
           SectionHeader(
-            category,
+            trData(category),
             trailing: IconButton(
-              tooltip: 'Add',
+              tooltip: context.l10n.add,
               icon: const Icon(Icons.add),
               onPressed: () => addTraitFlow(context, category: category),
             ),
@@ -56,15 +58,16 @@ class PersonalTraitsTab extends StatelessWidget {
             for (final entry in byCategory[category]!)
               Card(
                 child: ListTile(
-                  title: Text(entry.name),
+                  title: Text(trData(entry.name)),
                   subtitle: Text([
-                    if (entry.ring.isNotEmpty) entry.ring,
-                    if (entry.types.isNotEmpty) entry.types.join(', '),
+                    if (entry.ring.isNotEmpty) trData(entry.ring),
+                    if (entry.types.isNotEmpty)
+                      entry.types.map(trData).join(', '),
                     if (gameData.shortDescFor(entry.name).isNotEmpty)
                       gameData.shortDescFor(entry.name),
                   ].join(' · ')),
                   trailing: IconButton(
-                    tooltip: 'Remove',
+                    tooltip: context.l10n.remove,
                     icon: const Icon(Icons.delete_outline),
                     onPressed: () => _remove(entry.name),
                   ),
@@ -72,13 +75,13 @@ class PersonalTraitsTab extends StatelessWidget {
               ),
         ],
         if (unknown.isNotEmpty) ...[
-          const SectionHeader('Unknown (custom or missing data)'),
+          SectionHeader(context.l10n.unknownCustomSection),
           for (final name in unknown)
             Card(
               child: ListTile(
                 title: Text(name),
                 trailing: IconButton(
-                  tooltip: 'Remove',
+                  tooltip: context.l10n.remove,
                   icon: const Icon(Icons.delete_outline),
                   onPressed: () => _remove(name),
                 ),

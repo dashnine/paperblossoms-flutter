@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../data_l10n.dart';
 import '../game_data.dart';
 import '../item.dart';
+import '../l10n/l10n.dart';
 import '../rules_constants.dart';
 import '../theme.dart';
 import 'pickers.dart';
@@ -49,12 +51,12 @@ class _AddItemPageState extends State<AddItemPage> {
       case itemTypeWeapon:
         final weapon = await pick(
           context,
-          title: 'Choose Weapon',
+          title: context.l10n.chooseWeapon,
           items: gameData.weapons,
           labelOf: (w) => w.name,
-          subtitleOf: (w) =>
-              '${w.category} · ${w.skill} · Dmg ${w.damage} · Dls '
-              '${w.deadliness}',
+          subtitleOf: (w) => context.l10n.weaponPickSubtitle(
+              trData(w.category), trData(w.skill), '${w.damage}',
+              '${w.deadliness}'),
           descriptionOf: (w) => gameData.shortDescFor(w.name),
         );
         if (weapon == null) return;
@@ -64,10 +66,10 @@ class _AddItemPageState extends State<AddItemPage> {
       case itemTypeArmor:
         final armor = await pick(
           context,
-          title: 'Choose Armor',
+          title: context.l10n.chooseArmor,
           items: gameData.armor,
           labelOf: (a) => a.name,
-          subtitleOf: (a) => a.qualities.join(', '),
+          subtitleOf: (a) => a.qualities.map(trData).join(', '),
           descriptionOf: (a) => gameData.shortDescFor(a.name),
         );
         if (armor == null) return;
@@ -75,7 +77,7 @@ class _AddItemPageState extends State<AddItemPage> {
       default:
         final effect = await pick(
           context,
-          title: 'Choose Personal Effect',
+          title: context.l10n.choosePersonalEffect,
           items: gameData.personalEffects,
           labelOf: (e) => e.name,
           subtitleOf: (e) => '${e.price.value} ${e.price.unit}',
@@ -117,17 +119,19 @@ class _AddItemPageState extends State<AddItemPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Add Item')),
+      appBar: AppBar(title: Text(context.l10n.addItemTitle)),
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
           SegmentedButton<String>(
-            segments: const [
-              ButtonSegment(value: itemTypeWeapon, label: Text('Weapon')),
-              ButtonSegment(value: itemTypeArmor, label: Text('Armor')),
+            segments: [
+              ButtonSegment(
+                  value: itemTypeWeapon, label: Text(context.l10n.itemWeapon)),
+              ButtonSegment(
+                  value: itemTypeArmor, label: Text(context.l10n.itemArmor)),
               ButtonSegment(
                   value: itemTypePersonalEffect,
-                  label: Text('Personal Effect')),
+                  label: Text(context.l10n.itemPersonalEffect)),
             ],
             selected: {_type},
             onSelectionChanged: (selection) => setState(() {
@@ -141,21 +145,21 @@ class _AddItemPageState extends State<AddItemPage> {
               FilledButton.tonal(
                 onPressed: _pickBase,
                 child: Text(_drafts.isEmpty
-                    ? 'Choose from book…'
-                    : 'Change base item…'),
+                    ? context.l10n.chooseFromBook
+                    : context.l10n.changeBaseItem),
               ),
               const SizedBox(width: 12),
               OutlinedButton(
                 onPressed: _startBlank,
-                child: const Text('Custom item'),
+                child: Text(context.l10n.customItem),
               ),
             ],
           ),
           if (_drafts.isNotEmpty) ...[
-            const SectionHeader('Details'),
+            SectionHeader(context.l10n.detailsSection),
             TextField(
               controller: _nameController,
-              decoration: const InputDecoration(labelText: 'Name'),
+              decoration: InputDecoration(labelText: context.l10n.nameLabel),
               onChanged: (_) => setState(() {}),
             ),
             Row(
@@ -163,7 +167,8 @@ class _AddItemPageState extends State<AddItemPage> {
                 Expanded(
                   child: TextField(
                     controller: _priceController,
-                    decoration: const InputDecoration(labelText: 'Price'),
+                    decoration:
+                        InputDecoration(labelText: context.l10n.priceLabel),
                     keyboardType: TextInputType.number,
                   ),
                 ),
@@ -182,7 +187,8 @@ class _AddItemPageState extends State<AddItemPage> {
                 Expanded(
                   child: TextField(
                     controller: _rarityController,
-                    decoration: const InputDecoration(labelText: 'Rarity'),
+                    decoration:
+                        InputDecoration(labelText: context.l10n.rarityLabel),
                     keyboardType: TextInputType.number,
                   ),
                 ),
@@ -190,8 +196,8 @@ class _AddItemPageState extends State<AddItemPage> {
             ),
             TextField(
               controller: _qualitiesController,
-              decoration: const InputDecoration(
-                  labelText: 'Qualities (comma-separated)'),
+              decoration: InputDecoration(
+                  labelText: context.l10n.qualitiesCommaSeparated),
             ),
             if (_type == itemTypeWeapon)
               for (final draft in _drafts)
@@ -204,8 +210,8 @@ class _AddItemPageState extends State<AddItemPage> {
               onPressed:
                   _nameController.text.trim().isEmpty ? null : _submit,
               child: Text(_drafts.length > 1
-                  ? 'Add (${_drafts.length} grips)'
-                  : 'Add Item'),
+                  ? context.l10n.addNGrips(_drafts.length)
+                  : context.l10n.addItemTitle),
             ),
           ],
         ],
@@ -228,18 +234,18 @@ class _GripEditor extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text('Grip: ${draft.grip}',
+            Text(context.l10n.gripEditorLabel(trData(draft.grip)),
                 style: Theme.of(context).textTheme.titleSmall),
             Row(
               children: [
-                _numField(context, 'Min range', draft.rangeMin,
+                _numField(context, context.l10n.minRange, draft.rangeMin,
                     (v) => draft.rangeMin = v),
-                _numField(context, 'Max range', draft.rangeMax,
+                _numField(context, context.l10n.maxRange, draft.rangeMax,
                     (v) => draft.rangeMax = v),
-                _numField(
-                    context, 'Damage', draft.damage, (v) => draft.damage = v),
-                _numField(context, 'Deadliness', draft.deadliness,
-                    (v) => draft.deadliness = v),
+                _numField(context, context.l10n.damageLabel, draft.damage,
+                    (v) => draft.damage = v),
+                _numField(context, context.l10n.deadlinessLabel,
+                    draft.deadliness, (v) => draft.deadliness = v),
               ],
             ),
           ],
@@ -262,9 +268,10 @@ class _ArmorEditor extends StatelessWidget {
         padding: const EdgeInsets.all(12),
         child: Row(
           children: [
-            _numField(context, 'Physical', draft.physicalResistance,
-                (v) => draft.physicalResistance = v),
-            _numField(context, 'Supernatural', draft.supernaturalResistance,
+            _numField(context, context.l10n.colPhysical,
+                draft.physicalResistance, (v) => draft.physicalResistance = v),
+            _numField(context, context.l10n.colSupernatural,
+                draft.supernaturalResistance,
                 (v) => draft.supernaturalResistance = v),
           ],
         ),

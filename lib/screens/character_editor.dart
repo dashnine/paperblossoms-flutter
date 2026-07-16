@@ -9,6 +9,7 @@ import 'package:printing/printing.dart';
 import '../character.dart';
 import '../character_store.dart';
 import '../generate_pdf.dart';
+import '../l10n/l10n.dart';
 import 'tab_advancement.dart';
 import 'tab_background.dart';
 import 'tab_bonds.dart';
@@ -30,15 +31,15 @@ class CharacterEditor extends StatefulWidget {
 }
 
 class _CharacterEditorState extends State<CharacterEditor> {
-  static const _tabs = [
-    (icon: Icons.badge_outlined, label: 'Character'),
-    (icon: Icons.history_edu_outlined, label: 'Background'),
-    (icon: Icons.theater_comedy_outlined, label: 'Traits'),
-    (icon: Icons.handshake_outlined, label: 'Bonds'),
-    (icon: Icons.auto_awesome_outlined, label: 'Techniques'),
-    (icon: Icons.shield_outlined, label: 'Equipment'),
-    (icon: Icons.trending_up_outlined, label: 'Advancement'),
-  ];
+  static List<({IconData icon, String label})> _tabs(AppLocalizations l10n) => [
+        (icon: Icons.badge_outlined, label: l10n.tabCharacter),
+        (icon: Icons.history_edu_outlined, label: l10n.tabBackground),
+        (icon: Icons.theater_comedy_outlined, label: l10n.tabTraits),
+        (icon: Icons.handshake_outlined, label: l10n.tabBonds),
+        (icon: Icons.auto_awesome_outlined, label: l10n.tabTechniques),
+        (icon: Icons.shield_outlined, label: l10n.tabEquipment),
+        (icon: Icons.trending_up_outlined, label: l10n.tabAdvancement),
+      ];
 
   bool _pdfShowSkills = true;
   bool _pdfShowPortrait = true;
@@ -47,7 +48,7 @@ class _CharacterEditorState extends State<CharacterEditor> {
     await characterStore.save();
     if (!mounted) return;
     ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text('Saved')));
+        .showSnackBar(SnackBar(content: Text(context.l10n.saved)));
   }
 
   /// Back with unsaved changes: offer save/discard instead of silently
@@ -57,21 +58,21 @@ class _CharacterEditorState extends State<CharacterEditor> {
     final choice = await showDialog<String>(
       context: context,
       builder: (context) => AlertDialog(
-        title: const Text('Unsaved changes'),
-        content: const Text('Save this character before closing?'),
+        title: Text(context.l10n.unsavedChanges),
+        content: Text(context.l10n.saveBeforeClosing),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(context, 'cancel'),
-            child: const Text('Keep editing'),
+            child: Text(context.l10n.keepEditing),
           ),
           TextButton(
             style: TextButton.styleFrom(foregroundColor: colors.error),
             onPressed: () => Navigator.pop(context, 'discard'),
-            child: const Text('Discard'),
+            child: Text(context.l10n.discard),
           ),
           FilledButton(
             onPressed: () => Navigator.pop(context, 'save'),
-            child: const Text('Save & close'),
+            child: Text(context.l10n.saveAndClose),
           ),
         ],
       ),
@@ -88,11 +89,13 @@ class _CharacterEditorState extends State<CharacterEditor> {
 
   Future<void> _exportPdf() async {
     final name = '${character.family} ${character.name}'.trim();
+    final strings = context.l10n;
     await Printing.layoutPdf(
       name: name.isEmpty ? 'character' : name,
       onLayout: (format) => buildCharacterSheetPdf(
         showSkills: _pdfShowSkills,
         showPortrait: _pdfShowPortrait,
+        strings: strings,
       ),
     );
   }
@@ -118,7 +121,7 @@ class _CharacterEditorState extends State<CharacterEditor> {
       if (!mounted) return;
     }
     ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text('Character exported.')));
+        .showSnackBar(SnackBar(content: Text(context.l10n.characterExported)));
   }
 
   @override
@@ -143,8 +146,9 @@ class _CharacterEditorState extends State<CharacterEditor> {
   }
 
   Widget _buildEditor(BuildContext context) {
+    final tabs = _tabs(context.l10n);
     return DefaultTabController(
-      length: _tabs.length,
+      length: tabs.length,
       initialIndex: widget.initialTab,
       child: ListenableBuilder(
         listenable: character,
@@ -152,11 +156,12 @@ class _CharacterEditorState extends State<CharacterEditor> {
           final title = '${character.family} ${character.name}'.trim();
           final scaffold = Scaffold(
             appBar: AppBar(
-              title: Text(title.isEmpty ? 'Unnamed Samurai' : title),
+              title: Text(title.isEmpty ? context.l10n.unnamedSamurai : title),
               actions: [
                 IconButton(
-                  tooltip:
-                      character.dirty ? 'Save (unsaved changes)' : 'Save',
+                  tooltip: character.dirty
+                      ? context.l10n.saveUnsavedTooltip
+                      : context.l10n.save,
                   icon: Badge(
                     isLabelVisible: character.dirty,
                     smallSize: 8,
@@ -165,7 +170,7 @@ class _CharacterEditorState extends State<CharacterEditor> {
                   onPressed: _save,
                 ),
                 PopupMenuButton<String>(
-                  tooltip: 'Export',
+                  tooltip: context.l10n.exportTooltip,
                   icon: const Icon(Icons.ios_share_outlined),
                   onSelected: (choice) {
                     switch (choice) {
@@ -181,20 +186,21 @@ class _CharacterEditorState extends State<CharacterEditor> {
                     }
                   },
                   itemBuilder: (context) => [
-                    const PopupMenuItem(
+                    PopupMenuItem(
                         value: 'pdf',
-                        child: Text('Print / export PDF sheet…')),
-                    const PopupMenuItem(
-                        value: 'json', child: Text('Share character JSON…')),
+                        child: Text(context.l10n.printExportPdf)),
+                    PopupMenuItem(
+                        value: 'json',
+                        child: Text(context.l10n.shareCharacterJson)),
                     const PopupMenuDivider(),
                     CheckedPopupMenuItem(
                         value: 'skills',
                         checked: _pdfShowSkills,
-                        child: const Text('Full skill table on sheet')),
+                        child: Text(context.l10n.fullSkillTableOnSheet)),
                     CheckedPopupMenuItem(
                         value: 'portrait',
                         checked: _pdfShowPortrait,
-                        child: const Text('Portrait on sheet')),
+                        child: Text(context.l10n.portraitOnSheet)),
                   ],
                 ),
               ],
@@ -202,7 +208,7 @@ class _CharacterEditorState extends State<CharacterEditor> {
                 isScrollable: true,
                 tabAlignment: TabAlignment.start,
                 tabs: [
-                  for (final tab in _tabs)
+                  for (final tab in tabs)
                     Tab(icon: Icon(tab.icon), text: tab.label),
                 ],
               ),
