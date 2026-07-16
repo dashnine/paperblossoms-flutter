@@ -18,8 +18,9 @@ samples, guidance on mobile development, and a full API reference.
 ## Localization
 
 The app supports a localized interface and localized game-content display
-(currently French), configurable independently on the Tools page. See
-[docs/I18N.md](docs/I18N.md) for the architecture and how to add a locale.
+(currently French and German), configurable independently on the Tools page.
+See [docs/I18N.md](docs/I18N.md) for the architecture and how to add a
+locale.
 
 ### Translation credits
 
@@ -30,7 +31,14 @@ The app supports a localized interface and localized game-content display
   maintained by [La Voix de Rokugan](https://www.voixrokugan.org/), the
   French Legend of the Five Rings community — techniques (Kata, Kihō,
   Shūji, Rituels) and conditions.
+- The German translation likewise builds on the volunteer community
+  translations shipped with the original PaperBlossoms (`i18n_de.csv`).
+  The German 5th-edition rulebook ("Die Legende der fünf Ringe – Das
+  Rollenspiel") was published by Fantasy Flight Games / Asmodee; no freely
+  available official term list was found, so the German locale is **not
+  book-verified** — corrections from owners of the German books are very
+  welcome.
 - French editions of Legend of the Five Rings are published by
   [Edge Studio](https://fr.edge-studio.net/shares/la-legende-des-cinq-anneaux/);
   their official terms are used where known. This project is fan-made and
-  unaffiliated with Edge Studio or Fantasy Flight Games.
+  unaffiliated with Edge Studio, Fantasy Flight Games, or Asmodee.

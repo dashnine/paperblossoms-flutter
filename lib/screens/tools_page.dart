@@ -145,6 +145,8 @@ class _ToolsPageState extends State<ToolsPage> {
                             value: 'en', label: Text('English')),
                         const ButtonSegment(
                             value: 'fr', label: Text('Français')),
+                        const ButtonSegment(
+                            value: 'de', label: Text('Deutsch')),
                         ButtonSegment(
                             value: 'system', label: Text(l10n.themeSystem)),
                       ],
@@ -175,6 +177,8 @@ class _ToolsPageState extends State<ToolsPage> {
                             value: 'en', label: Text('English')),
                         const ButtonSegment(
                             value: 'fr', label: Text('Français')),
+                        const ButtonSegment(
+                            value: 'de', label: Text('Deutsch')),
                         ButtonSegment(
                             value: 'match',
                             label: Text(l10n.languageMatchInterface)),
