@@ -23,7 +23,9 @@ val keystoreProperties = Properties().apply {
 android {
     namespace = "com.dashnine.paperblossoms"
     compileSdk = flutter.compileSdkVersion
-    ndkVersion = flutter.ndkVersion
+    // Plugins (file_picker, printing, etc.) are built against NDK 27;
+    // Flutter 3.32's default is 26. NDK is backward compatible — use the highest.
+    ndkVersion = "27.0.12077973"
 
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11

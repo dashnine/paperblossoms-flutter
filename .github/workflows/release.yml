@@ -167,7 +167,10 @@ jobs:
   # ---------------------------------------------------------------------------
   build-windows:
     needs: prep
-    runs-on: windows-latest
+    # Pinned: windows-latest ships only VS 2026, which Flutter 3.32's tooling
+    # doesn't recognize (falls back to the VS 2019 generator and fails).
+    # Revisit when upgrading Flutter past a version that supports VS 2026.
+    runs-on: windows-2022
     timeout-minutes: 45
     env:
       VERSION: ${{ needs.prep.outputs.version }}
