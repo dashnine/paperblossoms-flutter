@@ -25,7 +25,7 @@ void main() {
         const JsonEncoder.withIndent('  ').convert(harvest.toList()..sort()));
   });
 
-  for (final locale in ['fr', 'de']) {
+  for (final locale in ['fr', 'de', 'es']) {
     group('data_$locale.json', () {
       late Map<String, dynamic> overlay;
 

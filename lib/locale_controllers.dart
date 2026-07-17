@@ -2,10 +2,15 @@ import 'package:flutter/widgets.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 /// Locales the interface can render. Anything else resolves to English.
-const supportedUiLocales = [Locale('en'), Locale('fr'), Locale('de')];
+const supportedUiLocales = [
+  Locale('en'),
+  Locale('fr'),
+  Locale('de'),
+  Locale('es'),
+];
 
 /// Language codes with a game-data overlay available ('en' means none).
-const supportedContentCodes = ['en', 'fr', 'de'];
+const supportedContentCodes = ['en', 'fr', 'de', 'es'];
 
 /// User-selected interface language, persisted across launches. A null value
 /// means "follow the system locale", resolved against [supportedUiLocales]

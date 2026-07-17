@@ -18,9 +18,9 @@ samples, guidance on mobile development, and a full API reference.
 ## Localization
 
 The app supports a localized interface and localized game-content display
-(currently French and German), configurable independently on the Tools page.
-See [docs/I18N.md](docs/I18N.md) for the architecture and how to add a
-locale.
+(currently French, German, and Spanish), configurable independently on the
+Tools page. See [docs/I18N.md](docs/I18N.md) for the architecture and how
+to add a locale.
 
 ### Translation credits
 
@@ -37,6 +37,13 @@ locale.
   Rollenspiel") was published by Fantasy Flight Games / Asmodee; no freely
   available official term list was found, so the German locale is **not
   book-verified** — corrections from owners of the German books are very
+  welcome.
+- The Spanish translation likewise builds on the volunteer community
+  translations shipped with the original PaperBlossoms (`i18n_es.csv`) —
+  notably clean and likely sourced from the printed Edge Entertainment
+  España edition ("La Leyenda de los Cinco Anillos"). No freely available
+  official term list was found, so the Spanish locale is **not
+  book-verified** — corrections from owners of the Spanish books are very
   welcome.
 - French editions of Legend of the Five Rings are published by
   [Edge Studio](https://fr.edge-studio.net/shares/la-legende-des-cinq-anneaux/);
