@@ -60,6 +60,12 @@
     }
   },
   "noHomebrewFilesFound": "No homebrew files found.",
+  "aboutSection": "About",
+  "aboutApp": "About Paper Blossoms",
+  "aboutAppSubtitle": "Version, credits, and licenses.",
+  "aboutTagline": "A character generator for Legend of the Five Rings 5th Edition.",
+  "aboutPortNote": "A Flutter port of the original PaperBlossoms desktop application, by the same developer.",
+  "aboutLegalese": "Fan-made and unaffiliated with Fantasy Flight Games, Edge Studio, or Asmodee. Legend of the Five Rings and all associated content are property of Fantasy Flight Games.",
   "importedDescriptions": "{count, plural, =1{Imported 1 description.} other{Imported {count} descriptions.}}",
   "@importedDescriptions": {
     "placeholders": {

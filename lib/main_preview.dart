@@ -133,7 +133,11 @@ class _PreviewApp extends StatelessWidget {
 
   Widget _home() {
     if (const bool.fromEnvironment('WIZARD')) return const NewCharacterWizard();
-    if (const bool.fromEnvironment('TOOLS')) return const ToolsPage();
+    // TOOLS=true with ABOUT=true also opens the About dialog on launch.
+    if (const bool.fromEnvironment('TOOLS')) {
+      return const ToolsPage(
+          openAboutOnLaunch: bool.fromEnvironment('ABOUT'));
+    }
     // ADVANCE_TYPE (Skill/Ring/Technique, plus optional ADVANCE_OPTION and
     // ADVANCE_GROUP) opens the Add Advance page directly — curriculum taps
     // can't be automated on this machine.

@@ -276,6 +276,42 @@ abstract class AppLocalizations {
   /// **'No homebrew files found.'**
   String get noHomebrewFilesFound;
 
+  /// No description provided for @aboutSection.
+  ///
+  /// In en, this message translates to:
+  /// **'About'**
+  String get aboutSection;
+
+  /// No description provided for @aboutApp.
+  ///
+  /// In en, this message translates to:
+  /// **'About Paper Blossoms'**
+  String get aboutApp;
+
+  /// No description provided for @aboutAppSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Version, credits, and licenses.'**
+  String get aboutAppSubtitle;
+
+  /// No description provided for @aboutTagline.
+  ///
+  /// In en, this message translates to:
+  /// **'A character generator for Legend of the Five Rings 5th Edition.'**
+  String get aboutTagline;
+
+  /// No description provided for @aboutPortNote.
+  ///
+  /// In en, this message translates to:
+  /// **'A Flutter port of the original PaperBlossoms desktop application, by the same developer.'**
+  String get aboutPortNote;
+
+  /// No description provided for @aboutLegalese.
+  ///
+  /// In en, this message translates to:
+  /// **'Fan-made and unaffiliated with Fantasy Flight Games, Edge Studio, or Asmodee. Legend of the Five Rings and all associated content are property of Fantasy Flight Games.'**
+  String get aboutLegalese;
+
   /// No description provided for @importedDescriptions.
   ///
   /// In en, this message translates to:

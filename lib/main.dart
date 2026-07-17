@@ -1,4 +1,6 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 import 'data_l10n.dart';
 import 'game_data.dart';
@@ -10,6 +12,7 @@ import 'user_data_store.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  _registerFontLicenses();
   await gameData.load();
   await userDataStore.loadDescriptions();
   await userDataStore.loadHomebrew();
@@ -18,6 +21,22 @@ Future<void> main() async {
   await dataL10n.setLocale(contentCodeFor(resolvedUiLocale()));
   localeController.addListener(_syncDataLocale);
   runApp(const PaperBlossomsApp());
+}
+
+/// Surfaces the bundled fonts' license files on the About dialog's
+/// licenses page alongside the package licenses Flutter registers itself.
+void _registerFontLicenses() {
+  LicenseRegistry.addLicense(() async* {
+    const fonts = {
+      'Roboto': 'assets/fonts/Roboto_LICENSE.txt',
+      'Caveat': 'assets/fonts/Caveat_LICENSE.txt',
+      'DejaVu Sans': 'assets/fonts/DejaVuSans_LICENSE.txt',
+    };
+    for (final entry in fonts.entries) {
+      yield LicenseEntryWithLineBreaks(
+          [entry.key], await rootBundle.loadString(entry.value));
+    }
+  });
 }
 
 /// The interface locale in effect: the user's explicit choice, else the

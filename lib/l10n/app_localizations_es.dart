@@ -109,6 +109,27 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se encontraron archivos de contenido propio.';
 
   @override
+  String get aboutSection => 'Acerca de';
+
+  @override
+  String get aboutApp => 'Acerca de Paper Blossoms';
+
+  @override
+  String get aboutAppSubtitle => 'Versión, créditos y licencias.';
+
+  @override
+  String get aboutTagline =>
+      'Un generador de personajes para La Leyenda de los Cinco Anillos, 5.ª edición.';
+
+  @override
+  String get aboutPortNote =>
+      'Una adaptación a Flutter de la aplicación de escritorio PaperBlossoms original, del mismo desarrollador.';
+
+  @override
+  String get aboutLegalese =>
+      'Proyecto hecho por aficionados, sin afiliación con Fantasy Flight Games, Edge Studio ni Asmodee. La Leyenda de los Cinco Anillos y todo su contenido asociado son propiedad de Fantasy Flight Games.';
+
+  @override
   String importedDescriptions(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,

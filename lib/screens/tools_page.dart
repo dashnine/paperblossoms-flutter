@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:package_info_plus/package_info_plus.dart';
 
 import '../game_data.dart';
 import '../l10n/l10n.dart';
@@ -14,7 +15,11 @@ import 'descriptions_editor.dart';
 /// Tools: rules descriptions and homebrew content (the original's Tools
 /// menu, minus the SQLite-era CSV round trips).
 class ToolsPage extends StatefulWidget {
-  const ToolsPage({super.key});
+  const ToolsPage({super.key, this.openAboutOnLaunch = false});
+
+  /// Preview-only (main_preview ABOUT=true): opens the About dialog after
+  /// the first frame, since native taps can't be automated during verify.
+  final bool openAboutOnLaunch;
 
   @override
   State<ToolsPage> createState() => _ToolsPageState();
@@ -29,6 +34,9 @@ class _ToolsPageState extends State<ToolsPage> {
     userDataStore.homebrewDir().then((dir) {
       if (mounted) setState(() => _homebrewPath = dir.path);
     });
+    if (widget.openAboutOnLaunch) {
+      WidgetsBinding.instance.addPostFrameCallback((_) => _showAbout());
+    }
   }
 
   void _showMessage(String message) {
@@ -89,6 +97,35 @@ class _ToolsPageState extends State<ToolsPage> {
             ? context.l10n.noHomebrewFilesFound
             : context.l10n
                 .mergedFiles(userDataStore.loadedHomebrewFiles.join(', ')))));
+  }
+
+  Future<void> _showAbout() async {
+    String version = '';
+    try {
+      final info = await PackageInfo.fromPlatform();
+      version = info.version;
+    } on Exception {
+      // Platform channel unavailable (tests); show the dialog without one.
+    }
+    if (!mounted) return;
+    final l10n = context.l10n;
+    showAboutDialog(
+      context: context,
+      applicationName: l10n.appTitle,
+      applicationVersion: version,
+      applicationIcon: Image.asset('assets/images/sakura.png',
+          width: 48, height: 48),
+      applicationLegalese: l10n.aboutLegalese,
+      children: [
+        const SizedBox(height: 16),
+        Text(l10n.aboutTagline),
+        const SizedBox(height: 8),
+        Text(l10n.aboutPortNote),
+        const SizedBox(height: 8),
+        const SelectableText(
+            'https://github.com/dashnine/paperblossoms-flutter'),
+      ],
+    );
   }
 
   @override
@@ -196,6 +233,13 @@ class _ToolsPageState extends State<ToolsPage> {
                 : l10n.mergedFiles(
                     userDataStore.loadedHomebrewFiles.join(', '))),
             onTap: _reloadHomebrew,
+          ),
+          SectionHeader(l10n.aboutSection),
+          ListTile(
+            leading: const Icon(Icons.info_outline),
+            title: Text(l10n.aboutApp),
+            subtitle: Text(l10n.aboutAppSubtitle),
+            onTap: _showAbout,
           ),
         ],
       ),

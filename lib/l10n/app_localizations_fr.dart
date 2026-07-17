@@ -108,6 +108,27 @@ class AppLocalizationsFr extends AppLocalizations {
   String get noHomebrewFilesFound => 'Aucun fichier de contenu maison trouvé.';
 
   @override
+  String get aboutSection => 'À propos';
+
+  @override
+  String get aboutApp => 'À propos de Paper Blossoms';
+
+  @override
+  String get aboutAppSubtitle => 'Version, crédits et licences.';
+
+  @override
+  String get aboutTagline =>
+      'Un générateur de personnages pour La Légende des Cinq Anneaux 5e édition.';
+
+  @override
+  String get aboutPortNote =>
+      'Portage Flutter de l’application de bureau PaperBlossoms d’origine, par le même développeur.';
+
+  @override
+  String get aboutLegalese =>
+      'Projet de fans, sans affiliation avec Fantasy Flight Games, Edge Studio ou Asmodee. La Légende des Cinq Anneaux et tout le contenu associé sont la propriété de Fantasy Flight Games.';
+
+  @override
   String importedDescriptions(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,

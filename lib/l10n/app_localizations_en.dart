@@ -108,6 +108,27 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noHomebrewFilesFound => 'No homebrew files found.';
 
   @override
+  String get aboutSection => 'About';
+
+  @override
+  String get aboutApp => 'About Paper Blossoms';
+
+  @override
+  String get aboutAppSubtitle => 'Version, credits, and licenses.';
+
+  @override
+  String get aboutTagline =>
+      'A character generator for Legend of the Five Rings 5th Edition.';
+
+  @override
+  String get aboutPortNote =>
+      'A Flutter port of the original PaperBlossoms desktop application, by the same developer.';
+
+  @override
+  String get aboutLegalese =>
+      'Fan-made and unaffiliated with Fantasy Flight Games, Edge Studio, or Asmodee. Legend of the Five Rings and all associated content are property of Fantasy Flight Games.';
+
+  @override
   String importedDescriptions(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,

@@ -110,6 +110,27 @@ class AppLocalizationsDe extends AppLocalizations {
   String get noHomebrewFilesFound => 'Keine Homebrew-Dateien gefunden.';
 
   @override
+  String get aboutSection => 'Über';
+
+  @override
+  String get aboutApp => 'Über Paper Blossoms';
+
+  @override
+  String get aboutAppSubtitle => 'Version, Mitwirkende und Lizenzen.';
+
+  @override
+  String get aboutTagline =>
+      'Ein Charaktergenerator für Die Legende der fünf Ringe (5. Edition).';
+
+  @override
+  String get aboutPortNote =>
+      'Eine Flutter-Portierung der ursprünglichen PaperBlossoms-Desktopanwendung, vom selben Entwickler.';
+
+  @override
+  String get aboutLegalese =>
+      'Ein Fanprojekt ohne Verbindung zu Fantasy Flight Games, Edge Studio oder Asmodee. Die Legende der fünf Ringe und alle zugehörigen Inhalte sind Eigentum von Fantasy Flight Games.';
+
+  @override
   String importedDescriptions(int count) {
     String _temp0 = intl.Intl.pluralLogic(
       count,
