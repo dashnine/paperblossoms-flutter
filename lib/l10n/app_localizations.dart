@@ -168,24 +168,6 @@ abstract class AppLocalizations {
   /// **'Language'**
   String get languageSection;
 
-  /// No description provided for @languageInterface.
-  ///
-  /// In en, this message translates to:
-  /// **'Interface'**
-  String get languageInterface;
-
-  /// No description provided for @languageContent.
-  ///
-  /// In en, this message translates to:
-  /// **'Game content'**
-  String get languageContent;
-
-  /// No description provided for @languageMatchInterface.
-  ///
-  /// In en, this message translates to:
-  /// **'Match interface'**
-  String get languageMatchInterface;
-
   /// No description provided for @appearanceSection.
   ///
   /// In en, this message translates to:

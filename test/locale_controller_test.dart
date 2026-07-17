@@ -52,40 +52,49 @@ void main() {
     });
   });
 
-  group('ContentLocaleController', () {
-    test('defaults to match-interface (null) and follows the UI locale',
+  group('contentCodeFor', () {
+    test('follows the locale when an overlay ships for it', () {
+      expect(contentCodeFor(const Locale('fr')), 'fr');
+      expect(contentCodeFor(const Locale('de')), 'de');
+      expect(contentCodeFor(const Locale('es')), 'es');
+      expect(contentCodeFor(const Locale('en')), 'en');
+    });
+
+    test('collapses locales without an overlay to English', () {
+      expect(contentCodeFor(const Locale('tlh')), 'en');
+    });
+  });
+
+  group('legacy content_locale migration', () {
+    test('seeds the unified setting when no ui_locale was saved', () async {
+      SharedPreferences.setMockInitialValues({'content_locale': 'fr'});
+      final controller = LocaleController();
+      await controller.load();
+      expect(controller.value, const Locale('fr'));
+
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getString('content_locale'), isNull);
+      expect(prefs.getString('ui_locale'), 'fr');
+    });
+
+    test('never overrides an explicit ui_locale, but still cleans up',
         () async {
-      SharedPreferences.setMockInitialValues({});
-      final controller = ContentLocaleController();
+      SharedPreferences.setMockInitialValues(
+          {'ui_locale': 'de', 'content_locale': 'fr'});
+      final controller = LocaleController();
       await controller.load();
-      expect(controller.value, isNull);
-      expect(controller.effectiveCode(const Locale('fr')), 'fr');
-      expect(controller.effectiveCode(const Locale('en')), 'en');
+      expect(controller.value, const Locale('de'));
+
+      final prefs = await SharedPreferences.getInstance();
+      expect(prefs.getString('content_locale'), isNull);
     });
 
-    test('an explicit choice overrides the UI locale', () async {
+    test('a legacy explicit-English choice does not pin the interface',
+        () async {
       SharedPreferences.setMockInitialValues({'content_locale': 'en'});
-      final controller = ContentLocaleController();
-      await controller.load();
-      expect(controller.effectiveCode(const Locale('fr')), 'en');
-    });
-
-    test('unsupported saved or resolved codes collapse to English', () async {
-      SharedPreferences.setMockInitialValues({'content_locale': 'tlh'});
-      final controller = ContentLocaleController();
+      final controller = LocaleController();
       await controller.load();
       expect(controller.value, isNull);
-      expect(controller.effectiveCode(const Locale('tlh')), 'en');
-    });
-
-    test('persists across a reload', () async {
-      SharedPreferences.setMockInitialValues({});
-      final controller = ContentLocaleController();
-      await controller.set('fr');
-
-      final reloaded = ContentLocaleController();
-      await reloaded.load();
-      expect(reloaded.value, 'fr');
     });
   });
 }

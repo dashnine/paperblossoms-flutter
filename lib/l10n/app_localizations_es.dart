@@ -47,15 +47,6 @@ class AppLocalizationsEs extends AppLocalizations {
   String get languageSection => 'Idioma';
 
   @override
-  String get languageInterface => 'Interfaz';
-
-  @override
-  String get languageContent => 'Contenido de juego';
-
-  @override
-  String get languageMatchInterface => 'Igual que la interfaz';
-
-  @override
   String get appearanceSection => 'Apariencia';
 
   @override

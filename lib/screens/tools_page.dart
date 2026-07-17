@@ -126,74 +126,34 @@ class _ToolsPageState extends State<ToolsPage> {
             ),
           ),
           SectionHeader(l10n.languageSection),
-          // Interface and game-content languages are deliberately
-          // independent: a table can play with a French interface and the
-          // English terms of their printed books, or vice versa. Either can
-          // revert to English with one tap.
+          // One language setting for interface and game content alike; data
+          // names degrade per-string to English when a translation is
+          // missing. A dropdown scales to any number of locales without the
+          // silent label squeezing SegmentedButton exhibited.
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 4),
             child: ListenableBuilder(
               listenable: localeController,
               builder: (context, _) => Row(
                 children: [
-                  SizedBox(
-                      width: 110, child: Text(l10n.languageInterface)),
-                  Expanded(
-                    child: SegmentedButton<String>(
-                      segments: [
-                        const ButtonSegment(
-                            value: 'en', label: Text('English')),
-                        const ButtonSegment(
-                            value: 'fr', label: Text('Français')),
-                        const ButtonSegment(
-                            value: 'de', label: Text('Deutsch')),
-                        const ButtonSegment(
-                            value: 'es', label: Text('Español')),
-                        ButtonSegment(
-                            value: 'system', label: Text(l10n.themeSystem)),
-                      ],
-                      selected: {
-                        localeController.value?.languageCode ?? 'system'
-                      },
-                      onSelectionChanged: (selection) => localeController.set(
-                          selection.single == 'system'
-                              ? null
-                              : Locale(selection.single)),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4),
-            child: ListenableBuilder(
-              listenable: contentLocaleController,
-              builder: (context, _) => Row(
-                children: [
-                  SizedBox(width: 110, child: Text(l10n.languageContent)),
-                  Expanded(
-                    child: SegmentedButton<String>(
-                      segments: [
-                        const ButtonSegment(
-                            value: 'en', label: Text('English')),
-                        const ButtonSegment(
-                            value: 'fr', label: Text('Français')),
-                        const ButtonSegment(
-                            value: 'de', label: Text('Deutsch')),
-                        const ButtonSegment(
-                            value: 'es', label: Text('Español')),
-                        ButtonSegment(
-                            value: 'match',
-                            label: Text(l10n.languageMatchInterface)),
-                      ],
-                      selected: {contentLocaleController.value ?? 'match'},
-                      onSelectionChanged: (selection) =>
-                          contentLocaleController.set(
-                              selection.single == 'match'
-                                  ? null
-                                  : selection.single),
-                    ),
+                  DropdownButton<String>(
+                    value: localeController.value?.languageCode ?? 'system',
+                    items: [
+                      DropdownMenuItem(
+                          value: 'system', child: Text(l10n.themeSystem)),
+                      const DropdownMenuItem(
+                          value: 'en', child: Text('English')),
+                      const DropdownMenuItem(
+                          value: 'fr', child: Text('Français')),
+                      const DropdownMenuItem(
+                          value: 'de', child: Text('Deutsch')),
+                      const DropdownMenuItem(
+                          value: 'es', child: Text('Español')),
+                    ],
+                    onChanged: (code) => localeController.set(
+                        code == null || code == 'system'
+                            ? null
+                            : Locale(code)),
                   ),
                 ],
               ),

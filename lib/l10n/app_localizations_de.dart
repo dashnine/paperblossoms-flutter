@@ -48,15 +48,6 @@ class AppLocalizationsDe extends AppLocalizations {
   String get languageSection => 'Sprache';
 
   @override
-  String get languageInterface => 'Oberfläche';
-
-  @override
-  String get languageContent => 'Spielinhalte';
-
-  @override
-  String get languageMatchInterface => 'Wie Oberfläche';
-
-  @override
   String get appearanceSection => 'Erscheinungsbild';
 
   @override

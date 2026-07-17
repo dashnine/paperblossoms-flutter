@@ -17,10 +17,10 @@ samples, guidance on mobile development, and a full API reference.
 
 ## Localization
 
-The app supports a localized interface and localized game-content display
-(currently French, German, and Spanish), configurable independently on the
-Tools page. See [docs/I18N.md](docs/I18N.md) for the architecture and how
-to add a locale.
+The app supports a localized interface and game-content display (currently
+French, German, and Spanish), selected with a single language setting on
+the Tools page. See [docs/I18N.md](docs/I18N.md) for the architecture and
+how to add a locale.
 
 ### Translation credits
 

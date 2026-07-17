@@ -15,10 +15,8 @@ Future<void> main() async {
   await userDataStore.loadHomebrew();
   await themeController.load();
   await localeController.load();
-  await contentLocaleController.load();
-  await dataL10n.setLocale(contentLocaleController.effectiveCode(resolvedUiLocale()));
+  await dataL10n.setLocale(contentCodeFor(resolvedUiLocale()));
   localeController.addListener(_syncDataLocale);
-  contentLocaleController.addListener(_syncDataLocale);
   runApp(const PaperBlossomsApp());
 }
 
@@ -34,7 +32,7 @@ Locale resolvedUiLocale() {
 }
 
 void _syncDataLocale() {
-  dataL10n.setLocale(contentLocaleController.effectiveCode(resolvedUiLocale()));
+  dataL10n.setLocale(contentCodeFor(resolvedUiLocale()));
 }
 
 class PaperBlossomsApp extends StatelessWidget {
@@ -43,8 +41,8 @@ class PaperBlossomsApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListenableBuilder(
-      listenable: Listenable.merge(
-          [themeController, localeController, contentLocaleController, dataL10n]),
+      listenable:
+          Listenable.merge([themeController, localeController, dataL10n]),
       builder: (context, _) => MaterialApp(
         onGenerateTitle: (context) => context.l10n.appTitle,
         theme: lightTheme(),
