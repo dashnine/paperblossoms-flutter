@@ -123,24 +123,33 @@ class _AddItemPageState extends State<AddItemPage> {
       body: ListView(
         padding: const EdgeInsets.all(16),
         children: [
-          SegmentedButton<String>(
-            segments: [
-              ButtonSegment(
-                  value: itemTypeWeapon, label: Text(context.l10n.itemWeapon)),
-              ButtonSegment(
-                  value: itemTypeArmor, label: Text(context.l10n.itemArmor)),
-              ButtonSegment(
-                  value: itemTypePersonalEffect,
-                  label: Text(context.l10n.itemPersonalEffect)),
+          // Chips wrap to further lines instead of squeezing their labels
+          // at phone widths (SegmentedButton clips silently).
+          Wrap(
+            spacing: 8,
+            children: [
+              for (final (value, label) in [
+                (itemTypeWeapon, context.l10n.itemWeapon),
+                (itemTypeArmor, context.l10n.itemArmor),
+                (itemTypePersonalEffect, context.l10n.itemPersonalEffect),
+              ])
+                ChoiceChip(
+                  label: Text(label),
+                  selected: _type == value,
+                  onSelected: (selected) {
+                    if (!selected) return;
+                    setState(() {
+                      _type = value;
+                      _drafts = [];
+                    });
+                  },
+                ),
             ],
-            selected: {_type},
-            onSelectionChanged: (selection) => setState(() {
-              _type = selection.single;
-              _drafts = [];
-            }),
           ),
           const SizedBox(height: 12),
-          Row(
+          Wrap(
+            spacing: 12,
+            runSpacing: 8,
             children: [
               FilledButton.tonal(
                 onPressed: _pickBase,
@@ -148,7 +157,6 @@ class _AddItemPageState extends State<AddItemPage> {
                     ? context.l10n.chooseFromBook
                     : context.l10n.changeBaseItem),
               ),
-              const SizedBox(width: 12),
               OutlinedButton(
                 onPressed: _startBlank,
                 child: Text(context.l10n.customItem),

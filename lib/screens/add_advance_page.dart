@@ -250,24 +250,30 @@ class _AddAdvancePageState extends State<AddAdvancePage> {
           child: ListView(
             padding: const EdgeInsets.all(16),
             children: [
-          SegmentedButton<String>(
-            segments: [
-              ButtonSegment(
-                  value: advanceTypeSkill,
-                  label: Text(context.l10n.advTypeSkill)),
-              ButtonSegment(
-                  value: advanceTypeRing, label: Text(context.l10n.advTypeRing)),
-              ButtonSegment(
-                  value: advanceTypeTechnique,
-                  label: Text(context.l10n.advTypeTechnique)),
+          // Chips wrap to further lines instead of squeezing their labels
+          // at phone widths (SegmentedButton clips silently).
+          Wrap(
+            spacing: 8,
+            children: [
+              for (final (value, label) in [
+                (advanceTypeSkill, context.l10n.advTypeSkill),
+                (advanceTypeRing, context.l10n.advTypeRing),
+                (advanceTypeTechnique, context.l10n.advTypeTechnique),
+              ])
+                ChoiceChip(
+                  label: Text(label),
+                  selected: _type == value,
+                  onSelected: (selected) {
+                    if (!selected) return;
+                    setState(() {
+                      _type = value;
+                      _selection = null;
+                      _groupFilter = '';
+                      _searchController.clear();
+                    });
+                  },
+                ),
             ],
-            selected: {_type},
-            onSelectionChanged: (selection) => setState(() {
-              _type = selection.single;
-              _selection = null;
-              _groupFilter = '';
-              _searchController.clear();
-            }),
           ),
           if (_type != advanceTypeTechnique) ...[
             SectionHeader(context.l10n.advanceSection),

@@ -632,7 +632,7 @@ class AppLocalizationsDe extends AppLocalizations {
   String get itemArmor => 'Rüstung';
 
   @override
-  String get itemPersonalEffect => 'Persönlicher Gegenstand';
+  String get itemPersonalEffect => 'Pers. Gegenstand';
 
   @override
   String get chooseWeapon => 'Waffe wählen';
