@@ -1,0 +1,353 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+env:
+  FLUTTER_VERSION: "3.32.5"
+
+jobs:
+  # ---------------------------------------------------------------------------
+  # Compute the version string once and (on tag runs) guard it against pubspec.
+  # ---------------------------------------------------------------------------
+  prep:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    outputs:
+      version: ${{ steps.v.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Compute version and guard against pubspec
+        id: v
+        run: |
+          set -euo pipefail
+          pubspec_version="$(grep -E '^version:' pubspec.yaml | sed -E 's/^version:[[:space:]]*//' | cut -d'+' -f1)"
+          if [[ "$GITHUB_REF" == refs/tags/* ]]; then
+            tag_version="${GITHUB_REF_NAME#v}"
+            if [[ "$tag_version" != "$pubspec_version" ]]; then
+              echo "::error::Tag v$tag_version does not match pubspec version $pubspec_version. Bump pubspec.yaml (both the semver and the +N build number) before tagging."
+              exit 1
+            fi
+            version="$tag_version"
+          else
+            version="${GITHUB_SHA::7}"
+          fi
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          echo "Resolved version: $version"
+
+  # ---------------------------------------------------------------------------
+  # Android: release APK (sideload) + AAB (kept as a workflow artifact only).
+  # Falls back to debug signing when the keystore secret is absent.
+  # ---------------------------------------------------------------------------
+  build-android:
+    needs: prep
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VERSION: ${{ needs.prep.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: "17"
+          cache: gradle
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Check for release keystore
+        id: sig
+        run: echo "have_keystore=${{ secrets.ANDROID_KEYSTORE_BASE64 != '' }}" >> "$GITHUB_OUTPUT"
+
+      - name: Materialize release keystore
+        if: steps.sig.outputs.have_keystore == 'true'
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+          ANDROID_KEY_PASSWORD: ${{ secrets.ANDROID_KEY_PASSWORD }}
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+        run: |
+          set -euo pipefail
+          echo "$ANDROID_KEYSTORE_BASE64" | base64 --decode > android/app/upload-keystore.jks
+          {
+            echo "storePassword=$ANDROID_KEYSTORE_PASSWORD"
+            echo "keyPassword=$ANDROID_KEY_PASSWORD"
+            echo "keyAlias=$ANDROID_KEY_ALIAS"
+            echo "storeFile=upload-keystore.jks"
+          } > android/key.properties
+
+      - name: Warn when unsigned (debug fallback)
+        if: steps.sig.outputs.have_keystore != 'true'
+        run: echo "::warning::No ANDROID_KEYSTORE_BASE64 secret set — building a debug-signed APK (fine for testing; users cannot upgrade in place across differently-signed builds). To enable release signing, add the ANDROID_KEYSTORE_* secrets in repo Settings → Secrets and variables → Actions."
+
+      - run: flutter pub get
+
+      - run: flutter build apk --release
+
+      - run: flutter build appbundle --release
+
+      - name: Stage artifacts
+        run: |
+          set -euo pipefail
+          mkdir -p dist-apk dist-aab
+          cp build/app/outputs/flutter-apk/app-release.apk "dist-apk/paperblossoms-${VERSION}-android.apk"
+          cp build/app/outputs/bundle/release/app-release.aab "dist-aab/paperblossoms-${VERSION}-android.aab"
+
+      - name: Upload APK (release asset)
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-android
+          path: dist-apk/*
+
+      - name: Upload AAB (workflow artifact only)
+        uses: actions/upload-artifact@v7
+        with:
+          name: android-aab
+          path: dist-aab/*
+          retention-days: 90
+
+  # ---------------------------------------------------------------------------
+  # Linux: release bundle packaged as a tarball.
+  # ---------------------------------------------------------------------------
+  build-linux:
+    needs: prep
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      VERSION: ${{ needs.prep.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - name: Install Linux build dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y \
+            ninja-build libgtk-3-dev clang cmake pkg-config liblzma-dev libcups2-dev
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - run: flutter pub get
+
+      - run: flutter build linux --release
+
+      - name: Package tarball
+        run: |
+          set -euo pipefail
+          name="paperblossoms-${VERSION}-linux-x64"
+          cp -r build/linux/x64/release/bundle "$name"
+          mkdir -p dist
+          tar -czf "dist/${name}.tar.gz" "$name"
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release-linux
+          path: dist/*
+
+  # ---------------------------------------------------------------------------
+  # Windows: release bundle packaged as a zip (unsigned).
+  # ---------------------------------------------------------------------------
+  build-windows:
+    needs: prep
+    runs-on: windows-latest
+    timeout-minutes: 45
+    env:
+      VERSION: ${{ needs.prep.outputs.version }}
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - run: flutter pub get
+
+      - run: flutter build windows --release
+
+      - name: Package zip
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Force dist | Out-Null
+          $zip = "dist/paperblossoms-$env:VERSION-windows-x64.zip"
+          Compress-Archive -Path build\windows\x64\runner\Release\* -DestinationPath $zip
+
+      - uses: actions/upload-artifact@v7
+        with:
+          name: release-windows
+          path: dist/*
+
+  # ---------------------------------------------------------------------------
+  # macOS: signed + notarized DMG when Apple secrets exist; otherwise an
+  # unsigned .app zip. Either way the job succeeds and uploads release-macos.
+  # ---------------------------------------------------------------------------
+  build-macos:
+    needs: prep
+    runs-on: macos-15
+    timeout-minutes: 90
+    env:
+      VERSION: ${{ needs.prep.outputs.version }}
+      APP_PATH: build/macos/Build/Products/Release/paperblossoms.app
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: subosito/flutter-action@1a449444c387b1966244ae4d4f8c696479add0b2 # v2.23.0
+        with:
+          channel: stable
+          flutter-version: ${{ env.FLUTTER_VERSION }}
+          cache: true
+
+      - name: Cache CocoaPods
+        uses: actions/cache@v4
+        with:
+          path: |
+            macos/Pods
+            ~/Library/Caches/CocoaPods
+          key: ${{ runner.os }}-pods-${{ hashFiles('macos/Podfile.lock') }}
+          restore-keys: ${{ runner.os }}-pods-
+
+      - name: Check for signing certificate
+        id: sig
+        run: echo "have_cert=${{ secrets.MACOS_CERT_P12_BASE64 != '' }}" >> "$GITHUB_OUTPUT"
+
+      - name: Import signing certificate
+        if: steps.sig.outputs.have_cert == 'true'
+        env:
+          MACOS_CERT_P12_BASE64: ${{ secrets.MACOS_CERT_P12_BASE64 }}
+          MACOS_CERT_PASSWORD: ${{ secrets.MACOS_CERT_PASSWORD }}
+          KEYCHAIN_PASSWORD: ${{ secrets.KEYCHAIN_PASSWORD }}
+        run: |
+          set -euo pipefail
+          echo "$MACOS_CERT_P12_BASE64" | base64 --decode > "$RUNNER_TEMP/cert.p12"
+          security create-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security default-keychain -s build.keychain
+          security unlock-keychain -p "$KEYCHAIN_PASSWORD" build.keychain
+          security set-keychain-settings -lut 21600 build.keychain
+          security import "$RUNNER_TEMP/cert.p12" -k build.keychain \
+            -P "$MACOS_CERT_PASSWORD" -T /usr/bin/codesign
+          security set-key-partition-list -S apple-tool:,apple: \
+            -s -k "$KEYCHAIN_PASSWORD" build.keychain
+
+      - run: flutter pub get
+
+      - run: flutter build macos --release
+
+      - name: Codesign (hardened runtime)
+        if: steps.sig.outputs.have_cert == 'true'
+        env:
+          IDENTITY: ${{ secrets.MACOS_SIGNING_IDENTITY }}
+        run: |
+          set -euo pipefail
+          find "$APP_PATH/Contents/Frameworks" \( -name '*.framework' -o -name '*.dylib' \) -print0 2>/dev/null \
+            | while IFS= read -r -d '' f; do
+                codesign --force --options runtime --timestamp --sign "$IDENTITY" "$f"
+              done
+          codesign --force --options runtime --timestamp \
+            --entitlements macos/Runner/Release.entitlements \
+            --sign "$IDENTITY" "$APP_PATH"
+          codesign --verify --deep --strict --verbose=2 "$APP_PATH"
+
+      - name: Notarize app
+        if: steps.sig.outputs.have_cert == 'true'
+        env:
+          APPSTORE_API_KEY_ID: ${{ secrets.APPSTORE_API_KEY_ID }}
+          APPSTORE_API_ISSUER_ID: ${{ secrets.APPSTORE_API_ISSUER_ID }}
+          APPSTORE_API_PRIVATE_KEY: ${{ secrets.APPSTORE_API_PRIVATE_KEY }}
+        run: |
+          set -euo pipefail
+          printf '%s' "$APPSTORE_API_PRIVATE_KEY" > "$RUNNER_TEMP/AuthKey.p8"
+          ditto -c -k --keepParent "$APP_PATH" "$RUNNER_TEMP/app.zip"
+          xcrun notarytool submit "$RUNNER_TEMP/app.zip" \
+            --key "$RUNNER_TEMP/AuthKey.p8" \
+            --key-id "$APPSTORE_API_KEY_ID" \
+            --issuer "$APPSTORE_API_ISSUER_ID" \
+            --wait
+          xcrun stapler staple "$APP_PATH"
+
+      - name: Build, sign, notarize, and staple DMG
+        if: steps.sig.outputs.have_cert == 'true'
+        env:
+          IDENTITY: ${{ secrets.MACOS_SIGNING_IDENTITY }}
+          APPSTORE_API_KEY_ID: ${{ secrets.APPSTORE_API_KEY_ID }}
+          APPSTORE_API_ISSUER_ID: ${{ secrets.APPSTORE_API_ISSUER_ID }}
+        run: |
+          set -euo pipefail
+          mkdir -p dmg-stage dist
+          cp -R "$APP_PATH" dmg-stage/
+          ln -s /Applications dmg-stage/Applications
+          dmg="dist/paperblossoms-${VERSION}-macos-universal.dmg"
+          hdiutil create -volname "Paper Blossoms" -srcfolder dmg-stage \
+            -ov -format UDZO "$dmg"
+          codesign --force --timestamp --sign "$IDENTITY" "$dmg"
+          xcrun notarytool submit "$dmg" \
+            --key "$RUNNER_TEMP/AuthKey.p8" \
+            --key-id "$APPSTORE_API_KEY_ID" \
+            --issuer "$APPSTORE_API_ISSUER_ID" \
+            --wait
+          xcrun stapler staple "$dmg"
+          spctl -a -t open --context context:primary-signature -v "$dmg"
+
+      - name: Package unsigned zip (no certificate)
+        if: steps.sig.outputs.have_cert != 'true'
+        run: |
+          set -euo pipefail
+          mkdir -p dist
+          echo "::warning::No MACOS_CERT_P12_BASE64 secret set — shipping an unsigned .app zip. Users must right-click → Open on first launch. To enable signing + notarization, add the MACOS_* and APPSTORE_* secrets in repo Settings → Secrets and variables → Actions."
+          ditto -c -k --keepParent "$APP_PATH" "dist/paperblossoms-${VERSION}-macos-unsigned.zip"
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v7
+        with:
+          name: release-macos
+          path: dist/*
+
+      - name: Clean up keychain and key material
+        if: always()
+        run: |
+          security delete-keychain build.keychain || true
+          rm -f "$RUNNER_TEMP/cert.p12" "$RUNNER_TEMP/AuthKey.p8"
+
+  # ---------------------------------------------------------------------------
+  # Aggregate release-* artifacts and attach them to a draft GitHub Release.
+  # Runs only on tag pushes; the only job with contents: write.
+  # ---------------------------------------------------------------------------
+  publish-release:
+    needs: [build-android, build-linux, build-windows, build-macos]
+    if: startsWith(github.ref, 'refs/tags/v')
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: write
+    steps:
+      - name: Download release artifacts
+        uses: actions/download-artifact@v8
+        with:
+          pattern: release-*
+          path: dist
+          merge-multiple: true
+
+      - name: Publish draft release
+        uses: softprops/action-gh-release@3d0d9888cb7fd7b750713d6e236d1fcb99157228 # v3.0.2
+        with:
+          files: dist/*
+          generate_release_notes: true
+          draft: true
