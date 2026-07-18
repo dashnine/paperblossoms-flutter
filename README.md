@@ -1,5 +1,7 @@
 # Paper Blossoms (Flutter)
 
+[![CI](https://github.com/dashnine/paperblossoms-flutter/actions/workflows/ci.yml/badge.svg)](https://github.com/dashnine/paperblossoms-flutter/actions/workflows/ci.yml)
+
 A character generator for Legend of the Five Rings.
 
 ## About
@@ -21,6 +23,15 @@ The application and author(s) are not affiliated with FFG or any other official 
 ## Downloading and Using Paper Blossoms
 
 Caution: as always, this software is provided without warranty, and the author assumes no responsibility or liability for its use.
+
+Prebuilt downloads for each release are on the [Releases page](https://github.com/dashnine/paperblossoms-flutter/releases):
+
+- **macOS** — download the `.dmg`, open it, and drag Paper Blossoms to Applications. Builds are signed and notarized, so it opens like any other app.
+- **Windows** — download the `-windows-x64.zip`, extract it anywhere, and run `paperblossoms.exe`. Windows SmartScreen may warn about an unrecognized app the first time (the build is not code-signed); choose "More info" → "Run anyway".
+- **Android** — download the `.apk` and open it on your device. You may need to allow installs from unknown sources when prompted; this is normal for apps distributed outside the Play Store.
+- **Linux** — download the `-linux-x64.tar.gz`, extract it, and run `./paperblossoms` from the extracted folder. Requires GTK 3 (present on virtually all desktop distributions).
+
+### Building from source
 
 Being a Flutter application, it builds for macOS, Windows, Linux, iOS, Android, and web from one codebase. Development and testing are currently conducted on macOS. To build from source:
 
