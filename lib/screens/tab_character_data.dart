@@ -4,6 +4,7 @@ import '../character.dart';
 import '../data_l10n.dart';
 import '../derived_stats.dart';
 import '../game_data.dart';
+import '../game_data_models.dart';
 import '../l10n/l10n.dart';
 import '../layout.dart';
 import '../theme.dart';
@@ -183,15 +184,27 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
     }
     return [
       for (final ability in abilityList)
-        Padding(
-          padding: const EdgeInsets.only(bottom: 4),
-          child: Text(
-            gameData.shortDescFor(ability).isEmpty
-                ? trData(ability)
-                : '${trData(ability)} — ${gameData.shortDescFor(ability)}',
-          ),
-        ),
+        _AbilityTile(name: ability, reference: _abilityReference(ability)),
     ];
+  }
+
+  /// The book/page of whichever school, title, or bond granted [ability].
+  Reference? _abilityReference(String ability) {
+    final school = gameData.schoolByName(character.school);
+    if (school != null &&
+        (ability == school.schoolAbility ||
+            ability == school.masteryAbility)) {
+      return school.reference;
+    }
+    for (final name in character.titles) {
+      final title = gameData.titleByName(name);
+      if (title?.titleAbility == ability) return title!.reference;
+    }
+    for (final bond in character.bonds) {
+      final entry = gameData.bondByName(bond.name);
+      if (entry?.ability == ability) return entry!.reference;
+    }
+    return null;
   }
 
   Widget _buildRingsPanel(BuildContext context) {
@@ -405,6 +418,66 @@ class _CharacterDataTabState extends State<CharacterDataTab> {
               fontWeight: trained ? FontWeight.bold : FontWeight.normal,
               color: trained ? colors.primary : colors.outline,
             )),
+      ],
+    );
+  }
+}
+
+/// One ability row: the familiar "name — short description" line, expanding
+/// to the book/page reference and the full rules text when either exists.
+class _AbilityTile extends StatelessWidget {
+  final String name;
+  final Reference? reference;
+
+  const _AbilityTile({required this.name, this.reference});
+
+  /// Bond abilities are described under their bond's name (the rules text is
+  /// folded into the bond description), so lookups fall back to that entry.
+  String _descName() {
+    if (gameData.descriptionFor(name).isNotEmpty ||
+        gameData.shortDescFor(name).isNotEmpty) {
+      return name;
+    }
+    for (final bond in gameData.bonds) {
+      if (bond.ability == name) return bond.name;
+    }
+    return name;
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final descName = _descName();
+    final shortDesc = gameData.shortDescFor(descName);
+    final headline =
+        shortDesc.isEmpty ? trData(name) : '${trData(name)} — $shortDesc';
+    final refText = reference?.toString() ?? '';
+    final longDesc = gameData.descriptionFor(descName);
+    final bodyStyle = Theme.of(context).textTheme.bodyMedium;
+    if (refText.isEmpty && longDesc.isEmpty) {
+      return Padding(
+        padding: const EdgeInsets.only(bottom: 4),
+        child: Text(headline),
+      );
+    }
+    return ExpansionTile(
+      initiallyExpanded: true,
+      tilePadding: EdgeInsets.zero,
+      childrenPadding: const EdgeInsets.only(bottom: 8),
+      shape: const Border(),
+      collapsedShape: const Border(),
+      dense: true,
+      expandedCrossAxisAlignment: CrossAxisAlignment.start,
+      title: Text(headline, style: bodyStyle),
+      children: [
+        if (refText.isNotEmpty)
+          Text(refText,
+              style: bodyStyle?.copyWith(
+                  color: Theme.of(context).colorScheme.outline)),
+        if (longDesc.isNotEmpty)
+          Padding(
+            padding: EdgeInsets.only(top: refText.isEmpty ? 0 : 4),
+            child: Text(longDesc),
+          ),
       ],
     );
   }

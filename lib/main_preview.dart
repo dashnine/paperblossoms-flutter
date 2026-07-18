@@ -99,6 +99,14 @@ void _seedDemoCharacter() {
     Description(
         name: 'Ashigaru Armor',
         shortDesc: 'Light lacquered infantry armor.'),
+    // For previewing the expanded ability tile on the Character Data tab.
+    Description(
+        name: 'Way of the Crab',
+        shortDesc: 'Reduce damage by school rank.',
+        description:
+            'When you suffer damage, you may reduce the amount you suffer '
+            'by your school rank (to a minimum of 0). If you do, you '
+            'receive 2 strife.'),
   ]);
 }
 

@@ -12,6 +12,10 @@ import '../wizard/wizard_shell.dart';
 import 'character_editor.dart';
 import 'tools_page.dart';
 
+/// Reports pops back to the chooser so it can refresh its list. Registered
+/// on the app's navigator in main.dart.
+final routeObserver = RouteObserver<PageRoute<void>>();
+
 /// Startup screen: list of saved characters with load/delete/import/new.
 class CharacterChooser extends StatefulWidget {
   const CharacterChooser({super.key});
@@ -20,7 +24,8 @@ class CharacterChooser extends StatefulWidget {
   State<CharacterChooser> createState() => _CharacterChooserState();
 }
 
-class _CharacterChooserState extends State<CharacterChooser> {
+class _CharacterChooserState extends State<CharacterChooser>
+    with RouteAware {
   List<CharacterSummary> _summaries = [];
   bool _loading = true;
 
@@ -31,6 +36,27 @@ class _CharacterChooserState extends State<CharacterChooser> {
   @override
   void initState() {
     super.initState();
+    _refresh();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final route = ModalRoute.of(context);
+    if (route is PageRoute<void>) routeObserver.subscribe(this, route);
+  }
+
+  @override
+  void dispose() {
+    routeObserver.unsubscribe(this);
+    super.dispose();
+  }
+
+  /// A screen above popped back to the chooser. This covers the editor
+  /// closing even when the wizard reached it via pushReplacement, where the
+  /// original push future completed before the character was saved.
+  @override
+  void didPopNext() {
     _refresh();
   }
 
@@ -54,7 +80,6 @@ class _CharacterChooserState extends State<CharacterChooser> {
       context,
       MaterialPageRoute(builder: (context) => const CharacterEditor()),
     );
-    _refresh();
   }
 
   Future<void> _newCharacter() async {
@@ -63,7 +88,6 @@ class _CharacterChooserState extends State<CharacterChooser> {
       context,
       MaterialPageRoute(builder: (context) => const NewCharacterWizard()),
     );
-    _refresh();
   }
 
   Future<void> _importCharacter() async {

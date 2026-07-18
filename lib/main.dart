@@ -74,6 +74,7 @@ class PaperBlossomsApp extends StatelessWidget {
             supported.firstWhere((l) => l.languageCode == device?.languageCode,
                 orElse: () => const Locale('en')),
         debugShowCheckedModeBanner: false,
+        navigatorObservers: [routeObserver],
         home: const CharacterChooser(),
       ),
     );
