@@ -2399,6 +2399,822 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Giri'**
   String get giriHeader;
+
+  /// No description provided for @customSchools.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom schools'**
+  String get customSchools;
+
+  /// No description provided for @customSchoolsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Build your own school with the Path of Waves rules (p. 76) and manage homebrew schools.'**
+  String get customSchoolsSubtitle;
+
+  /// No description provided for @homebrewFolderIos.
+  ///
+  /// In en, this message translates to:
+  /// **'The paperblossoms folder is visible in the Files app (On My iPhone/iPad). Drop JSON files named like the bundled data there; they merge on launch.'**
+  String get homebrewFolderIos;
+
+  /// No description provided for @homebrewFolderAndroid.
+  ///
+  /// In en, this message translates to:
+  /// **'Homebrew is managed in-app on Android; use the school builder and its import/export.'**
+  String get homebrewFolderAndroid;
+
+  /// No description provided for @sbStep1.
+  ///
+  /// In en, this message translates to:
+  /// **'Step 1: School Role'**
+  String get sbStep1;
+
+  /// No description provided for @sbStep2.
+  ///
+  /// In en, this message translates to:
+  /// **'Step 2: Affiliation & Summary'**
+  String get sbStep2;
+
+  /// No description provided for @sbStep3.
+  ///
+  /// In en, this message translates to:
+  /// **'Step 3: School Ability'**
+  String get sbStep3;
+
+  /// No description provided for @sbStep4.
+  ///
+  /// In en, this message translates to:
+  /// **'Step 4: Ring Increases'**
+  String get sbStep4;
+
+  /// No description provided for @sbStep5.
+  ///
+  /// In en, this message translates to:
+  /// **'Step 5: Starting Skills'**
+  String get sbStep5;
+
+  /// No description provided for @sbStep6.
+  ///
+  /// In en, this message translates to:
+  /// **'Step 6: Techniques'**
+  String get sbStep6;
+
+  /// No description provided for @sbStep7.
+  ///
+  /// In en, this message translates to:
+  /// **'Step 7: Curriculum & Mastery'**
+  String get sbStep7;
+
+  /// No description provided for @sbStep8.
+  ///
+  /// In en, this message translates to:
+  /// **'Step 8: Starting Outfit'**
+  String get sbStep8;
+
+  /// No description provided for @sbStep9.
+  ///
+  /// In en, this message translates to:
+  /// **'Step 9: Name & Save'**
+  String get sbStep9;
+
+  /// No description provided for @sbSaveSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'Save school'**
+  String get sbSaveSchool;
+
+  /// No description provided for @sbSaveAnyway.
+  ///
+  /// In en, this message translates to:
+  /// **'Save'**
+  String get sbSaveAnyway;
+
+  /// No description provided for @sbUnnamedSchool.
+  ///
+  /// In en, this message translates to:
+  /// **'(unnamed school)'**
+  String get sbUnnamedSchool;
+
+  /// No description provided for @sbDiscardTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Discard this school?'**
+  String get sbDiscardTitle;
+
+  /// No description provided for @sbDiscardBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Your answers so far will be lost.'**
+  String get sbDiscardBody;
+
+  /// No description provided for @sbErrChooseRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose at least one role.'**
+  String get sbErrChooseRole;
+
+  /// No description provided for @sbErrAbilityName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name the school ability.'**
+  String get sbErrAbilityName;
+
+  /// No description provided for @sbErrRings.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose both ring increases.'**
+  String get sbErrRings;
+
+  /// No description provided for @sbErrNoSkills.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose at least one skill.'**
+  String get sbErrNoSkills;
+
+  /// No description provided for @sbErrSkillPicks.
+  ///
+  /// In en, this message translates to:
+  /// **'The school must offer at least as many skills as the {picks} a player picks.'**
+  String sbErrSkillPicks(int picks);
+
+  /// No description provided for @sbWarnSkillCount.
+  ///
+  /// In en, this message translates to:
+  /// **'The book\'s recipe for this role is {count} skills (Table 2–7).'**
+  String sbWarnSkillCount(int count);
+
+  /// No description provided for @sbErrDirectiveAlone.
+  ///
+  /// In en, this message translates to:
+  /// **'A “Rarity … or Lower” choice must be the only option in its row, or character creation would silently skip it.'**
+  String get sbErrDirectiveAlone;
+
+  /// No description provided for @sbAffiliationNone.
+  ///
+  /// In en, this message translates to:
+  /// **'None (unaffiliated)'**
+  String get sbAffiliationNone;
+
+  /// No description provided for @sbAffiliationCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom…'**
+  String get sbAffiliationCustom;
+
+  /// No description provided for @sbErrCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Open at least one technique category.'**
+  String get sbErrCategory;
+
+  /// No description provided for @sbErrChoiceSet.
+  ///
+  /// In en, this message translates to:
+  /// **'Every choice row needs options, and at least as many options as picks.'**
+  String get sbErrChoiceSet;
+
+  /// No description provided for @sbErrCurriculumIncomplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Fill every advance in ranks 1–5 (rank {rank} has empty slots).'**
+  String sbErrCurriculumIncomplete(int rank);
+
+  /// No description provided for @sbErrMasteryName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name the mastery ability.'**
+  String get sbErrMasteryName;
+
+  /// No description provided for @sbErrName.
+  ///
+  /// In en, this message translates to:
+  /// **'Name the school.'**
+  String get sbErrName;
+
+  /// No description provided for @sbOverrideBundledTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Override official school?'**
+  String get sbOverrideBundledTitle;
+
+  /// No description provided for @sbOverrideBundledBody.
+  ///
+  /// In en, this message translates to:
+  /// **'“{name}” matches an official school; your homebrew version will replace it until deleted.'**
+  String sbOverrideBundledBody(String name);
+
+  /// No description provided for @sbOverwriteHomebrewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Overwrite homebrew school?'**
+  String get sbOverwriteHomebrewTitle;
+
+  /// No description provided for @sbOverwriteHomebrewBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A homebrew school named “{name}” already exists.'**
+  String sbOverwriteHomebrewBody(String name);
+
+  /// No description provided for @sbRolesQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Which role or roles does the school embody?'**
+  String get sbRolesQuestion;
+
+  /// No description provided for @sbRolesHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose one or two roles (up to three for a complex school). The primary role drives the suggested tables that prefill later steps.'**
+  String get sbRolesHelp;
+
+  /// No description provided for @sbWarnThreeRoles.
+  ///
+  /// In en, this message translates to:
+  /// **'The book recommends at most two roles.'**
+  String get sbWarnThreeRoles;
+
+  /// No description provided for @sbRolesOrder.
+  ///
+  /// In en, this message translates to:
+  /// **'Role order'**
+  String get sbRolesOrder;
+
+  /// No description provided for @sbPrimaryRole.
+  ///
+  /// In en, this message translates to:
+  /// **'Primary role'**
+  String get sbPrimaryRole;
+
+  /// No description provided for @sbMakePrimary.
+  ///
+  /// In en, this message translates to:
+  /// **'Make primary'**
+  String get sbMakePrimary;
+
+  /// No description provided for @sbAffiliationQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Which clan or faction is the school associated with?'**
+  String get sbAffiliationQuestion;
+
+  /// No description provided for @sbCustomAffiliationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom affiliation'**
+  String get sbCustomAffiliationLabel;
+
+  /// No description provided for @sbNoteRonin.
+  ///
+  /// In en, this message translates to:
+  /// **'A Rōnin school appears for rōnin and peasant characters in the New Character wizard.'**
+  String get sbNoteRonin;
+
+  /// No description provided for @sbNoteNoAffiliation.
+  ///
+  /// In en, this message translates to:
+  /// **'An unaffiliated school is only reachable via the “any school” checkbox in the New Character wizard.'**
+  String get sbNoteNoAffiliation;
+
+  /// No description provided for @sbNoteCustomAffiliation.
+  ///
+  /// In en, this message translates to:
+  /// **'A custom faction matches no clan or region, so the school is only reachable via the “any school” checkbox in the New Character wizard.'**
+  String get sbNoteCustomAffiliation;
+
+  /// No description provided for @sbSummaryHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'School summary'**
+  String get sbSummaryHeader;
+
+  /// No description provided for @sbSummaryLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary (the book asks for 3–5 sentences)'**
+  String get sbSummaryLabel;
+
+  /// No description provided for @sbSummaryShortLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'One-line summary (shown under the school in dropdowns)'**
+  String get sbSummaryShortLabel;
+
+  /// No description provided for @sbWarnNoSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'No summary yet — the book asks for a 3–5 sentence selling point.'**
+  String get sbWarnNoSummary;
+
+  /// No description provided for @sbAbilityQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'What is the school ability?'**
+  String get sbAbilityQuestion;
+
+  /// No description provided for @sbAbilityHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'The ability must scale with school rank. Start from a generic template (Table 2–4) or invent your own; the rules text is stored as your own description, like the descriptions editor.'**
+  String get sbAbilityHelp;
+
+  /// No description provided for @sbAbilityTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start from a template (Table 2–4)'**
+  String get sbAbilityTemplate;
+
+  /// No description provided for @sbSeeBook.
+  ///
+  /// In en, this message translates to:
+  /// **'Template text from Path of Waves p. {page} filled in below — edit freely.'**
+  String sbSeeBook(String page);
+
+  /// No description provided for @sbAbilityName.
+  ///
+  /// In en, this message translates to:
+  /// **'School ability name'**
+  String get sbAbilityName;
+
+  /// No description provided for @sbAbilityText.
+  ///
+  /// In en, this message translates to:
+  /// **'School ability rules text'**
+  String get sbAbilityText;
+
+  /// No description provided for @sbWarnNoAbilityText.
+  ///
+  /// In en, this message translates to:
+  /// **'No rules text entered; you can add it later in the descriptions editor.'**
+  String get sbWarnNoAbilityText;
+
+  /// No description provided for @sbShortDescLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Short description (one line)'**
+  String get sbShortDescLabel;
+
+  /// No description provided for @sbRingsQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Which two rings does the school increase?'**
+  String get sbRingsQuestion;
+
+  /// No description provided for @sbHintFirstRing.
+  ///
+  /// In en, this message translates to:
+  /// **'{role} schools usually take their first increase in {rings} (Table 2–5).'**
+  String sbHintFirstRing(String role, String rings);
+
+  /// No description provided for @sbHintShugenjaRing.
+  ///
+  /// In en, this message translates to:
+  /// **'Shugenja schools usually raise the element the school is attuned to (Table 2–5).'**
+  String get sbHintShugenjaRing;
+
+  /// No description provided for @sbRing1.
+  ///
+  /// In en, this message translates to:
+  /// **'First ring increase'**
+  String get sbRing1;
+
+  /// No description provided for @sbRing2.
+  ///
+  /// In en, this message translates to:
+  /// **'Second ring increase'**
+  String get sbRing2;
+
+  /// No description provided for @sbWarnDoubledRing.
+  ///
+  /// In en, this message translates to:
+  /// **'Both increases on one ring is rare but legal (the Isawa Tensai schools do it).'**
+  String get sbWarnDoubledRing;
+
+  /// No description provided for @sbWarnRingsSuggestion.
+  ///
+  /// In en, this message translates to:
+  /// **'This differs from the book\'s suggestion for a {role} school. That\'s allowed — many schools break the mold.'**
+  String sbWarnRingsSuggestion(String role);
+
+  /// No description provided for @sbSecondRingHintsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Second ring by what the school is known for (Table 2–6)'**
+  String get sbSecondRingHintsTitle;
+
+  /// No description provided for @sbRingTraitAir.
+  ///
+  /// In en, this message translates to:
+  /// **'Precision, grace, or manners'**
+  String get sbRingTraitAir;
+
+  /// No description provided for @sbRingTraitEarth.
+  ///
+  /// In en, this message translates to:
+  /// **'Patience, tradition, or resilience'**
+  String get sbRingTraitEarth;
+
+  /// No description provided for @sbRingTraitFire.
+  ///
+  /// In en, this message translates to:
+  /// **'Inventiveness, ferocity, or speed'**
+  String get sbRingTraitFire;
+
+  /// No description provided for @sbRingTraitVoid.
+  ///
+  /// In en, this message translates to:
+  /// **'Philosophy, selflessness, or insight'**
+  String get sbRingTraitVoid;
+
+  /// No description provided for @sbRingTraitWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Adaptability, flexibility, or awareness'**
+  String get sbRingTraitWater;
+
+  /// No description provided for @sbSkillsQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the {count} skills the school offers'**
+  String sbSkillsQuestion(int count);
+
+  /// No description provided for @sbSkillsProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{selected} of {count} selected — players will pick {picks} of them at character creation (Table 2–7).'**
+  String sbSkillsProgress(int selected, int count, int picks);
+
+  /// No description provided for @sbAccessQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Open technique access'**
+  String get sbAccessQuestion;
+
+  /// No description provided for @sbAccessHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Most schools have Rituals plus two of Kata, Kihō, Invocations, and Shūji. Expand a category to grant only some of its subcategories instead (limited access).'**
+  String get sbAccessHelp;
+
+  /// No description provided for @sbWarnForbidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Ninjutsu and mahō are forbidden arts — the book grants them only in unique cases.'**
+  String get sbWarnForbidden;
+
+  /// No description provided for @sbWarnManyCategories.
+  ///
+  /// In en, this message translates to:
+  /// **'Typical schools open Rituals plus two other categories.'**
+  String get sbWarnManyCategories;
+
+  /// No description provided for @sbWarnShugenjaInvocations.
+  ///
+  /// In en, this message translates to:
+  /// **'Shugenja schools normally have open access to Invocations.'**
+  String get sbWarnShugenjaInvocations;
+
+  /// No description provided for @sbStartingTechniques.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting techniques'**
+  String get sbStartingTechniques;
+
+  /// No description provided for @sbStartingTechniquesHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'A {role} school grants {count} starting techniques (Table 2–8). Each row can offer a choice, like “1 of these 2 kata”.'**
+  String sbStartingTechniquesHelp(int count, String role);
+
+  /// No description provided for @sbShowAllTechniques.
+  ///
+  /// In en, this message translates to:
+  /// **'Show all techniques (not just rank 1 within access)'**
+  String get sbShowAllTechniques;
+
+  /// No description provided for @sbAddRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Add row'**
+  String get sbAddRow;
+
+  /// No description provided for @sbWarnCommune.
+  ///
+  /// In en, this message translates to:
+  /// **'Shugenja schools start with Commune with the Spirits (Table 2–8).'**
+  String get sbWarnCommune;
+
+  /// No description provided for @sbWarnStartingTechRank.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is above rank 1 or outside the school\'s open access — fine if intended (the book allows it).'**
+  String sbWarnStartingTechRank(String name);
+
+  /// No description provided for @sbSlotSkillGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Skill group'**
+  String get sbSlotSkillGroup;
+
+  /// No description provided for @sbSlotSkill.
+  ///
+  /// In en, this message translates to:
+  /// **'Skill'**
+  String get sbSlotSkill;
+
+  /// No description provided for @sbSlotTechniqueGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'Technique group'**
+  String get sbSlotTechniqueGroup;
+
+  /// No description provided for @sbSlotTechnique.
+  ///
+  /// In en, this message translates to:
+  /// **'Technique'**
+  String get sbSlotTechnique;
+
+  /// No description provided for @sbChooseTechnique.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose technique…'**
+  String get sbChooseTechnique;
+
+  /// No description provided for @sbCopyPrevRank.
+  ///
+  /// In en, this message translates to:
+  /// **'Copy from rank {rank}'**
+  String sbCopyPrevRank(int rank);
+
+  /// No description provided for @sbClearRank.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear rank'**
+  String get sbClearRank;
+
+  /// No description provided for @sbMaxTechRank.
+  ///
+  /// In en, this message translates to:
+  /// **'Max technique rank:'**
+  String get sbMaxTechRank;
+
+  /// No description provided for @sbMaxTechRankDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'Up to school rank'**
+  String get sbMaxTechRankDefault;
+
+  /// No description provided for @sbSpecialAccessChip.
+  ///
+  /// In en, this message translates to:
+  /// **'Special access'**
+  String get sbSpecialAccessChip;
+
+  /// No description provided for @sbSpecialAccessWhy.
+  ///
+  /// In en, this message translates to:
+  /// **'Students may take this even though it is above the curriculum rank or outside the school\'s open access. Derived automatically.'**
+  String get sbSpecialAccessWhy;
+
+  /// No description provided for @sbWarnSkillInGroup.
+  ///
+  /// In en, this message translates to:
+  /// **'This skill is already covered by this rank\'s skill group — the book suggests picking skills from outside it.'**
+  String get sbWarnSkillInGroup;
+
+  /// No description provided for @sbWarnRankShape.
+  ///
+  /// In en, this message translates to:
+  /// **'This rank deviates from the book\'s shape (1 skill group, 3 skills, 1 technique group, 2 techniques). Allowed, but the book says to use it sparingly.'**
+  String get sbWarnRankShape;
+
+  /// No description provided for @sbMastery.
+  ///
+  /// In en, this message translates to:
+  /// **'Mastery'**
+  String get sbMastery;
+
+  /// No description provided for @sbMasteryQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'What is the mastery ability?'**
+  String get sbMasteryQuestion;
+
+  /// No description provided for @sbMasteryHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Rank 6 contains only the mastery ability — something powerful and awe-inspiring. Use a template (Table 2–10) or invent one; purely narrative abilities work best limited to once per session.'**
+  String get sbMasteryHelp;
+
+  /// No description provided for @sbMasteryTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start from a template (Table 2–10)'**
+  String get sbMasteryTemplate;
+
+  /// No description provided for @sbMasteryName.
+  ///
+  /// In en, this message translates to:
+  /// **'Mastery ability name'**
+  String get sbMasteryName;
+
+  /// No description provided for @sbMasteryText.
+  ///
+  /// In en, this message translates to:
+  /// **'Mastery ability rules text'**
+  String get sbMasteryText;
+
+  /// No description provided for @sbOutfitQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting outfit'**
+  String get sbOutfitQuestion;
+
+  /// No description provided for @sbOutfitHelp.
+  ///
+  /// In en, this message translates to:
+  /// **'Table 2–11 suggests an outfit for the primary role; it is prefilled here and freely editable. Rows like “One Weapon of Rarity 6 or Lower” become pickers at character creation.'**
+  String get sbOutfitHelp;
+
+  /// No description provided for @sbWarnNoOutfit.
+  ///
+  /// In en, this message translates to:
+  /// **'No outfit rows — characters from this school will start with no equipment.'**
+  String get sbWarnNoOutfit;
+
+  /// No description provided for @sbNameQuestion.
+  ///
+  /// In en, this message translates to:
+  /// **'Name the school'**
+  String get sbNameQuestion;
+
+  /// No description provided for @sbNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'School name'**
+  String get sbNameLabel;
+
+  /// No description provided for @sbHonorLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Starting honor (suggested for the role; the book doesn\'t chart honor)'**
+  String get sbHonorLabel;
+
+  /// No description provided for @sbRefBookLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference book'**
+  String get sbRefBookLabel;
+
+  /// No description provided for @sbRefPageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Reference page'**
+  String get sbRefPageLabel;
+
+  /// No description provided for @sbReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get sbReviewTitle;
+
+  /// No description provided for @sbReviewRoles.
+  ///
+  /// In en, this message translates to:
+  /// **'Roles'**
+  String get sbReviewRoles;
+
+  /// No description provided for @sbReviewRings.
+  ///
+  /// In en, this message translates to:
+  /// **'Rings'**
+  String get sbReviewRings;
+
+  /// No description provided for @sbReviewSkills.
+  ///
+  /// In en, this message translates to:
+  /// **'Skills / picks'**
+  String get sbReviewSkills;
+
+  /// No description provided for @sbReviewAccess.
+  ///
+  /// In en, this message translates to:
+  /// **'Technique access'**
+  String get sbReviewAccess;
+
+  /// No description provided for @sbReviewCurriculum.
+  ///
+  /// In en, this message translates to:
+  /// **'Curriculum advances'**
+  String get sbReviewCurriculum;
+
+  /// No description provided for @sbChooseOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose {size} of:'**
+  String sbChooseOf(int size);
+
+  /// No description provided for @sbAddOption.
+  ///
+  /// In en, this message translates to:
+  /// **'Add option'**
+  String get sbAddOption;
+
+  /// No description provided for @sbRemoveRow.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove row'**
+  String get sbRemoveRow;
+
+  /// No description provided for @sbBuildNew.
+  ///
+  /// In en, this message translates to:
+  /// **'Build a new school'**
+  String get sbBuildNew;
+
+  /// No description provided for @sbBuildNewSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A nine-step wizard following Path of Waves pp. 76–84.'**
+  String get sbBuildNewSubtitle;
+
+  /// No description provided for @sbEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'No homebrew schools yet.\nBuild one, or drop a schools.json in the homebrew folder.'**
+  String get sbEmptyHint;
+
+  /// No description provided for @sbSavedSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved “{name}” to homebrew/schools.json — it now appears in the New Character wizard.'**
+  String sbSavedSnack(String name);
+
+  /// No description provided for @sbDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name}?'**
+  String sbDeleteTitle(String name);
+
+  /// No description provided for @sbDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Existing characters keep the school by name but lose its curriculum and abilities.'**
+  String get sbDeleteBody;
+
+  /// No description provided for @sbDeleteAlsoText.
+  ///
+  /// In en, this message translates to:
+  /// **'Also remove its rules text (summary, school ability, mastery ability)'**
+  String get sbDeleteAlsoText;
+
+  /// No description provided for @sbDeleteAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove all homebrew schools'**
+  String get sbDeleteAll;
+
+  /// No description provided for @sbDeleteAllBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This deletes every school in homebrew/schools.json.'**
+  String get sbDeleteAllBody;
+
+  /// No description provided for @sbImportSchools.
+  ///
+  /// In en, this message translates to:
+  /// **'Import schools…'**
+  String get sbImportSchools;
+
+  /// No description provided for @sbExportSchools.
+  ///
+  /// In en, this message translates to:
+  /// **'Export schools…'**
+  String get sbExportSchools;
+
+  /// No description provided for @sbImportedSchools.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} schools imported'**
+  String sbImportedSchools(int count);
+
+  /// No description provided for @sbExportedSchools.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} schools exported'**
+  String sbExportedSchools(int count);
+
+  /// No description provided for @sbNoSchoolsToExport.
+  ///
+  /// In en, this message translates to:
+  /// **'No homebrew schools to export.'**
+  String get sbNoSchoolsToExport;
+
+  /// No description provided for @sbCouldNotReadSchoolsFile.
+  ///
+  /// In en, this message translates to:
+  /// **'That file could not be read as a schools JSON array.'**
+  String get sbCouldNotReadSchoolsFile;
 }
 
 class _AppLocalizationsDelegate

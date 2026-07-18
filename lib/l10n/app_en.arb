@@ -1,10 +1,8 @@
 {
   "@@locale": "en",
   "appTitle": "Paper Blossoms",
-
   "cancel": "Cancel",
   "delete": "Delete",
-
   "importCharacterTooltip": "Import character",
   "newCharacter": "New Character",
   "noCharactersYet": "No characters yet.\nCreate one to begin your story.",
@@ -25,7 +23,6 @@
       }
     }
   },
-
   "toolsTitle": "Tools",
   "languageSection": "Language",
   "appearanceSection": "Appearance",
@@ -84,7 +81,6 @@
   },
   "couldNotReadDescriptionsFile": "Couldn't read that file as descriptions JSON or CSV.",
   "noDescriptionsToExport": "No descriptions to export.",
-
   "tabCharacter": "Character",
   "tabBackground": "Background",
   "tabTraits": "Traits",
@@ -107,7 +103,6 @@
   "discard": "Discard",
   "saveAndClose": "Save & close",
   "characterExported": "Character exported.",
-
   "nameLabel": "Name",
   "familyLabel": "Family",
   "noClan": "No clan",
@@ -157,12 +152,10 @@
   "compromisedRule": "Strife exceeds composure: cannot keep dice showing strife; vigilance counts as 1.",
   "criticalStrike": "Critical strike…",
   "skillsSection": "Skills",
-
   "heritageSection": "Heritage",
   "ninjoSection": "Ninjō (personal desire)",
   "giriSection": "Giri (duty)",
   "notesSection": "Notes",
-
   "add": "Add",
   "remove": "Remove",
   "undo": "Undo",
@@ -175,12 +168,10 @@
     }
   },
   "unknownCustomSection": "Unknown (custom or missing data)",
-
   "bondsSection": "Bonds",
   "addBond": "Add bond",
   "noBondsYet": "No bonds formed yet — tap + to add.",
   "rankLabel": "Rank",
-
   "techniquesSection": "Techniques",
   "noTechniquesYet": "No techniques known yet.",
   "restrictionLabel": "Restriction: {restriction}",
@@ -192,7 +183,6 @@
     }
   },
   "customOrUnknownTechnique": "Custom or unknown technique",
-
   "weaponsSection": "Weapons",
   "armorSection": "Armor",
   "personalEffectsSection": "Personal Effects",
@@ -255,7 +245,6 @@
   "colQualities": "Qualities",
   "colPhysical": "Physical",
   "colSupernatural": "Supernatural",
-
   "addedAdvanceRankUp": "Added {name} — school rank is now {rank}!",
   "@addedAdvanceRankUp": {
     "placeholders": {
@@ -370,7 +359,6 @@
       }
     }
   },
-
   "addAdvanceTitle": "Add Advance",
   "advTypeSkill": "Skill",
   "advTypeRing": "Ring",
@@ -419,7 +407,6 @@
       }
     }
   },
-
   "addItemTitle": "Add Item",
   "itemWeapon": "Weapon",
   "itemArmor": "Armor",
@@ -471,7 +458,6 @@
   "maxRange": "Max range",
   "damageLabel": "Damage",
   "deadlinessLabel": "Deadliness",
-
   "addTrait": "Add Trait",
   "addCategoryLower": "Add {category}",
   "@addCategoryLower": {
@@ -491,7 +477,6 @@
       }
     }
   },
-
   "criticalStrikeTitle": "Critical strike",
   "severityLabel": "Severity (deadliness of the source)",
   "razorEdgedLabel": "Attack was Razor-Edged",
@@ -537,13 +522,11 @@
       }
     }
   },
-
   "rulesDescriptionsTitle": "Rules Descriptions",
   "shortDescriptionLabel": "Short description",
   "fullDescriptionLabel": "Full description",
   "searchHint": "Search…",
   "withText": "With text",
-
   "wizPart1": "Part 1: Clan and Family",
   "wizPart2": "Part 2: Role and School",
   "wizPart3": "Part 3: Honor and Glory",
@@ -603,7 +586,6 @@
   "back": "Back",
   "next": "Next",
   "finish": "Finish",
-
   "characterTypeLabel": "Character type",
   "wizQ1Clan": "1. What clan does your character belong to?",
   "clanLabel": "Clan",
@@ -653,7 +635,6 @@
       }
     }
   },
-
   "wizQ3Samurai": "3. What is your school, and what roles does that school fall into?",
   "wizQ3Ronin": "3. What is your school, and what are its associated roles?",
   "showSchoolsOutsideClan": "Show schools outside my clan",
@@ -718,7 +699,6 @@
       }
     }
   },
-
   "wizQ5Samurai": "5. Who is your lord, and what is your duty to them? (Giri)",
   "wizQ5Ronin": "5. What is your past, and how does it affect you?",
   "answerLabel": "Answer",
@@ -733,7 +713,6 @@
   "q8Mid": "Pragmatic survivor (one item of rarity 5 or lower)",
   "q8Neg": "Diverges from common beliefs (+1 skill rank)",
   "itemLabel": "Item",
-
   "wizQ9": "9. What is your greatest accomplishment so far? (Distinction)",
   "distinctionLabel": "Distinction",
   "wizQ10": "10. What holds your character back? (Adversity)",
@@ -748,7 +727,6 @@
   "advantageLabel": "Advantage",
   "disadvantageLabel": "Disadvantage",
   "describeRelationship": "Describe the relationship",
-
   "wizQ14Samurai": "14. What do people notice first upon encountering you?",
   "wizQ14Ronin": "14. What is your character's most prized possession?",
   "possessionRarity5": "Possession (rarity 5 or lower)",
@@ -757,7 +735,6 @@
   "wizQ16Ronin": "16. What are your relationships to your family, the clans, peasants, and others?",
   "mementoRarity7": "Memento item (rarity 7 or lower)",
   "describeThem": "Describe them",
-
   "wizQ17Parents": "17. How would your parents describe you? (+1 skill rank)",
   "wizQ17Raised": "18. Who raised you? (+1 skill rank)",
   "wizQ17Bond": "17. With whom do you share a bond?",
@@ -800,7 +777,6 @@
   "ringToLower": "Ring to lower",
   "qualityYourChoice": "Quality (your choice)",
   "qualityGmChoice": "Quality (GM's choice)",
-
   "wizQ19": "19. What is your name?",
   "personalNameLabel": "Personal name",
   "wizQ20": "20. How should your character die?",
@@ -839,14 +815,12 @@
   },
   "readyHeader": "Ready",
   "finishCreates": "Finish creates the character and opens the editor.",
-
   "ok": "OK",
   "tapToTypeValue": "Tap to type a value",
   "unlockIdentityTooltip": "Unlock name, family, ninjō, and giri",
   "lockIdentityTooltip": "Lock name, family, ninjō, and giri",
   "changePortraitTooltip": "Tap to change portrait, long-press to remove",
   "addPortraitTooltip": "Tap to add a portrait",
-
   "pdfFatigueStrifeConditions": "Fatigue, Strife & Conditions",
   "pdfWealthProgress": "Wealth & Progress",
   "pdfWealthLine": "Wealth: {koku} koku, {bu} bu, {zeni} zeni    ·    XP: {spent} spent / {total} total    ·    XP in rank: {inRank}",
@@ -886,5 +860,279 @@
   "pdfTraitsHeader": "Distinctions & Adversities",
   "colAbility": "Ability",
   "ninjoHeader": "Ninjō",
-  "giriHeader": "Giri"
+  "giriHeader": "Giri",
+  "customSchools": "Custom schools",
+  "customSchoolsSubtitle": "Build your own school with the Path of Waves rules (p. 76) and manage homebrew schools.",
+  "homebrewFolderIos": "The paperblossoms folder is visible in the Files app (On My iPhone/iPad). Drop JSON files named like the bundled data there; they merge on launch.",
+  "homebrewFolderAndroid": "Homebrew is managed in-app on Android; use the school builder and its import/export.",
+  "sbStep1": "Step 1: School Role",
+  "sbStep2": "Step 2: Affiliation & Summary",
+  "sbStep3": "Step 3: School Ability",
+  "sbStep4": "Step 4: Ring Increases",
+  "sbStep5": "Step 5: Starting Skills",
+  "sbStep6": "Step 6: Techniques",
+  "sbStep7": "Step 7: Curriculum & Mastery",
+  "sbStep8": "Step 8: Starting Outfit",
+  "sbStep9": "Step 9: Name & Save",
+  "sbSaveSchool": "Save school",
+  "sbSaveAnyway": "Save",
+  "sbUnnamedSchool": "(unnamed school)",
+  "sbDiscardTitle": "Discard this school?",
+  "sbDiscardBody": "Your answers so far will be lost.",
+  "sbErrChooseRole": "Choose at least one role.",
+  "sbErrAbilityName": "Name the school ability.",
+  "sbErrRings": "Choose both ring increases.",
+  "sbErrNoSkills": "Choose at least one skill.",
+  "sbErrSkillPicks": "The school must offer at least as many skills as the {picks} a player picks.",
+  "@sbErrSkillPicks": {
+    "placeholders": {
+      "picks": {
+        "type": "int"
+      }
+    }
+  },
+  "sbWarnSkillCount": "The book's recipe for this role is {count} skills (Table 2–7).",
+  "@sbWarnSkillCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sbErrDirectiveAlone": "A “Rarity … or Lower” choice must be the only option in its row, or character creation would silently skip it.",
+  "sbAffiliationNone": "None (unaffiliated)",
+  "sbAffiliationCustom": "Custom…",
+  "sbErrCategory": "Open at least one technique category.",
+  "sbErrChoiceSet": "Every choice row needs options, and at least as many options as picks.",
+  "sbErrCurriculumIncomplete": "Fill every advance in ranks 1–5 (rank {rank} has empty slots).",
+  "@sbErrCurriculumIncomplete": {
+    "placeholders": {
+      "rank": {
+        "type": "int"
+      }
+    }
+  },
+  "sbErrMasteryName": "Name the mastery ability.",
+  "sbErrName": "Name the school.",
+  "sbOverrideBundledTitle": "Override official school?",
+  "sbOverrideBundledBody": "“{name}” matches an official school; your homebrew version will replace it until deleted.",
+  "@sbOverrideBundledBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "sbOverwriteHomebrewTitle": "Overwrite homebrew school?",
+  "sbOverwriteHomebrewBody": "A homebrew school named “{name}” already exists.",
+  "@sbOverwriteHomebrewBody": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "sbRolesQuestion": "Which role or roles does the school embody?",
+  "sbRolesHelp": "Choose one or two roles (up to three for a complex school). The primary role drives the suggested tables that prefill later steps.",
+  "sbWarnThreeRoles": "The book recommends at most two roles.",
+  "sbRolesOrder": "Role order",
+  "sbPrimaryRole": "Primary role",
+  "sbMakePrimary": "Make primary",
+  "sbAffiliationQuestion": "Which clan or faction is the school associated with?",
+  "sbCustomAffiliationLabel": "Custom affiliation",
+  "sbNoteRonin": "A Rōnin school appears for rōnin and peasant characters in the New Character wizard.",
+  "sbNoteNoAffiliation": "An unaffiliated school is only reachable via the “any school” checkbox in the New Character wizard.",
+  "sbNoteCustomAffiliation": "A custom faction matches no clan or region, so the school is only reachable via the “any school” checkbox in the New Character wizard.",
+  "sbSummaryHeader": "School summary",
+  "sbSummaryLabel": "Summary (the book asks for 3–5 sentences)",
+  "sbSummaryShortLabel": "One-line summary (shown under the school in dropdowns)",
+  "sbWarnNoSummary": "No summary yet — the book asks for a 3–5 sentence selling point.",
+  "sbAbilityQuestion": "What is the school ability?",
+  "sbAbilityHelp": "The ability must scale with school rank. Start from a generic template (Table 2–4) or invent your own; the rules text is stored as your own description, like the descriptions editor.",
+  "sbAbilityTemplate": "Start from a template (Table 2–4)",
+  "sbSeeBook": "Template text from Path of Waves p. {page} filled in below — edit freely.",
+  "@sbSeeBook": {
+    "placeholders": {
+      "page": {
+        "type": "String"
+      }
+    }
+  },
+  "sbAbilityName": "School ability name",
+  "sbAbilityText": "School ability rules text",
+  "sbWarnNoAbilityText": "No rules text entered; you can add it later in the descriptions editor.",
+  "sbShortDescLabel": "Short description (one line)",
+  "sbRingsQuestion": "Which two rings does the school increase?",
+  "sbHintFirstRing": "{role} schools usually take their first increase in {rings} (Table 2–5).",
+  "@sbHintFirstRing": {
+    "placeholders": {
+      "role": {
+        "type": "String"
+      },
+      "rings": {
+        "type": "String"
+      }
+    }
+  },
+  "sbHintShugenjaRing": "Shugenja schools usually raise the element the school is attuned to (Table 2–5).",
+  "sbRing1": "First ring increase",
+  "sbRing2": "Second ring increase",
+  "sbWarnDoubledRing": "Both increases on one ring is rare but legal (the Isawa Tensai schools do it).",
+  "sbWarnRingsSuggestion": "This differs from the book's suggestion for a {role} school. That's allowed — many schools break the mold.",
+  "@sbWarnRingsSuggestion": {
+    "placeholders": {
+      "role": {
+        "type": "String"
+      }
+    }
+  },
+  "sbSecondRingHintsTitle": "Second ring by what the school is known for (Table 2–6)",
+  "sbRingTraitAir": "Precision, grace, or manners",
+  "sbRingTraitEarth": "Patience, tradition, or resilience",
+  "sbRingTraitFire": "Inventiveness, ferocity, or speed",
+  "sbRingTraitVoid": "Philosophy, selflessness, or insight",
+  "sbRingTraitWater": "Adaptability, flexibility, or awareness",
+  "sbSkillsQuestion": "Choose the {count} skills the school offers",
+  "@sbSkillsQuestion": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sbSkillsProgress": "{selected} of {count} selected — players will pick {picks} of them at character creation (Table 2–7).",
+  "@sbSkillsProgress": {
+    "placeholders": {
+      "selected": {
+        "type": "int"
+      },
+      "count": {
+        "type": "int"
+      },
+      "picks": {
+        "type": "int"
+      }
+    }
+  },
+  "sbAccessQuestion": "Open technique access",
+  "sbAccessHelp": "Most schools have Rituals plus two of Kata, Kihō, Invocations, and Shūji. Expand a category to grant only some of its subcategories instead (limited access).",
+  "sbWarnForbidden": "Ninjutsu and mahō are forbidden arts — the book grants them only in unique cases.",
+  "sbWarnManyCategories": "Typical schools open Rituals plus two other categories.",
+  "sbWarnShugenjaInvocations": "Shugenja schools normally have open access to Invocations.",
+  "sbStartingTechniques": "Starting techniques",
+  "sbStartingTechniquesHelp": "A {role} school grants {count} starting techniques (Table 2–8). Each row can offer a choice, like “1 of these 2 kata”.",
+  "@sbStartingTechniquesHelp": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "role": {
+        "type": "String"
+      }
+    }
+  },
+  "sbShowAllTechniques": "Show all techniques (not just rank 1 within access)",
+  "sbAddRow": "Add row",
+  "sbWarnCommune": "Shugenja schools start with Commune with the Spirits (Table 2–8).",
+  "sbWarnStartingTechRank": "{name} is above rank 1 or outside the school's open access — fine if intended (the book allows it).",
+  "@sbWarnStartingTechRank": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "sbSlotSkillGroup": "Skill group",
+  "sbSlotSkill": "Skill",
+  "sbSlotTechniqueGroup": "Technique group",
+  "sbSlotTechnique": "Technique",
+  "sbChooseTechnique": "Choose technique…",
+  "sbCopyPrevRank": "Copy from rank {rank}",
+  "@sbCopyPrevRank": {
+    "placeholders": {
+      "rank": {
+        "type": "int"
+      }
+    }
+  },
+  "sbClearRank": "Clear rank",
+  "sbMaxTechRank": "Max technique rank:",
+  "sbMaxTechRankDefault": "Up to school rank",
+  "sbSpecialAccessChip": "Special access",
+  "sbSpecialAccessWhy": "Students may take this even though it is above the curriculum rank or outside the school's open access. Derived automatically.",
+  "sbWarnSkillInGroup": "This skill is already covered by this rank's skill group — the book suggests picking skills from outside it.",
+  "sbWarnRankShape": "This rank deviates from the book's shape (1 skill group, 3 skills, 1 technique group, 2 techniques). Allowed, but the book says to use it sparingly.",
+  "sbMastery": "Mastery",
+  "sbMasteryQuestion": "What is the mastery ability?",
+  "sbMasteryHelp": "Rank 6 contains only the mastery ability — something powerful and awe-inspiring. Use a template (Table 2–10) or invent one; purely narrative abilities work best limited to once per session.",
+  "sbMasteryTemplate": "Start from a template (Table 2–10)",
+  "sbMasteryName": "Mastery ability name",
+  "sbMasteryText": "Mastery ability rules text",
+  "sbOutfitQuestion": "Starting outfit",
+  "sbOutfitHelp": "Table 2–11 suggests an outfit for the primary role; it is prefilled here and freely editable. Rows like “One Weapon of Rarity 6 or Lower” become pickers at character creation.",
+  "sbWarnNoOutfit": "No outfit rows — characters from this school will start with no equipment.",
+  "sbNameQuestion": "Name the school",
+  "sbNameLabel": "School name",
+  "sbHonorLabel": "Starting honor (suggested for the role; the book doesn't chart honor)",
+  "sbRefBookLabel": "Reference book",
+  "sbRefPageLabel": "Reference page",
+  "sbReviewTitle": "Review",
+  "sbReviewRoles": "Roles",
+  "sbReviewRings": "Rings",
+  "sbReviewSkills": "Skills / picks",
+  "sbReviewAccess": "Technique access",
+  "sbReviewCurriculum": "Curriculum advances",
+  "sbChooseOf": "Choose {size} of:",
+  "@sbChooseOf": {
+    "placeholders": {
+      "size": {
+        "type": "int"
+      }
+    }
+  },
+  "sbAddOption": "Add option",
+  "sbRemoveRow": "Remove row",
+  "sbBuildNew": "Build a new school",
+  "sbBuildNewSubtitle": "A nine-step wizard following Path of Waves pp. 76–84.",
+  "sbEmptyHint": "No homebrew schools yet.\nBuild one, or drop a schools.json in the homebrew folder.",
+  "sbSavedSnack": "Saved “{name}” to homebrew/schools.json — it now appears in the New Character wizard.",
+  "@sbSavedSnack": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "sbDeleteTitle": "Delete {name}?",
+  "@sbDeleteTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "sbDeleteBody": "Existing characters keep the school by name but lose its curriculum and abilities.",
+  "sbDeleteAlsoText": "Also remove its rules text (summary, school ability, mastery ability)",
+  "sbDeleteAll": "Remove all homebrew schools",
+  "sbDeleteAllBody": "This deletes every school in homebrew/schools.json.",
+  "sbImportSchools": "Import schools…",
+  "sbExportSchools": "Export schools…",
+  "sbImportedSchools": "{count} schools imported",
+  "@sbImportedSchools": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sbExportedSchools": "{count} schools exported",
+  "@sbExportedSchools": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "sbNoSchoolsToExport": "No homebrew schools to export.",
+  "sbCouldNotReadSchoolsFile": "That file could not be read as a schools JSON array."
 }

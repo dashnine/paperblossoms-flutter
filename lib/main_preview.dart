@@ -13,8 +13,11 @@ import 'locale_controllers.dart';
 import 'rules_constants.dart';
 import 'screens/add_advance_page.dart';
 import 'screens/character_editor.dart';
+import 'screens/homebrew_schools_page.dart';
 import 'screens/tools_page.dart';
 import 'theme.dart';
+import 'wizard/school_builder/school_builder_shell.dart';
+import 'wizard/school_builder/school_builder_state.dart';
 import 'wizard/wizard_shell.dart';
 
 Future<void> main() async {
@@ -139,8 +142,55 @@ class _PreviewApp extends StatelessWidget {
     );
   }
 
+  /// A filled-in Bushi school for previewing the school-builder pages.
+  static SchoolBuilderState _demoSchool() {
+    final state = SchoolBuilderState()
+      ..roles = ['Bushi']
+      ..applyRoleDefaults();
+    state
+      ..clan = 'Crab'
+      ..summary = 'A tradition of wall wardens who outlast any siege, '
+          'trading flair for patience and stone-hard discipline.'
+      ..summaryShort = 'Patient defenders of the Wall.'
+      ..abilityName = 'Way of the Wall'
+      ..abilityText = 'Once per scene when you would suffer fatigue, reduce '
+          'it by your school rank.'
+      ..ringIncrease = ['Earth', 'Water']
+      ..masteryName = 'The Wall Endures'
+      ..masteryText = 'Increase your endurance by your ranks in Fitness.'
+      ..name = 'Wall Warden School'
+      ..techniquesAvailable = ['Kata', 'Rituals', 'Shūji']
+      ..accessTouched = true;
+    state.startingTechniques[0].options = ['Striking as Earth'];
+    state.startingTechniques[1].options = [
+      'Rushing Avalanche Style',
+      'Iron Forest Style'
+    ];
+    for (var rank = 1; rank <= 5; rank++) {
+      final slots = state.curriculum[rank]!;
+      slots[0].advance = 'Martial skills';
+      slots[1].advance = 'Command';
+      slots[2].advance = 'Labor';
+      slots[3].advance = 'Survival';
+      slots[4].advance = 'Kata';
+      slots[5].advance = 'Striking as Water';
+      slots[6].advance = 'Rushing Avalanche Style';
+    }
+    return state;
+  }
+
   Widget _home() {
     if (const bool.fromEnvironment('WIZARD')) return const NewCharacterWizard();
+    // SCHOOL_BUILDER=<1-9> opens the school-builder wizard on that step,
+    // preloaded with a demo school; SCHOOLS=true opens the manager page.
+    const sbPage = int.fromEnvironment('SCHOOL_BUILDER');
+    if (sbPage > 0) {
+      return SchoolBuilderWizard(
+          initialState: _demoSchool(), initialPage: sbPage - 1);
+    }
+    if (const bool.fromEnvironment('SCHOOLS')) {
+      return const HomebrewSchoolsPage();
+    }
     // TOOLS=true with ABOUT=true also opens the About dialog on launch.
     if (const bool.fromEnvironment('TOOLS')) {
       return const ToolsPage(

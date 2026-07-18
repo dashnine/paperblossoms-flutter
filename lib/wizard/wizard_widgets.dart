@@ -19,6 +19,10 @@ class WizDropdown extends StatelessWidget {
   final ValueChanged<String> onChanged;
   final bool enabled;
 
+  /// Display label per option; defaults to the data-name translation.
+  /// Callers with non-data options (UI sentinels) localize them here.
+  final String Function(String)? labelOf;
+
   const WizDropdown({
     super.key,
     required this.label,
@@ -26,18 +30,19 @@ class WizDropdown extends StatelessWidget {
     required this.options,
     required this.onChanged,
     this.enabled = true,
+    this.labelOf,
   });
 
   @override
   Widget build(BuildContext context) {
+    String labelFor(String option) => labelOf?.call(option) ?? trData(option);
     final items = {...options};
     final effective = value.isEmpty || !items.contains(value) ? null : value;
     final descriptions = {
-      for (final option in items) option: gameData.shortDescFor(option)
+      for (final option in items) option: gameData.shortDescFor(option),
     };
     final hasDescriptions = descriptions.values.any((d) => d.isNotEmpty);
-    final selectedDesc =
-        effective == null ? '' : descriptions[effective] ?? '';
+    final selectedDesc = effective == null ? '' : descriptions[effective] ?? '';
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 6),
       child: DropdownButtonFormField<String>(
@@ -61,27 +66,29 @@ class WizDropdown extends StatelessWidget {
         // menu rows and the helper text.
         selectedItemBuilder: hasDescriptions
             ? (context) => [
-                  for (final option in items)
-                    Align(
-                      alignment: AlignmentDirectional.centerStart,
-                      child:
-                          Text(trData(option), overflow: TextOverflow.ellipsis),
+                for (final option in items)
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Text(
+                      labelFor(option),
+                      overflow: TextOverflow.ellipsis,
                     ),
-                ]
+                  ),
+              ]
             : null,
         items: [
           for (final option in items)
             DropdownMenuItem(
               value: option,
               child: descriptions[option]!.isEmpty
-                  ? Text(trData(option))
+                  ? Text(labelFor(option))
                   : Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8),
                       child: Column(
                         mainAxisSize: MainAxisSize.min,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(trData(option)),
+                          Text(labelFor(option)),
                           Text(
                             descriptions[option]!,
                             maxLines: 2,

@@ -35,14 +35,14 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
   int _page = 0;
 
   List<String> _titles(AppLocalizations l10n) => [
-        l10n.wizPart1,
-        l10n.wizPart2,
-        l10n.wizPart3,
-        l10n.wizPart4,
-        l10n.wizPart5,
-        l10n.wizPart6,
-        l10n.wizPart7,
-      ];
+    l10n.wizPart1,
+    l10n.wizPart2,
+    l10n.wizPart3,
+    l10n.wizPart4,
+    l10n.wizPart5,
+    l10n.wizPart6,
+    l10n.wizPart7,
+  ];
 
   /// Per-page validation, ported from each page's validatePage().
   String? _validate(int page) {
@@ -65,7 +65,7 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
           }
           final sets =
               gameData.upbringingByName(wizard.upbringing)?.skillIncreases ??
-                  [];
+              [];
           for (var i = 0; i < sets.length; i++) {
             if (wizard.upbringingSkills[i].isEmpty) {
               return l10n.wizErrChooseUpbringingSkill(i + 1);
@@ -121,8 +121,7 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
         if (wizard.q13PickedAdvantage == null) {
           return l10n.wizErrQ13Option;
         }
-        if (wizard.q13PickedAdvantage == true &&
-            wizard.q13Advantage.isEmpty) {
+        if (wizard.q13PickedAdvantage == true && wizard.q13Advantage.isEmpty) {
           return l10n.wizErrQ13Advantage;
         }
         if (wizard.q13PickedAdvantage == false &&
@@ -153,8 +152,9 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
   Future<void> _next() async {
     final error = _validate(_page);
     if (error != null) {
-      ScaffoldMessenger.of(context)
-          .showSnackBar(SnackBar(content: Text(error)));
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text(error)));
       return;
     }
     if (_page < 6) {
@@ -193,8 +193,9 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
           ),
           FilledButton(
             style: FilledButton.styleFrom(
-                backgroundColor: colors.error,
-                foregroundColor: colors.onError),
+              backgroundColor: colors.error,
+              foregroundColor: colors.onError,
+            ),
             onPressed: () => Navigator.pop(context, true),
             child: Text(context.l10n.discard),
           ),
@@ -208,27 +209,30 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
     final rings = wizard.rawRings();
     final skills = wizard.rawSkills();
     Widget row(String name, int value) => Padding(
-          padding: const EdgeInsets.symmetric(vertical: 1),
-          child: Row(
-            children: [
-              Expanded(child: Text(name)),
-              Text('$value',
-                  style: const TextStyle(fontWeight: FontWeight.bold)),
-            ],
-          ),
-        );
+      padding: const EdgeInsets.symmetric(vertical: 1),
+      child: Row(
+        children: [
+          Expanded(child: Text(name)),
+          Text('$value', style: const TextStyle(fontWeight: FontWeight.bold)),
+        ],
+      ),
+    );
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(context.l10n.ringsSection,
-              style: Theme.of(context).textTheme.titleSmall),
+          Text(
+            context.l10n.ringsSection,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
           for (final entry in rings.entries)
             row(trData(entry.key), entry.value),
           const SizedBox(height: 12),
-          Text(context.l10n.skillsSection,
-              style: Theme.of(context).textTheme.titleSmall),
+          Text(
+            context.l10n.skillsSection,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
           if (skills.isEmpty) EmptyHint(context.l10n.wizNoSkillsYet),
           for (final entry in skills.entries)
             row(trData(entry.key), entry.value),
@@ -280,8 +284,14 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
           padding: const EdgeInsets.all(12),
           child: Row(
             children: [
-              Text(context.l10n.wizStepOf(_page + 1, 7)),
-              const Spacer(),
+              // Flexible so long locale strings ("Schritt 7 von 7") shrink
+              // instead of overflowing a phone-width bar.
+              Expanded(
+                child: Text(
+                  context.l10n.wizStepOf(_page + 1, 7),
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
               if (_page > 0)
                 OutlinedButton(
                   onPressed: () => setState(() => _page--),
@@ -291,7 +301,8 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
               FilledButton(
                 onPressed: _next,
                 child: Text(
-                    _page == 6 ? context.l10n.finish : context.l10n.next),
+                  _page == 6 ? context.l10n.finish : context.l10n.next,
+                ),
               ),
             ],
           ),

@@ -11,6 +11,7 @@ import '../locale_controllers.dart';
 import '../theme.dart';
 import '../user_data_store.dart';
 import 'descriptions_editor.dart';
+import 'homebrew_schools_page.dart';
 
 /// Tools: rules descriptions and homebrew content (the original's Tools
 /// menu, minus the SQLite-era CSV round trips).
@@ -40,8 +41,9 @@ class _ToolsPageState extends State<ToolsPage> {
   }
 
   void _showMessage(String message) {
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(message)));
+    ScaffoldMessenger.of(
+      context,
+    ).showSnackBar(SnackBar(content: Text(message)));
   }
 
   Future<void> _importDescriptions() async {
@@ -53,8 +55,7 @@ class _ToolsPageState extends State<ToolsPage> {
     final bytes = result?.files.single.bytes;
     if (bytes == null || !mounted) return;
     try {
-      final count =
-          await userDataStore.importDescriptions(utf8.decode(bytes));
+      final count = await userDataStore.importDescriptions(utf8.decode(bytes));
       if (!mounted) return;
       _showMessage(context.l10n.importedDescriptions(count));
     } on FormatException {
@@ -89,14 +90,22 @@ class _ToolsPageState extends State<ToolsPage> {
   }
 
   Future<void> _reloadHomebrew() async {
-    await userDataStore.loadHomebrew();
+    // Full reload, not just loadHomebrew(): merging is append-only for most
+    // kinds, so re-merging onto already-merged data would duplicate entries.
+    await userDataStore.reloadAll();
     if (!mounted) return;
     setState(() {});
-    ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        content: Text(userDataStore.loadedHomebrewFiles.isEmpty
-            ? context.l10n.noHomebrewFilesFound
-            : context.l10n
-                .mergedFiles(userDataStore.loadedHomebrewFiles.join(', ')))));
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(
+          userDataStore.loadedHomebrewFiles.isEmpty
+              ? context.l10n.noHomebrewFilesFound
+              : context.l10n.mergedFiles(
+                  userDataStore.loadedHomebrewFiles.join(', '),
+                ),
+        ),
+      ),
+    );
   }
 
   Future<void> _showAbout() async {
@@ -113,8 +122,11 @@ class _ToolsPageState extends State<ToolsPage> {
       context: context,
       applicationName: l10n.appTitle,
       applicationVersion: version,
-      applicationIcon: Image.asset('assets/images/sakura.png',
-          width: 48, height: 48),
+      applicationIcon: Image.asset(
+        'assets/images/sakura.png',
+        width: 48,
+        height: 48,
+      ),
       applicationLegalese: l10n.aboutLegalese,
       children: [
         const SizedBox(height: 16),
@@ -123,7 +135,8 @@ class _ToolsPageState extends State<ToolsPage> {
         Text(l10n.aboutPortNote),
         const SizedBox(height: 8),
         const SelectableText(
-            'https://github.com/dashnine/paperblossoms-flutter'),
+          'https://github.com/dashnine/paperblossoms-flutter',
+        ),
       ],
     );
   }
@@ -144,17 +157,20 @@ class _ToolsPageState extends State<ToolsPage> {
               builder: (context, _) => SegmentedButton<ThemeMode>(
                 segments: [
                   ButtonSegment(
-                      value: ThemeMode.light,
-                      label: Text(l10n.themeLight),
-                      icon: const Icon(Icons.light_mode_outlined)),
+                    value: ThemeMode.light,
+                    label: Text(l10n.themeLight),
+                    icon: const Icon(Icons.light_mode_outlined),
+                  ),
                   ButtonSegment(
-                      value: ThemeMode.dark,
-                      label: Text(l10n.themeDark),
-                      icon: const Icon(Icons.dark_mode_outlined)),
+                    value: ThemeMode.dark,
+                    label: Text(l10n.themeDark),
+                    icon: const Icon(Icons.dark_mode_outlined),
+                  ),
                   ButtonSegment(
-                      value: ThemeMode.system,
-                      label: Text(l10n.themeSystem),
-                      icon: const Icon(Icons.brightness_auto_outlined)),
+                    value: ThemeMode.system,
+                    label: Text(l10n.themeSystem),
+                    icon: const Icon(Icons.brightness_auto_outlined),
+                  ),
                 ],
                 selected: {themeController.value},
                 onSelectionChanged: (selection) =>
@@ -177,20 +193,29 @@ class _ToolsPageState extends State<ToolsPage> {
                     value: localeController.value?.languageCode ?? 'system',
                     items: [
                       DropdownMenuItem(
-                          value: 'system', child: Text(l10n.themeSystem)),
+                        value: 'system',
+                        child: Text(l10n.themeSystem),
+                      ),
                       const DropdownMenuItem(
-                          value: 'en', child: Text('English')),
+                        value: 'en',
+                        child: Text('English'),
+                      ),
                       const DropdownMenuItem(
-                          value: 'fr', child: Text('Français')),
+                        value: 'fr',
+                        child: Text('Français'),
+                      ),
                       const DropdownMenuItem(
-                          value: 'de', child: Text('Deutsch')),
+                        value: 'de',
+                        child: Text('Deutsch'),
+                      ),
                       const DropdownMenuItem(
-                          value: 'es', child: Text('Español')),
+                        value: 'es',
+                        child: Text('Español'),
+                      ),
                     ],
                     onChanged: (code) => localeController.set(
-                        code == null || code == 'system'
-                            ? null
-                            : Locale(code)),
+                      code == null || code == 'system' ? null : Locale(code),
+                    ),
                   ),
                 ],
               ),
@@ -204,7 +229,8 @@ class _ToolsPageState extends State<ToolsPage> {
             onTap: () => Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => const DescriptionsEditor()),
+                builder: (context) => const DescriptionsEditor(),
+              ),
             ),
           ),
           ListTile(
@@ -221,17 +247,39 @@ class _ToolsPageState extends State<ToolsPage> {
           ),
           SectionHeader(l10n.homebrewSection),
           ListTile(
+            leading: const Icon(Icons.school_outlined),
+            title: Text(l10n.customSchools),
+            subtitle: Text(l10n.customSchoolsSubtitle),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const HomebrewSchoolsPage(),
+              ),
+            ),
+          ),
+          ListTile(
             leading: const Icon(Icons.folder_outlined),
             title: Text(l10n.homebrewFolder),
-            subtitle: Text(l10n.homebrewFolderSubtitle(_homebrewPath)),
+            // The documents sandbox is app-private on mobile: show how to
+            // reach the folder instead of a path the user cannot visit.
+            subtitle: Text(
+              Platform.isIOS
+                  ? l10n.homebrewFolderIos
+                  : Platform.isAndroid
+                  ? l10n.homebrewFolderAndroid
+                  : l10n.homebrewFolderSubtitle(_homebrewPath),
+            ),
           ),
           ListTile(
             leading: const Icon(Icons.refresh),
             title: Text(l10n.reloadHomebrew),
-            subtitle: Text(userDataStore.loadedHomebrewFiles.isEmpty
-                ? l10n.nothingMergedThisSession
-                : l10n.mergedFiles(
-                    userDataStore.loadedHomebrewFiles.join(', '))),
+            subtitle: Text(
+              userDataStore.loadedHomebrewFiles.isEmpty
+                  ? l10n.nothingMergedThisSession
+                  : l10n.mergedFiles(
+                      userDataStore.loadedHomebrewFiles.join(', '),
+                    ),
+            ),
             onTap: _reloadHomebrew,
           ),
           SectionHeader(l10n.aboutSection),

@@ -399,8 +399,12 @@ class WizardState {
             effect.name,
         ];
     switch (directive) {
+      case 'One Weapon of Rarity 5 or Lower':
+        return weaponNames(5);
       case 'One Weapon of Rarity 6 or Lower':
         return weaponNames(6);
+      case 'One Weapon of Rarity 7 or Lower':
+        return weaponNames(7);
       case 'Two Weapons of Rarity 6 or Lower':
         return weaponNames(6); // caller adds two pickers
       case 'Two Weapons of Rarity 7 or Lower':

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/game_data.dart';
+import 'package:paperblossoms/screens/homebrew_schools_page.dart';
 import 'package:paperblossoms/screens/tools_page.dart';
 import 'package:paperblossoms/user_data_store.dart';
 
@@ -39,5 +40,21 @@ void main() {
     await tester.tap(find.text('Export descriptions…'));
     await tester.pump();
     expect(find.text('No descriptions to export.'), findsOneWidget);
+  });
+
+  testWidgets('custom schools tile opens the homebrew schools page',
+      (tester) async {
+    await tester.pumpWidget(testApp(const ToolsPage()));
+    await tester.pumpAndSettle();
+
+    await tester.scrollUntilVisible(find.text('Custom schools'), 100,
+        scrollable: find.byType(Scrollable));
+    await tester.ensureVisible(find.text('Custom schools'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Custom schools'));
+    await tester.pumpAndSettle();
+
+    expect(find.byType(HomebrewSchoolsPage), findsOneWidget);
+    expect(find.text('Build a new school'), findsOneWidget);
   });
 }

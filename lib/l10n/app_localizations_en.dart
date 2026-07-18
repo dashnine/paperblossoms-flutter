@@ -1319,4 +1319,484 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get giriHeader => 'Giri';
+
+  @override
+  String get customSchools => 'Custom schools';
+
+  @override
+  String get customSchoolsSubtitle =>
+      'Build your own school with the Path of Waves rules (p. 76) and manage homebrew schools.';
+
+  @override
+  String get homebrewFolderIos =>
+      'The paperblossoms folder is visible in the Files app (On My iPhone/iPad). Drop JSON files named like the bundled data there; they merge on launch.';
+
+  @override
+  String get homebrewFolderAndroid =>
+      'Homebrew is managed in-app on Android; use the school builder and its import/export.';
+
+  @override
+  String get sbStep1 => 'Step 1: School Role';
+
+  @override
+  String get sbStep2 => 'Step 2: Affiliation & Summary';
+
+  @override
+  String get sbStep3 => 'Step 3: School Ability';
+
+  @override
+  String get sbStep4 => 'Step 4: Ring Increases';
+
+  @override
+  String get sbStep5 => 'Step 5: Starting Skills';
+
+  @override
+  String get sbStep6 => 'Step 6: Techniques';
+
+  @override
+  String get sbStep7 => 'Step 7: Curriculum & Mastery';
+
+  @override
+  String get sbStep8 => 'Step 8: Starting Outfit';
+
+  @override
+  String get sbStep9 => 'Step 9: Name & Save';
+
+  @override
+  String get sbSaveSchool => 'Save school';
+
+  @override
+  String get sbSaveAnyway => 'Save';
+
+  @override
+  String get sbUnnamedSchool => '(unnamed school)';
+
+  @override
+  String get sbDiscardTitle => 'Discard this school?';
+
+  @override
+  String get sbDiscardBody => 'Your answers so far will be lost.';
+
+  @override
+  String get sbErrChooseRole => 'Choose at least one role.';
+
+  @override
+  String get sbErrAbilityName => 'Name the school ability.';
+
+  @override
+  String get sbErrRings => 'Choose both ring increases.';
+
+  @override
+  String get sbErrNoSkills => 'Choose at least one skill.';
+
+  @override
+  String sbErrSkillPicks(int picks) {
+    return 'The school must offer at least as many skills as the $picks a player picks.';
+  }
+
+  @override
+  String sbWarnSkillCount(int count) {
+    return 'The book\'s recipe for this role is $count skills (Table 2–7).';
+  }
+
+  @override
+  String get sbErrDirectiveAlone =>
+      'A “Rarity … or Lower” choice must be the only option in its row, or character creation would silently skip it.';
+
+  @override
+  String get sbAffiliationNone => 'None (unaffiliated)';
+
+  @override
+  String get sbAffiliationCustom => 'Custom…';
+
+  @override
+  String get sbErrCategory => 'Open at least one technique category.';
+
+  @override
+  String get sbErrChoiceSet =>
+      'Every choice row needs options, and at least as many options as picks.';
+
+  @override
+  String sbErrCurriculumIncomplete(int rank) {
+    return 'Fill every advance in ranks 1–5 (rank $rank has empty slots).';
+  }
+
+  @override
+  String get sbErrMasteryName => 'Name the mastery ability.';
+
+  @override
+  String get sbErrName => 'Name the school.';
+
+  @override
+  String get sbOverrideBundledTitle => 'Override official school?';
+
+  @override
+  String sbOverrideBundledBody(String name) {
+    return '“$name” matches an official school; your homebrew version will replace it until deleted.';
+  }
+
+  @override
+  String get sbOverwriteHomebrewTitle => 'Overwrite homebrew school?';
+
+  @override
+  String sbOverwriteHomebrewBody(String name) {
+    return 'A homebrew school named “$name” already exists.';
+  }
+
+  @override
+  String get sbRolesQuestion => 'Which role or roles does the school embody?';
+
+  @override
+  String get sbRolesHelp =>
+      'Choose one or two roles (up to three for a complex school). The primary role drives the suggested tables that prefill later steps.';
+
+  @override
+  String get sbWarnThreeRoles => 'The book recommends at most two roles.';
+
+  @override
+  String get sbRolesOrder => 'Role order';
+
+  @override
+  String get sbPrimaryRole => 'Primary role';
+
+  @override
+  String get sbMakePrimary => 'Make primary';
+
+  @override
+  String get sbAffiliationQuestion =>
+      'Which clan or faction is the school associated with?';
+
+  @override
+  String get sbCustomAffiliationLabel => 'Custom affiliation';
+
+  @override
+  String get sbNoteRonin =>
+      'A Rōnin school appears for rōnin and peasant characters in the New Character wizard.';
+
+  @override
+  String get sbNoteNoAffiliation =>
+      'An unaffiliated school is only reachable via the “any school” checkbox in the New Character wizard.';
+
+  @override
+  String get sbNoteCustomAffiliation =>
+      'A custom faction matches no clan or region, so the school is only reachable via the “any school” checkbox in the New Character wizard.';
+
+  @override
+  String get sbSummaryHeader => 'School summary';
+
+  @override
+  String get sbSummaryLabel => 'Summary (the book asks for 3–5 sentences)';
+
+  @override
+  String get sbSummaryShortLabel =>
+      'One-line summary (shown under the school in dropdowns)';
+
+  @override
+  String get sbWarnNoSummary =>
+      'No summary yet — the book asks for a 3–5 sentence selling point.';
+
+  @override
+  String get sbAbilityQuestion => 'What is the school ability?';
+
+  @override
+  String get sbAbilityHelp =>
+      'The ability must scale with school rank. Start from a generic template (Table 2–4) or invent your own; the rules text is stored as your own description, like the descriptions editor.';
+
+  @override
+  String get sbAbilityTemplate => 'Start from a template (Table 2–4)';
+
+  @override
+  String sbSeeBook(String page) {
+    return 'Template text from Path of Waves p. $page filled in below — edit freely.';
+  }
+
+  @override
+  String get sbAbilityName => 'School ability name';
+
+  @override
+  String get sbAbilityText => 'School ability rules text';
+
+  @override
+  String get sbWarnNoAbilityText =>
+      'No rules text entered; you can add it later in the descriptions editor.';
+
+  @override
+  String get sbShortDescLabel => 'Short description (one line)';
+
+  @override
+  String get sbRingsQuestion => 'Which two rings does the school increase?';
+
+  @override
+  String sbHintFirstRing(String role, String rings) {
+    return '$role schools usually take their first increase in $rings (Table 2–5).';
+  }
+
+  @override
+  String get sbHintShugenjaRing =>
+      'Shugenja schools usually raise the element the school is attuned to (Table 2–5).';
+
+  @override
+  String get sbRing1 => 'First ring increase';
+
+  @override
+  String get sbRing2 => 'Second ring increase';
+
+  @override
+  String get sbWarnDoubledRing =>
+      'Both increases on one ring is rare but legal (the Isawa Tensai schools do it).';
+
+  @override
+  String sbWarnRingsSuggestion(String role) {
+    return 'This differs from the book\'s suggestion for a $role school. That\'s allowed — many schools break the mold.';
+  }
+
+  @override
+  String get sbSecondRingHintsTitle =>
+      'Second ring by what the school is known for (Table 2–6)';
+
+  @override
+  String get sbRingTraitAir => 'Precision, grace, or manners';
+
+  @override
+  String get sbRingTraitEarth => 'Patience, tradition, or resilience';
+
+  @override
+  String get sbRingTraitFire => 'Inventiveness, ferocity, or speed';
+
+  @override
+  String get sbRingTraitVoid => 'Philosophy, selflessness, or insight';
+
+  @override
+  String get sbRingTraitWater => 'Adaptability, flexibility, or awareness';
+
+  @override
+  String sbSkillsQuestion(int count) {
+    return 'Choose the $count skills the school offers';
+  }
+
+  @override
+  String sbSkillsProgress(int selected, int count, int picks) {
+    return '$selected of $count selected — players will pick $picks of them at character creation (Table 2–7).';
+  }
+
+  @override
+  String get sbAccessQuestion => 'Open technique access';
+
+  @override
+  String get sbAccessHelp =>
+      'Most schools have Rituals plus two of Kata, Kihō, Invocations, and Shūji. Expand a category to grant only some of its subcategories instead (limited access).';
+
+  @override
+  String get sbWarnForbidden =>
+      'Ninjutsu and mahō are forbidden arts — the book grants them only in unique cases.';
+
+  @override
+  String get sbWarnManyCategories =>
+      'Typical schools open Rituals plus two other categories.';
+
+  @override
+  String get sbWarnShugenjaInvocations =>
+      'Shugenja schools normally have open access to Invocations.';
+
+  @override
+  String get sbStartingTechniques => 'Starting techniques';
+
+  @override
+  String sbStartingTechniquesHelp(int count, String role) {
+    return 'A $role school grants $count starting techniques (Table 2–8). Each row can offer a choice, like “1 of these 2 kata”.';
+  }
+
+  @override
+  String get sbShowAllTechniques =>
+      'Show all techniques (not just rank 1 within access)';
+
+  @override
+  String get sbAddRow => 'Add row';
+
+  @override
+  String get sbWarnCommune =>
+      'Shugenja schools start with Commune with the Spirits (Table 2–8).';
+
+  @override
+  String sbWarnStartingTechRank(String name) {
+    return '$name is above rank 1 or outside the school\'s open access — fine if intended (the book allows it).';
+  }
+
+  @override
+  String get sbSlotSkillGroup => 'Skill group';
+
+  @override
+  String get sbSlotSkill => 'Skill';
+
+  @override
+  String get sbSlotTechniqueGroup => 'Technique group';
+
+  @override
+  String get sbSlotTechnique => 'Technique';
+
+  @override
+  String get sbChooseTechnique => 'Choose technique…';
+
+  @override
+  String sbCopyPrevRank(int rank) {
+    return 'Copy from rank $rank';
+  }
+
+  @override
+  String get sbClearRank => 'Clear rank';
+
+  @override
+  String get sbMaxTechRank => 'Max technique rank:';
+
+  @override
+  String get sbMaxTechRankDefault => 'Up to school rank';
+
+  @override
+  String get sbSpecialAccessChip => 'Special access';
+
+  @override
+  String get sbSpecialAccessWhy =>
+      'Students may take this even though it is above the curriculum rank or outside the school\'s open access. Derived automatically.';
+
+  @override
+  String get sbWarnSkillInGroup =>
+      'This skill is already covered by this rank\'s skill group — the book suggests picking skills from outside it.';
+
+  @override
+  String get sbWarnRankShape =>
+      'This rank deviates from the book\'s shape (1 skill group, 3 skills, 1 technique group, 2 techniques). Allowed, but the book says to use it sparingly.';
+
+  @override
+  String get sbMastery => 'Mastery';
+
+  @override
+  String get sbMasteryQuestion => 'What is the mastery ability?';
+
+  @override
+  String get sbMasteryHelp =>
+      'Rank 6 contains only the mastery ability — something powerful and awe-inspiring. Use a template (Table 2–10) or invent one; purely narrative abilities work best limited to once per session.';
+
+  @override
+  String get sbMasteryTemplate => 'Start from a template (Table 2–10)';
+
+  @override
+  String get sbMasteryName => 'Mastery ability name';
+
+  @override
+  String get sbMasteryText => 'Mastery ability rules text';
+
+  @override
+  String get sbOutfitQuestion => 'Starting outfit';
+
+  @override
+  String get sbOutfitHelp =>
+      'Table 2–11 suggests an outfit for the primary role; it is prefilled here and freely editable. Rows like “One Weapon of Rarity 6 or Lower” become pickers at character creation.';
+
+  @override
+  String get sbWarnNoOutfit =>
+      'No outfit rows — characters from this school will start with no equipment.';
+
+  @override
+  String get sbNameQuestion => 'Name the school';
+
+  @override
+  String get sbNameLabel => 'School name';
+
+  @override
+  String get sbHonorLabel =>
+      'Starting honor (suggested for the role; the book doesn\'t chart honor)';
+
+  @override
+  String get sbRefBookLabel => 'Reference book';
+
+  @override
+  String get sbRefPageLabel => 'Reference page';
+
+  @override
+  String get sbReviewTitle => 'Review';
+
+  @override
+  String get sbReviewRoles => 'Roles';
+
+  @override
+  String get sbReviewRings => 'Rings';
+
+  @override
+  String get sbReviewSkills => 'Skills / picks';
+
+  @override
+  String get sbReviewAccess => 'Technique access';
+
+  @override
+  String get sbReviewCurriculum => 'Curriculum advances';
+
+  @override
+  String sbChooseOf(int size) {
+    return 'Choose $size of:';
+  }
+
+  @override
+  String get sbAddOption => 'Add option';
+
+  @override
+  String get sbRemoveRow => 'Remove row';
+
+  @override
+  String get sbBuildNew => 'Build a new school';
+
+  @override
+  String get sbBuildNewSubtitle =>
+      'A nine-step wizard following Path of Waves pp. 76–84.';
+
+  @override
+  String get sbEmptyHint =>
+      'No homebrew schools yet.\nBuild one, or drop a schools.json in the homebrew folder.';
+
+  @override
+  String sbSavedSnack(String name) {
+    return 'Saved “$name” to homebrew/schools.json — it now appears in the New Character wizard.';
+  }
+
+  @override
+  String sbDeleteTitle(String name) {
+    return 'Delete $name?';
+  }
+
+  @override
+  String get sbDeleteBody =>
+      'Existing characters keep the school by name but lose its curriculum and abilities.';
+
+  @override
+  String get sbDeleteAlsoText =>
+      'Also remove its rules text (summary, school ability, mastery ability)';
+
+  @override
+  String get sbDeleteAll => 'Remove all homebrew schools';
+
+  @override
+  String get sbDeleteAllBody =>
+      'This deletes every school in homebrew/schools.json.';
+
+  @override
+  String get sbImportSchools => 'Import schools…';
+
+  @override
+  String get sbExportSchools => 'Export schools…';
+
+  @override
+  String sbImportedSchools(int count) {
+    return '$count schools imported';
+  }
+
+  @override
+  String sbExportedSchools(int count) {
+    return '$count schools exported';
+  }
+
+  @override
+  String get sbNoSchoolsToExport => 'No homebrew schools to export.';
+
+  @override
+  String get sbCouldNotReadSchoolsFile =>
+      'That file could not be read as a schools JSON array.';
 }

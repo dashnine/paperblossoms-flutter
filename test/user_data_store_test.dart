@@ -3,6 +3,7 @@ import 'dart:io';
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/game_data.dart';
+import 'package:paperblossoms/game_data_models.dart';
 import 'package:paperblossoms/user_data_store.dart';
 
 void main() {
@@ -144,5 +145,161 @@ void main() {
     expect(userDataStore.loadedHomebrewFiles,
         isNot(contains('nonsense.json')));
     expect(userDataStore.loadedHomebrewFiles, isNot(contains('titles.json')));
+  });
+
+  group('homebrew schools', () {
+    School testSchool(String name, {String clan = 'Crab'}) => School(
+          name: name,
+          clan: clan,
+          role: const ['Bushi'],
+          ringIncrease: const ['Earth', 'Water'],
+          startingSkills:
+              const ChoiceSet(size: 2, options: ['Fitness', 'Tactics']),
+          honor: 45,
+          techniquesAvailable: const ['Kata', 'Rituals'],
+          schoolAbility: 'Test Ability',
+          masteryAbility: 'Test Mastery',
+          curriculum: const [
+            CurriculumEntry(
+                rank: 1, advance: 'Martial skills', type: 'skill_group'),
+          ],
+        );
+
+    int loadedCount(String name) =>
+        gameData.schools.where((s) => s.name == name).length;
+
+    test('save, re-save, rename, delete', () async {
+      await userDataStore.saveHomebrewSchool(testSchool('Test School A'));
+      expect(loadedCount('Test School A'), 1);
+      expect(await userDataStore.readHomebrewSchools(), hasLength(1));
+
+      // Re-save replaces rather than duplicates, in memory and on disk.
+      await userDataStore
+          .saveHomebrewSchool(testSchool('Test School A', clan: 'Crane'));
+      expect(loadedCount('Test School A'), 1);
+      expect(gameData.schoolByName('Test School A')!.clan, 'Crane');
+      expect(await userDataStore.readHomebrewSchools(), hasLength(1));
+
+      // Rename removes the old entry.
+      await userDataStore.saveHomebrewSchool(testSchool('Test School B'),
+          replacingName: 'Test School A');
+      expect(loadedCount('Test School A'), 0);
+      expect(loadedCount('Test School B'), 1);
+      expect(await userDataStore.readHomebrewSchools(), hasLength(1));
+
+      await userDataStore.deleteHomebrewSchool('Test School B');
+      expect(loadedCount('Test School B'), 0);
+      expect(await userDataStore.readHomebrewSchools(), isEmpty);
+    });
+
+    test('reload after save does not duplicate', () async {
+      await userDataStore.saveHomebrewSchool(testSchool('Test School C'));
+      await userDataStore.loadHomebrew();
+      await userDataStore.loadHomebrew();
+      expect(loadedCount('Test School C'), 1);
+      await userDataStore.deleteHomebrewSchool('Test School C');
+    });
+
+    test('delete restores an overridden bundled school', () async {
+      final original = gameData.schoolByName('Hida Defender School')!;
+      await userDataStore
+          .saveHomebrewSchool(testSchool('Hida Defender School'));
+      expect(loadedCount('Hida Defender School'), 1);
+      expect(gameData.schoolByName('Hida Defender School')!.schoolAbility,
+          'Test Ability');
+
+      await userDataStore.deleteHomebrewSchool('Hida Defender School');
+      expect(loadedCount('Hida Defender School'), 1);
+      expect(gameData.schoolByName('Hida Defender School')!.schoolAbility,
+          original.schoolAbility);
+    });
+
+    test('import merges by name and rejects garbage without mutating',
+        () async {
+      await userDataStore.saveHomebrewSchool(testSchool('Test School D'));
+      final count = await userDataStore.importHomebrewSchools(jsonEncode([
+        testSchool('Test School D', clan: 'Lion').toJson(),
+        testSchool('Test School E').toJson(),
+      ]));
+      expect(count, 2);
+      expect(gameData.schoolByName('Test School D')!.clan, 'Lion');
+      expect(loadedCount('Test School D'), 1);
+      expect(loadedCount('Test School E'), 1);
+      expect(await userDataStore.readHomebrewSchools(), hasLength(2));
+
+      final before = gameData.schools.length;
+      await expectLater(userDataStore.importHomebrewSchools('{not json'),
+          throwsFormatException);
+      await expectLater(userDataStore.importHomebrewSchools('[]'),
+          throwsFormatException);
+      expect(gameData.schools.length, before);
+
+      final exported = userDataStore.exportHomebrewSchoolsJson();
+      expect(jsonDecode(exported), hasLength(2));
+
+      await userDataStore.deleteHomebrewSchool('Test School D');
+      await userDataStore.deleteHomebrewSchool('Test School E');
+    });
+
+    test('import turns wrong-typed fields into FormatException', () async {
+      // ring_increase must be a list; a wrong-typed field throws TypeError
+      // deep in School.fromJson, which the import contract converts.
+      final before = gameData.schools.length;
+      await expectLater(
+          userDataStore.importHomebrewSchools(
+              '[{"name": "Bad School", "ring_increase": "Earth"}]'),
+          throwsFormatException);
+      expect(gameData.schools.length, before);
+      expect(gameData.schoolByName('Bad School'), isNull);
+    });
+
+    test('duplicate names within one import collapse to the last entry',
+        () async {
+      final count = await userDataStore.importHomebrewSchools(jsonEncode([
+        testSchool('Test School F').toJson(),
+        testSchool('Test School F', clan: 'Crane').toJson(),
+      ]));
+      expect(count, 1);
+      expect(loadedCount('Test School F'), 1);
+      expect(gameData.schoolByName('Test School F')!.clan, 'Crane');
+      await userDataStore.deleteHomebrewSchool('Test School F');
+    });
+
+    test('a corrupt schools.json is set aside before the first rewrite',
+        () async {
+      final dir = await userDataStore.homebrewDir();
+      final file = File('${dir.path}/schools.json');
+      await file.writeAsString('{corrupt');
+      await userDataStore.loadHomebrew();
+      expect(userDataStore.homebrewSchools, isEmpty);
+      expect(userDataStore.failedHomebrewFiles, contains('schools.json'));
+
+      await userDataStore.saveHomebrewSchool(testSchool('Test School G'));
+      expect(await File('${file.path}.bad').readAsString(), '{corrupt');
+      expect(await userDataStore.readHomebrewSchools(), hasLength(1));
+
+      await File('${file.path}.bad').delete();
+      await userDataStore.deleteHomebrewSchool('Test School G');
+    });
+
+    test('rename away from a bundled override restores the bundled school',
+        () async {
+      final original = gameData.schoolByName('Hida Defender School')!;
+      await userDataStore
+          .saveHomebrewSchool(testSchool('Hida Defender School'));
+      expect(gameData.schoolByName('Hida Defender School')!.schoolAbility,
+          'Test Ability');
+
+      // The builder's finish chains reloadAll() after a rename's writes.
+      await userDataStore.saveHomebrewSchool(testSchool('Test School H'),
+          replacingName: 'Hida Defender School');
+      await userDataStore.reloadAll();
+
+      expect(gameData.schoolByName('Hida Defender School')!.schoolAbility,
+          original.schoolAbility);
+      expect(loadedCount('Hida Defender School'), 1);
+      expect(loadedCount('Test School H'), 1);
+      await userDataStore.deleteHomebrewSchool('Test School H');
+    });
   });
 }
