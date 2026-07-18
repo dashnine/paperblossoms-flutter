@@ -50,8 +50,11 @@ app.*.map.json
 !/docs/UPSTREAM_NOTES.md
 !/docs/I18N.md
 
-# Local Claude Code config/skills
-/.claude/
+# Local Claude Code config/skills — except the public PDF-import skill
+/.claude/*
+!/.claude/skills/
+/.claude/skills/*
+!/.claude/skills/import-book-descriptions/
 
 # Per-developer code signing (Apple team ID) — see ios/Flutter/*.xcconfig
 /ios/Flutter/Signing.local.xcconfig

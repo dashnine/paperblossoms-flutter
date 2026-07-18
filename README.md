@@ -46,6 +46,8 @@ Game data (clans, families, schools, techniques, equipment, and so on) ships as 
 
 Much like the excellent Star Wars character generator by OggDude, the application does not bundle rules description text; you are expected to own and use the books while creating or editing your character. If you own the books, you can enter descriptions yourself in the built-in descriptions editor (Tools page), and import/export them as JSON. Imports also accept the original Qt application's `user_descriptions.csv`, so existing data carries over.
 
+If you own a sourcebook as a PDF and want to describe it in bulk, see [.claude/skills/import-book-descriptions/](.claude/skills/import-book-descriptions/): a documented pipeline (usable directly with [Claude Code](https://claude.com/claude-code), or as a plain how-to) for extracting your PDF, writing original paraphrased descriptions, and validating the resulting JSON before importing it — including a small script that lists every name the app expects for a given book.
+
 ## Localization
 
 The app supports a localized interface and game-content display (currently
