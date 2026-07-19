@@ -1473,6 +1473,67 @@ class AppLocalizationsFr extends AppLocalizations {
   String get pdfTraitsHeader => 'Distinctions et Adversités';
 
   @override
+  String get sheetStyleTitle => 'Style de la fiche de personnage';
+
+  @override
+  String get sheetStyleSubtitle =>
+      'Mise en page utilisée pour l\'impression et l\'export PDF.';
+
+  @override
+  String get sheetStyleMinimalist => 'Minimaliste';
+
+  @override
+  String get sheetStyleStructured => 'Structurée';
+
+  @override
+  String pdfPageOf(int page, int total) {
+    return 'Page $page / $total';
+  }
+
+  @override
+  String get pdfVoidPoints => 'Points de Vide';
+
+  @override
+  String get pdfStancesHeader => 'Aide de jeu — Postures de conflit';
+
+  @override
+  String get colStance => 'Posture';
+
+  @override
+  String get colEffect => 'Effet';
+
+  @override
+  String get pdfStanceAir =>
+      'Les tests d\'action d\'Attaque et d\'Intrigue qui vous ciblent augmentent leur ND de 1.';
+
+  @override
+  String get pdfStanceEarth =>
+      'Les adversaires ne peuvent pas dépenser d\'Opportunité sur les tests d\'Attaque et d\'Intrigue qui vous ciblent pour infliger coups critiques ou états.';
+
+  @override
+  String get pdfStanceFire =>
+      'Quand vous réussissez un test, gagnez un succès bonus supplémentaire.';
+
+  @override
+  String get pdfStanceWater =>
+      'Une fois par tour, vous pouvez effectuer une action de Déplacement ou de Soutien supplémentaire ne demandant pas de test.';
+
+  @override
+  String get pdfStanceVoid =>
+      'Vous ne subissez pas de Conflit des symboles de conflit sur vos tests.';
+
+  @override
+  String get pdfOtherCategory => 'Autres';
+
+  @override
+  String get pdfXpTotalLabel => 'XP au total';
+
+  @override
+  String pdfTitleBox(String title, int xp) {
+    return 'Titre : $title ($xp XP)';
+  }
+
+  @override
   String get colAbility => 'Capacité';
 
   @override

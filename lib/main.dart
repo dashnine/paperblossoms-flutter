@@ -8,6 +8,7 @@ import 'hor_controller.dart';
 import 'l10n/l10n.dart';
 import 'locale_controllers.dart';
 import 'screens/character_chooser.dart';
+import 'sheet_style_controller.dart';
 import 'theme.dart';
 import 'user_data_store.dart';
 
@@ -19,6 +20,7 @@ Future<void> main() async {
   await userDataStore.loadDescriptions();
   await userDataStore.loadHomebrew();
   await themeController.load();
+  await sheetStyleController.load();
   await localeController.load();
   await dataL10n.setLocale(contentCodeFor(resolvedUiLocale()));
   localeController.addListener(_syncDataLocale);

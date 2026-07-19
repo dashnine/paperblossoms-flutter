@@ -1458,6 +1458,67 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pdfTraitsHeader => 'Distinciones y adversidades';
 
   @override
+  String get sheetStyleTitle => 'Estilo de la hoja de personaje';
+
+  @override
+  String get sheetStyleSubtitle =>
+      'Diseño usado al imprimir o exportar la hoja en PDF.';
+
+  @override
+  String get sheetStyleMinimalist => 'Minimalista';
+
+  @override
+  String get sheetStyleStructured => 'Estructurada';
+
+  @override
+  String pdfPageOf(int page, int total) {
+    return 'Página $page / $total';
+  }
+
+  @override
+  String get pdfVoidPoints => 'Puntos de Vacío';
+
+  @override
+  String get pdfStancesHeader => 'Referencia rápida de conflicto: posturas';
+
+  @override
+  String get colStance => 'Postura';
+
+  @override
+  String get colEffect => 'Efecto';
+
+  @override
+  String get pdfStanceAir =>
+      'Las pruebas de acción de Ataque e Intriga que te tienen como objetivo aumentan su NO en 1.';
+
+  @override
+  String get pdfStanceEarth =>
+      'Los adversarios no pueden gastar Oportunidad en pruebas de Ataque e Intriga que te tienen como objetivo para infligir golpes críticos o estados.';
+
+  @override
+  String get pdfStanceFire =>
+      'Cuando superas una prueba, obtienes un éxito adicional.';
+
+  @override
+  String get pdfStanceWater =>
+      'Una vez por turno, puedes realizar una acción adicional de Movimiento o Apoyo que no requiera prueba.';
+
+  @override
+  String get pdfStanceVoid =>
+      'No recibes conflicto de los símbolos de conflicto en tus pruebas.';
+
+  @override
+  String get pdfOtherCategory => 'Otros';
+
+  @override
+  String get pdfXpTotalLabel => 'PX en total';
+
+  @override
+  String pdfTitleBox(String title, int xp) {
+    return 'Título: $title ($xp PX)';
+  }
+
+  @override
   String get colAbility => 'Aptitud';
 
   @override

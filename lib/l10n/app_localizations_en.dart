@@ -1443,6 +1443,67 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pdfTraitsHeader => 'Distinctions & Adversities';
 
   @override
+  String get sheetStyleTitle => 'Character sheet style';
+
+  @override
+  String get sheetStyleSubtitle =>
+      'Layout used when printing or exporting the PDF sheet.';
+
+  @override
+  String get sheetStyleMinimalist => 'Minimalist';
+
+  @override
+  String get sheetStyleStructured => 'Structured';
+
+  @override
+  String pdfPageOf(int page, int total) {
+    return 'Page $page / $total';
+  }
+
+  @override
+  String get pdfVoidPoints => 'Void Points';
+
+  @override
+  String get pdfStancesHeader => 'Conflict Quick Reference: Stances';
+
+  @override
+  String get colStance => 'Stance';
+
+  @override
+  String get colEffect => 'Effect';
+
+  @override
+  String get pdfStanceAir =>
+      'Attack and Scheme action checks targeting you increase their TN by 1.';
+
+  @override
+  String get pdfStanceEarth =>
+      'Opponents cannot spend Opportunity on Attack and Scheme action checks targeting you to inflict critical strikes or conditions.';
+
+  @override
+  String get pdfStanceFire =>
+      'When you succeed on a check, gain one additional bonus success.';
+
+  @override
+  String get pdfStanceWater =>
+      'Once per turn, you may perform one additional Move or Support action that does not require a check.';
+
+  @override
+  String get pdfStanceVoid =>
+      'You do not receive strife from strife symbols on your checks.';
+
+  @override
+  String get pdfOtherCategory => 'Other';
+
+  @override
+  String get pdfXpTotalLabel => 'XP Total';
+
+  @override
+  String pdfTitleBox(String title, int xp) {
+    return 'Title: $title ($xp XP)';
+  }
+
+  @override
   String get colAbility => 'Ability';
 
   @override

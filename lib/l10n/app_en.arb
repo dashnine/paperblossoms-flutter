@@ -946,6 +946,43 @@
     }
   },
   "pdfTraitsHeader": "Distinctions & Adversities",
+  "sheetStyleTitle": "Character sheet style",
+  "sheetStyleSubtitle": "Layout used when printing or exporting the PDF sheet.",
+  "sheetStyleMinimalist": "Minimalist",
+  "sheetStyleStructured": "Structured",
+  "pdfPageOf": "Page {page} / {total}",
+  "@pdfPageOf": {
+    "placeholders": {
+      "page": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pdfVoidPoints": "Void Points",
+  "pdfStancesHeader": "Conflict Quick Reference: Stances",
+  "colStance": "Stance",
+  "colEffect": "Effect",
+  "pdfStanceAir": "Attack and Scheme action checks targeting you increase their TN by 1.",
+  "pdfStanceEarth": "Opponents cannot spend Opportunity on Attack and Scheme action checks targeting you to inflict critical strikes or conditions.",
+  "pdfStanceFire": "When you succeed on a check, gain one additional bonus success.",
+  "pdfStanceWater": "Once per turn, you may perform one additional Move or Support action that does not require a check.",
+  "pdfStanceVoid": "You do not receive strife from strife symbols on your checks.",
+  "pdfOtherCategory": "Other",
+  "pdfXpTotalLabel": "XP Total",
+  "pdfTitleBox": "Title: {title} ({xp} XP)",
+  "@pdfTitleBox": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
   "colAbility": "Ability",
   "ninjoHeader": "Ninjō",
   "giriHeader": "Giri",

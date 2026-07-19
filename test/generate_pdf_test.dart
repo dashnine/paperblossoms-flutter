@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui' show Locale;
 
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/advance.dart';
@@ -8,7 +9,10 @@ import 'package:paperblossoms/game_data.dart';
 import 'package:paperblossoms/game_data_models.dart' as gm;
 import 'package:paperblossoms/generate_pdf.dart';
 import 'package:paperblossoms/item.dart';
+import 'package:paperblossoms/l10n/app_localizations.dart';
+import 'package:paperblossoms/pdf_common.dart';
 import 'package:paperblossoms/rules_constants.dart';
+import 'package:paperblossoms/sheet_style_controller.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
@@ -58,7 +62,8 @@ void main() {
   });
 
   test('character sheet PDF builds with all sections', () async {
-    final bytes = await buildCharacterSheetPdf();
+    final bytes =
+        await buildCharacterSheetPdf(style: SheetStyle.minimalist);
     expect(bytes.length, greaterThan(1000));
     expect(utf8.decode(bytes.sublist(0, 5), allowMalformed: true), '%PDF-');
     // Drop a copy for manual inspection when requested.
@@ -67,22 +72,26 @@ void main() {
   });
 
   test('toggles produce different documents', () async {
-    final full = await buildCharacterSheetPdf();
+    final full = await buildCharacterSheetPdf(style: SheetStyle.minimalist);
     final trimmed = await buildCharacterSheetPdf(
-        showSkills: false, showPortrait: false);
+        style: SheetStyle.minimalist,
+        showSkills: false,
+        showPortrait: false);
     expect(trimmed.length, isNot(full.length));
   });
 
   test('an empty character still renders a valid sheet', () async {
     character.clear();
-    final bytes = await buildCharacterSheetPdf();
+    final bytes =
+        await buildCharacterSheetPdf(style: SheetStyle.minimalist);
     expect(utf8.decode(bytes.sublist(0, 5), allowMalformed: true), '%PDF-');
   });
 
   test('corrupt portrait base64 renders the sheet without a portrait',
       () async {
     character.portraitB64 = 'not valid base64!!';
-    final bytes = await buildCharacterSheetPdf();
+    final bytes =
+        await buildCharacterSheetPdf(style: SheetStyle.minimalist);
     expect(utf8.decode(bytes.sublist(0, 5), allowMalformed: true), '%PDF-');
   });
 
@@ -111,6 +120,68 @@ void main() {
     // The → glyph comes from the DejaVu fallback, which only gets embedded
     // when a glyph actually falls through to it.
     expect(String.fromCharCodes(with_), contains('/DejaVuSans'));
+  });
+
+  test('structured style builds a valid sheet with the branding font',
+      () async {
+    final bytes =
+        await buildCharacterSheetPdf(style: SheetStyle.structured);
+    expect(utf8.decode(bytes.sublist(0, 5), allowMalformed: true), '%PDF-');
+    expect(String.fromCharCodes(bytes), contains('/Caveat-Bold'));
+    final out = Platform.environment['PDF_PROBE_STRUCTURED_PATH'];
+    if (out != null) await File(out).writeAsBytes(bytes);
+  });
+
+  test('style parameter changes the document', () async {
+    final minimalist =
+        await buildCharacterSheetPdf(style: SheetStyle.minimalist);
+    final structured =
+        await buildCharacterSheetPdf(style: SheetStyle.structured);
+    expect(structured.length, isNot(minimalist.length));
+  });
+
+  test('an empty character still renders a valid structured sheet', () async {
+    character.clear();
+    final bytes =
+        await buildCharacterSheetPdf(style: SheetStyle.structured);
+    expect(utf8.decode(bytes.sublist(0, 5), allowMalformed: true), '%PDF-');
+  });
+
+  test('corrupt portrait falls back on the structured sheet too', () async {
+    character.portraitB64 = base64Encode(
+        base64Decode(character.portraitB64).sublist(0, 20));
+    final bytes =
+        await buildCharacterSheetPdf(style: SheetStyle.structured);
+    expect(utf8.decode(bytes.sublist(0, 5), allowMalformed: true), '%PDF-');
+  });
+
+  test('structured toggles change the document', () async {
+    final full = await buildCharacterSheetPdf(style: SheetStyle.structured);
+    final trimmed = await buildCharacterSheetPdf(
+        style: SheetStyle.structured,
+        showSkills: false,
+        showPortrait: false);
+    expect(trimmed.length, isNot(full.length));
+  });
+
+  test('groupTechniques buckets by category in data order, unknowns last', () {
+    final shuji =
+        gameData.techniques.firstWhere((t) => t.category == 'Shūji').name;
+    // Character order lists the Shūji first; data order still puts Kata first.
+    final grouped =
+        groupTechniques([shuji, 'Striking as Earth', 'Totally Homebrew Move']);
+    expect(grouped.map((g) => g.key).toList(), ['Kata', 'Shūji', '']);
+    expect(grouped.first.value, ['Striking as Earth']);
+    expect(grouped.last.value, ['Totally Homebrew Move']);
+  });
+
+  test('stanceRows lists all five stances with effects', () {
+    final rows = stanceRows(lookupAppLocalizations(const Locale('en')));
+    expect(rows.length, 5);
+    expect(rows.first.first, 'Air');
+    for (final row in rows) {
+      expect(row.last, isNotEmpty);
+    }
   });
 
   test('valid base64 of a truncated image falls back to a portrait-less sheet',

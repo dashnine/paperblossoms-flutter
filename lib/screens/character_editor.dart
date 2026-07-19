@@ -10,6 +10,7 @@ import '../character.dart';
 import '../character_store.dart';
 import '../generate_pdf.dart';
 import '../l10n/l10n.dart';
+import '../sheet_style_controller.dart';
 import 'tab_advancement.dart';
 import 'tab_background.dart';
 import 'tab_bonds.dart';
@@ -96,6 +97,7 @@ class _CharacterEditorState extends State<CharacterEditor> {
         showSkills: _pdfShowSkills,
         showPortrait: _pdfShowPortrait,
         strings: strings,
+        style: sheetStyleController.value,
       ),
     );
   }

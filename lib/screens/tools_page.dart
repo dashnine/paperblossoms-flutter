@@ -9,6 +9,7 @@ import '../game_data.dart';
 import '../hor_controller.dart';
 import '../l10n/l10n.dart';
 import '../locale_controllers.dart';
+import '../sheet_style_controller.dart';
 import '../theme.dart';
 import '../user_data_store.dart';
 import 'descriptions_editor.dart';
@@ -195,6 +196,33 @@ class _ToolsPageState extends State<ToolsPage> {
                 selected: {themeController.value},
                 onSelectionChanged: (selection) =>
                     themeController.set(selection.single),
+              ),
+            ),
+          ),
+          // A dropdown rather than a SegmentedButton: the long localized
+          // labels (e.g. "Minimalistisch") would get silently squeezed.
+          ListenableBuilder(
+            listenable: sheetStyleController,
+            builder: (context, _) => ListTile(
+              contentPadding: EdgeInsets.zero,
+              leading: const Icon(Icons.picture_as_pdf_outlined),
+              title: Text(l10n.sheetStyleTitle),
+              subtitle: Text(l10n.sheetStyleSubtitle),
+              trailing: DropdownButton<SheetStyle>(
+                value: sheetStyleController.value,
+                items: [
+                  DropdownMenuItem(
+                    value: SheetStyle.minimalist,
+                    child: Text(l10n.sheetStyleMinimalist),
+                  ),
+                  DropdownMenuItem(
+                    value: SheetStyle.structured,
+                    child: Text(l10n.sheetStyleStructured),
+                  ),
+                ],
+                onChanged: (style) {
+                  if (style != null) sheetStyleController.set(style);
+                },
               ),
             ),
           ),

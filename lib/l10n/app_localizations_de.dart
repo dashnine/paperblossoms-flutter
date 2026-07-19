@@ -1469,6 +1469,66 @@ class AppLocalizationsDe extends AppLocalizations {
   String get pdfTraitsHeader => 'Auszeichnungen & Widrigkeiten';
 
   @override
+  String get sheetStyleTitle => 'Stil des Charakterbogens';
+
+  @override
+  String get sheetStyleSubtitle => 'Layout für Druck und PDF-Export.';
+
+  @override
+  String get sheetStyleMinimalist => 'Minimalistisch';
+
+  @override
+  String get sheetStyleStructured => 'Strukturiert';
+
+  @override
+  String pdfPageOf(int page, int total) {
+    return 'Seite $page / $total';
+  }
+
+  @override
+  String get pdfVoidPoints => 'Leere-Punkte';
+
+  @override
+  String get pdfStancesHeader => 'Kurzübersicht Konflikt: Haltungen';
+
+  @override
+  String get colStance => 'Haltung';
+
+  @override
+  String get colEffect => 'Effekt';
+
+  @override
+  String get pdfStanceAir =>
+      'Angriffs- und Intrigen-Aktionswürfe, die auf dich zielen, erhöhen ihren ZW um 1.';
+
+  @override
+  String get pdfStanceEarth =>
+      'Gegner können bei Angriffs- und Intrigen-Aktionswürfen gegen dich keine Gelegenheit ausgeben, um kritische Treffer oder Zustände zu verursachen.';
+
+  @override
+  String get pdfStanceFire =>
+      'Wenn dir ein Wurf gelingt, erhältst du einen zusätzlichen Bonuserfolg.';
+
+  @override
+  String get pdfStanceWater =>
+      'Einmal pro Zug darfst du eine zusätzliche Bewegungs- oder Unterstützungsaktion ausführen, die keinen Wurf erfordert.';
+
+  @override
+  String get pdfStanceVoid =>
+      'Du erhältst keinen Zwist durch Zwist-Symbole auf deinen Würfen.';
+
+  @override
+  String get pdfOtherCategory => 'Sonstige';
+
+  @override
+  String get pdfXpTotalLabel => 'EP gesamt';
+
+  @override
+  String pdfTitleBox(String title, int xp) {
+    return 'Titel: $title ($xp EP)';
+  }
+
+  @override
   String get colAbility => 'Fertigkeit';
 
   @override

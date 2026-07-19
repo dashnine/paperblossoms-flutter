@@ -2604,6 +2604,108 @@ abstract class AppLocalizations {
   /// **'Distinctions & Adversities'**
   String get pdfTraitsHeader;
 
+  /// No description provided for @sheetStyleTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Character sheet style'**
+  String get sheetStyleTitle;
+
+  /// No description provided for @sheetStyleSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Layout used when printing or exporting the PDF sheet.'**
+  String get sheetStyleSubtitle;
+
+  /// No description provided for @sheetStyleMinimalist.
+  ///
+  /// In en, this message translates to:
+  /// **'Minimalist'**
+  String get sheetStyleMinimalist;
+
+  /// No description provided for @sheetStyleStructured.
+  ///
+  /// In en, this message translates to:
+  /// **'Structured'**
+  String get sheetStyleStructured;
+
+  /// No description provided for @pdfPageOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Page {page} / {total}'**
+  String pdfPageOf(int page, int total);
+
+  /// No description provided for @pdfVoidPoints.
+  ///
+  /// In en, this message translates to:
+  /// **'Void Points'**
+  String get pdfVoidPoints;
+
+  /// No description provided for @pdfStancesHeader.
+  ///
+  /// In en, this message translates to:
+  /// **'Conflict Quick Reference: Stances'**
+  String get pdfStancesHeader;
+
+  /// No description provided for @colStance.
+  ///
+  /// In en, this message translates to:
+  /// **'Stance'**
+  String get colStance;
+
+  /// No description provided for @colEffect.
+  ///
+  /// In en, this message translates to:
+  /// **'Effect'**
+  String get colEffect;
+
+  /// No description provided for @pdfStanceAir.
+  ///
+  /// In en, this message translates to:
+  /// **'Attack and Scheme action checks targeting you increase their TN by 1.'**
+  String get pdfStanceAir;
+
+  /// No description provided for @pdfStanceEarth.
+  ///
+  /// In en, this message translates to:
+  /// **'Opponents cannot spend Opportunity on Attack and Scheme action checks targeting you to inflict critical strikes or conditions.'**
+  String get pdfStanceEarth;
+
+  /// No description provided for @pdfStanceFire.
+  ///
+  /// In en, this message translates to:
+  /// **'When you succeed on a check, gain one additional bonus success.'**
+  String get pdfStanceFire;
+
+  /// No description provided for @pdfStanceWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Once per turn, you may perform one additional Move or Support action that does not require a check.'**
+  String get pdfStanceWater;
+
+  /// No description provided for @pdfStanceVoid.
+  ///
+  /// In en, this message translates to:
+  /// **'You do not receive strife from strife symbols on your checks.'**
+  String get pdfStanceVoid;
+
+  /// No description provided for @pdfOtherCategory.
+  ///
+  /// In en, this message translates to:
+  /// **'Other'**
+  String get pdfOtherCategory;
+
+  /// No description provided for @pdfXpTotalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'XP Total'**
+  String get pdfXpTotalLabel;
+
+  /// No description provided for @pdfTitleBox.
+  ///
+  /// In en, this message translates to:
+  /// **'Title: {title} ({xp} XP)'**
+  String pdfTitleBox(String title, int xp);
+
   /// No description provided for @colAbility.
   ///
   /// In en, this message translates to:
