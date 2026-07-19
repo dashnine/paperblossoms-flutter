@@ -820,6 +820,7 @@ class Title {
   final String titleAbility;
   final List<TitleAdvancement> advancements;
   final List<SocialAward> socialAwards;
+  final int stipendKoku; // Heroes of Rokugan campaign titles only
   final Reference reference;
 
   const Title({
@@ -828,6 +829,7 @@ class Title {
     this.titleAbility = '',
     this.advancements = const [],
     this.socialAwards = const [],
+    this.stipendKoku = 0,
     this.reference = const Reference(),
   });
 
@@ -842,6 +844,7 @@ class Title {
         socialAwards = [
           for (final s in json['social_awards'] ?? []) SocialAward.fromJson(s)
         ],
+        stipendKoku = json['stipend_koku'] ?? 0,
         reference = Reference.fromJson(json['reference'] ?? {});
 
   Map<String, dynamic> toJson() => {
@@ -850,6 +853,7 @@ class Title {
         'title_ability': titleAbility,
         'advancements': [for (final a in advancements) a.toJson()],
         'social_awards': [for (final s in socialAwards) s.toJson()],
+        if (stipendKoku > 0) 'stipend_koku': stipendKoku,
         'reference': reference.toJson(),
       };
 }
@@ -909,4 +913,61 @@ class Description {
         'description': description,
         'short_desc': shortDesc,
       };
+}
+
+/// Heroes of Rokugan rōnin "family" background (campaign Twenty Questions,
+/// Question 2). Empty [ringOptions] / an empty skill-choice list means any
+/// ring or skill may be picked.
+class HorRoninBackground {
+  final String name;
+  final List<String> ringOptions;
+  final List<List<String>> skillChoices;
+  final int glory;
+  final Price startingWealth;
+  final Reference reference;
+
+  const HorRoninBackground({
+    required this.name,
+    this.ringOptions = const [],
+    this.skillChoices = const [],
+    this.glory = 0,
+    this.startingWealth = const Price(),
+    this.reference = const Reference(),
+  });
+
+  HorRoninBackground.fromJson(Map<String, dynamic> json)
+      : name = json['name'] ?? '',
+        ringOptions = List<String>.from(json['ring_options'] ?? []),
+        skillChoices = [
+          for (final choice in json['skill_choices'] ?? [])
+            List<String>.from(choice)
+        ],
+        glory = json['glory'] ?? 0,
+        startingWealth = Price.fromJson(json['starting_wealth'] ?? {}),
+        reference = Reference.fromJson(json['reference'] ?? {});
+}
+
+/// Heroes of Rokugan campaign ban lists (house rules document).
+class HorBans {
+  final List<String> schoolBooks; // whole sourcebooks whose schools are banned
+  final List<String> schools;
+  final List<String> roninSchools; // the allowed rōnin school list
+  final List<String> advantages;
+  final List<String> advantagesCreationOnly; // banned at creation only
+
+  const HorBans({
+    this.schoolBooks = const [],
+    this.schools = const [],
+    this.roninSchools = const [],
+    this.advantages = const [],
+    this.advantagesCreationOnly = const [],
+  });
+
+  HorBans.fromJson(Map<String, dynamic> json)
+      : schoolBooks = List<String>.from(json['school_books'] ?? []),
+        schools = List<String>.from(json['schools'] ?? []),
+        roninSchools = List<String>.from(json['ronin_schools'] ?? []),
+        advantages = List<String>.from(json['advantages'] ?? []),
+        advantagesCreationOnly =
+            List<String>.from(json['advantages_creation_only'] ?? []);
 }

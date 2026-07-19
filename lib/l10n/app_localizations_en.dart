@@ -108,6 +108,137 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noHomebrewFilesFound => 'No homebrew files found.';
 
   @override
+  String get horSection => 'Heroes of Rokugan';
+
+  @override
+  String get horModeTitle => 'Heroes of Rokugan mode';
+
+  @override
+  String get horModeSubtitle =>
+      'New characters follow the Heroes of Rokugan 5 community campaign\'s creation rules (unofficial, not affiliated with the campaign or Edge Studio). heroes-of-rokugan.net';
+
+  @override
+  String get wizErrHorRoninRing => 'Choose the rōnin ring increase.';
+
+  @override
+  String get wizErrHorBackground => 'Choose a background.';
+
+  @override
+  String get wizErrHorBackgroundRing => 'Choose the background ring increase.';
+
+  @override
+  String wizErrHorBackgroundSkill(int n) {
+    return 'Choose background skill increase $n.';
+  }
+
+  @override
+  String get wizErrHorService => 'Choose whom your character serves.';
+
+  @override
+  String get wizErrHorQ5Skill => 'Choose a skill related to your giri.';
+
+  @override
+  String get wizErrHorQ6Skill =>
+      'Choose a skill related to your ninjō (different from Question 5).';
+
+  @override
+  String get wizErrHorAccessory => 'Choose a personal accessory.';
+
+  @override
+  String get wizErrHorHeritage => 'Choose a heritage result.';
+
+  @override
+  String get wizErrHorQ19 => 'Choose the extra technique for Question 19.';
+
+  @override
+  String get wizErrHorOutfitItem =>
+      'Choose which outfit item bears the Sacred and Forbidden qualities.';
+
+  @override
+  String horRoninStatsLine(String skill, int status) {
+    return 'Rōnin: +1 to any ring, +1 $skill, Status $status';
+  }
+
+  @override
+  String get horRoninRingLabel => 'Ring increase';
+
+  @override
+  String get horBackgroundLabel => 'Background';
+
+  @override
+  String horBackgroundStatsLine(int glory, String wealth) {
+    return 'Glory $glory, starting wealth $wealth';
+  }
+
+  @override
+  String get horBackgroundRingLabel => 'Background ring increase';
+
+  @override
+  String horBackgroundSkillN(int n) {
+    return 'Background skill increase $n';
+  }
+
+  @override
+  String get horAllSchoolSkills => '+1 to every starting skill:';
+
+  @override
+  String get horServiceLabel => 'Service';
+
+  @override
+  String get horRelatedSkill => 'Related skill (+1)';
+
+  @override
+  String get horQ7Positive =>
+      '+5 glory and 1 rank in a skill listed for another family of your clan';
+
+  @override
+  String get horQ7Negative =>
+      '−5 glory and 1 rank in a skill no family of your clan lists';
+
+  @override
+  String get horQ8Pos => '+5 honor and 1 rank in a traditional samurai skill';
+
+  @override
+  String get horQ8Neg => '−3 honor and 1 rank in a skill unbefitting a samurai';
+
+  @override
+  String get horAccessoryRarity7 =>
+      'Personal accessory (non-weapon, rarity 7 or lower)';
+
+  @override
+  String get horHeritageLabel => 'Heritage (choose one)';
+
+  @override
+  String get horQ19TechniqueLabel => 'Extra technique (school rank 1)';
+
+  @override
+  String horCampaignTitleLine(String title, int stipend) {
+    return 'Campaign title: $title — Status set to 40, stipend $stipend koku per module.';
+  }
+
+  @override
+  String get horInstallPack => 'Install errata pack';
+
+  @override
+  String get horInstallPackSubtitle =>
+      'Copies the campaign\'s school erratas and equipment changes into your homebrew folder. They apply to all play until removed.';
+
+  @override
+  String get horRemovePack => 'Remove errata pack';
+
+  @override
+  String get horRemovePackSubtitle =>
+      'Removes only the entries the pack installed; your own homebrew is kept.';
+
+  @override
+  String horPackInstalledMsg(int count) {
+    return 'HoR errata pack installed ($count schools).';
+  }
+
+  @override
+  String get horPackRemovedMsg => 'HoR errata pack removed.';
+
+  @override
   String get aboutSection => 'About';
 
   @override

@@ -276,6 +276,228 @@ abstract class AppLocalizations {
   /// **'No homebrew files found.'**
   String get noHomebrewFilesFound;
 
+  /// No description provided for @horSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Heroes of Rokugan'**
+  String get horSection;
+
+  /// No description provided for @horModeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Heroes of Rokugan mode'**
+  String get horModeTitle;
+
+  /// No description provided for @horModeSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New characters follow the Heroes of Rokugan 5 community campaign\'s creation rules (unofficial, not affiliated with the campaign or Edge Studio). heroes-of-rokugan.net'**
+  String get horModeSubtitle;
+
+  /// No description provided for @wizErrHorRoninRing.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the rōnin ring increase.'**
+  String get wizErrHorRoninRing;
+
+  /// No description provided for @wizErrHorBackground.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a background.'**
+  String get wizErrHorBackground;
+
+  /// No description provided for @wizErrHorBackgroundRing.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the background ring increase.'**
+  String get wizErrHorBackgroundRing;
+
+  /// No description provided for @wizErrHorBackgroundSkill.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose background skill increase {n}.'**
+  String wizErrHorBackgroundSkill(int n);
+
+  /// No description provided for @wizErrHorService.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose whom your character serves.'**
+  String get wizErrHorService;
+
+  /// No description provided for @wizErrHorQ5Skill.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a skill related to your giri.'**
+  String get wizErrHorQ5Skill;
+
+  /// No description provided for @wizErrHorQ6Skill.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a skill related to your ninjō (different from Question 5).'**
+  String get wizErrHorQ6Skill;
+
+  /// No description provided for @wizErrHorAccessory.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a personal accessory.'**
+  String get wizErrHorAccessory;
+
+  /// No description provided for @wizErrHorHeritage.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a heritage result.'**
+  String get wizErrHorHeritage;
+
+  /// No description provided for @wizErrHorQ19.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose the extra technique for Question 19.'**
+  String get wizErrHorQ19;
+
+  /// No description provided for @wizErrHorOutfitItem.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose which outfit item bears the Sacred and Forbidden qualities.'**
+  String get wizErrHorOutfitItem;
+
+  /// No description provided for @horRoninStatsLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Rōnin: +1 to any ring, +1 {skill}, Status {status}'**
+  String horRoninStatsLine(String skill, int status);
+
+  /// No description provided for @horRoninRingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Ring increase'**
+  String get horRoninRingLabel;
+
+  /// No description provided for @horBackgroundLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Background'**
+  String get horBackgroundLabel;
+
+  /// No description provided for @horBackgroundStatsLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Glory {glory}, starting wealth {wealth}'**
+  String horBackgroundStatsLine(int glory, String wealth);
+
+  /// No description provided for @horBackgroundRingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Background ring increase'**
+  String get horBackgroundRingLabel;
+
+  /// No description provided for @horBackgroundSkillN.
+  ///
+  /// In en, this message translates to:
+  /// **'Background skill increase {n}'**
+  String horBackgroundSkillN(int n);
+
+  /// No description provided for @horAllSchoolSkills.
+  ///
+  /// In en, this message translates to:
+  /// **'+1 to every starting skill:'**
+  String get horAllSchoolSkills;
+
+  /// No description provided for @horServiceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Service'**
+  String get horServiceLabel;
+
+  /// No description provided for @horRelatedSkill.
+  ///
+  /// In en, this message translates to:
+  /// **'Related skill (+1)'**
+  String get horRelatedSkill;
+
+  /// No description provided for @horQ7Positive.
+  ///
+  /// In en, this message translates to:
+  /// **'+5 glory and 1 rank in a skill listed for another family of your clan'**
+  String get horQ7Positive;
+
+  /// No description provided for @horQ7Negative.
+  ///
+  /// In en, this message translates to:
+  /// **'−5 glory and 1 rank in a skill no family of your clan lists'**
+  String get horQ7Negative;
+
+  /// No description provided for @horQ8Pos.
+  ///
+  /// In en, this message translates to:
+  /// **'+5 honor and 1 rank in a traditional samurai skill'**
+  String get horQ8Pos;
+
+  /// No description provided for @horQ8Neg.
+  ///
+  /// In en, this message translates to:
+  /// **'−3 honor and 1 rank in a skill unbefitting a samurai'**
+  String get horQ8Neg;
+
+  /// No description provided for @horAccessoryRarity7.
+  ///
+  /// In en, this message translates to:
+  /// **'Personal accessory (non-weapon, rarity 7 or lower)'**
+  String get horAccessoryRarity7;
+
+  /// No description provided for @horHeritageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Heritage (choose one)'**
+  String get horHeritageLabel;
+
+  /// No description provided for @horQ19TechniqueLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Extra technique (school rank 1)'**
+  String get horQ19TechniqueLabel;
+
+  /// No description provided for @horCampaignTitleLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Campaign title: {title} — Status set to 40, stipend {stipend} koku per module.'**
+  String horCampaignTitleLine(String title, int stipend);
+
+  /// No description provided for @horInstallPack.
+  ///
+  /// In en, this message translates to:
+  /// **'Install errata pack'**
+  String get horInstallPack;
+
+  /// No description provided for @horInstallPackSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Copies the campaign\'s school erratas and equipment changes into your homebrew folder. They apply to all play until removed.'**
+  String get horInstallPackSubtitle;
+
+  /// No description provided for @horRemovePack.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove errata pack'**
+  String get horRemovePack;
+
+  /// No description provided for @horRemovePackSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Removes only the entries the pack installed; your own homebrew is kept.'**
+  String get horRemovePackSubtitle;
+
+  /// No description provided for @horPackInstalledMsg.
+  ///
+  /// In en, this message translates to:
+  /// **'HoR errata pack installed ({count} schools).'**
+  String horPackInstalledMsg(int count);
+
+  /// No description provided for @horPackRemovedMsg.
+  ///
+  /// In en, this message translates to:
+  /// **'HoR errata pack removed.'**
+  String get horPackRemovedMsg;
+
   /// No description provided for @aboutSection.
   ///
   /// In en, this message translates to:

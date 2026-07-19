@@ -3,9 +3,11 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/game_data.dart';
+import 'package:paperblossoms/hor_controller.dart';
 import 'package:paperblossoms/screens/homebrew_schools_page.dart';
 import 'package:paperblossoms/screens/tools_page.dart';
 import 'package:paperblossoms/user_data_store.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'test_app.dart';
 
@@ -40,6 +42,24 @@ void main() {
     await tester.tap(find.text('Export descriptions…'));
     await tester.pump();
     expect(find.text('No descriptions to export.'), findsOneWidget);
+  });
+
+  testWidgets('Heroes of Rokugan switch is present and defaults off',
+      (tester) async {
+    SharedPreferences.setMockInitialValues({});
+    await horController.load();
+    await tester.pumpWidget(testApp(const ToolsPage()));
+    await tester.pumpAndSettle();
+
+    await tester.scrollUntilVisible(find.text('Heroes of Rokugan mode'), 100,
+        scrollable: find.byType(Scrollable));
+    final tile = tester.widget<SwitchListTile>(find.byType(SwitchListTile));
+    expect(tile.value, isFalse);
+
+    await tester.tap(find.byType(SwitchListTile));
+    await tester.pumpAndSettle();
+    expect(horController.value, isTrue);
+    await horController.set(false);
   });
 
   testWidgets('custom schools tile opens the homebrew schools page',

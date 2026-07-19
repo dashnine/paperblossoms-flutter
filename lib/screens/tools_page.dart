@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../game_data.dart';
+import '../hor_controller.dart';
 import '../l10n/l10n.dart';
 import '../locale_controllers.dart';
 import '../theme.dart';
@@ -28,12 +29,16 @@ class ToolsPage extends StatefulWidget {
 
 class _ToolsPageState extends State<ToolsPage> {
   String _homebrewPath = '';
+  bool _horPackInstalled = false;
 
   @override
   void initState() {
     super.initState();
     userDataStore.homebrewDir().then((dir) {
       if (mounted) setState(() => _homebrewPath = dir.path);
+    });
+    userDataStore.horPackInstalled().then((installed) {
+      if (mounted) setState(() => _horPackInstalled = installed);
     });
     if (widget.openAboutOnLaunch) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _showAbout());
@@ -106,6 +111,21 @@ class _ToolsPageState extends State<ToolsPage> {
         ),
       ),
     );
+  }
+
+  Future<void> _toggleHorPack() async {
+    final l10n = context.l10n;
+    if (_horPackInstalled) {
+      await userDataStore.uninstallHorPack();
+      if (!mounted) return;
+      setState(() => _horPackInstalled = false);
+      _showMessage(l10n.horPackRemovedMsg);
+    } else {
+      final count = await userDataStore.installHorPack();
+      if (!mounted) return;
+      setState(() => _horPackInstalled = true);
+      _showMessage(l10n.horPackInstalledMsg(count));
+    }
   }
 
   Future<void> _showAbout() async {
@@ -281,6 +301,28 @@ class _ToolsPageState extends State<ToolsPage> {
                     ),
             ),
             onTap: _reloadHomebrew,
+          ),
+          SectionHeader(l10n.horSection),
+          ListenableBuilder(
+            listenable: horController,
+            builder: (context, _) => SwitchListTile(
+              secondary: const Icon(Icons.shield_outlined),
+              title: Text(l10n.horModeTitle),
+              subtitle: Text(l10n.horModeSubtitle),
+              value: horController.value,
+              onChanged: (enabled) => horController.set(enabled),
+            ),
+          ),
+          ListTile(
+            leading: Icon(_horPackInstalled
+                ? Icons.playlist_remove_outlined
+                : Icons.playlist_add_outlined),
+            title: Text(
+                _horPackInstalled ? l10n.horRemovePack : l10n.horInstallPack),
+            subtitle: Text(_horPackInstalled
+                ? l10n.horRemovePackSubtitle
+                : l10n.horInstallPackSubtitle),
+            onTap: _toggleHorPack,
           ),
           SectionHeader(l10n.aboutSection),
           ListTile(

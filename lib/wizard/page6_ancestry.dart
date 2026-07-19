@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../data_l10n.dart';
 import '../game_data.dart';
+import '../game_data_models.dart';
 import '../l10n/l10n.dart';
 import 'wizard_state.dart';
 import 'wizard_widgets.dart';
@@ -66,7 +67,9 @@ class Page6Ancestry extends StatelessWidget {
             context: context,
             key: 'q17', initial: wizard.q17Text,
             onChanged: (value) => wizard.q17Text = value),
-        if (wizard.isSamurai)
+        if (wizard.horMode)
+          ..._horAncestry(context)
+        else if (wizard.isSamurai)
           ..._samuraiAncestry(context)
         else
           ..._roninBond(context),
@@ -105,6 +108,55 @@ class Page6Ancestry extends StatelessWidget {
           initial: wizard.q17RoninText,
           onChanged: (value) => wizard.q17RoninText = value),
     ];
+  }
+
+  /// HoR (samurai and rōnin alike): one result chosen from the campaign
+  /// heritage table — no source picker, no dice, no second ancestor.
+  List<Widget> _horAncestry(BuildContext context) {
+    return [
+      QuestionHeader(context.l10n.wizQ18Ancestry),
+      WizDropdown(
+        label: context.l10n.horHeritageLabel,
+        value: wizard.ancestor1,
+        options: [for (final entry in gameData.hor.heritage) entry.result],
+        onChanged: (value) {
+          wizard
+            ..ancestor1 = value
+            ..chosenAncestor = 1;
+          _clearEffects();
+          onChanged();
+        },
+      ),
+      if (wizard.heritageEntry != null) ...[
+        Text(_modifierText(wizard.heritageEntry!)),
+        ..._effectControls(context),
+      ],
+    ];
+  }
+
+  /// Starting-outfit item names already locked in on page 2, for the Battle
+  /// of One Thousand Years heritage (one outfit item gains qualities).
+  List<String> _horOutfitItemNames() {
+    final school = gameData.schoolByName(wizard.school);
+    final names = <String>{};
+    for (final set in school?.startingOutfit ?? const []) {
+      if (set.options.length == 1) {
+        final only = set.options.single as String;
+        if (only.isEmpty ||
+            WizardState.equipmentSpecialOptions(only) != null ||
+            only == 'Yumi and quiver of arrows with three special arrows') {
+          continue;
+        }
+        names.add(only);
+      }
+    }
+    names.addAll(
+        [for (final choice in wizard.equipChoices) if (choice.isNotEmpty) choice]);
+    names.addAll([
+      for (final choice in wizard.equipSpecialChoices)
+        if (choice.isNotEmpty) choice
+    ]);
+    return names.toList();
   }
 
   List<Widget> _samuraiAncestry(BuildContext context) {
@@ -168,7 +220,10 @@ class Page6Ancestry extends StatelessWidget {
 
   String _modifierLabel(String ancestor) {
     final entry = gameData.heritageByResult(ancestor);
-    if (entry == null) return '';
+    return entry == null ? '' : _modifierText(entry);
+  }
+
+  String _modifierText(HeritageEntry entry) {
     final parts = [
       if (entry.honor != 0) 'H:${entry.honor}',
       if (entry.glory != 0) 'G:${entry.glory}',
@@ -227,6 +282,23 @@ class Page6Ancestry extends StatelessWidget {
           ),
         ],
       ));
+    }
+
+    // HoR-only effect types with no stock kind: Wealth is informational
+    // (instructions already shown); Outfit Item picks one page-2 item.
+    // horMode-gated so homebrew heritage data reusing the type string
+    // cannot surface this UI in the stock flow.
+    if (wizard.horMode && entry.otherEffects.type == 'Outfit Item') {
+      widgets.add(WizDropdown(
+        label: context.l10n.itemLabel,
+        value: wizard.q18Secondary,
+        options: _horOutfitItemNames(),
+        onChanged: (value) {
+          wizard.q18Secondary = value;
+          onChanged();
+        },
+      ));
+      return widgets;
     }
 
     switch (kind) {

@@ -36,10 +36,13 @@ class _Page4StrengthsState extends State<Page4Strengths> {
 
   @override
   Widget build(BuildContext context) {
-    List<String> names(String category) => [
-          for (final entry in gameData.advDisadvByCategory(category))
-            entry.name
-        ];
+    // HoR: campaign ban list out, campaign additions in.
+    List<String> names(String category) => wizard.horMode
+        ? wizard.horTraitNames(category)
+        : [
+            for (final entry in gameData.advDisadvByCategory(category))
+              entry.name
+          ];
     return ListView(
       padding: const EdgeInsets.all(16),
       children: [

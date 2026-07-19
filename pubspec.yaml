@@ -50,6 +50,8 @@ flutter:
 
   assets:
     - assets/data/
+    - assets/data/hor/
+    - assets/data/hor/pack/
     - assets/i18n/
     - assets/images/
     - assets/fonts/

@@ -22,6 +22,29 @@ const question8Skills = [
 /// Heritage-table source books, in the original's order.
 const heritageSources = ['Core', 'SL', 'CoS', 'CR', 'FoV', 'WotW', 'CotFW'];
 
+/// Heroes of Rokugan services a character's giri may answer to (Q5), and the
+/// campaign title each one carries (Q20). Rōnin must serve a Regent (every
+/// service except the clan champion).
+const horServiceTitles = {
+  'Clan Champion': 'Agent of the Clan Champion',
+  'Emerald Magistrates': 'Emerald Magistrate (HoR)',
+  'Jade Magistrates': 'Jade Magistrate',
+  'Imperial Legions': 'Imperial Legionnaire',
+  'Imperial Bureaucracy': 'Imperial Bureaucrat',
+  'Imperial Court': 'Imperial Courtier',
+};
+
+/// HoR Q8: the traditional-training skills of the orthodox option (the
+/// divergent option reuses [question8Skills]).
+const horQ8PosSkills = [
+  'Composition',
+  'Courtesy',
+  'Culture',
+  'Government',
+  'Meditation',
+  'Theology',
+];
+
 /// How a heritage's other_effects type maps onto UI + assembly behavior.
 enum HeritageEffectKind {
   skill, // outcome (or a chosen option) is a bonus skill
@@ -112,13 +135,72 @@ class WizardState {
   List<String> replacementRings = ['', ''];
   List<String> replacementSkills = ['', '', ''];
 
+  // ---- Heroes of Rokugan mode (campaign Twenty Questions) ----
+  // Captured once from horController when the shell constructs the state, so
+  // a wizard in flight can never change rulesets mid-run.
+  bool horMode = false;
+  String horService = ''; // Q5 key of [horServiceTitles]
+  String horQ5Skill = '';
+  String horQ6Skill = '';
+  String horRoninRing = ''; // Q1 rōnin any-ring pick
+  String horBackground = ''; // Q2 rōnin background name
+  String horBackgroundRing = '';
+  List<String> horBackgroundSkills = []; // sized by [selectHorBackground]
+  String horQ19Technique = '';
+
   bool get isSamurai => characterType == characterTypeSamurai;
+
+  /// Switches the character type and clears every answer the new type
+  /// invalidates — including the HoR service (a rōnin cannot keep a
+  /// clan-champion giri chosen as a samurai).
+  void setCharacterType(String value) {
+    characterType = value;
+    clan = '';
+    family = '';
+    familyRing = '';
+    region = '';
+    upbringing = '';
+    upbringingRing = '';
+    upbringingSkills = ['', '', ''];
+    school = '';
+    schoolSkills = [];
+    horRoninRing = '';
+    horBackground = '';
+    horBackgroundRing = '';
+    horBackgroundSkills = [];
+    horService = '';
+    horQ5Skill = '';
+    horQ6Skill = '';
+  }
+
+  /// Selects the HoR rōnin background and sizes the skill-pick list to its
+  /// skill_choices count, so data with any number of choices renders and
+  /// validates without indexing past a fixed-length list.
+  void selectHorBackground(String name) {
+    horBackground = name;
+    horBackgroundRing = '';
+    final background = gameData.hor.backgroundByName(name);
+    horBackgroundSkills =
+        List.filled(background?.skillChoices.length ?? 0, '', growable: true);
+  }
 
   String get heritage =>
       chosenAncestor == 1 ? ancestor1 : (chosenAncestor == 2 ? ancestor2 : '');
 
-  HeritageEntry? get heritageEntry =>
-      heritage.isEmpty ? null : gameData.heritageByResult(heritage);
+  /// The campaign title granted by Q20 for the chosen service.
+  String get horCampaignTitle => horServiceTitles[horService] ?? '';
+
+  HeritageEntry? get heritageEntry {
+    if (heritage.isEmpty) return null;
+    // Several campaign heritage results share a name with a Core entry; in
+    // HoR mode the campaign table must win the lookup.
+    if (horMode) {
+      for (final h in gameData.hor.heritage) {
+        if (h.result == heritage) return h;
+      }
+    }
+    return gameData.heritageByResult(heritage);
+  }
 
   // ---------------------------------------------------------------------
   // Heritage effect classification (page 6 buildq18UI, data-driven from
@@ -212,6 +294,11 @@ class WizardState {
     if (isSamurai) {
       bump(gameData.clanByName(clan)?.ringIncrease ?? '');
       bump(familyRing);
+    } else if (horMode) {
+      // HoR rōnin: any-ring clan block + background ring, no region or
+      // upbringing.
+      bump(horRoninRing);
+      bump(horBackgroundRing);
     } else {
       bump(gameData.regionByName(region)?.ringIncrease ?? '');
       bump(upbringingRing);
@@ -264,49 +351,110 @@ class WizardState {
     return effectKindOf(entry) == HeritageEffectKind.skill;
   }
 
+  /// Creation cap for [skill]: 3 as printed, 2 in HoR mode — where only the
+  /// Q13 mentor-disadvantage skill is exempt (the campaign's one exception).
+  int skillCap(String skill) {
+    if (!horMode) return 3;
+    if (q13PickedAdvantage == false && skill == q13Skill) return 3;
+    return 2;
+  }
+
+  /// Every source a skill rank comes from during creation, in page order.
+  /// Shared by [rawSkills] (which counts) and [unheldSkillOptions] (which
+  /// excludes) so the two can never drift; [includeHeritage] is off for the
+  /// unheld list, matching its pre-HoR behavior.
+  List<String> _skillSources({bool includeHeritage = true}) => [
+        ...gameData.clanByName(clan)?.skillIncrease != null && isSamurai
+            ? [gameData.clanByName(clan)!.skillIncrease]
+            : <String>[],
+        if (isSamurai)
+          ...gameData.familyByName(clan, family)?.skillIncrease ?? <String>[],
+        if (!isSamurai && !horMode)
+          gameData.regionByName(region)?.skillIncrease ?? '',
+        if (!isSamurai && horMode) ...[
+          gameData.hor.roninSkillIncrease,
+          ...horBackgroundSkills,
+        ],
+        ...upbringingSkills,
+        ...schoolSkills,
+        if (horMode) ...[horQ5Skill, horQ6Skill],
+        q7Skill,
+        q8Skill,
+        if (q13PickedAdvantage == false) q13Skill,
+        parentSkill,
+        if (includeHeritage && _heritageGrantsSkill()) q18OtherEffects,
+      ];
+
   /// Skill list before cap enforcement (page 7 calcSkills, pre-overflow).
   Map<String, int> rawSkills() {
-    final sources = <String>[
-      ...gameData.clanByName(clan)?.skillIncrease != null && isSamurai
-          ? [gameData.clanByName(clan)!.skillIncrease]
-          : <String>[],
-      if (isSamurai)
-        ...gameData.familyByName(clan, family)?.skillIncrease ?? <String>[],
-      if (!isSamurai) gameData.regionByName(region)?.skillIncrease ?? '',
-      ...upbringingSkills,
-      ...schoolSkills,
-      q7Skill,
-      q8Skill,
-      if (q13PickedAdvantage == false) q13Skill,
-      parentSkill,
-      if (_heritageGrantsSkill()) q18OtherEffects,
-    ];
     final skills = <String, int>{};
-    for (final skill in sources) {
+    for (final skill in _skillSources()) {
       if (skill.isEmpty) continue;
       skills[skill] = (skills[skill] ?? 0) + 1;
     }
     return skills;
   }
 
-  /// Final skill map with the creation cap of 3; overflow redistributed via
-  /// [replacementSkills].
+  /// Final skill map with the creation cap enforced; overflow redistributed
+  /// via [replacementSkills].
   ({Map<String, int> skills, int overflow}) calcSkills() {
     final skills = rawSkills();
     var overflow = 0;
     for (final entry in skills.entries.toList()) {
-      if (entry.value > 3) {
-        overflow += entry.value - 3;
-        skills[entry.key] = 3;
+      final cap = skillCap(entry.key);
+      if (entry.value > cap) {
+        overflow += entry.value - cap;
+        skills[entry.key] = cap;
       }
     }
     for (final replacement in replacementSkills) {
-      if (replacement.isNotEmpty && overflow > 0) {
-        skills[replacement] = (skills[replacement] ?? 0) + 1;
-        overflow--;
+      if (replacement.isEmpty || overflow <= 0) continue;
+      // HoR overflow must land under the cap too; stock keeps its original
+      // blind redistribution byte-for-byte.
+      if (horMode && (skills[replacement] ?? 0) >= skillCap(replacement)) {
+        continue;
       }
+      skills[replacement] = (skills[replacement] ?? 0) + 1;
+      overflow--;
     }
     return (skills: skills, overflow: overflow);
+  }
+
+  /// Grows [replacementSkills] so page 7 can offer one picker per overflow
+  /// point (cap 2 can overflow more than the stock three slots).
+  void ensureReplacementSkillSlots(int count) {
+    while (replacementSkills.length < count) {
+      replacementSkills.add('');
+    }
+  }
+
+  /// Writes replacement slot [index], growing the list as needed — so the
+  /// page-7 widgets never have to mutate the list during build.
+  void setReplacementSkill(int index, String value) {
+    ensureReplacementSkillSlots(index + 1);
+    replacementSkills[index] = value;
+  }
+
+  /// Clears HoR replacement picks whose skill has since reached its cap
+  /// (an earlier-page edit can push a picked skill to cap 2, which would
+  /// otherwise strand overflow behind a slot that renders blank). Simulates
+  /// the redistribution order [calcSkills] uses. No-op in stock mode.
+  void pruneStaleReplacementSkills() {
+    if (!horMode) return;
+    final skills = rawSkills();
+    for (final entry in skills.entries.toList()) {
+      final cap = skillCap(entry.key);
+      if (entry.value > cap) skills[entry.key] = cap;
+    }
+    for (var i = 0; i < replacementSkills.length; i++) {
+      final replacement = replacementSkills[i];
+      if (replacement.isEmpty) continue;
+      if ((skills[replacement] ?? 0) >= skillCap(replacement)) {
+        replacementSkills[i] = '';
+      } else {
+        skills[replacement] = (skills[replacement] ?? 0) + 1;
+      }
+    }
   }
 
   // ---------------------------------------------------------------------
@@ -314,6 +462,22 @@ class WizardState {
   // ---------------------------------------------------------------------
 
   List<String> schoolOptions() {
+    if (horMode) {
+      final bans = gameData.hor.bans;
+      if (isSamurai) {
+        // No cross-clan schools in HoR, so no unrestricted branch.
+        return [
+          for (final school in gameData.schoolsOf(clan))
+            if (!bans.schools.contains(school.name) &&
+                !bans.schoolBooks.contains(school.reference.book))
+              school.name
+        ];
+      }
+      return [
+        for (final name in bans.roninSchools)
+          if (gameData.schoolByName(name) != null) name
+      ];
+    }
     if (isSamurai) {
       final schools = unrestrictedSchool
           ? gameData.schools
@@ -343,23 +507,79 @@ class WizardState {
   /// — without it, picking a skill would immediately remove that skill from
   /// the very dropdown showing it.
   List<String> unheldSkillOptions({String except = ''}) {
-    final held = {
-      ...schoolSkills,
-      if (isSamurai) gameData.clanByName(clan)?.skillIncrease ?? '',
-      ...(isSamurai
-          ? gameData.familyByName(clan, family)?.skillIncrease ?? <String>[]
-          : <String>[]),
-      if (!isSamurai) gameData.regionByName(region)?.skillIncrease ?? '',
-      ...upbringingSkills,
-      q7Skill,
-      q8Skill,
-      if (q13PickedAdvantage == false) q13Skill,
-      parentSkill,
-    }..remove(except);
+    final held = {..._skillSources(includeHeritage: false)}..remove(except);
     return [
       for (final skill in gameData.allSkills())
         if (!held.contains(skill)) skill
     ];
+  }
+
+  // ---------------------------------------------------------------------
+  // Heroes of Rokugan option lists
+  // ---------------------------------------------------------------------
+
+  /// Advantage/disadvantage names for the HoR pickers: stock entries minus
+  /// the campaign ban list, plus the campaign's own additions.
+  List<String> horTraitNames(String category) {
+    final banned = {
+      ...gameData.hor.bans.advantages,
+      ...gameData.hor.bans.advantagesCreationOnly,
+    };
+    return [
+      for (final a in gameData.advDisadvByCategory(category))
+        if (!banned.contains(a.name)) a.name,
+      for (final a in gameData.horAdvDisadvByCategory(category)) a.name,
+    ];
+  }
+
+  /// HoR Q7 skill options. Positive: skills listed for another family of the
+  /// clan (rōnin backgrounds double as families). Negative: skills no family
+  /// of the clan lists. "Any"-style choice sets list nothing specific.
+  List<String> horQ7SkillOptions({required bool positive}) {
+    final allFamilySkills = <String>{};
+    final ownFamilySkills = <String>{};
+    if (isSamurai) {
+      for (final f in gameData.familiesOf(clan)) {
+        allFamilySkills.addAll(f.skillIncrease);
+        if (f.name == family) ownFamilySkills.addAll(f.skillIncrease);
+      }
+    } else {
+      for (final b in gameData.hor.roninBackgrounds) {
+        final skills = [for (final choice in b.skillChoices) ...choice];
+        allFamilySkills.addAll(skills);
+        if (b.name == horBackground) ownFamilySkills.addAll(skills);
+      }
+    }
+    if (positive) {
+      return allFamilySkills.difference(ownFamilySkills).toList()..sort();
+    }
+    return [
+      for (final skill in gameData.allSkills())
+        if (!allFamilySkills.contains(skill)) skill
+    ];
+  }
+
+  /// HoR Q19: one extra technique — from the school's available categories,
+  /// an unpicked starting-technique option, or a rank-1 curriculum
+  /// technique. All at school rank 1.
+  List<String> horQ19Options() {
+    final schoolData = gameData.schoolByName(school);
+    if (schoolData == null) return [];
+    final options = <String>{};
+    for (final category in schoolData.techniquesAvailable) {
+      for (final t
+          in gameData.techniquesByGroup(category, minRank: 1, maxRank: 1)) {
+        options.add(t.name);
+      }
+    }
+    for (final set in schoolData.startingTechniques) {
+      options.addAll(expandTechniqueOptions(set));
+    }
+    for (final c in schoolData.curriculum) {
+      if (c.rank == 1 && c.type == 'technique') options.add(c.advance);
+    }
+    options.removeAll(techChoices);
+    return options.toList()..sort();
   }
 
   /// Expands a school starting-technique option set like the original: a
@@ -503,6 +723,28 @@ class WizardState {
           'honorably in battle, and their signature $q18Special1 '
           '$q18Special2 $q18Secondary was lost. ');
     }
+    if (horMode) {
+      if (!isSamurai && horBackground.isNotEmpty) {
+        buffer.write('\n\n2. Rōnin Background: \n$horBackground');
+      }
+      if (horService.isNotEmpty) {
+        buffer.write('\n\n5. Service: \n$horService');
+      }
+      if (heritage == 'Battle of One Thousand Years' &&
+          q18Secondary.isNotEmpty) {
+        buffer.write('\n\n18. Battle of One Thousand Years: \nYour '
+            '$q18Secondary bears the Sacred and Forbidden qualities; it is '
+            'yours only while the Imperial Treasurer stays silent. If it is '
+            'lost, replace it with a normal version of the same item.');
+      }
+      if (horCampaignTitle.isNotEmpty) {
+        final title = gameData.titleByName(horCampaignTitle);
+        final stipend = title != null && title.stipendKoku > 0
+            ? ' (stipend: ${title.stipendKoku} koku per module)'
+            : '';
+        buffer.write('\n\n20. Campaign Title: \n$horCampaignTitle$stipend');
+      }
+    }
     buffer.write('\n\n20. Death:\n$q20Text');
     return buffer.toString();
   }
@@ -531,6 +773,24 @@ class WizardState {
       honor += heritageData?.honor ?? 0;
       glory += heritageData?.glory ?? 0;
       status += heritageData?.status ?? 0;
+    } else if (horMode) {
+      // HoR rōnin: campaign clan block + background, and the campaign
+      // heritage table applies to rōnin like everyone else.
+      status = gameData.hor.roninStatus;
+      final background = gameData.hor.backgroundByName(horBackground);
+      glory = background?.glory ?? 0;
+      final wealth = background?.startingWealth ?? const Price();
+      switch (wealth.unit) {
+        case 'koku':
+          koku = wealth.value;
+        case 'bu':
+          bu = wealth.value;
+        default:
+          zeni = wealth.value;
+      }
+      honor += heritageData?.honor ?? 0;
+      glory += heritageData?.glory ?? 0;
+      status += heritageData?.status ?? 0;
     } else {
       status = characterType == characterTypeRonin
           ? 24
@@ -549,8 +809,21 @@ class WizardState {
           zeni = wealth.value;
       }
     }
-    if (q7Positive == true) glory += 5;
-    if (q8Choice == 'pos') honor += 10;
+    if (horMode) {
+      // Q7/Q8 both carry a skill on either branch; the attribute swings are
+      // the campaign's (+5/−5 glory, +5/−3 honor).
+      if (q7Positive == true) glory += 5;
+      if (q7Positive == false) glory -= 5;
+      if (q8Choice == 'pos') honor += 5;
+      if (q8Choice == 'neg') honor -= 3;
+      // Heritage: Material Success (+5 koku).
+      if (heritageData?.otherEffects.type == 'Wealth') koku += 5;
+      // Q20: the mandatory campaign title sets Status to 40.
+      if (horCampaignTitle.isNotEmpty) status = 40;
+    } else {
+      if (q7Positive == true) glory += 5;
+      if (q8Choice == 'pos') honor += 10;
+    }
 
     character.honor = honor;
     character.glory = glory;
@@ -563,6 +836,12 @@ class WizardState {
       character.clan = clan;
       character.family = family;
       character.heritage = heritage;
+    } else if (horMode) {
+      // The background is not a family name anything downstream can look
+      // up (PDF export, derived stats), so it lives in the notes instead.
+      character.clan = characterTypeRonin;
+      character.family = '';
+      character.heritage = heritage;
     } else {
       character.clan = region;
       character.family = upbringing;
@@ -572,6 +851,9 @@ class WizardState {
       }
     }
     character.school = school;
+    if (horMode && horCampaignTitle.isNotEmpty) {
+      character.titles = [horCampaignTitle];
+    }
 
     character.baseRings = calcRings().rings;
     character.baseSkills = calcSkills().skills;
@@ -585,6 +867,9 @@ class WizardState {
         effectKindOf(heritageData) == HeritageEffectKind.technique &&
         q18Secondary.isNotEmpty) {
       character.techniques.add(q18Secondary);
+    }
+    if (horMode && horQ19Technique.isNotEmpty) {
+      character.techniques.add(horQ19Technique);
     }
 
     // Equipment.
@@ -622,10 +907,11 @@ class WizardState {
         items.addAll(itemsFor(piece));
       }
     }
-    if (!isSamurai) {
+    // Q14: the personal accessory is samurai-and-rōnin alike in HoR.
+    if (!isSamurai || horMode) {
       if (q14Item.isNotEmpty) items.addAll(itemsFor(q14Item));
-      if (q8Item.isNotEmpty) items.addAll(itemsFor(q8Item));
     }
+    if (!isSamurai && q8Item.isNotEmpty) items.addAll(itemsFor(q8Item));
     if (q16Item.isNotEmpty) items.addAll(itemsFor(q16Item));
 
     // Heritage items.
@@ -661,6 +947,16 @@ class WizardState {
           q18OtherEffects.isNotEmpty) {
         items.addAll(itemsFor(q18OtherEffects));
       }
+      // HoR Battle of One Thousand Years: mark the chosen outfit item.
+      if (horMode &&
+          heritageData.otherEffects.type == 'Outfit Item' &&
+          q18Secondary.isNotEmpty) {
+        for (final item in items) {
+          if (item.name == q18Secondary) {
+            item.qualities = [...item.qualities, 'Sacred', 'Forbidden'];
+          }
+        }
+      }
     }
     character.equipment = items;
 
@@ -687,11 +983,20 @@ class WizardState {
       }
       final auto = autoGrantedTraits[heritageData.result];
       if (auto != null) traits.add(auto);
+      // The adversity is the price of the marked item; grant neither
+      // without the other (page 6 validation requires the pick, this is
+      // the engine-level guarantee).
+      if (horMode &&
+          heritageData.otherEffects.type == 'Outfit Item' &&
+          q18Secondary.isNotEmpty) {
+        traits.add('Blackmailed by the Imperial Treasurer');
+      }
     }
     character.advDisadv = traits;
 
     character.ninjo = q6Text;
     character.giri = q5Text;
+    character.hor = horMode;
     character.notes = buildNotes();
     // Chargen is done: lock identity so the finished fields can't be edited
     // by accident. The user unlocks per-session via IdentityLockButton.

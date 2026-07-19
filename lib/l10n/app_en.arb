@@ -57,6 +57,94 @@
     }
   },
   "noHomebrewFilesFound": "No homebrew files found.",
+  "horSection": "Heroes of Rokugan",
+  "horModeTitle": "Heroes of Rokugan mode",
+  "horModeSubtitle": "New characters follow the Heroes of Rokugan 5 community campaign's creation rules (unofficial, not affiliated with the campaign or Edge Studio). heroes-of-rokugan.net",
+  "wizErrHorRoninRing": "Choose the rōnin ring increase.",
+  "wizErrHorBackground": "Choose a background.",
+  "wizErrHorBackgroundRing": "Choose the background ring increase.",
+  "wizErrHorBackgroundSkill": "Choose background skill increase {n}.",
+  "@wizErrHorBackgroundSkill": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "wizErrHorService": "Choose whom your character serves.",
+  "wizErrHorQ5Skill": "Choose a skill related to your giri.",
+  "wizErrHorQ6Skill": "Choose a skill related to your ninjō (different from Question 5).",
+  "wizErrHorAccessory": "Choose a personal accessory.",
+  "wizErrHorHeritage": "Choose a heritage result.",
+  "wizErrHorQ19": "Choose the extra technique for Question 19.",
+  "wizErrHorOutfitItem": "Choose which outfit item bears the Sacred and Forbidden qualities.",
+  "horRoninStatsLine": "Rōnin: +1 to any ring, +1 {skill}, Status {status}",
+  "@horRoninStatsLine": {
+    "placeholders": {
+      "skill": {
+        "type": "String"
+      },
+      "status": {
+        "type": "int"
+      }
+    }
+  },
+  "horRoninRingLabel": "Ring increase",
+  "horBackgroundLabel": "Background",
+  "horBackgroundStatsLine": "Glory {glory}, starting wealth {wealth}",
+  "@horBackgroundStatsLine": {
+    "placeholders": {
+      "glory": {
+        "type": "int"
+      },
+      "wealth": {
+        "type": "String"
+      }
+    }
+  },
+  "horBackgroundRingLabel": "Background ring increase",
+  "horBackgroundSkillN": "Background skill increase {n}",
+  "@horBackgroundSkillN": {
+    "placeholders": {
+      "n": {
+        "type": "int"
+      }
+    }
+  },
+  "horAllSchoolSkills": "+1 to every starting skill:",
+  "horServiceLabel": "Service",
+  "horRelatedSkill": "Related skill (+1)",
+  "horQ7Positive": "+5 glory and 1 rank in a skill listed for another family of your clan",
+  "horQ7Negative": "−5 glory and 1 rank in a skill no family of your clan lists",
+  "horQ8Pos": "+5 honor and 1 rank in a traditional samurai skill",
+  "horQ8Neg": "−3 honor and 1 rank in a skill unbefitting a samurai",
+  "horAccessoryRarity7": "Personal accessory (non-weapon, rarity 7 or lower)",
+  "horHeritageLabel": "Heritage (choose one)",
+  "horQ19TechniqueLabel": "Extra technique (school rank 1)",
+  "horCampaignTitleLine": "Campaign title: {title} — Status set to 40, stipend {stipend} koku per module.",
+  "@horCampaignTitleLine": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "stipend": {
+        "type": "int"
+      }
+    }
+  },
+  "horInstallPack": "Install errata pack",
+  "horInstallPackSubtitle": "Copies the campaign's school erratas and equipment changes into your homebrew folder. They apply to all play until removed.",
+  "horRemovePack": "Remove errata pack",
+  "horRemovePackSubtitle": "Removes only the entries the pack installed; your own homebrew is kept.",
+  "horPackInstalledMsg": "HoR errata pack installed ({count} schools).",
+  "@horPackInstalledMsg": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "horPackRemovedMsg": "HoR errata pack removed.",
   "aboutSection": "About",
   "aboutApp": "About Paper Blossoms",
   "aboutAppSubtitle": "Version, credits, and licenses.",

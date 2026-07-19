@@ -4,6 +4,7 @@ import '../character.dart';
 import '../data_l10n.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
+import '../hor_controller.dart';
 import '../l10n/l10n.dart';
 import '../rules_constants.dart';
 import 'pickers.dart';
@@ -14,7 +15,14 @@ import 'pickers.dart';
 Future<bool> addTitleFlow(BuildContext context) async {
   final options = [
     for (final title in gameData.titles)
-      if (!character.titles.contains(title.name)) title
+      if (!character.titles.contains(title.name)) title,
+    // Campaign titles are pickable when the mode is on OR the character
+    // itself was built under HoR rules — a saved HoR character keeps its
+    // campaign options even in a toggle-off session. (Re-adding one
+    // post-creation does not re-apply its Status 40.)
+    if (horController.value || character.hor)
+      for (final title in gameData.hor.titles)
+        if (!character.titles.contains(title.name)) title,
   ];
   final choice = await pick<Title>(
     context,

@@ -23,29 +23,24 @@ class Page1ClanFamily extends StatelessWidget {
         WizDropdown(
           label: context.l10n.characterTypeLabel,
           value: wizard.characterType,
-          options: const [
-            characterTypeSamurai,
-            characterTypeRonin,
-            'Peasant',
-            characterTypeGaijin,
-          ],
+          // HoR allows only Great Clan samurai and rōnin.
+          options: wizard.horMode
+              ? const [characterTypeSamurai, characterTypeRonin]
+              : const [
+                  characterTypeSamurai,
+                  characterTypeRonin,
+                  'Peasant',
+                  characterTypeGaijin,
+                ],
           onChanged: (value) {
-            wizard
-              ..characterType = value
-              ..clan = ''
-              ..family = ''
-              ..familyRing = ''
-              ..region = ''
-              ..upbringing = ''
-              ..upbringingRing = ''
-              ..upbringingSkills = ['', '', '']
-              ..school = ''
-              ..schoolSkills = [];
+            wizard.setCharacterType(value);
             onChanged();
           },
         ),
         if (wizard.isSamurai)
           ..._samuraiQuestions(context)
+        else if (wizard.horMode)
+          ..._horRoninQuestions(context)
         else
           ..._roninQuestions(context),
       ],
@@ -105,6 +100,68 @@ class Page1ClanFamily extends StatelessWidget {
             onChanged();
           },
         ),
+      ],
+    ];
+  }
+
+  /// HoR rōnin: fixed clan block (+1 any ring, +1 Survival, Status 22) and
+  /// a campaign background instead of region/upbringing.
+  List<Widget> _horRoninQuestions(BuildContext context) {
+    final l10n = context.l10n;
+    final hor = gameData.hor;
+    final background = hor.backgroundByName(wizard.horBackground);
+    List<String> orAny(List<String> options, List<String> all) =>
+        options.isEmpty ? all : options;
+    return [
+      QuestionHeader(l10n.wizQ1Clan),
+      Text(l10n.horRoninStatsLine(
+          trData(hor.roninSkillIncrease), hor.roninStatus)),
+      WizDropdown(
+        label: l10n.horRoninRingLabel,
+        value: wizard.horRoninRing,
+        options: gameData.ringNames(),
+        onChanged: (value) {
+          wizard.horRoninRing = value;
+          onChanged();
+        },
+      ),
+      QuestionHeader(l10n.wizQ2Family),
+      WizDropdown(
+        label: l10n.horBackgroundLabel,
+        value: wizard.horBackground,
+        options: [for (final b in hor.roninBackgrounds) b.name],
+        onChanged: (value) {
+          wizard.selectHorBackground(value);
+          onChanged();
+        },
+      ),
+      if (background != null) ...[
+        Text(l10n.horBackgroundStatsLine(
+            background.glory, '${background.startingWealth}')),
+        WizDropdown(
+          label: l10n.horBackgroundRingLabel,
+          value: wizard.horBackgroundRing,
+          options: orAny(background.ringOptions, gameData.ringNames()),
+          onChanged: (value) {
+            wizard.horBackgroundRing = value;
+            onChanged();
+          },
+        ),
+        // Bounded by the state list too: an injected state that predates
+        // [selectHorBackground] must not index past what it allocated.
+        for (var i = 0;
+            i < background.skillChoices.length &&
+                i < wizard.horBackgroundSkills.length;
+            i++)
+          WizDropdown(
+            label: l10n.horBackgroundSkillN(i + 1),
+            value: wizard.horBackgroundSkills[i],
+            options: orAny(background.skillChoices[i], gameData.allSkills()),
+            onChanged: (value) {
+              wizard.horBackgroundSkills[i] = value;
+              onChanged();
+            },
+          ),
       ],
     ];
   }

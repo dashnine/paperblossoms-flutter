@@ -1,0 +1,348 @@
+[
+  {
+    "name": "Swords",
+    "entries": [
+      {
+        "name": "Nodachi",
+        "reference": {
+          "book": "Core",
+          "page": 232
+        },
+        "skill": "Melee",
+        "range": {
+          "min": 1,
+          "max": 2
+        },
+        "damage": 5,
+        "deadliness": 6,
+        "grips": [
+          {
+            "name": "2-hand",
+            "effects": []
+          }
+        ],
+        "qualities": [
+          "Ceremonial",
+          "Razor-edged",
+          "Cumbersome",
+          "Wargear"
+        ],
+        "rarity": 8,
+        "price": {
+          "value": 20,
+          "unit": "koku"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Hand Weapons",
+    "entries": [
+      {
+        "name": "Jitte",
+        "reference": {
+          "book": "Core",
+          "page": 234
+        },
+        "skill": "Melee",
+        "range": {
+          "min": 0,
+          "max": 0
+        },
+        "damage": 3,
+        "deadliness": 2,
+        "grips": [
+          {
+            "name": "1-hand",
+            "effects": []
+          }
+        ],
+        "qualities": [
+          "Concealable",
+          "Snaring",
+          "Quick-draw"
+        ],
+        "rarity": 5,
+        "price": {
+          "value": 5,
+          "unit": "bu"
+        }
+      },
+      {
+        "name": "Knife",
+        "reference": {
+          "book": "Core",
+          "page": 234
+        },
+        "skill": "Melee",
+        "range": {
+          "min": 0,
+          "max": 0
+        },
+        "damage": 2,
+        "deadliness": 4,
+        "grips": [
+          {
+            "name": "1-hand",
+            "effects": []
+          },
+          {
+            "name": "2-hand",
+            "effects": [
+              {
+                "attribute": "deadliness",
+                "value_increase": 2
+              }
+            ]
+          }
+        ],
+        "qualities": [
+          "Concealable",
+          "Mundane",
+          "Razor-edged",
+          "Quick-draw"
+        ],
+        "rarity": 1,
+        "price": {
+          "value": 1,
+          "unit": "koku"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Specialist Weapons",
+    "entries": [
+      {
+        "name": "Kama",
+        "reference": {
+          "book": "Core",
+          "page": 237
+        },
+        "skill": "Melee",
+        "range": {
+          "min": 0,
+          "max": 1
+        },
+        "damage": 3,
+        "deadliness": 3,
+        "grips": [
+          {
+            "name": "1-hand",
+            "effects": []
+          }
+        ],
+        "qualities": [
+          "Concealable",
+          "Quick-draw"
+        ],
+        "rarity": 4,
+        "price": {
+          "value": 1,
+          "unit": "koku"
+        }
+      },
+      {
+        "name": "Shuriken",
+        "reference": {
+          "book": "Core",
+          "page": 237
+        },
+        "skill": "Melee",
+        "range": {
+          "min": 0,
+          "max": 0
+        },
+        "damage": 2,
+        "deadliness": 4,
+        "grips": [
+          {
+            "name": "1-hand (stab or slash)",
+            "effects": []
+          },
+          {
+            "name": "1-hand (thrown)",
+            "effects": [
+              {
+                "attribute": "skill",
+                "value": "Ranged"
+              },
+              {
+                "attribute": "range",
+                "value": {
+                  "min": 1,
+                  "max": 3
+                }
+              }
+            ]
+          }
+        ],
+        "qualities": [
+          "Concealable",
+          "Quick-draw"
+        ],
+        "rarity": 6,
+        "price": {
+          "value": 1,
+          "unit": "koku"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Axes",
+    "entries": [
+      {
+        "name": "Ichirō Sapper Ax",
+        "reference": {
+          "book": "FoV",
+          "page": 88
+        },
+        "skill": "Melee",
+        "range": {
+          "min": 1,
+          "max": 1
+        },
+        "damage": 3,
+        "deadliness": 4,
+        "grips": [
+          {
+            "name": "1-hand",
+            "effects": []
+          },
+          {
+            "name": "1-hand (Blunt)",
+            "effects": [
+              {
+                "attribute": "damage",
+                "value_increase": 2
+              },
+              {
+                "attribute": "deadliness",
+                "value_increase": -3
+              }
+            ]
+          }
+        ],
+        "qualities": [
+          "Durable"
+        ],
+        "rarity": 6,
+        "price": {
+          "value": 3,
+          "unit": "koku"
+        }
+      }
+    ]
+  },
+  {
+    "name": "Polearms",
+    "entries": [
+      {
+        "name": "Magari Yari",
+        "reference": {
+          "book": "FoV",
+          "page": 88
+        },
+        "skill": "Melee",
+        "range": {
+          "min": 2,
+          "max": 2
+        },
+        "damage": 7,
+        "deadliness": 4,
+        "grips": [
+          {
+            "name": "2-hand",
+            "effects": []
+          }
+        ],
+        "qualities": [
+          "Cumbersome",
+          "Razor-edged",
+          "Wargear"
+        ],
+        "rarity": 7,
+        "price": {
+          "value": 20,
+          "unit": "koku"
+        }
+      },
+      {
+        "name": "Nagae Yari",
+        "reference": {
+          "book": "FoV",
+          "page": 88
+        },
+        "skill": "Melee",
+        "range": {
+          "min": 2,
+          "max": 2
+        },
+        "damage": 5,
+        "deadliness": 2,
+        "grips": [
+          {
+            "name": "2-hand",
+            "effects": []
+          }
+        ],
+        "qualities": [
+          "Wargear"
+        ],
+        "rarity": 4,
+        "price": {
+          "value": 1,
+          "unit": "koku"
+        }
+      },
+      {
+        "name": "Nagamaki",
+        "reference": {
+          "book": "FoV",
+          "page": 88
+        },
+        "skill": "Melee",
+        "range": {
+          "min": 1,
+          "max": 2
+        },
+        "damage": 3,
+        "deadliness": 5,
+        "grips": [
+          {
+            "name": "1-hand",
+            "effects": [
+              {
+                "attribute": "quality",
+                "value": "Cumbersome"
+              }
+            ]
+          },
+          {
+            "name": "2-hand",
+            "effects": [
+              {
+                "attribute": "damage",
+                "value_increase": 2
+              },
+              {
+                "attribute": "deadliness",
+                "value_increase": 2
+              }
+            ]
+          }
+        ],
+        "qualities": [
+          "Razor-edged",
+          "Wargear"
+        ],
+        "rarity": 8,
+        "price": {
+          "value": 30,
+          "unit": "koku"
+        }
+      }
+    ]
+  }
+]

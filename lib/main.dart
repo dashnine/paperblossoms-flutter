@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 
 import 'data_l10n.dart';
 import 'game_data.dart';
+import 'hor_controller.dart';
 import 'l10n/l10n.dart';
 import 'locale_controllers.dart';
 import 'screens/character_chooser.dart';
@@ -13,6 +14,7 @@ import 'user_data_store.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   _registerFontLicenses();
+  await horController.load();
   await gameData.load();
   await userDataStore.loadDescriptions();
   await userDataStore.loadHomebrew();

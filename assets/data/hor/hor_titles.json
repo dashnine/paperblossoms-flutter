@@ -1,0 +1,116 @@
+[
+  {
+    "name": "Agent of the Clan Champion",
+    "reference": { "book": "HoR5", "page": 0 },
+    "xp_to_completion": 30,
+    "title_ability": "Champion's Authority",
+    "stipend_koku": 5,
+    "advancements": [
+      { "name": "Social skills", "type": "skill_group", "special_access": false },
+      { "name": "Scholar skills", "type": "skill_group", "special_access": false },
+      { "name": "Martial skills", "type": "skill_group", "special_access": false },
+      { "name": "Composition", "type": "skill", "special_access": false },
+      { "name": "Shūji", "type": "technique_group", "special_access": true, "rank": 2 },
+      { "name": "Any technique with a clan Kami's name", "type": "technique_group", "special_access": false },
+      { "name": "Treaty Signing", "type": "technique", "special_access": true }
+    ],
+    "social_awards": [
+      { "base_award": 40, "constraint": { "type": "equals", "value": 40 }, "award_attribute": "status" }
+    ]
+  },
+  {
+    "name": "Emerald Magistrate (HoR)",
+    "reference": { "book": "HoR5", "page": 0 },
+    "xp_to_completion": 30,
+    "title_ability": "Voice of Authority",
+    "stipend_koku": 6,
+    "advancements": [
+      { "name": "Trade skills", "type": "skill_group", "special_access": false },
+      { "name": "Command", "type": "skill", "special_access": false },
+      { "name": "Government", "type": "skill", "special_access": false },
+      { "name": "Tactics", "type": "skill", "special_access": false },
+      { "name": "Kata", "type": "technique_group", "special_access": true, "rank": 2 },
+      { "name": "Shallow Waters", "type": "technique", "special_access": true },
+      { "name": "Truth Burns through Lies", "type": "technique", "special_access": true }
+    ],
+    "social_awards": [
+      { "base_award": 40, "constraint": { "type": "equals", "value": 40 }, "award_attribute": "status" }
+    ]
+  },
+  {
+    "name": "Imperial Bureaucrat",
+    "reference": { "book": "HoR5", "page": 0 },
+    "xp_to_completion": 30,
+    "title_ability": "The Gears Turn",
+    "stipend_koku": 6,
+    "advancements": [
+      { "name": "Social skills", "type": "skill_group", "special_access": false },
+      { "name": "Composition", "type": "skill", "special_access": false },
+      { "name": "Government", "type": "skill", "special_access": false },
+      { "name": "Sentiment", "type": "skill", "special_access": false },
+      { "name": "Shūji", "type": "technique_group", "special_access": true, "rank": 2 },
+      { "name": "Touchstone of Courage", "type": "technique", "special_access": true },
+      { "name": "Treaty Signing", "type": "technique", "special_access": true }
+    ],
+    "social_awards": [
+      { "base_award": 40, "constraint": { "type": "equals", "value": 40 }, "award_attribute": "status" }
+    ]
+  },
+  {
+    "name": "Imperial Courtier",
+    "reference": { "book": "HoR5", "page": 0 },
+    "xp_to_completion": 30,
+    "title_ability": "Days of Leisure",
+    "stipend_koku": 6,
+    "advancements": [
+      { "name": "Artisan skills", "type": "skill_group", "special_access": false },
+      { "name": "Courtesy", "type": "skill", "special_access": false },
+      { "name": "Performance", "type": "skill", "special_access": false },
+      { "name": "Culture", "type": "skill", "special_access": false },
+      { "name": "Shūji", "type": "technique_group", "special_access": true, "rank": 2 },
+      { "name": "Civility Foremost", "type": "technique", "special_access": true },
+      { "name": "Treaty Signing", "type": "technique", "special_access": true }
+    ],
+    "social_awards": [
+      { "base_award": 40, "constraint": { "type": "equals", "value": 40 }, "award_attribute": "status" }
+    ]
+  },
+  {
+    "name": "Imperial Legionnaire",
+    "reference": { "book": "HoR5", "page": 0 },
+    "xp_to_completion": 30,
+    "title_ability": "Stronger Together",
+    "stipend_koku": 5,
+    "advancements": [
+      { "name": "Martial skills", "type": "skill_group", "special_access": false },
+      { "name": "Command", "type": "skill", "special_access": false },
+      { "name": "Government", "type": "skill", "special_access": false },
+      { "name": "Survival", "type": "skill", "special_access": false },
+      { "name": "Kata", "type": "technique_group", "special_access": true, "rank": 2 },
+      { "name": "Blessing of Steel", "type": "technique", "special_access": true },
+      { "name": "Pack Gambit", "type": "technique", "special_access": true }
+    ],
+    "social_awards": [
+      { "base_award": 40, "constraint": { "type": "equals", "value": 40 }, "award_attribute": "status" }
+    ]
+  },
+  {
+    "name": "Jade Magistrate",
+    "reference": { "book": "HoR5", "page": 0 },
+    "xp_to_completion": 30,
+    "title_ability": "Spirit of Imperial Authority",
+    "stipend_koku": 5,
+    "advancements": [
+      { "name": "Scholar skills", "type": "skill_group", "special_access": false },
+      { "name": "Command", "type": "skill", "special_access": false },
+      { "name": "Fitness", "type": "skill", "special_access": false },
+      { "name": "Survival", "type": "skill", "special_access": false },
+      { "name": "Shūji", "type": "technique_group", "special_access": true, "rank": 2 },
+      { "name": "Cleansing Rite", "type": "technique", "special_access": true },
+      { "name": "Commune with the Spirits", "type": "technique", "special_access": true }
+    ],
+    "social_awards": [
+      { "base_award": 40, "constraint": { "type": "equals", "value": 40 }, "award_attribute": "status" }
+    ]
+  }
+]

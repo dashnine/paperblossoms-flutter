@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../character_store.dart';
 import '../data_l10n.dart';
 import '../game_data.dart';
+import '../hor_controller.dart';
 import '../l10n/l10n.dart';
 import '../layout.dart';
 import '../screens/character_editor.dart';
@@ -24,15 +25,21 @@ class NewCharacterWizard extends StatefulWidget {
   /// Injectable for tests; production always starts blank.
   final WizardState? initialState;
 
-  const NewCharacterWizard({super.key, this.initialState});
+  /// Starting page (0-6), for tests and previews; production starts at 0.
+  final int initialPage;
+
+  const NewCharacterWizard({super.key, this.initialState, this.initialPage = 0});
 
   @override
   State<NewCharacterWizard> createState() => _NewCharacterWizardState();
 }
 
 class _NewCharacterWizardState extends State<NewCharacterWizard> {
-  late final WizardState wizard = widget.initialState ?? WizardState();
-  int _page = 0;
+  // HoR mode is captured once at construction so a wizard in flight can
+  // never change rulesets; injected test states carry their own flag.
+  late final WizardState wizard =
+      widget.initialState ?? (WizardState()..horMode = horController.value);
+  late int _page = widget.initialPage;
 
   List<String> _titles(AppLocalizations l10n) => [
     l10n.wizPart1,
@@ -55,6 +62,20 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
           if (wizard.familyRing.isEmpty) {
             return l10n.wizErrChooseFamilyRing;
           }
+        } else if (wizard.horMode) {
+          if (wizard.horRoninRing.isEmpty) return l10n.wizErrHorRoninRing;
+          if (wizard.horBackground.isEmpty) return l10n.wizErrHorBackground;
+          final background =
+              gameData.hor.backgroundByName(wizard.horBackground);
+          if (wizard.horBackgroundRing.isEmpty) {
+            return l10n.wizErrHorBackgroundRing;
+          }
+          final choices = background?.skillChoices ?? [];
+          for (var i = 0; i < choices.length; i++) {
+            if (wizard.horBackgroundSkills[i].isEmpty) {
+              return l10n.wizErrHorBackgroundSkill(i + 1);
+            }
+          }
         } else {
           if (wizard.region.isEmpty) return l10n.wizErrChooseRegion;
           if (wizard.upbringing.isEmpty) {
@@ -76,7 +97,10 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
       case 1:
         final school = gameData.schoolByName(wizard.school);
         if (school == null) return l10n.wizErrChooseSchool;
-        if (wizard.schoolSkills.length < school.startingSkills.size) {
+        // HoR grants every starting skill automatically; there is no count
+        // to check.
+        if (!wizard.horMode &&
+            wizard.schoolSkills.length < school.startingSkills.size) {
           return l10n.wizErrInsufficientSkills;
         }
         if (wizard.ringChoices.any((ring) => ring.isEmpty)) {
@@ -90,16 +114,29 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
         }
         return null;
       case 2:
+        if (wizard.horMode) {
+          if (wizard.horService.isEmpty) return l10n.wizErrHorService;
+          if (wizard.horQ5Skill.isEmpty) return l10n.wizErrHorQ5Skill;
+          if (wizard.horQ6Skill.isEmpty ||
+              wizard.horQ6Skill == wizard.horQ5Skill) {
+            return l10n.wizErrHorQ6Skill;
+          }
+        }
         if (wizard.q7Positive == null) {
           return l10n.wizErrQ7Option;
         }
-        if (wizard.q7Positive == false && wizard.q7Skill.isEmpty) {
+        // HoR: both Q7 branches carry a skill; stock only the negative one.
+        if ((wizard.q7Positive == false || wizard.horMode) &&
+            wizard.q7Positive != null &&
+            wizard.q7Skill.isEmpty) {
           return l10n.wizErrQ7Skill;
         }
         if (wizard.q8Choice.isEmpty) {
           return l10n.wizErrQ8Option;
         }
-        if (wizard.q8Choice == 'neg' && wizard.q8Skill.isEmpty) {
+        if ((wizard.q8Choice == 'neg' ||
+                (wizard.horMode && wizard.q8Choice == 'pos')) &&
+            wizard.q8Skill.isEmpty) {
           return l10n.wizErrQ8Skill;
         }
         if (wizard.q8Choice == 'mid' && wizard.q8Item.isEmpty) {
@@ -130,13 +167,30 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
         }
         return null;
       case 4:
+        if (wizard.horMode && wizard.q14Item.isEmpty) {
+          return l10n.wizErrHorAccessory;
+        }
         if (wizard.q16Item.isEmpty) {
           return l10n.wizErrQ16Item;
         }
         return null;
       case 5:
+        // The campaign heritage table is chosen, not rolled, and mandatory.
+        if (wizard.horMode && wizard.heritage.isEmpty) {
+          return l10n.wizErrHorHeritage;
+        }
+        // Battle of One Thousand Years pairs an adversity with a marked
+        // outfit item; the item pick cannot be skipped.
+        if (wizard.horMode &&
+            wizard.heritageEntry?.otherEffects.type == 'Outfit Item' &&
+            wizard.q18Secondary.isEmpty) {
+          return l10n.wizErrHorOutfitItem;
+        }
         return null;
       case 6:
+        if (wizard.horMode && wizard.horQ19Technique.isEmpty) {
+          return l10n.wizErrHorQ19;
+        }
         if (wizard.calcRings().overflow > 0) {
           return l10n.wizErrReplacementRings;
         }
@@ -150,6 +204,10 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
   }
 
   Future<void> _next() async {
+    // An earlier-page edit can push a picked replacement skill to its HoR
+    // cap; clear such stale picks so overflow accounting stays honest
+    // before validation looks at it. No-op in stock mode.
+    wizard.pruneStaleReplacementSkills();
     final error = _validate(_page);
     if (error != null) {
       ScaffoldMessenger.of(

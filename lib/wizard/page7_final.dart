@@ -19,6 +19,18 @@ class Page7Final extends StatelessWidget {
   Widget build(BuildContext context) {
     final rings = wizard.calcRings();
     final skills = wizard.calcSkills();
+    // Cap 2 can overflow past the stock three replacement slots. The extra
+    // slots are computed locally and only materialized in state when a pick
+    // is made (setReplacementSkill) — build must not mutate the wizard.
+    var skillSlots = wizard.replacementSkills.length;
+    if (wizard.horMode) {
+      final filled =
+          wizard.replacementSkills.where((s) => s.isNotEmpty).length;
+      final needed = filled + skills.overflow;
+      if (needed > skillSlots) skillSlots = needed;
+    }
+    String slotValue(int i) =>
+        i < wizard.replacementSkills.length ? wizard.replacementSkills[i] : '';
     final ringText = [
       for (final entry in rings.rings.entries)
         '${trData(entry.key)} ${entry.value}'
@@ -41,12 +53,31 @@ class Page7Final extends StatelessWidget {
             onChanged();
           },
         ),
+        // HoR Q19: the name question also grants one extra technique.
+        if (wizard.horMode)
+          WizDropdown(
+            label: context.l10n.horQ19TechniqueLabel,
+            value: wizard.horQ19Technique,
+            options: wizard.horQ19Options(),
+            onChanged: (value) {
+              wizard.horQ19Technique = value;
+              onChanged();
+            },
+          ),
         QuestionHeader(context.l10n.wizQ20),
         TextFormField(
           initialValue: wizard.q20Text,
           decoration: InputDecoration(labelText: context.l10n.answerOptional),
           onChanged: (value) => wizard.q20Text = value,
         ),
+        if (wizard.horMode && wizard.horCampaignTitle.isNotEmpty)
+          Padding(
+            padding: const EdgeInsets.only(top: 8),
+            child: Text(context.l10n.horCampaignTitleLine(
+                wizard.horCampaignTitle,
+                gameData.titleByName(wizard.horCampaignTitle)?.stipendKoku ??
+                    0)),
+          ),
         QuestionHeader(context.l10n.ringsSection),
         Text(ringText),
         if (rings.overflow > 0) ...[
@@ -76,17 +107,18 @@ class Page7Final extends StatelessWidget {
             context.l10n.skillOverflowMsg(skills.overflow),
             style: TextStyle(color: Theme.of(context).colorScheme.error),
           ),
-          for (var i = 0; i < 3; i++)
-            if (i == 0 || wizard.replacementSkills[i - 1].isNotEmpty)
+          for (var i = 0; i < skillSlots; i++)
+            if (i == 0 || slotValue(i - 1).isNotEmpty)
               WizDropdown(
                 label: context.l10n.replacementSkillN(i + 1),
-                value: wizard.replacementSkills[i],
+                value: slotValue(i),
                 options: [
                   for (final skill in gameData.allSkills())
-                    if ((skills.skills[skill] ?? 0) < 3) skill
+                    if ((skills.skills[skill] ?? 0) < wizard.skillCap(skill))
+                      skill
                 ],
                 onChanged: (value) {
-                  wizard.replacementSkills[i] = value;
+                  wizard.setReplacementSkill(i, value);
                   onChanged();
                 },
               ),

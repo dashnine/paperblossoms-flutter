@@ -20,7 +20,10 @@ class Page2School extends StatelessWidget {
     final school = gameData.schoolByName(name);
     wizard
       ..school = name
-      ..schoolSkills = []
+      // HoR: +1 in every listed starting skill, no picking.
+      ..schoolSkills = wizard.horMode
+          ? [...school?.startingSkills.options ?? <String>[]]
+          : []
       ..kitsuneSchool = ''
       ..schoolOtherChoice = '';
     // One slot per school ring increase; fixed rings are pre-filled.
@@ -68,15 +71,17 @@ class Page2School extends StatelessWidget {
         QuestionHeader(wizard.isSamurai
             ? context.l10n.wizQ3Samurai
             : context.l10n.wizQ3Ronin),
-        CheckboxListTile(
-          dense: true,
-          title: Text(context.l10n.showSchoolsOutsideClan),
-          value: wizard.unrestrictedSchool,
-          onChanged: (value) {
-            wizard.unrestrictedSchool = value ?? false;
-            onChanged();
-          },
-        ),
+        // HoR bans cross-clan schools outright.
+        if (!wizard.horMode)
+          CheckboxListTile(
+            dense: true,
+            title: Text(context.l10n.showSchoolsOutsideClan),
+            value: wizard.unrestrictedSchool,
+            onChanged: (value) {
+              wizard.unrestrictedSchool = value ?? false;
+              onChanged();
+            },
+          ),
         WizDropdown(
           label: context.l10n.schoolLabel,
           value: wizard.school,
@@ -123,29 +128,43 @@ class Page2School extends StatelessWidget {
       ));
     }
 
-    // Skills.
-    widgets.add(QuestionHeader(context.l10n.chooseSchoolSkills(
-        school.startingSkills.size, wizard.schoolSkills.length)));
-    widgets.add(Wrap(
-      spacing: 8,
-      runSpacing: 4,
-      children: [
-        for (final skill in school.startingSkills.options)
-          FilterChip(
-            label: Text(trData(skill)),
-            selected: wizard.schoolSkills.contains(skill),
-            onSelected: (selected) {
-              if (selected &&
-                  wizard.schoolSkills.length < school.startingSkills.size) {
-                wizard.schoolSkills.add(skill);
-              } else if (!selected) {
-                wizard.schoolSkills.remove(skill);
-              }
-              onChanged();
-            },
-          ),
-      ],
-    ));
+    // Skills. HoR grants every listed skill; the book has the player choose
+    // all but two.
+    if (wizard.horMode) {
+      widgets.add(QuestionHeader(context.l10n.horAllSchoolSkills));
+      widgets.add(Wrap(
+        spacing: 8,
+        runSpacing: 4,
+        children: [
+          for (final skill in school.startingSkills.options)
+            Chip(label: Text(trData(skill))),
+        ],
+      ));
+    } else {
+      widgets.add(QuestionHeader(context.l10n.chooseSchoolSkills(
+          school.startingSkills.size, wizard.schoolSkills.length)));
+      widgets.add(Wrap(
+        spacing: 8,
+        runSpacing: 4,
+        children: [
+          for (final skill in school.startingSkills.options)
+            FilterChip(
+              label: Text(trData(skill)),
+              selected: wizard.schoolSkills.contains(skill),
+              onSelected: (selected) {
+                if (selected &&
+                    wizard.schoolSkills.length <
+                        school.startingSkills.size) {
+                  wizard.schoolSkills.add(skill);
+                } else if (!selected) {
+                  wizard.schoolSkills.remove(skill);
+                }
+                onChanged();
+              },
+            ),
+        ],
+      ));
+    }
 
     // Rings.
     final anyRingIndexes = [

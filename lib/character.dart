@@ -68,6 +68,10 @@ class Character extends ChangeNotifier {
   List<CharacterBond> bonds = [];
   String portraitB64 = '';
 
+  /// Built under Heroes of Rokugan campaign rules. Serialized only when
+  /// true so stock save files stay byte-identical.
+  bool hor = false;
+
   /// When true, the rarely-changing identity fields (name, family, ninjō,
   /// giri) are read-only in the editor so they can't be edited accidentally.
   bool identityLocked = false;
@@ -128,6 +132,7 @@ class Character extends ChangeNotifier {
     equipment = [];
     bonds = [];
     portraitB64 = '';
+    hor = false;
     identityLocked = false;
     dirty = false;
     notifyListeners();
@@ -165,6 +170,7 @@ class Character extends ChangeNotifier {
     equipment = [for (final e in json['equipment'] ?? []) Item.fromJson(e)];
     bonds = [for (final b in json['bonds'] ?? []) CharacterBond.fromJson(b)];
     portraitB64 = json['portrait'] ?? '';
+    hor = json['hor'] ?? false;
     // A freshly loaded character always starts locked so its identity fields
     // can't be edited by accident; the user unlocks per-session via
     // IdentityLockButton. The persisted `identity_locked` is intentionally
@@ -204,6 +210,7 @@ class Character extends ChangeNotifier {
         'equipment': [for (final e in equipment) e.toJson()],
         'bonds': [for (final b in bonds) b.toJson()],
         'portrait': portraitB64,
+        if (hor) 'hor': true,
         'identity_locked': identityLocked,
       };
 }

@@ -110,6 +110,140 @@ class AppLocalizationsDe extends AppLocalizations {
   String get noHomebrewFilesFound => 'Keine Homebrew-Dateien gefunden.';
 
   @override
+  String get horSection => 'Heroes of Rokugan';
+
+  @override
+  String get horModeTitle => 'Heroes-of-Rokugan-Modus';
+
+  @override
+  String get horModeSubtitle =>
+      'Neue Charaktere folgen den Erschaffungsregeln der Community-Kampagne Heroes of Rokugan 5 (inoffiziell, nicht mit der Kampagne oder Edge Studio verbunden). heroes-of-rokugan.net';
+
+  @override
+  String get wizErrHorRoninRing => 'Wähle die Ring-Steigerung des Rōnin.';
+
+  @override
+  String get wizErrHorBackground => 'Wähle einen Hintergrund.';
+
+  @override
+  String get wizErrHorBackgroundRing => 'Wähle den Ring des Hintergrunds.';
+
+  @override
+  String wizErrHorBackgroundSkill(int n) {
+    return 'Wähle Hintergrund-Fertigkeit $n.';
+  }
+
+  @override
+  String get wizErrHorService => 'Wähle, wem dein Charakter dient.';
+
+  @override
+  String get wizErrHorQ5Skill =>
+      'Wähle eine Fertigkeit passend zu deinem Giri.';
+
+  @override
+  String get wizErrHorQ6Skill =>
+      'Wähle eine Fertigkeit passend zu deinem Ninjō (nicht dieselbe wie in Frage 5).';
+
+  @override
+  String get wizErrHorAccessory => 'Wähle ein persönliches Accessoire.';
+
+  @override
+  String get wizErrHorHeritage => 'Wähle ein Erbe-Ergebnis.';
+
+  @override
+  String get wizErrHorQ19 => 'Wähle die zusätzliche Technik für Frage 19.';
+
+  @override
+  String get wizErrHorOutfitItem =>
+      'Wähle, welcher Ausrüstungsgegenstand die Eigenschaften Heilig und Verboten trägt.';
+
+  @override
+  String horRoninStatsLine(String skill, int status) {
+    return 'Rōnin: +1 auf einen beliebigen Ring, +1 $skill, Status $status';
+  }
+
+  @override
+  String get horRoninRingLabel => 'Ring-Steigerung';
+
+  @override
+  String get horBackgroundLabel => 'Hintergrund';
+
+  @override
+  String horBackgroundStatsLine(int glory, String wealth) {
+    return 'Ruhm $glory, Startvermögen $wealth';
+  }
+
+  @override
+  String get horBackgroundRingLabel => 'Ring des Hintergrunds';
+
+  @override
+  String horBackgroundSkillN(int n) {
+    return 'Hintergrund-Fertigkeit $n';
+  }
+
+  @override
+  String get horAllSchoolSkills => '+1 auf jede Startfertigkeit:';
+
+  @override
+  String get horServiceLabel => 'Dienst';
+
+  @override
+  String get horRelatedSkill => 'Zugehörige Fertigkeit (+1)';
+
+  @override
+  String get horQ7Positive =>
+      '+5 Ruhm und 1 Rang in einer Fertigkeit einer anderen Familie deines Klans';
+
+  @override
+  String get horQ7Negative =>
+      '−5 Ruhm und 1 Rang in einer Fertigkeit, die keine Familie deines Klans bietet';
+
+  @override
+  String get horQ8Pos =>
+      '+5 Ehre und 1 Rang in einer traditionellen Samurai-Fertigkeit';
+
+  @override
+  String get horQ8Neg =>
+      '−3 Ehre und 1 Rang in einer für Samurai unschicklichen Fertigkeit';
+
+  @override
+  String get horAccessoryRarity7 =>
+      'Persönliches Accessoire (keine Waffe, Seltenheit 7 oder niedriger)';
+
+  @override
+  String get horHeritageLabel => 'Erbe (eines wählen)';
+
+  @override
+  String get horQ19TechniqueLabel => 'Zusätzliche Technik (Schulrang 1)';
+
+  @override
+  String horCampaignTitleLine(String title, int stipend) {
+    return 'Kampagnentitel: $title — Status auf 40 gesetzt, Sold $stipend Koku pro Modul.';
+  }
+
+  @override
+  String get horInstallPack => 'Errata-Paket installieren';
+
+  @override
+  String get horInstallPackSubtitle =>
+      'Kopiert die Schul-Erratas und Ausrüstungsänderungen der Kampagne in deinen Homebrew-Ordner. Sie gelten für alles Spiel, bis sie entfernt werden.';
+
+  @override
+  String get horRemovePack => 'Errata-Paket entfernen';
+
+  @override
+  String get horRemovePackSubtitle =>
+      'Entfernt nur die vom Paket installierten Einträge; dein eigenes Homebrew bleibt erhalten.';
+
+  @override
+  String horPackInstalledMsg(int count) {
+    return 'HoR-Errata-Paket installiert ($count Schulen).';
+  }
+
+  @override
+  String get horPackRemovedMsg => 'HoR-Errata-Paket entfernt.';
+
+  @override
   String get aboutSection => 'Über';
 
   @override

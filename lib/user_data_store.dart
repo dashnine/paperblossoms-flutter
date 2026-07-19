@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:io';
 
+import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
 
 import 'game_data.dart';
@@ -321,9 +322,16 @@ class UserDataStore {
     failedHomebrewFiles.clear();
     homebrewSchools = [];
     final dir = await homebrewDir();
+    // The pack-only kinds mutate stock data (replace/remove), so they are
+    // honored only when the HoR errata pack's manifest says they belong to
+    // it — a same-named file from any other origin stays ignored, exactly
+    // as unrecognized kinds were before the pack existed.
+    final packInstalled =
+        await File('${dir.path}/$_horManifestName').exists();
     await for (final entity in dir.list()) {
       if (entity is! File || !entity.path.endsWith('.json')) continue;
       final name = entity.uri.pathSegments.last;
+      if (!packInstalled && horPackFiles.contains(name)) continue;
       try {
         final raw = jsonDecode(await entity.readAsString()) as List<dynamic>;
         if (_mergeHomebrew(name.replaceAll('.json', ''), raw)) {
@@ -408,10 +416,141 @@ class UserDataStore {
             for (final e in category['entries'] ?? [])
               Weapon.fromJson(e, category: category['name'] ?? ''),
         ]);
+      // The two kinds below exist for the Heroes of Rokugan errata pack;
+      // plain `weapons` stays append-only so existing homebrew behaves
+      // exactly as before. Files with these names only exist after an
+      // explicit pack install (or a user authoring them deliberately).
+      case 'weapon_overrides':
+        final incoming = [
+          for (final category in raw)
+            for (final e in category['entries'] ?? [])
+              Weapon.fromJson(e, category: category['name'] ?? ''),
+        ];
+        final names = {for (final w in incoming) w.name};
+        gameData.weapons.removeWhere((w) => names.contains(w.name));
+        gameData.weapons.addAll(incoming);
+      case 'removals':
+        for (final entry in raw) {
+          final names = {for (final n in entry['names'] ?? []) '$n'};
+          switch (entry['kind']) {
+            case 'weapons':
+              gameData.weapons.removeWhere((w) => names.contains(w.name));
+            case 'armor':
+              gameData.armor.removeWhere((a) => names.contains(a.name));
+            case 'personal_effects':
+              gameData.personalEffects
+                  .removeWhere((p) => names.contains(p.name));
+          }
+        }
       default:
         return false;
     }
     return true;
+  }
+
+  // ---- Heroes of Rokugan errata pack ----
+  //
+  // The pack ships bundled but inert under assets/data/hor/pack/ and is
+  // only ever applied by copying it into the homebrew store on explicit
+  // install. A manifest (deliberately not named *.json so [loadHomebrew]
+  // skips it) records what the pack owns so uninstall leaves the user's
+  // own homebrew untouched.
+
+  static const horPackFiles = ['weapon_overrides.json', 'removals.json'];
+  static const _horManifestName = 'hor_pack_manifest';
+
+  Future<bool> horPackInstalled() async {
+    final dir = await homebrewDir();
+    return File('${dir.path}/$_horManifestName').exists();
+  }
+
+  /// Installs the pack: schools merge by name through the same path the
+  /// school-builder import uses (existing custom schools survive), pack
+  /// qualities append to any existing homebrew qualities.json, and the
+  /// wholly pack-owned files are copied verbatim. Returns the school count.
+  Future<int> installHorPack() async {
+    final dir = await homebrewDir();
+    final schoolsJson =
+        await rootBundle.loadString('assets/data/hor/pack/schools.json');
+    final count = await importHomebrewSchools(schoolsJson);
+
+    final packQualities = jsonDecode(await rootBundle
+        .loadString('assets/data/hor/pack/qualities.json')) as List;
+    final qualitiesFile = File('${dir.path}/qualities.json');
+    var existing = <dynamic>[];
+    if (await qualitiesFile.exists()) {
+      try {
+        existing = jsonDecode(await qualitiesFile.readAsString()) as List;
+      } catch (_) {
+        // Leave an unreadable user file alone; the pack entries still merge.
+        existing = [];
+      }
+    }
+    final have = {for (final e in existing) '${e['name']}'};
+    final addedQualities = [
+      for (final e in packQualities)
+        if (!have.contains('${e['name']}')) e,
+    ];
+    if (addedQualities.isNotEmpty) {
+      await qualitiesFile
+          .writeAsString(jsonEncode([...existing, ...addedQualities]));
+    }
+
+    for (final name in horPackFiles) {
+      final content =
+          await rootBundle.loadString('assets/data/hor/pack/$name');
+      await File('${dir.path}/$name').writeAsString(content);
+    }
+
+    await File('${dir.path}/$_horManifestName').writeAsString(jsonEncode({
+      'schools': [for (final e in jsonDecode(schoolsJson)) '${e['name']}'],
+      'qualities': [for (final e in addedQualities) '${e['name']}'],
+      'files': horPackFiles,
+    }));
+    await reloadAll();
+    return count;
+  }
+
+  /// Removes exactly what the manifest says the pack owns, then reloads.
+  Future<void> uninstallHorPack() async {
+    final dir = await homebrewDir();
+    final manifestFile = File('${dir.path}/$_horManifestName');
+    if (!await manifestFile.exists()) return;
+    Map<String, dynamic> manifest = {};
+    try {
+      manifest = jsonDecode(await manifestFile.readAsString());
+    } catch (_) {}
+
+    final schoolNames = {for (final n in manifest['schools'] ?? []) '$n'};
+    if (schoolNames.isNotEmpty) {
+      homebrewSchools.removeWhere((s) => schoolNames.contains(s.name));
+      await _writeHomebrewSchools(homebrewSchools);
+    }
+
+    final qualityNames = {for (final n in manifest['qualities'] ?? []) '$n'};
+    final qualitiesFile = File('${dir.path}/qualities.json');
+    if (qualityNames.isNotEmpty && await qualitiesFile.exists()) {
+      try {
+        final existing =
+            jsonDecode(await qualitiesFile.readAsString()) as List;
+        final kept = [
+          for (final e in existing)
+            if (!qualityNames.contains('${e['name']}')) e,
+        ];
+        if (kept.isEmpty) {
+          await qualitiesFile.delete();
+        } else {
+          await qualitiesFile.writeAsString(jsonEncode(kept));
+        }
+      } catch (_) {}
+    }
+
+    for (final name in manifest['files'] ?? horPackFiles) {
+      final file = File('${dir.path}/$name');
+      if (await file.exists()) await file.delete();
+    }
+    await manifestFile.delete();
+    await reloadAll();
   }
 }
 

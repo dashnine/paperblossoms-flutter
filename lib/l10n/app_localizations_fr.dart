@@ -108,6 +108,142 @@ class AppLocalizationsFr extends AppLocalizations {
   String get noHomebrewFilesFound => 'Aucun fichier de contenu maison trouvé.';
 
   @override
+  String get horSection => 'Heroes of Rokugan';
+
+  @override
+  String get horModeTitle => 'Mode Heroes of Rokugan';
+
+  @override
+  String get horModeSubtitle =>
+      'Les nouveaux personnages suivent les règles de création de la campagne communautaire Heroes of Rokugan 5 (non officiel, sans affiliation avec la campagne ni Edge Studio). heroes-of-rokugan.net';
+
+  @override
+  String get wizErrHorRoninRing =>
+      'Choisissez l\'augmentation d\'anneau du rōnin.';
+
+  @override
+  String get wizErrHorBackground => 'Choisissez un passé de rōnin.';
+
+  @override
+  String get wizErrHorBackgroundRing => 'Choisissez l\'anneau du passé.';
+
+  @override
+  String wizErrHorBackgroundSkill(int n) {
+    return 'Choisissez la compétence $n du passé.';
+  }
+
+  @override
+  String get wizErrHorService => 'Choisissez qui votre personnage sert.';
+
+  @override
+  String get wizErrHorQ5Skill => 'Choisissez une compétence liée à votre giri.';
+
+  @override
+  String get wizErrHorQ6Skill =>
+      'Choisissez une compétence liée à votre ninjō (différente de la question 5).';
+
+  @override
+  String get wizErrHorAccessory => 'Choisissez un accessoire personnel.';
+
+  @override
+  String get wizErrHorHeritage => 'Choisissez un résultat d\'héritage.';
+
+  @override
+  String get wizErrHorQ19 =>
+      'Choisissez la technique supplémentaire de la question 19.';
+
+  @override
+  String get wizErrHorOutfitItem =>
+      'Choisissez quel objet de l\'équipement porte les qualités Sacré et Interdit.';
+
+  @override
+  String horRoninStatsLine(String skill, int status) {
+    return 'Rōnin : +1 à un anneau au choix, +1 $skill, Statut $status';
+  }
+
+  @override
+  String get horRoninRingLabel => 'Augmentation d\'anneau';
+
+  @override
+  String get horBackgroundLabel => 'Passé';
+
+  @override
+  String horBackgroundStatsLine(int glory, String wealth) {
+    return 'Gloire $glory, richesse de départ $wealth';
+  }
+
+  @override
+  String get horBackgroundRingLabel => 'Anneau du passé';
+
+  @override
+  String horBackgroundSkillN(int n) {
+    return 'Compétence du passé $n';
+  }
+
+  @override
+  String get horAllSchoolSkills => '+1 à chaque compétence de départ :';
+
+  @override
+  String get horServiceLabel => 'Service';
+
+  @override
+  String get horRelatedSkill => 'Compétence liée (+1)';
+
+  @override
+  String get horQ7Positive =>
+      '+5 de gloire et 1 rang dans une compétence d\'une autre famille de votre clan';
+
+  @override
+  String get horQ7Negative =>
+      '−5 de gloire et 1 rang dans une compétence qu\'aucune famille de votre clan ne propose';
+
+  @override
+  String get horQ8Pos =>
+      '+5 d\'honneur et 1 rang dans une compétence traditionnelle de samouraï';
+
+  @override
+  String get horQ8Neg =>
+      '−3 d\'honneur et 1 rang dans une compétence indigne d\'un samouraï';
+
+  @override
+  String get horAccessoryRarity7 =>
+      'Accessoire personnel (pas une arme, rareté 7 ou moins)';
+
+  @override
+  String get horHeritageLabel => 'Héritage (choisissez-en un)';
+
+  @override
+  String get horQ19TechniqueLabel =>
+      'Technique supplémentaire (rang d\'école 1)';
+
+  @override
+  String horCampaignTitleLine(String title, int stipend) {
+    return 'Titre de campagne : $title — Statut fixé à 40, solde de $stipend koku par module.';
+  }
+
+  @override
+  String get horInstallPack => 'Installer le pack d\'errata';
+
+  @override
+  String get horInstallPackSubtitle =>
+      'Copie les erratas d\'écoles et les modifications d\'équipement de la campagne dans votre dossier de contenu maison. Ils s\'appliquent à toutes les parties jusqu\'au retrait.';
+
+  @override
+  String get horRemovePack => 'Retirer le pack d\'errata';
+
+  @override
+  String get horRemovePackSubtitle =>
+      'Ne retire que les entrées installées par le pack ; votre propre contenu maison est conservé.';
+
+  @override
+  String horPackInstalledMsg(int count) {
+    return 'Pack d\'errata HoR installé ($count écoles).';
+  }
+
+  @override
+  String get horPackRemovedMsg => 'Pack d\'errata HoR retiré.';
+
+  @override
   String get aboutSection => 'À propos';
 
   @override

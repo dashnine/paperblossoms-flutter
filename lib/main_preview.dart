@@ -7,6 +7,7 @@ import 'character.dart';
 import 'data_l10n.dart';
 import 'game_data.dart';
 import 'game_data_models.dart';
+import 'hor_controller.dart';
 import 'item.dart';
 import 'l10n/l10n.dart';
 import 'locale_controllers.dart';
@@ -19,11 +20,15 @@ import 'theme.dart';
 import 'wizard/school_builder/school_builder_shell.dart';
 import 'wizard/school_builder/school_builder_state.dart';
 import 'wizard/wizard_shell.dart';
+import 'wizard/wizard_state.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await gameData.load();
   await themeController.load();
+  // HOR=true previews Heroes of Rokugan mode (Tools switch on, HoR wizard)
+  // without touching the persisted preference.
+  if (const bool.fromEnvironment('HOR')) horController.value = true;
   // LOCALE=fr also loads the data overlay so previews show translated names.
   await dataL10n
       .setLocale(const String.fromEnvironment('LOCALE', defaultValue: 'en'));
@@ -179,8 +184,51 @@ class _PreviewApp extends StatelessWidget {
     return state;
   }
 
+  /// A mid-flight HoR build for previewing the campaign wizard pages
+  /// (WIZARD=true HOR=true WIZARD_PAGE=<1-7>).
+  static WizardState _horDemoWizard() {
+    final school = gameData.schoolByName('Hida Defender School')!;
+    return WizardState()
+      ..horMode = true
+      ..clan = 'Crab'
+      ..family = 'Hida'
+      ..familyRing = 'Fire'
+      ..school = school.name
+      ..schoolSkills = [...school.startingSkills.options]
+      ..ringChoices = ['Earth', 'Water']
+      ..schoolSpecialRing = 'Void'
+      ..techChoices = ["Lord Hida's Grip", 'Striking as Earth']
+      ..equipChoices = ['Tetsubō']
+      ..horService = 'Clan Champion'
+      ..horQ5Skill = 'Command'
+      ..horQ6Skill = 'Courtesy'
+      ..q7Positive = true
+      ..q7Skill = 'Commerce'
+      ..q8Choice = 'pos'
+      ..q8Skill = 'Theology'
+      ..distinction = 'Ambidexterity'
+      ..adversity = "Bishamon's Curse"
+      ..passion = 'Armament'
+      ..anxiety = 'Battle Trauma'
+      ..q13PickedAdvantage = true
+      ..q13Advantage = 'Paragon of Loyalty'
+      ..q14Item = 'Calligraphy Set'
+      ..q16Item = 'Blanket'
+      ..ancestor1 = 'Material Success'
+      ..chosenAncestor = 1
+      ..horQ19Technique = 'Striking as Water'
+      ..personalName = 'Tetsu';
+  }
+
   Widget _home() {
-    if (const bool.fromEnvironment('WIZARD')) return const NewCharacterWizard();
+    if (const bool.fromEnvironment('WIZARD')) {
+      const wizardPage = int.fromEnvironment('WIZARD_PAGE');
+      if (const bool.fromEnvironment('HOR') && wizardPage > 0) {
+        return NewCharacterWizard(
+            initialState: _horDemoWizard(), initialPage: wizardPage - 1);
+      }
+      return const NewCharacterWizard();
+    }
     // SCHOOL_BUILDER=<1-9> opens the school-builder wizard on that step,
     // preloaded with a demo school; SCHOOLS=true opens the manager page.
     const sbPage = int.fromEnvironment('SCHOOL_BUILDER');

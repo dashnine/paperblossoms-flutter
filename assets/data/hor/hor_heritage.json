@@ -1,0 +1,151 @@
+[
+  {
+    "roll": { "min": 1, "max": 1 },
+    "result": "Religious Patron",
+    "modifiers": { "glory": 3, "honor": 0, "status": 0 },
+    "other_effects": {
+      "type": "Distinction",
+      "instructions": "You gain the Support of the Brotherhood distinction (see page 110 of the Core Book). This can be assigned in excess of the normal limitations on advantages at character creation.",
+      "outcomes": [{ "outcome": "Support of the Brotherhood" }]
+    },
+    "source": "HoR"
+  },
+  {
+    "roll": { "min": 2, "max": 2 },
+    "result": "Material Success",
+    "modifiers": { "glory": -5, "honor": 0, "status": 0 },
+    "other_effects": {
+      "type": "Wealth",
+      "instructions": "Increase the Starting Wealth from your family by 5 koku.",
+      "outcomes": []
+    },
+    "source": "HoR"
+  },
+  {
+    "roll": { "min": 3, "max": 3 },
+    "result": "Battle of One Thousand Years",
+    "modifiers": { "glory": -5, "honor": 0, "status": 0 },
+    "other_effects": {
+      "type": "Outfit Item",
+      "instructions": "One item in your Starting Outfit has the Sacred and Forbidden qualities. You gain the Blackmailed by the Imperial Treasurer adversity as long as that item is in your possession. If this item is lost, you replace it with a normal version of the same item.",
+      "outcomes": []
+    },
+    "source": "HoR"
+  },
+  {
+    "roll": { "min": 4, "max": 4 },
+    "result": "Wondrous Work",
+    "modifiers": { "glory": 5, "honor": 0, "status": 0 },
+    "other_effects": {
+      "type": "Artisan skills",
+      "instructions": "Gain +1 to an Artisan skill.",
+      "outcomes": [
+        { "roll": { "min": 1, "max": 3 }, "outcome": "Aesthetics" },
+        { "roll": { "min": 4, "max": 6 }, "outcome": "Composition" },
+        { "roll": { "min": 7, "max": 8 }, "outcome": "Design" },
+        { "roll": { "min": 9, "max": 10 }, "outcome": "Smithing" }
+      ]
+    },
+    "source": "HoR"
+  },
+  {
+    "roll": { "min": 5, "max": 5 },
+    "result": "Dynasty Builder",
+    "modifiers": { "glory": -3, "honor": 0, "status": 0 },
+    "other_effects": {
+      "type": "Social skill",
+      "instructions": "Gain +1 to a Social skill.",
+      "outcomes": [
+        { "roll": { "min": 1, "max": 3 }, "outcome": "Command" },
+        { "roll": { "min": 4, "max": 6 }, "outcome": "Courtesy" },
+        { "roll": { "min": 7, "max": 8 }, "outcome": "Games" },
+        { "roll": { "min": 9, "max": 10 }, "outcome": "Performance" }
+      ]
+    },
+    "source": "HoR"
+  },
+  {
+    "roll": { "min": 6, "max": 6 },
+    "result": "Discovery",
+    "modifiers": { "glory": 3, "honor": 0, "status": 0 },
+    "other_effects": {
+      "type": "Scholar skill",
+      "instructions": "Gain +1 to a Scholar skill.",
+      "outcomes": [
+        { "roll": { "min": 1, "max": 3 }, "outcome": "Culture" },
+        { "roll": { "min": 4, "max": 5 }, "outcome": "Sentiment" },
+        { "roll": { "min": 6, "max": 7 }, "outcome": "Government" },
+        { "roll": { "min": 8, "max": 9 }, "outcome": "Medicine" },
+        { "roll": { "min": 10, "max": 10 }, "outcome": "Theology" }
+      ]
+    },
+    "source": "HoR"
+  },
+  {
+    "roll": { "min": 7, "max": 7 },
+    "result": "Ruthless Victor",
+    "modifiers": { "glory": 0, "honor": -3, "status": 0 },
+    "other_effects": {
+      "type": "Martial skill",
+      "instructions": "Gain +1 to a Martial skill.",
+      "outcomes": [
+        { "roll": { "min": 1, "max": 3 }, "outcome": "Fitness" },
+        { "roll": { "min": 4, "max": 5 }, "outcome": "Martial Arts [Melee]" },
+        { "roll": { "min": 6, "max": 7 }, "outcome": "Martial Arts [Ranged]" },
+        { "roll": { "min": 8, "max": 8 }, "outcome": "Martial Arts [Unarmed]" },
+        { "roll": { "min": 9, "max": 9 }, "outcome": "Tactics" },
+        { "roll": { "min": 10, "max": 10 }, "outcome": "Meditation" }
+      ]
+    },
+    "source": "HoR"
+  },
+  {
+    "roll": { "min": 8, "max": 8 },
+    "result": "Elevated for Service",
+    "modifiers": { "glory": -3, "honor": 3, "status": 0 },
+    "other_effects": {
+      "type": "Trade skill",
+      "instructions": "Gain +1 to a Trade skill.",
+      "outcomes": [
+        { "roll": { "min": 1, "max": 3 }, "outcome": "Commerce" },
+        { "roll": { "min": 4, "max": 5 }, "outcome": "Labor" },
+        { "roll": { "min": 6, "max": 7 }, "outcome": "Seafaring" },
+        { "roll": { "min": 8, "max": 8 }, "outcome": "Skulduggery" },
+        { "roll": { "min": 9, "max": 10 }, "outcome": "Survival" }
+      ]
+    },
+    "source": "HoR"
+  },
+  {
+    "roll": { "min": 9, "max": 9 },
+    "result": "Stolen Knowledge",
+    "modifiers": { "glory": 0, "honor": -5, "status": 0 },
+    "other_effects": {
+      "type": "Technique",
+      "instructions": "You know one additional technique with a prerequisite of school rank 1; you may use this technique even if it is not normally allowed by your school.",
+      "outcomes": [
+        { "roll": { "min": 1, "max": 2 }, "outcome": "Kata" },
+        { "roll": { "min": 3, "max": 5 }, "outcome": "Shūji" },
+        { "roll": { "min": 6, "max": 7 }, "outcome": "Rituals" },
+        { "roll": { "min": 8, "max": 8 }, "outcome": "Invocations" },
+        { "roll": { "min": 9, "max": 9 }, "outcome": "Kihō" },
+        { "roll": { "min": 10, "max": 10 }, "outcome": "Ninjutsu" }
+      ]
+    },
+    "source": "HoR"
+  },
+  {
+    "roll": { "min": 10, "max": 10 },
+    "result": "Unusual Name Origin",
+    "modifiers": { "glory": -3, "honor": 0, "status": 0 },
+    "other_effects": {
+      "type": "other",
+      "instructions": "Choose two of your character's rings; you may reduce the value of one of these rings by 1 to increase the value of the other by 1 (this still cannot raise a ring above 3). If you do not do so, choose one item of rarity 6 or lower and assign it to your starting outfit.",
+      "outcomes": [
+        { "outcome": "Ring Exchange" },
+        { "outcome": "Item (Rank 6 or Lower)" }
+      ]
+    },
+    "source": "HoR"
+  }
+]

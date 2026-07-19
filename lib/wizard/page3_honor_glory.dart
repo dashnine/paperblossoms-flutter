@@ -25,6 +25,20 @@ class _Page3HonorGloryState extends State<Page3HonorGlory> {
 
   WizardState get wizard => widget.wizard;
 
+  /// HoR Q7 options, preferring skills not already increased by an earlier
+  /// question (the campaign allows repeats only when every option is held).
+  List<String> _horQ7Options() {
+    final base =
+        wizard.horQ7SkillOptions(positive: wizard.q7Positive == true);
+    final unheld =
+        wizard.unheldSkillOptions(except: wizard.q7Skill).toSet();
+    final fresh = [
+      for (final skill in base)
+        if (unheld.contains(skill)) skill
+    ];
+    return fresh.isEmpty ? base : fresh;
+  }
+
   @override
   void initState() {
     super.initState();
@@ -51,12 +65,53 @@ class _Page3HonorGloryState extends State<Page3HonorGlory> {
       children: [
         QuestionHeader(
             samurai ? context.l10n.wizQ5Samurai : context.l10n.wizQ5Ronin),
+        if (wizard.horMode) ...[
+          // All PCs serve their clan champion or one of the five Regent
+          // services; rōnin must serve a Regent.
+          WizDropdown(
+            label: context.l10n.horServiceLabel,
+            value: wizard.horService,
+            options: [
+              for (final service in horServiceTitles.keys)
+                if (samurai || service != 'Clan Champion') service
+            ],
+            onChanged: (value) {
+              wizard.horService = value;
+              widget.onChanged();
+            },
+          ),
+          WizDropdown(
+            label: context.l10n.horRelatedSkill,
+            value: wizard.horQ5Skill,
+            options: gameData.allSkills(),
+            onChanged: (value) {
+              wizard.horQ5Skill = value;
+              // Q6 must differ from Q5; a pick that now collides would
+              // render blank while silently failing validation.
+              if (wizard.horQ6Skill == value) wizard.horQ6Skill = '';
+              widget.onChanged();
+            },
+          ),
+        ],
         WizTextArea(
             label: context.l10n.answerLabel,
             controller: _q5,
             onChanged: (value) => wizard.q5Text = value),
         QuestionHeader(
             samurai ? context.l10n.wizQ6Samurai : context.l10n.wizQ6Ronin),
+        if (wizard.horMode)
+          WizDropdown(
+            label: context.l10n.horRelatedSkill,
+            value: wizard.horQ6Skill,
+            options: [
+              for (final skill in gameData.allSkills())
+                if (skill != wizard.horQ5Skill) skill
+            ],
+            onChanged: (value) {
+              wizard.horQ6Skill = value;
+              widget.onChanged();
+            },
+          ),
         WizTextArea(
             label: context.l10n.answerLabel,
             controller: _q6,
@@ -67,7 +122,9 @@ class _Page3HonorGloryState extends State<Page3HonorGlory> {
           dense: true,
           value: true,
           groupValue: wizard.q7Positive,
-          title: Text(context.l10n.q7Positive),
+          title: Text(wizard.horMode
+              ? context.l10n.horQ7Positive
+              : context.l10n.q7Positive),
           onChanged: (value) {
             wizard
               ..q7Positive = true
@@ -79,17 +136,24 @@ class _Page3HonorGloryState extends State<Page3HonorGlory> {
           dense: true,
           value: false,
           groupValue: wizard.q7Positive,
-          title: Text(context.l10n.q7Negative),
+          title: Text(wizard.horMode
+              ? context.l10n.horQ7Negative
+              : context.l10n.q7Negative),
           onChanged: (value) {
             wizard.q7Positive = false;
+            if (wizard.horMode) wizard.q7Skill = '';
             widget.onChanged();
           },
         ),
-        if (wizard.q7Positive == false)
+        if (wizard.horMode
+            ? wizard.q7Positive != null
+            : wizard.q7Positive == false)
           WizDropdown(
             label: context.l10n.advTypeSkill,
             value: wizard.q7Skill,
-            options: wizard.unheldSkillOptions(except: wizard.q7Skill),
+            options: wizard.horMode
+                ? _horQ7Options()
+                : wizard.unheldSkillOptions(except: wizard.q7Skill),
             onChanged: (value) {
               wizard.q7Skill = value;
               widget.onChanged();
@@ -104,7 +168,8 @@ class _Page3HonorGloryState extends State<Page3HonorGlory> {
           dense: true,
           value: 'pos',
           groupValue: wizard.q8Choice,
-          title: Text(context.l10n.q8Pos),
+          title: Text(
+              wizard.horMode ? context.l10n.horQ8Pos : context.l10n.q8Pos),
           onChanged: (value) {
             wizard
               ..q8Choice = 'pos'
@@ -113,7 +178,7 @@ class _Page3HonorGloryState extends State<Page3HonorGlory> {
             widget.onChanged();
           },
         ),
-        if (!samurai)
+        if (!samurai && !wizard.horMode)
           RadioListTile<String>(
             dense: true,
             value: 'mid',
@@ -130,19 +195,24 @@ class _Page3HonorGloryState extends State<Page3HonorGlory> {
           dense: true,
           value: 'neg',
           groupValue: wizard.q8Choice,
-          title: Text(context.l10n.q8Neg),
+          title: Text(
+              wizard.horMode ? context.l10n.horQ8Neg : context.l10n.q8Neg),
           onChanged: (value) {
             wizard
               ..q8Choice = 'neg'
+              ..q8Skill = ''
               ..q8Item = '';
             widget.onChanged();
           },
         ),
-        if (wizard.q8Choice == 'neg')
+        if (wizard.q8Choice == 'neg' ||
+            (wizard.horMode && wizard.q8Choice == 'pos'))
           WizDropdown(
             label: context.l10n.advTypeSkill,
             value: wizard.q8Skill,
-            options: question8Skills,
+            options: wizard.horMode && wizard.q8Choice == 'pos'
+                ? horQ8PosSkills
+                : question8Skills,
             onChanged: (value) {
               wizard.q8Skill = value;
               widget.onChanged();

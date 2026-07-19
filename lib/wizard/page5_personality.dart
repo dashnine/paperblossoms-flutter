@@ -55,7 +55,22 @@ class _Page5PersonalityState extends State<Page5Personality> {
       children: [
         QuestionHeader(
             samurai ? context.l10n.wizQ14Samurai : context.l10n.wizQ14Ronin),
-        if (!samurai)
+        // HoR: everyone selects a non-weapon accessory of rarity 7 or less.
+        if (wizard.horMode)
+          WizDropdown(
+            label: context.l10n.horAccessoryRarity7,
+            value: wizard.q14Item,
+            options: [
+              for (final armor in gameData.armorUnderRarity(7)) armor.name,
+              for (final effect in gameData.personalEffectsUnderRarity(7))
+                effect.name,
+            ],
+            onChanged: (value) {
+              wizard.q14Item = value;
+              widget.onChanged();
+            },
+          )
+        else if (!samurai)
           WizDropdown(
             label: context.l10n.possessionRarity5,
             value: wizard.q14Item,

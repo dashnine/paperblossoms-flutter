@@ -1,0 +1,58 @@
+{
+  "clan": {
+    "name": "Rōnin",
+    "ring_increase": "any",
+    "skill_increase": "Survival",
+    "status": 22
+  },
+  "backgrounds": [
+    {
+      "name": "Criminal Past",
+      "reference": { "book": "HoR5", "page": 0 },
+      "ring_options": ["Air", "Water"],
+      "skill_choices": [["Commerce"], ["Skulduggery"]],
+      "glory": 21,
+      "starting_wealth": { "value": 4, "unit": "bu" }
+    },
+    {
+      "name": "Fallen Noble",
+      "reference": { "book": "HoR5", "page": 0 },
+      "ring_options": [],
+      "skill_choices": [[], []],
+      "glory": 31,
+      "starting_wealth": { "value": 2, "unit": "koku" }
+    },
+    {
+      "name": "Former Peasant",
+      "reference": { "book": "HoR5", "page": 0 },
+      "ring_options": ["Air", "Earth"],
+      "skill_choices": [["Commerce"], ["Labor"]],
+      "glory": 21,
+      "starting_wealth": { "value": 3, "unit": "bu" }
+    },
+    {
+      "name": "Military Service",
+      "reference": { "book": "HoR5", "page": 0 },
+      "ring_options": ["Earth", "Fire"],
+      "skill_choices": [["Command", "Tactics"]],
+      "glory": 30,
+      "starting_wealth": { "value": 1, "unit": "koku" }
+    },
+    {
+      "name": "Ronin Family",
+      "reference": { "book": "HoR5", "page": 0 },
+      "ring_options": [],
+      "skill_choices": [["Courtesy"], ["Fitness"]],
+      "glory": 29,
+      "starting_wealth": { "value": 1, "unit": "koku" }
+    },
+    {
+      "name": "Wilderness Survival",
+      "reference": { "book": "HoR5", "page": 0 },
+      "ring_options": ["Earth", "Water"],
+      "skill_choices": [["Labor"], ["Survival"]],
+      "glory": 25,
+      "starting_wealth": { "value": 4, "unit": "bu" }
+    }
+  ]
+}

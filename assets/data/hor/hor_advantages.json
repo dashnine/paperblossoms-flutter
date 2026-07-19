@@ -1,0 +1,150 @@
+[
+  {
+    "name": "Distinctions",
+    "entries": [
+      {
+        "name": "Famously Artistic",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Fire",
+        "types": ["Fame", "Interpersonal"],
+        "effects": ""
+      },
+      {
+        "name": "Famously Pious",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Void",
+        "types": ["Fame", "Interpersonal"],
+        "effects": ""
+      },
+      {
+        "name": "Famously Honorable",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Earth",
+        "types": ["Fame", "Interpersonal"],
+        "effects": ""
+      },
+      {
+        "name": "Support of the Brotherhood",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Water",
+        "types": ["Interpersonal"],
+        "effects": ""
+      }
+    ]
+  },
+  {
+    "name": "Passions",
+    "entries": [
+      {
+        "name": "Devotee of [Art, Game, or Performance Type]",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Water",
+        "types": ["Fame", "Interpersonal"],
+        "effects": ""
+      }
+    ]
+  },
+  {
+    "name": "Adversities",
+    "entries": [
+      {
+        "name": "Whispers of Impiety",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Void",
+        "types": ["Interpersonal", "Infamy"],
+        "effects": ""
+      },
+      {
+        "name": "Whispers of Cowardice",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Fire",
+        "types": ["Interpersonal", "Infamy"],
+        "effects": ""
+      },
+      {
+        "name": "Tremors",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Air",
+        "types": ["Physical", "Scar"],
+        "effects": ""
+      },
+      {
+        "name": "Poor Hearing",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Air",
+        "types": ["Physical", "Scar"],
+        "effects": ""
+      },
+      {
+        "name": "Bad Back",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Earth",
+        "types": ["Physical", "Scar"],
+        "effects": ""
+      },
+      {
+        "name": "Bad Lungs",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Earth",
+        "types": ["Physical", "Scar"],
+        "effects": ""
+      },
+      {
+        "name": "Twitchy Reflexes",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Fire",
+        "types": ["Physical", "Mental", "Scar"],
+        "effects": ""
+      },
+      {
+        "name": "Hair Trigger",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Fire",
+        "types": ["Mental", "Scar"],
+        "effects": ""
+      },
+      {
+        "name": "Poor Memory",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Void",
+        "types": ["Mental", "Scar"],
+        "effects": ""
+      },
+      {
+        "name": "Depression",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Void",
+        "types": ["Mental", "Scar"],
+        "effects": ""
+      },
+      {
+        "name": "Bad Leg",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Water",
+        "types": ["Physical", "Scar"],
+        "effects": ""
+      },
+      {
+        "name": "Impaired Focus",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Water",
+        "types": ["Mental", "Scar"],
+        "effects": ""
+      },
+      {
+        "name": "Born to the [Family]",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Air",
+        "types": ["Interpersonal"],
+        "effects": ""
+      },
+      {
+        "name": "Blackmailed by the Imperial Treasurer",
+        "reference": { "book": "HoR5", "page": 0 },
+        "ring": "Air",
+        "types": ["Interpersonal"],
+        "effects": ""
+      }
+    ]
+  }
+]

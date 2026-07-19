@@ -4,6 +4,29 @@ import 'package:flutter/services.dart' show rootBundle;
 
 import 'game_data_models.dart';
 
+/// Heroes of Rokugan campaign data (assets/data/hor/). Kept in its own
+/// container, never merged into the stock lists, so no stock picker or
+/// enumeration can surface an HoR entry while the mode is off.
+class HorData {
+  List<Title> titles = [];
+  List<AdvDisadv> advantages = [];
+  List<HeritageEntry> heritage = [];
+  List<HorRoninBackground> roninBackgrounds = [];
+  HorBans bans = const HorBans();
+
+  // Campaign rōnin "clan" block (Twenty Questions, Question 1).
+  String roninRingIncrease = '';
+  String roninSkillIncrease = '';
+  int roninStatus = 0;
+
+  HorRoninBackground? backgroundByName(String name) {
+    for (final b in roninBackgrounds) {
+      if (b.name == name) return b;
+    }
+    return null;
+  }
+}
+
 /// Read-only game reference data loaded from the bundled JSON assets, with
 /// user homebrew entries merged over the top (the in-memory equivalent of the
 /// original app's base_/user_ table UNION views).
@@ -32,6 +55,7 @@ class GameData {
   List<Title> titles = [];
   List<Question8Option> question8Options = [];
   List<Description> descriptions = [];
+  HorData hor = HorData();
 
   Future<void> load() async {
     clans = await _loadList('clans', Clan.fromJson);
@@ -71,7 +95,43 @@ class GameData {
           Weapon.fromJson(e, category: category['name'] ?? '')
     ];
 
+    await _loadHor();
     loaded = true;
+  }
+
+  /// Heroes of Rokugan data is additive-only and must never break stock
+  /// loading: any failure leaves an empty [HorData] (the mode simply has
+  /// nothing to offer) with the stock lists untouched.
+  Future<void> _loadHor() async {
+    final h = HorData();
+    try {
+      h.titles = [
+        for (final e in await _loadRaw('hor/hor_titles')) Title.fromJson(e)
+      ];
+      h.advantages = [
+        for (final category in await _loadRaw('hor/hor_advantages'))
+          for (final e in category['entries'] ?? [])
+            AdvDisadv.fromJson(e, category: category['name'] ?? '')
+      ];
+      h.heritage = [
+        for (final e in await _loadRaw('hor/hor_heritage'))
+          HeritageEntry.fromJson(e)
+      ];
+      final Map<String, dynamic> ronin = jsonDecode(
+          await rootBundle.loadString('assets/data/hor/hor_ronin.json'));
+      h.roninRingIncrease = ronin['clan']?['ring_increase'] ?? '';
+      h.roninSkillIncrease = ronin['clan']?['skill_increase'] ?? '';
+      h.roninStatus = ronin['clan']?['status'] ?? 0;
+      h.roninBackgrounds = [
+        for (final e in ronin['backgrounds'] ?? [])
+          HorRoninBackground.fromJson(e)
+      ];
+      h.bans = HorBans.fromJson(jsonDecode(
+          await rootBundle.loadString('assets/data/hor/hor_bans.json')));
+      hor = h;
+    } catch (_) {
+      hor = HorData();
+    }
   }
 
   Future<List<dynamic>> _loadRaw(String asset) async =>
@@ -144,8 +204,11 @@ class GameData {
           if (a.category == category) a
       ];
 
+  // Stock entries win on any name collision; the HoR fall-throughs only
+  // exist so a saved HoR character still renders with the mode off.
   AdvDisadv? advDisadvByName(String name) =>
-      _firstWhereOrNull(advantagesDisadvantages, (a) => a.name == name);
+      _firstWhereOrNull(advantagesDisadvantages, (a) => a.name == name) ??
+      _firstWhereOrNull(hor.advantages, (a) => a.name == name);
 
   // ---- Bonds ----
 
@@ -163,7 +226,8 @@ class GameData {
       heritagesBySource(source), (h) => roll >= h.rollMin && roll <= h.rollMax);
 
   HeritageEntry? heritageByResult(String result) =>
-      _firstWhereOrNull(heritageEntries, (h) => h.result == result);
+      _firstWhereOrNull(heritageEntries, (h) => h.result == result) ??
+      _firstWhereOrNull(hor.heritage, (h) => h.result == result);
 
   // ---- Inventory ----
 
@@ -213,7 +277,15 @@ class GameData {
   // ---- Titles ----
 
   Title? titleByName(String name) =>
-      _firstWhereOrNull(titles, (t) => t.name == name);
+      _firstWhereOrNull(titles, (t) => t.name == name) ??
+      _firstWhereOrNull(hor.titles, (t) => t.name == name);
+
+  // ---- Heroes of Rokugan ----
+
+  List<AdvDisadv> horAdvDisadvByCategory(String category) => [
+        for (final a in hor.advantages)
+          if (a.category == category) a
+      ];
 
   // ---- Descriptions (user-entered only; base data ships none) ----
 

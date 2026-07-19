@@ -18,6 +18,7 @@ The application and author(s) are not affiliated with FFG or any other official 
 - Character management: rings, skills, techniques, equipment, bonds, titles, and XP-tracked advancement (curriculum-aware, matching the rank-progress rules)
 - PDF character sheet export
 - Localized interface and game data (English, French, German, Spanish)
+- Optional [Heroes of Rokugan](#heroes-of-rokugan-mode) organized-play mode (off by default)
 - Fully offline — no network connection is used or needed
 
 ## Downloading and Using Paper Blossoms
@@ -47,6 +48,16 @@ Game data (clans, families, schools, techniques, equipment, and so on) ships as 
 Much like the excellent Star Wars character generator by OggDude, the application does not bundle rules description text; you are expected to own and use the books while creating or editing your character. If you own the books, you can enter descriptions yourself in the built-in descriptions editor (Tools page), and import/export them as JSON. Imports also accept the original Qt application's `user_descriptions.csv`, so existing data carries over.
 
 If you own a sourcebook as a PDF and want to describe it in bulk, see [.claude/skills/import-book-descriptions/](.claude/skills/import-book-descriptions/): a documented pipeline (usable directly with [Claude Code](https://claude.com/claude-code), or as a plain how-to) for extracting your PDF, writing original paraphrased descriptions, and validating the resulting JSON before importing it — including a small script that lists every name the app expects for a given book.
+
+## Heroes of Rokugan mode
+
+[Heroes of Rokugan](http://www.heroes-of-rokugan.net) is a long-running community organized-play campaign; its current incarnation, *Heroes of Rokugan 5: Soul of the Empire*, uses the FFG 5th-edition rules with campaign-specific character creation. Paper Blossoms can build campaign-legal characters: enable **Heroes of Rokugan mode** on the Tools page (it is off by default, and with it off the app behaves exactly as if the feature did not exist).
+
+With the mode on, the New Character wizard follows the campaign's Twenty Questions: Great Clan samurai and rōnin only, banned schools and advantages filtered out, +1 to every school starting skill, skills capped at 2 at creation, the campaign's giri/ninjō/Q7/Q8 skill mechanics, campaign rōnin backgrounds, the campaign heritage table (chosen, not rolled), one extra technique at Question 19, and a mandatory campaign title that sets Status to 40.
+
+The campaign's school erratas and equipment changes (nodachi qualities, removed weapons, the Concealable/Quick-draw split, and so on) ship as a separately installable **errata pack** on the same Tools section. It applies through the regular homebrew store — to *all* play, not just HoR characters — until removed, and removal restores stock data while leaving your own homebrew untouched.
+
+Heroes of Rokugan data was transcribed from the campaign's freely published rules documents as of July 2026; house rules are living documents, so check the campaign site for the latest word. This app is fan-made and unaffiliated with the Heroes of Rokugan campaign, its administrators, or Edge Studio.
 
 ## Localization
 

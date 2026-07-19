@@ -109,6 +109,139 @@ class AppLocalizationsEs extends AppLocalizations {
       'No se encontraron archivos de contenido propio.';
 
   @override
+  String get horSection => 'Heroes of Rokugan';
+
+  @override
+  String get horModeTitle => 'Modo Heroes of Rokugan';
+
+  @override
+  String get horModeSubtitle =>
+      'Los personajes nuevos siguen las reglas de creación de la campaña comunitaria Heroes of Rokugan 5 (no oficial, sin afiliación con la campaña ni con Edge Studio). heroes-of-rokugan.net';
+
+  @override
+  String get wizErrHorRoninRing => 'Elige el aumento de anillo del rōnin.';
+
+  @override
+  String get wizErrHorBackground => 'Elige un trasfondo.';
+
+  @override
+  String get wizErrHorBackgroundRing => 'Elige el anillo del trasfondo.';
+
+  @override
+  String wizErrHorBackgroundSkill(int n) {
+    return 'Elige la habilidad $n del trasfondo.';
+  }
+
+  @override
+  String get wizErrHorService => 'Elige a quién sirve tu personaje.';
+
+  @override
+  String get wizErrHorQ5Skill => 'Elige una habilidad relacionada con tu giri.';
+
+  @override
+  String get wizErrHorQ6Skill =>
+      'Elige una habilidad relacionada con tu ninjō (distinta de la pregunta 5).';
+
+  @override
+  String get wizErrHorAccessory => 'Elige un accesorio personal.';
+
+  @override
+  String get wizErrHorHeritage => 'Elige un resultado de herencia.';
+
+  @override
+  String get wizErrHorQ19 => 'Elige la técnica adicional de la pregunta 19.';
+
+  @override
+  String get wizErrHorOutfitItem =>
+      'Elige qué objeto del equipo lleva las cualidades Sagrado y Prohibido.';
+
+  @override
+  String horRoninStatsLine(String skill, int status) {
+    return 'Rōnin: +1 a cualquier anillo, +1 $skill, Estatus $status';
+  }
+
+  @override
+  String get horRoninRingLabel => 'Aumento de anillo';
+
+  @override
+  String get horBackgroundLabel => 'Trasfondo';
+
+  @override
+  String horBackgroundStatsLine(int glory, String wealth) {
+    return 'Gloria $glory, riqueza inicial $wealth';
+  }
+
+  @override
+  String get horBackgroundRingLabel => 'Anillo del trasfondo';
+
+  @override
+  String horBackgroundSkillN(int n) {
+    return 'Habilidad del trasfondo $n';
+  }
+
+  @override
+  String get horAllSchoolSkills => '+1 a todas las habilidades iniciales:';
+
+  @override
+  String get horServiceLabel => 'Servicio';
+
+  @override
+  String get horRelatedSkill => 'Habilidad relacionada (+1)';
+
+  @override
+  String get horQ7Positive =>
+      '+5 de gloria y 1 rango en una habilidad de otra familia de tu clan';
+
+  @override
+  String get horQ7Negative =>
+      '−5 de gloria y 1 rango en una habilidad que ninguna familia de tu clan ofrece';
+
+  @override
+  String get horQ8Pos =>
+      '+5 de honor y 1 rango en una habilidad tradicional de samurái';
+
+  @override
+  String get horQ8Neg =>
+      '−3 de honor y 1 rango en una habilidad impropia de un samurái';
+
+  @override
+  String get horAccessoryRarity7 =>
+      'Accesorio personal (no un arma, rareza 7 o menos)';
+
+  @override
+  String get horHeritageLabel => 'Herencia (elige una)';
+
+  @override
+  String get horQ19TechniqueLabel => 'Técnica adicional (rango de escuela 1)';
+
+  @override
+  String horCampaignTitleLine(String title, int stipend) {
+    return 'Título de campaña: $title — Estatus fijado en 40, estipendio de $stipend koku por módulo.';
+  }
+
+  @override
+  String get horInstallPack => 'Instalar el paquete de erratas';
+
+  @override
+  String get horInstallPackSubtitle =>
+      'Copia las erratas de escuelas y los cambios de equipo de la campaña a tu carpeta de contenido propio. Se aplican a todas las partidas hasta que se retiren.';
+
+  @override
+  String get horRemovePack => 'Retirar el paquete de erratas';
+
+  @override
+  String get horRemovePackSubtitle =>
+      'Solo retira las entradas instaladas por el paquete; tu contenido propio se conserva.';
+
+  @override
+  String horPackInstalledMsg(int count) {
+    return 'Paquete de erratas HoR instalado ($count escuelas).';
+  }
+
+  @override
+  String get horPackRemovedMsg => 'Paquete de erratas HoR retirado.';
+
+  @override
   String get aboutSection => 'Acerca de';
 
   @override
