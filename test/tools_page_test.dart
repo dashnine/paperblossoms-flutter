@@ -53,6 +53,8 @@ void main() {
 
     await tester.scrollUntilVisible(find.text('Heroes of Rokugan mode'), 100,
         scrollable: find.byType(Scrollable));
+    await tester.ensureVisible(find.byType(SwitchListTile));
+    await tester.pumpAndSettle();
     final tile = tester.widget<SwitchListTile>(find.byType(SwitchListTile));
     expect(tile.value, isFalse);
 

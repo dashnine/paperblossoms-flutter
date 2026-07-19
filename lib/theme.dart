@@ -61,7 +61,9 @@ ThemeData darkTheme() {
   );
 }
 
-/// Section header used across tabs and dialogs.
+/// Section header used across tabs and dialogs: primary-tinted title over a
+/// full-width hairline rule, so sections read as breaks in the page rather
+/// than another line of body text.
 class SectionHeader extends StatelessWidget {
   final String title;
   final Widget? trailing;
@@ -70,14 +72,29 @@ class SectionHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context);
     return Padding(
-      padding: const EdgeInsets.only(top: 16, bottom: 4),
-      child: Row(
+      padding: const EdgeInsets.only(top: 20, bottom: 6),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Expanded(
-            child: Text(title, style: Theme.of(context).textTheme.titleMedium),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  title,
+                  style: theme.textTheme.titleSmall?.copyWith(
+                    color: theme.colorScheme.primary,
+                    letterSpacing: 0.6,
+                  ),
+                ),
+              ),
+              if (trailing != null) trailing!,
+            ],
           ),
-          if (trailing != null) trailing!,
+          const SizedBox(height: 2),
+          Divider(
+              height: 1, thickness: 1, color: theme.colorScheme.outlineVariant),
         ],
       ),
     );
