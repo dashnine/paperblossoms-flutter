@@ -11,6 +11,7 @@ import 'package:paperblossoms/generate_pdf.dart';
 import 'package:paperblossoms/item.dart';
 import 'package:paperblossoms/l10n/app_localizations.dart';
 import 'package:paperblossoms/pdf_common.dart';
+import 'package:pdf/pdf.dart' show PdfPageFormat;
 import 'package:paperblossoms/rules_constants.dart';
 import 'package:paperblossoms/sheet_style_controller.dart';
 
@@ -124,11 +125,65 @@ void main() {
 
   test('structured style builds a valid sheet with the branding font',
       () async {
+    // For visual probes, PDF_PROBE_DESCRIPTIONS can point at a
+    // user_descriptions.json; the fixture then also gets enough techniques
+    // and traits to exercise the two-up layout across a page break.
+    final descPath = Platform.environment['PDF_PROBE_DESCRIPTIONS'];
+    if (descPath != null) {
+      gameData.descriptions = [
+        for (final entry in jsonDecode(await File(descPath).readAsString()))
+          gm.Description.fromJson(entry),
+      ];
+      addTearDown(() => gameData.descriptions = []);
+      character.techniques = [
+        for (final cat in ['Kata', 'Shūji', 'Invocations'])
+          ...gameData.techniques
+              .where((t) => t.category == cat)
+              .take(5)
+              .map((t) => t.name),
+      ];
+      character.advDisadv = [
+        ...gameData.advantagesDisadvantages.take(7).map((a) => a.name),
+      ];
+    }
     final bytes =
         await buildCharacterSheetPdf(style: SheetStyle.structured);
     expect(utf8.decode(bytes.sublist(0, 5), allowMalformed: true), '%PDF-');
     expect(String.fromCharCodes(bytes), contains('/Caveat-Bold'));
     final out = Platform.environment['PDF_PROBE_STRUCTURED_PATH'];
+    if (out != null) await File(out).writeAsBytes(bytes);
+  });
+
+  test('landscape page format produces a valid landscape sheet', () async {
+    final descPath = Platform.environment['PDF_PROBE_DESCRIPTIONS'];
+    if (descPath != null) {
+      gameData.descriptions = [
+        for (final entry in jsonDecode(await File(descPath).readAsString()))
+          gm.Description.fromJson(entry),
+      ];
+      addTearDown(() => gameData.descriptions = []);
+      character.techniques = [
+        for (final cat in ['Kata', 'Shūji', 'Invocations'])
+          ...gameData.techniques
+              .where((t) => t.category == cat)
+              .take(5)
+              .map((t) => t.name),
+      ];
+      character.advDisadv = [
+        ...gameData.advantagesDisadvantages.take(7).map((a) => a.name),
+      ];
+    }
+    final bytes = await buildCharacterSheetPdf(
+        style: SheetStyle.structured,
+        pageFormat: PdfPageFormat.a4.landscape);
+    expect(utf8.decode(bytes.sublist(0, 5), allowMalformed: true), '%PDF-');
+    // The page MediaBox must be wider than tall.
+    final match = RegExp(r'/MediaBox\s*\[\s*0\s+0\s+([\d.]+)\s+([\d.]+)')
+        .firstMatch(String.fromCharCodes(bytes));
+    expect(match, isNotNull);
+    expect(double.parse(match!.group(1)!),
+        greaterThan(double.parse(match.group(2)!)));
+    final out = Platform.environment['PDF_PROBE_LANDSCAPE_PATH'];
     if (out != null) await File(out).writeAsBytes(bytes);
   });
 

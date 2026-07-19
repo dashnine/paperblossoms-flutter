@@ -2640,6 +2640,198 @@ abstract class AppLocalizations {
   /// **'Void Points'**
   String get pdfVoidPoints;
 
+  /// No description provided for @pdfOverflow.
+  ///
+  /// In en, this message translates to:
+  /// **'Overflow'**
+  String get pdfOverflow;
+
+  /// No description provided for @pdfApproaches.
+  ///
+  /// In en, this message translates to:
+  /// **'Approaches'**
+  String get pdfApproaches;
+
+  /// No description provided for @pdfApproachArtisan.
+  ///
+  /// In en, this message translates to:
+  /// **'Artisan'**
+  String get pdfApproachArtisan;
+
+  /// No description provided for @pdfApproachSocial.
+  ///
+  /// In en, this message translates to:
+  /// **'Social'**
+  String get pdfApproachSocial;
+
+  /// No description provided for @pdfApproachScholar.
+  ///
+  /// In en, this message translates to:
+  /// **'Scholar'**
+  String get pdfApproachScholar;
+
+  /// No description provided for @pdfApproachMartial.
+  ///
+  /// In en, this message translates to:
+  /// **'Martial'**
+  String get pdfApproachMartial;
+
+  /// No description provided for @pdfApproachTrade.
+  ///
+  /// In en, this message translates to:
+  /// **'Trade'**
+  String get pdfApproachTrade;
+
+  /// No description provided for @pdfApproachArtisanAir.
+  ///
+  /// In en, this message translates to:
+  /// **'Refine'**
+  String get pdfApproachArtisanAir;
+
+  /// No description provided for @pdfApproachArtisanEarth.
+  ///
+  /// In en, this message translates to:
+  /// **'Restore'**
+  String get pdfApproachArtisanEarth;
+
+  /// No description provided for @pdfApproachArtisanFire.
+  ///
+  /// In en, this message translates to:
+  /// **'Invent'**
+  String get pdfApproachArtisanFire;
+
+  /// No description provided for @pdfApproachArtisanWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Adapt'**
+  String get pdfApproachArtisanWater;
+
+  /// No description provided for @pdfApproachArtisanVoid.
+  ///
+  /// In en, this message translates to:
+  /// **'Attune'**
+  String get pdfApproachArtisanVoid;
+
+  /// No description provided for @pdfApproachSocialAir.
+  ///
+  /// In en, this message translates to:
+  /// **'Trick'**
+  String get pdfApproachSocialAir;
+
+  /// No description provided for @pdfApproachSocialEarth.
+  ///
+  /// In en, this message translates to:
+  /// **'Reason'**
+  String get pdfApproachSocialEarth;
+
+  /// No description provided for @pdfApproachSocialFire.
+  ///
+  /// In en, this message translates to:
+  /// **'Incite'**
+  String get pdfApproachSocialFire;
+
+  /// No description provided for @pdfApproachSocialWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Charm'**
+  String get pdfApproachSocialWater;
+
+  /// No description provided for @pdfApproachSocialVoid.
+  ///
+  /// In en, this message translates to:
+  /// **'Enlighten'**
+  String get pdfApproachSocialVoid;
+
+  /// No description provided for @pdfApproachScholarAir.
+  ///
+  /// In en, this message translates to:
+  /// **'Theorize'**
+  String get pdfApproachScholarAir;
+
+  /// No description provided for @pdfApproachScholarEarth.
+  ///
+  /// In en, this message translates to:
+  /// **'Recall'**
+  String get pdfApproachScholarEarth;
+
+  /// No description provided for @pdfApproachScholarFire.
+  ///
+  /// In en, this message translates to:
+  /// **'Innovate'**
+  String get pdfApproachScholarFire;
+
+  /// No description provided for @pdfApproachScholarWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Survey'**
+  String get pdfApproachScholarWater;
+
+  /// No description provided for @pdfApproachScholarVoid.
+  ///
+  /// In en, this message translates to:
+  /// **'Sense'**
+  String get pdfApproachScholarVoid;
+
+  /// No description provided for @pdfApproachMartialAir.
+  ///
+  /// In en, this message translates to:
+  /// **'Feint'**
+  String get pdfApproachMartialAir;
+
+  /// No description provided for @pdfApproachMartialEarth.
+  ///
+  /// In en, this message translates to:
+  /// **'Withstand'**
+  String get pdfApproachMartialEarth;
+
+  /// No description provided for @pdfApproachMartialFire.
+  ///
+  /// In en, this message translates to:
+  /// **'Overwhelm'**
+  String get pdfApproachMartialFire;
+
+  /// No description provided for @pdfApproachMartialWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Shift'**
+  String get pdfApproachMartialWater;
+
+  /// No description provided for @pdfApproachMartialVoid.
+  ///
+  /// In en, this message translates to:
+  /// **'Sacrifice'**
+  String get pdfApproachMartialVoid;
+
+  /// No description provided for @pdfApproachTradeAir.
+  ///
+  /// In en, this message translates to:
+  /// **'Con'**
+  String get pdfApproachTradeAir;
+
+  /// No description provided for @pdfApproachTradeEarth.
+  ///
+  /// In en, this message translates to:
+  /// **'Produce'**
+  String get pdfApproachTradeEarth;
+
+  /// No description provided for @pdfApproachTradeFire.
+  ///
+  /// In en, this message translates to:
+  /// **'Rush'**
+  String get pdfApproachTradeFire;
+
+  /// No description provided for @pdfApproachTradeWater.
+  ///
+  /// In en, this message translates to:
+  /// **'Exchange'**
+  String get pdfApproachTradeWater;
+
+  /// No description provided for @pdfApproachTradeVoid.
+  ///
+  /// In en, this message translates to:
+  /// **'Subsist'**
+  String get pdfApproachTradeVoid;
+
   /// No description provided for @pdfStancesHeader.
   ///
   /// In en, this message translates to:

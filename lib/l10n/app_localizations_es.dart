@@ -1479,6 +1479,102 @@ class AppLocalizationsEs extends AppLocalizations {
   String get pdfVoidPoints => 'Puntos de Vacío';
 
   @override
+  String get pdfOverflow => 'Exceso';
+
+  @override
+  String get pdfApproaches => 'Enfoques';
+
+  @override
+  String get pdfApproachArtisan => 'Artesanía';
+
+  @override
+  String get pdfApproachSocial => 'Social';
+
+  @override
+  String get pdfApproachScholar => 'Erudición';
+
+  @override
+  String get pdfApproachMartial => 'Marcial';
+
+  @override
+  String get pdfApproachTrade => 'Comercio';
+
+  @override
+  String get pdfApproachArtisanAir => 'Refinar';
+
+  @override
+  String get pdfApproachArtisanEarth => 'Restaurar';
+
+  @override
+  String get pdfApproachArtisanFire => 'Inventar';
+
+  @override
+  String get pdfApproachArtisanWater => 'Adaptar';
+
+  @override
+  String get pdfApproachArtisanVoid => 'Armonizar';
+
+  @override
+  String get pdfApproachSocialAir => 'Engañar';
+
+  @override
+  String get pdfApproachSocialEarth => 'Razonar';
+
+  @override
+  String get pdfApproachSocialFire => 'Incitar';
+
+  @override
+  String get pdfApproachSocialWater => 'Encantar';
+
+  @override
+  String get pdfApproachSocialVoid => 'Iluminar';
+
+  @override
+  String get pdfApproachScholarAir => 'Teorizar';
+
+  @override
+  String get pdfApproachScholarEarth => 'Recordar';
+
+  @override
+  String get pdfApproachScholarFire => 'Innovar';
+
+  @override
+  String get pdfApproachScholarWater => 'Examinar';
+
+  @override
+  String get pdfApproachScholarVoid => 'Percibir';
+
+  @override
+  String get pdfApproachMartialAir => 'Fintar';
+
+  @override
+  String get pdfApproachMartialEarth => 'Resistir';
+
+  @override
+  String get pdfApproachMartialFire => 'Abrumar';
+
+  @override
+  String get pdfApproachMartialWater => 'Esquivar';
+
+  @override
+  String get pdfApproachMartialVoid => 'Sacrificar';
+
+  @override
+  String get pdfApproachTradeAir => 'Estafar';
+
+  @override
+  String get pdfApproachTradeEarth => 'Producir';
+
+  @override
+  String get pdfApproachTradeFire => 'Apresurar';
+
+  @override
+  String get pdfApproachTradeWater => 'Intercambiar';
+
+  @override
+  String get pdfApproachTradeVoid => 'Subsistir';
+
+  @override
   String get pdfStancesHeader => 'Referencia rápida de conflicto: posturas';
 
   @override

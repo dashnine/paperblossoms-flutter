@@ -18,12 +18,19 @@ import 'rules_constants.dart';
 /// boxes for fatigue/strife/Void points, the four-way trait split — while
 /// keeping the app's sakura identity in the header. Like the minimalist
 /// sheet, tracked values print blank: the printout is filled in by hand.
+///
+/// [pageFormat] comes from the print dialog; a landscape format switches to
+/// a wide composition (rings beside the attribute box, three-up entry
+/// lists) instead of stretching the portrait one.
 Future<Uint8List> buildStructuredSheet({
   required bool showSkills,
   required bool showPortrait,
   required AppLocalizations l10n,
+  PdfPageFormat pageFormat = PdfPageFormat.a4,
 }) async {
   final c = character;
+  final landscape = pageFormat.width > pageFormat.height;
+  final entryColumns = landscape ? 3 : 2;
 
   // Sequential awaits, same as loadSheetTheme: rootBundle can hand back
   // SynchronousFutures, which break Future.wait.
@@ -95,6 +102,7 @@ Future<Uint8List> buildStructuredSheet({
 
   pw.Widget ringCircle(String ring) {
     final color = pdfRingColors[ring] ?? PdfColors.grey800;
+    final quality = gameData.ringByName(ring)?.outstandingQuality ?? '';
     return pw.Column(children: [
       pw.Container(
         width: 56,
@@ -114,7 +122,37 @@ Future<Uint8List> buildStructuredSheet({
       ),
       pw.SizedBox(height: 3),
       rankBubbles(rings[ring] ?? 0, size: 6, color: color),
+      // The ring's outstanding qualities, as an approach-choosing aid.
+      if (quality.isNotEmpty)
+        pw.Container(
+          width: 74,
+          padding: const pw.EdgeInsets.only(top: 3),
+          child: pw.Text(trData(quality),
+              textAlign: pw.TextAlign.center,
+              style: const pw.TextStyle(fontSize: 6, color: PdfColors.grey600)),
+        ),
     ]);
+  }
+
+  // Skill names must not wrap (wrapping makes the five even columns
+  // ragged): a name too wide for its column is cut to fit, marked with a
+  // trailing period. Measured with the embedded font's real glyph widths
+  // so translated names behave too.
+  // ignore: invalid_use_of_protected_member
+  final baseFont = fonts.theme.defaultTextStyle.font!.buildFont(doc.document);
+  // Column = a fifth of the content width, minus cell padding (6), the
+  // name-to-bubbles gap (2), and the rank bubbles (33).
+  final skillNameWidth = (pageFormat.width - 56) / 5 - 41;
+  String fitSkillName(String name) {
+    double widthOf(String text) =>
+        baseFont.stringMetrics(text).advanceWidth * 7.5;
+    if (widthOf(name) <= skillNameWidth) return name;
+    var cut = name.length - 1;
+    while (cut > 1 &&
+        widthOf('${name.substring(0, cut).trimRight()}.') > skillNameWidth) {
+      cut--;
+    }
+    return '${name.substring(0, cut).trimRight()}.';
   }
 
   // Skill-group column cell: group name over one name+bubbles row per skill.
@@ -133,7 +171,7 @@ Future<Uint8List> buildStructuredSheet({
             for (final skill in shownSkills)
               pw.Row(children: [
                 pw.Expanded(
-                    child: pw.Text(trData(skill),
+                    child: pw.Text(fitSkillName(trData(skill)),
                         style: const pw.TextStyle(fontSize: 7.5))),
                 pw.SizedBox(width: 2),
                 rankBubbles(skills[skill] ?? 0),
@@ -172,8 +210,76 @@ Future<Uint8List> buildStructuredSheet({
   final displayName = '${c.family} ${c.name}'.trim();
   final footerName = displayName.isEmpty ? l10n.unnamedSamurai : displayName;
 
+  // Built once so the portrait (stacked) and landscape (side-by-side)
+  // compositions can share them.
+  final ringsRow = pw.Row(
+    mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
+    children: [
+      for (final ring in [ringAir, ringEarth, ringFire, ringWater, ringVoid])
+        ringCircle(ring),
+    ],
+  );
+  final trackerColumn = pw.Column(
+      crossAxisAlignment: pw.CrossAxisAlignment.start,
+      children: [
+        pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.center, children: [
+          valueBox(l10n.endurance, '${endurance(rings)}'),
+          pw.SizedBox(width: 8),
+          pw.Expanded(
+              child: tickRow(l10n.fatigueOf(endurance(rings)),
+                  endurance(rings), l10n.pdfOverflow, trData('Incapacitated'),
+                  labelWidth: 70)),
+        ]),
+        pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.center, children: [
+          valueBox(l10n.composure, '${composure(rings)}'),
+          pw.SizedBox(width: 8),
+          pw.Expanded(
+              child: tickRow(l10n.strifeOf(composure(rings)),
+                  composure(rings), l10n.pdfOverflow, trData('Compromised'),
+                  labelWidth: 70)),
+        ]),
+        pw.SizedBox(height: 4),
+        pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.center, children: [
+          valueBox(l10n.focusStat, '${focus(rings)}'),
+          pw.SizedBox(width: 8),
+          valueBox(l10n.vigilance, '${vigilance(rings)}'),
+          pw.SizedBox(width: 16),
+          pw.Text(l10n.pdfVoidPoints, style: const pw.TextStyle(fontSize: 9)),
+          pw.SizedBox(width: 6),
+          checkboxRow(rings[ringVoid] ?? 0),
+        ]),
+        pw.SizedBox(height: 6),
+        pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.end, children: [
+          pw.SizedBox(
+              width: 70,
+              child: pw.Text(l10n.conditionsSection,
+                  style: const pw.TextStyle(fontSize: 9))),
+          pw.Expanded(child: writeInLine()),
+        ]),
+        pw.Row(children: [
+          pw.SizedBox(width: 70),
+          pw.Expanded(child: writeInLine()),
+        ]),
+      ]);
+  final boxBorder = pw.BoxDecoration(
+    border: pw.Border.all(color: PdfColors.grey800, width: 0.8),
+  );
+  // Portrait tucks the approach table into the attribute box beside the
+  // trackers (whose tick rows wrap when squeezed); landscape prints it
+  // under the rings instead, where that column has spare height.
+  final derivedBox = pw.Container(
+    margin: const pw.EdgeInsets.only(top: 10),
+    padding: const pw.EdgeInsets.all(6),
+    decoration: boxBorder,
+    child: pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
+      pw.Expanded(child: trackerColumn),
+      pw.SizedBox(width: 10),
+      pw.SizedBox(width: 210, child: approachTable(l10n)),
+    ]),
+  );
+
   doc.addPage(pw.MultiPage(
-    pageFormat: PdfPageFormat.a4,
+    pageFormat: pageFormat,
     margin: const pw.EdgeInsets.all(28),
     footer: (context) => pw.Container(
       alignment: pw.Alignment.centerRight,
@@ -218,69 +324,44 @@ Future<Uint8List> buildStructuredSheet({
         ],
       ),
 
-      // ---- Rings ----
+      // ---- Rings + derived attributes: stacked in portrait, side by side
+      // on the wide landscape page ----
       boxedHeader(l10n.ringsSection),
-      pw.Row(
-        mainAxisAlignment: pw.MainAxisAlignment.spaceBetween,
-        children: [
-          for (final ring
-              in [ringAir, ringEarth, ringFire, ringWater, ringVoid])
-            ringCircle(ring),
-        ],
-      ),
-
-      // ---- Derived attributes with their tracks ----
-      pw.Container(
-        margin: const pw.EdgeInsets.only(top: 10),
-        padding: const pw.EdgeInsets.all(6),
-        decoration: pw.BoxDecoration(
-          border: pw.Border.all(color: PdfColors.grey800, width: 0.8),
-        ),
-        child: pw.Column(
-          crossAxisAlignment: pw.CrossAxisAlignment.start,
-          children: [
-            pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.center, children: [
-              valueBox(l10n.endurance, '${endurance(rings)}'),
-              pw.SizedBox(width: 8),
-              pw.Expanded(
-                  child: tickRow(l10n.fatigueOf(endurance(rings)),
-                      endurance(rings), trData('Incapacitated'),
-                      labelWidth: 70)),
-            ]),
-            pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.center, children: [
-              valueBox(l10n.composure, '${composure(rings)}'),
-              pw.SizedBox(width: 8),
-              pw.Expanded(
-                  child: tickRow(l10n.strifeOf(composure(rings)),
-                      composure(rings), trData('Compromised'),
-                      labelWidth: 70)),
-            ]),
-            pw.SizedBox(height: 4),
-            pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.center, children: [
-              valueBox(l10n.focusStat, '${focus(rings)}'),
-              pw.SizedBox(width: 8),
-              valueBox(l10n.vigilance, '${vigilance(rings)}'),
-              pw.SizedBox(width: 16),
-              pw.Text(l10n.pdfVoidPoints,
-                  style: const pw.TextStyle(fontSize: 9)),
-              pw.SizedBox(width: 6),
-              checkboxRow(rings[ringVoid] ?? 0),
-            ]),
-            pw.SizedBox(height: 6),
-            pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.end, children: [
-              pw.SizedBox(
-                  width: 70,
-                  child: pw.Text(l10n.conditionsSection,
-                      style: const pw.TextStyle(fontSize: 9))),
-              pw.Expanded(child: writeInLine()),
-            ]),
-            pw.Row(children: [
-              pw.SizedBox(width: 70),
-              pw.Expanded(child: writeInLine()),
-            ]),
-          ],
-        ),
-      ),
+      if (landscape)
+        // The tracker border is a stretched overlay, so the box bottom
+        // always lines up with the bottom of the approaches table however
+        // tall either column runs. Overflow stays visible because the ring
+        // circles' border stroke straddles the layout edge — the default
+        // clip shaves their top tips.
+        pw.Stack(overflow: pw.Overflow.visible, children: [
+          pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.start, children: [
+            pw.Expanded(
+              flex: 11,
+              child: pw.Column(children: [
+                ringsRow,
+                pw.SizedBox(height: 8),
+                approachTable(l10n),
+              ]),
+            ),
+            pw.SizedBox(width: 16),
+            pw.Expanded(
+                flex: 10,
+                child: pw.Padding(
+                    padding: const pw.EdgeInsets.all(6),
+                    child: trackerColumn)),
+          ]),
+          pw.Positioned(
+            left: (pageFormat.width - 56 - 16) * 11 / 21 + 16,
+            top: 0,
+            right: 0,
+            bottom: 0,
+            child: pw.Container(decoration: boxBorder),
+          ),
+        ])
+      else ...[
+        ringsRow,
+        derivedBox,
+      ],
 
       // ---- Social standing, wealth & progress ----
       boxedHeader(l10n.pdfWealthProgress),
@@ -306,9 +387,12 @@ Future<Uint8List> buildStructuredSheet({
               style: const pw.TextStyle(fontSize: 9)),
         ),
 
-      // ---- Abilities ----
+      // ---- Abilities (full-width lines read poorly on landscape) ----
       if (abilityList.isNotEmpty) boxedHeader(l10n.abilitiesSection),
-      for (final ability in abilityList) entryBlock(ability, ''),
+      if (landscape)
+        ...nUp([for (final ability in abilityList) entryBlock(ability, '')])
+      else
+        for (final ability in abilityList) entryBlock(ability, ''),
 
       // ---- Skills, in columns by group ----
       if (skillColumns.isNotEmpty) boxedHeader(l10n.skillsSection),
@@ -336,20 +420,26 @@ Future<Uint8List> buildStructuredSheet({
                   fontWeight: pw.FontWeight.bold,
                   color: pdfAccent)),
         ),
-        for (final name in group.value)
-          entryBlock(name, techniqueMeta(name, l10n)),
+        ...nUp([
+          for (final name in group.value)
+            entryBlock(name, techniqueMeta(name, l10n)),
+        ], columns: entryColumns),
       ],
 
       // ---- Traits, split the official way ----
       for (final cat in traitOrder)
         if (traitBuckets[cat]!.isNotEmpty) ...[
           boxedHeader(trData(cat)),
-          for (final name in traitBuckets[cat]!)
-            entryBlock(name, traitMeta(name)),
+          ...nUp([
+            for (final name in traitBuckets[cat]!)
+              entryBlock(name, traitMeta(name)),
+          ], columns: entryColumns),
         ],
       if (otherTraits.isNotEmpty) ...[
         boxedHeader(l10n.pdfOtherCategory),
-        for (final name in otherTraits) entryBlock(name, traitMeta(name)),
+        ...nUp(
+            [for (final name in otherTraits) entryBlock(name, traitMeta(name))],
+            columns: entryColumns),
       ],
 
       // ---- Bonds ----

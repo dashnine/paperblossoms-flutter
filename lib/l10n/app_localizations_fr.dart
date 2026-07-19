@@ -1494,6 +1494,102 @@ class AppLocalizationsFr extends AppLocalizations {
   String get pdfVoidPoints => 'Points de Vide';
 
   @override
+  String get pdfOverflow => 'Excédent';
+
+  @override
+  String get pdfApproaches => 'Approches';
+
+  @override
+  String get pdfApproachArtisan => 'Artisanat';
+
+  @override
+  String get pdfApproachSocial => 'Social';
+
+  @override
+  String get pdfApproachScholar => 'Érudition';
+
+  @override
+  String get pdfApproachMartial => 'Martial';
+
+  @override
+  String get pdfApproachTrade => 'Commerce';
+
+  @override
+  String get pdfApproachArtisanAir => 'Affiner';
+
+  @override
+  String get pdfApproachArtisanEarth => 'Restaurer';
+
+  @override
+  String get pdfApproachArtisanFire => 'Inventer';
+
+  @override
+  String get pdfApproachArtisanWater => 'Adapter';
+
+  @override
+  String get pdfApproachArtisanVoid => 'Harmoniser';
+
+  @override
+  String get pdfApproachSocialAir => 'Duper';
+
+  @override
+  String get pdfApproachSocialEarth => 'Raisonner';
+
+  @override
+  String get pdfApproachSocialFire => 'Inciter';
+
+  @override
+  String get pdfApproachSocialWater => 'Charmer';
+
+  @override
+  String get pdfApproachSocialVoid => 'Éclairer';
+
+  @override
+  String get pdfApproachScholarAir => 'Théoriser';
+
+  @override
+  String get pdfApproachScholarEarth => 'Mémoriser';
+
+  @override
+  String get pdfApproachScholarFire => 'Innover';
+
+  @override
+  String get pdfApproachScholarWater => 'Examiner';
+
+  @override
+  String get pdfApproachScholarVoid => 'Ressentir';
+
+  @override
+  String get pdfApproachMartialAir => 'Feinter';
+
+  @override
+  String get pdfApproachMartialEarth => 'Résister';
+
+  @override
+  String get pdfApproachMartialFire => 'Submerger';
+
+  @override
+  String get pdfApproachMartialWater => 'Esquiver';
+
+  @override
+  String get pdfApproachMartialVoid => 'Sacrifier';
+
+  @override
+  String get pdfApproachTradeAir => 'Arnaquer';
+
+  @override
+  String get pdfApproachTradeEarth => 'Produire';
+
+  @override
+  String get pdfApproachTradeFire => 'Presser';
+
+  @override
+  String get pdfApproachTradeWater => 'Échanger';
+
+  @override
+  String get pdfApproachTradeVoid => 'Subsister';
+
+  @override
   String get pdfStancesHeader => 'Aide de jeu — Postures de conflit';
 
   @override

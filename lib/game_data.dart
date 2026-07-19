@@ -210,6 +210,11 @@ class GameData {
       _firstWhereOrNull(advantagesDisadvantages, (a) => a.name == name) ??
       _firstWhereOrNull(hor.advantages, (a) => a.name == name);
 
+  // ---- Rings ----
+
+  Ring? ringByName(String name) =>
+      _firstWhereOrNull(rings, (r) => r.name == name);
+
   // ---- Bonds ----
 
   Bond? bondByName(String name) =>

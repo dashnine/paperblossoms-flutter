@@ -52,6 +52,7 @@ Set<String> translatableDataStrings() {
   }
   for (final ring in gameData.rings) {
     add(ring.name);
+    add(ring.outstandingQuality);
   }
   for (final tech in gameData.techniques) {
     add(tech.name);

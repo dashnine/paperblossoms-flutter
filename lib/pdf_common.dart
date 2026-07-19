@@ -140,6 +140,25 @@ pw.Widget entryBlock(String name, String meta) {
   );
 }
 
+/// Lays entry blocks out [columns] to a row, reading left→right. Each row
+/// is one unsplittable pdf widget, so a group never straddles a page
+/// break; the price is that a row is as tall as its tallest entry.
+List<pw.Widget> nUp(List<pw.Widget> blocks, {int columns = 2}) => [
+      for (var i = 0; i < blocks.length; i += columns)
+        pw.Row(
+          crossAxisAlignment: pw.CrossAxisAlignment.start,
+          children: [
+            for (var j = 0; j < columns; j++) ...[
+              if (j > 0) pw.SizedBox(width: 14),
+              pw.Expanded(
+                  child: i + j < blocks.length
+                      ? blocks[i + j]
+                      : pw.SizedBox()),
+            ],
+          ],
+        ),
+    ];
+
 // A ruled blank line to write conditions/notes on by hand.
 pw.Widget writeInLine() => pw.Container(
       height: 13,
@@ -151,18 +170,19 @@ pw.Widget writeInLine() => pw.Container(
     );
 
 // A pen-and-paper tracking row: one empty tick box per point up to
-// [limit], then a few grey overflow boxes for the state past the limit
-// (Incapacitated / Compromised). Current in-app values are deliberately
-// not printed — a printout is filled in by hand at the table.
-pw.Widget tickRow(String label, int limit, String overflowLabel,
+// [limit], then a labeled write-in blank for the overflow count and the
+// name of the state past the limit (Incapacitated / Compromised). Current
+// in-app values are deliberately not printed — a printout is filled in by
+// hand at the table.
+pw.Widget tickRow(
+    String label, int limit, String overflowWord, String overflowLabel,
     {double labelWidth = 80}) {
-  pw.Widget box({bool grey = false}) => pw.Container(
+  pw.Widget box() => pw.Container(
         width: 9,
         height: 9,
         margin: const pw.EdgeInsets.only(right: 2),
         decoration: pw.BoxDecoration(
-          border: pw.Border.all(
-              color: grey ? PdfColors.grey500 : PdfColors.grey800, width: 0.8),
+          border: pw.Border.all(color: PdfColors.grey800, width: 0.8),
         ),
       );
   return pw.Padding(
@@ -173,12 +193,41 @@ pw.Widget tickRow(String label, int limit, String overflowLabel,
         pw.SizedBox(
             width: labelWidth,
             child: pw.Text(label, style: const pw.TextStyle(fontSize: 9))),
-        for (var i = 0; i < limit; i++) box(),
-        pw.SizedBox(width: 6),
-        for (var i = 0; i < 4; i++) box(grey: true),
-        pw.SizedBox(width: 4),
-        pw.Text('→ $overflowLabel',
-            style: const pw.TextStyle(fontSize: 7.5, color: PdfColors.grey600)),
+        // Boxes wrap onto extra rows when the track outgrows its slot
+        // (high Earth/Fire characters, or the narrowed portrait layout);
+        // the overflow blank travels as one unbreakable unit.
+        pw.Expanded(
+          child: pw.Wrap(
+            crossAxisAlignment: pw.WrapCrossAlignment.center,
+            runSpacing: 2,
+            children: [
+              for (var i = 0; i < limit; i++) box(),
+              pw.Row(mainAxisSize: pw.MainAxisSize.min, children: [
+                pw.SizedBox(width: 6),
+                // The write-in blank, captioned underneath like the value
+                // boxes so it costs no horizontal space.
+                pw.Column(mainAxisSize: pw.MainAxisSize.min, children: [
+                  pw.Container(
+                    width: 32,
+                    height: 9,
+                    decoration: const pw.BoxDecoration(
+                      border: pw.Border(
+                          bottom: pw.BorderSide(
+                              color: PdfColors.grey600, width: 0.7)),
+                    ),
+                  ),
+                  pw.Text(overflowWord,
+                      style: const pw.TextStyle(
+                          fontSize: 5.5, color: PdfColors.grey600)),
+                ]),
+                pw.SizedBox(width: 6),
+                pw.Text('→ $overflowLabel',
+                    style: const pw.TextStyle(
+                        fontSize: 7.5, color: PdfColors.grey600)),
+              ]),
+            ],
+          ),
+        ),
       ],
     ),
   );
@@ -258,6 +307,95 @@ String techniqueMeta(String name, AppLocalizations l10n) {
     if (technique?.rank != null) l10n.rankN(technique!.rank),
     if ('${technique?.reference ?? ''}'.isNotEmpty) '${technique!.reference}',
   ].join(' · ');
+}
+
+/// The Core ring × skill-group approach verbs as a compact reference
+/// table. Fixed-size content, so both structured-sheet orientations can
+/// slot it into their guaranteed white space (portrait: beside the
+/// conditions rows; landscape: under the rings).
+pw.Widget approachTable(AppLocalizations l10n) {
+  pw.Widget cell(String text,
+          {PdfColor color = PdfColors.grey800, bool bold = false}) =>
+      pw.Padding(
+        padding: const pw.EdgeInsets.symmetric(horizontal: 2, vertical: 1.5),
+        child: pw.Text(text,
+            style: pw.TextStyle(
+                fontSize: 6,
+                color: color,
+                fontWeight: bold ? pw.FontWeight.bold : null)),
+      );
+  final headers = [
+    l10n.pdfApproachArtisan,
+    l10n.pdfApproachSocial,
+    l10n.pdfApproachScholar,
+    l10n.pdfApproachMartial,
+    l10n.pdfApproachTrade,
+  ];
+  final verbRows = {
+    ringAir: [
+      l10n.pdfApproachArtisanAir,
+      l10n.pdfApproachSocialAir,
+      l10n.pdfApproachScholarAir,
+      l10n.pdfApproachMartialAir,
+      l10n.pdfApproachTradeAir,
+    ],
+    ringEarth: [
+      l10n.pdfApproachArtisanEarth,
+      l10n.pdfApproachSocialEarth,
+      l10n.pdfApproachScholarEarth,
+      l10n.pdfApproachMartialEarth,
+      l10n.pdfApproachTradeEarth,
+    ],
+    ringFire: [
+      l10n.pdfApproachArtisanFire,
+      l10n.pdfApproachSocialFire,
+      l10n.pdfApproachScholarFire,
+      l10n.pdfApproachMartialFire,
+      l10n.pdfApproachTradeFire,
+    ],
+    ringWater: [
+      l10n.pdfApproachArtisanWater,
+      l10n.pdfApproachSocialWater,
+      l10n.pdfApproachScholarWater,
+      l10n.pdfApproachMartialWater,
+      l10n.pdfApproachTradeWater,
+    ],
+    ringVoid: [
+      l10n.pdfApproachArtisanVoid,
+      l10n.pdfApproachSocialVoid,
+      l10n.pdfApproachScholarVoid,
+      l10n.pdfApproachMartialVoid,
+      l10n.pdfApproachTradeVoid,
+    ],
+  };
+  return pw.Column(
+    crossAxisAlignment: pw.CrossAxisAlignment.start,
+    children: [
+      pw.Text(l10n.pdfApproaches,
+          style: pw.TextStyle(
+              fontSize: 7, fontWeight: pw.FontWeight.bold, color: pdfAccent)),
+      pw.SizedBox(height: 1.5),
+      pw.Table(
+        border: pw.TableBorder.all(color: PdfColors.grey400, width: 0.5),
+        columnWidths: const {0: pw.IntrinsicColumnWidth()},
+        defaultColumnWidth: const pw.FlexColumnWidth(),
+        children: [
+          pw.TableRow(children: [
+            cell(''),
+            for (final header in headers)
+              cell(header, color: pdfAccent, bold: true),
+          ]),
+          for (final entry in verbRows.entries)
+            pw.TableRow(children: [
+              cell(trData(entry.key),
+                  color: pdfRingColors[entry.key] ?? PdfColors.grey800,
+                  bold: true),
+              for (final verb in entry.value) cell(verb),
+            ]),
+        ],
+      ),
+    ],
+  );
 }
 
 /// The five stance rows for the conflict quick reference: [stance, effect].

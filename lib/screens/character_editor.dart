@@ -93,11 +93,15 @@ class _CharacterEditorState extends State<CharacterEditor> {
     final strings = context.l10n;
     await Printing.layoutPdf(
       name: name.isEmpty ? 'character' : name,
+      // The print dialog re-invokes onLayout when the user changes paper
+      // size or orientation, so a landscape choice there gets the bespoke
+      // landscape composition live in the preview.
       onLayout: (format) => buildCharacterSheetPdf(
         showSkills: _pdfShowSkills,
         showPortrait: _pdfShowPortrait,
         strings: strings,
         style: sheetStyleController.value,
+        pageFormat: format,
       ),
     );
   }

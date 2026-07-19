@@ -1464,6 +1464,102 @@ class AppLocalizationsEn extends AppLocalizations {
   String get pdfVoidPoints => 'Void Points';
 
   @override
+  String get pdfOverflow => 'Overflow';
+
+  @override
+  String get pdfApproaches => 'Approaches';
+
+  @override
+  String get pdfApproachArtisan => 'Artisan';
+
+  @override
+  String get pdfApproachSocial => 'Social';
+
+  @override
+  String get pdfApproachScholar => 'Scholar';
+
+  @override
+  String get pdfApproachMartial => 'Martial';
+
+  @override
+  String get pdfApproachTrade => 'Trade';
+
+  @override
+  String get pdfApproachArtisanAir => 'Refine';
+
+  @override
+  String get pdfApproachArtisanEarth => 'Restore';
+
+  @override
+  String get pdfApproachArtisanFire => 'Invent';
+
+  @override
+  String get pdfApproachArtisanWater => 'Adapt';
+
+  @override
+  String get pdfApproachArtisanVoid => 'Attune';
+
+  @override
+  String get pdfApproachSocialAir => 'Trick';
+
+  @override
+  String get pdfApproachSocialEarth => 'Reason';
+
+  @override
+  String get pdfApproachSocialFire => 'Incite';
+
+  @override
+  String get pdfApproachSocialWater => 'Charm';
+
+  @override
+  String get pdfApproachSocialVoid => 'Enlighten';
+
+  @override
+  String get pdfApproachScholarAir => 'Theorize';
+
+  @override
+  String get pdfApproachScholarEarth => 'Recall';
+
+  @override
+  String get pdfApproachScholarFire => 'Innovate';
+
+  @override
+  String get pdfApproachScholarWater => 'Survey';
+
+  @override
+  String get pdfApproachScholarVoid => 'Sense';
+
+  @override
+  String get pdfApproachMartialAir => 'Feint';
+
+  @override
+  String get pdfApproachMartialEarth => 'Withstand';
+
+  @override
+  String get pdfApproachMartialFire => 'Overwhelm';
+
+  @override
+  String get pdfApproachMartialWater => 'Shift';
+
+  @override
+  String get pdfApproachMartialVoid => 'Sacrifice';
+
+  @override
+  String get pdfApproachTradeAir => 'Con';
+
+  @override
+  String get pdfApproachTradeEarth => 'Produce';
+
+  @override
+  String get pdfApproachTradeFire => 'Rush';
+
+  @override
+  String get pdfApproachTradeWater => 'Exchange';
+
+  @override
+  String get pdfApproachTradeVoid => 'Subsist';
+
+  @override
   String get pdfStancesHeader => 'Conflict Quick Reference: Stances';
 
   @override

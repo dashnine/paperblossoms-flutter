@@ -24,6 +24,7 @@ Future<Uint8List> buildCharacterSheetPdf({
   bool showPortrait = true,
   AppLocalizations? strings,
   SheetStyle style = SheetStyle.structured,
+  PdfPageFormat pageFormat = PdfPageFormat.a4,
 }) async {
   // Sheet chrome follows the interface language; callers with a BuildContext
   // pass AppLocalizations.of(context). Data names on the sheet follow the
@@ -31,9 +32,15 @@ Future<Uint8List> buildCharacterSheetPdf({
   final l10n = strings ?? lookupAppLocalizations(const Locale('en'));
   Future<Uint8List> build(bool portrait) => style == SheetStyle.structured
       ? buildStructuredSheet(
-          showSkills: showSkills, showPortrait: portrait, l10n: l10n)
+          showSkills: showSkills,
+          showPortrait: portrait,
+          l10n: l10n,
+          pageFormat: pageFormat)
       : buildMinimalistSheet(
-          showSkills: showSkills, showPortrait: portrait, l10n: l10n);
+          showSkills: showSkills,
+          showPortrait: portrait,
+          l10n: l10n,
+          pageFormat: pageFormat);
   try {
     return await build(showPortrait);
   } catch (_) {
@@ -49,6 +56,7 @@ Future<Uint8List> buildMinimalistSheet({
   required bool showSkills,
   required bool showPortrait,
   required AppLocalizations l10n,
+  PdfPageFormat pageFormat = PdfPageFormat.a4,
 }) async {
   final c = character;
 
@@ -87,7 +95,7 @@ Future<Uint8List> buildMinimalistSheet({
   final portrait = decodePortrait(showPortrait);
 
   doc.addPage(pw.MultiPage(
-    pageFormat: PdfPageFormat.a4,
+    pageFormat: pageFormat,
     margin: const pw.EdgeInsets.all(28),
     build: (context) => [
       // ---- Identity ----
@@ -149,9 +157,9 @@ Future<Uint8List> buildMinimalistSheet({
       // ---- Fatigue / strife / conditions, tracked by hand ----
       header(l10n.pdfFatigueStrifeConditions),
       tickRow(l10n.fatigueOf(endurance(rings)), endurance(rings),
-          trData('Incapacitated')),
+          l10n.pdfOverflow, trData('Incapacitated')),
       tickRow(l10n.strifeOf(composure(rings)), composure(rings),
-          trData('Compromised')),
+          l10n.pdfOverflow, trData('Compromised')),
       pw.SizedBox(height: 2),
       pw.Row(crossAxisAlignment: pw.CrossAxisAlignment.end, children: [
         pw.SizedBox(
