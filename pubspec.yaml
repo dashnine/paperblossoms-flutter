@@ -2,7 +2,7 @@ name: paperblossoms
 description: "Paper Blossoms — a character generator and manager for the Legend of the Five Rings 5th Edition RPG. Flutter port of the Qt application by dashnine."
 publish_to: 'none'
 
-version: 1.3.0+6
+version: 1.4.0+7
 
 environment:
   sdk: ^3.8.1
