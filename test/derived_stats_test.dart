@@ -263,6 +263,19 @@ void main() {
       expect(names, isNot(contains(invocation.name)));
     });
 
+    test('item patterns are purchasable techniques (universal category)', () {
+      // Merged from item_patterns.json at load, like the Qt database.
+      final names = {for (final t in legalTechniques(character)) t.name};
+      expect(names, contains('Kakita Pattern'));
+      final pattern = gameData.techniqueByName('Kakita Pattern')!;
+      expect(pattern.category, 'Item Patterns');
+      expect(pattern.xp, 6);
+      // Rank counting treats them like any other out-of-curriculum buy.
+      expect(isInCurriculum('Kakita Pattern', advanceTypeTechnique,
+              character.school, 1),
+          isFalse);
+    });
+
     test('removeRestrictions returns everything', () {
       expect(legalTechniques(character, removeRestrictions: true).length,
           gameData.techniques.length);

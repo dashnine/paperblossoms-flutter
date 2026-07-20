@@ -431,8 +431,6 @@ class _TechniqueLine extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final technique = gameData.techniqueByName(name);
-    final pattern =
-        technique == null ? gameData.itemPatternByName(name) : null;
     final desc = gameData.descriptionFor(name);
     return Padding(
       padding: const EdgeInsets.only(bottom: 8),
@@ -446,9 +444,6 @@ class _TechniqueLine extends StatelessWidget {
                 '${trData(technique.category)} ${technique.rank}',
               if (technique != null && '${technique.reference}'.isNotEmpty)
                 '${technique.reference}',
-              if (pattern != null) trData('Item Patterns'),
-              if (pattern != null && '${pattern.reference}'.isNotEmpty)
-                '${pattern.reference}',
             ].join(' · '),
             style: theme.textTheme.titleSmall,
           ),

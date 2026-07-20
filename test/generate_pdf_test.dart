@@ -236,7 +236,7 @@ void main() {
     expect(grouped.last.value, ['Kakita Pattern']);
     final meta = techniqueMeta(
         'Kakita Pattern', lookupAppLocalizations(const Locale('en')));
-    expect(meta, 'SL p.109');
+    expect(meta, 'Rank 1 · SL p.109');
   });
 
   test('stanceRows lists all five stances with effects', () {

@@ -117,6 +117,12 @@ class GameData {
                 category: category['name'] ?? '',
                 subcategory: subcategory['name'] ?? '')
     ];
+    // The Qt database also lists every item pattern in the techniques table
+    // (category 'Item Patterns' — a universal category — rank 1, XP = the
+    // pattern's cost), which is what makes patterns purchasable in the
+    // advance dialog. Mirror that merge; [itemPatterns] keeps the
+    // rarity-modifier side for crafting.
+    techniques.addAll(itemPatterns.map(patternAsTechnique));
     advantagesDisadvantages = [
       for (final category in await _loadRaw('advantages_disadvantages'))
         for (final e in category['entries'] ?? [])
@@ -239,11 +245,14 @@ class GameData {
   Technique? techniqueByName(String name) =>
       _firstWhereOrNull(techniques, (t) => t.name == name);
 
-  /// Item patterns (SL p.109) are granted/learned like techniques but live
-  /// in their own table; display sites fall back to this after
-  /// [techniqueByName] misses.
-  ItemPattern? itemPatternByName(String name) =>
-      _firstWhereOrNull(itemPatterns, (p) => p.name == name);
+  /// An item pattern's techniques-table row, exactly as the Qt database
+  /// stores it: universal 'Item Patterns' category, rank 1, XP = cost.
+  static Technique patternAsTechnique(ItemPattern p) => Technique(
+      name: p.name,
+      category: 'Item Patterns',
+      rank: 1,
+      xp: p.xpCost,
+      reference: p.reference);
 
   /// Techniques in a category or subcategory whose rank falls in
   /// [minRank]..[maxRank] (inclusive).

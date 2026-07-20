@@ -572,9 +572,10 @@ class UserDataStore {
       case 'qualities':
         gameData.qualities.addAll([for (final e in raw) Quality.fromJson(e)]);
       case 'item_patterns':
-        gameData.itemPatterns.addAll([
-          for (final e in raw) ItemPattern.fromJson(e),
-        ]);
+        final patterns = [for (final e in raw) ItemPattern.fromJson(e)];
+        gameData.itemPatterns.addAll(patterns);
+        // Patterns double as purchasable techniques (see GameData.load).
+        gameData.techniques.addAll(patterns.map(GameData.patternAsTechnique));
       case 'samurai_heritage':
         gameData.heritageEntries.addAll([
           for (final e in raw) HeritageEntry.fromJson(e),

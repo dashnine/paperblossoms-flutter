@@ -34,7 +34,6 @@ class _TechniqueCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final tech = gameData.techniqueByName(name);
-    final pattern = tech == null ? gameData.itemPatternByName(name) : null;
     final description = gameData.descriptionFor(name);
     final shortDesc = gameData.shortDescFor(name);
     return Card(
@@ -51,12 +50,6 @@ class _TechniqueCard extends StatelessWidget {
                 if (tech.reference.book.isNotEmpty) '${tech.reference}',
                 if (tech.restriction.isNotEmpty)
                   context.l10n.restrictionLabel(tech.restriction),
-              ].join(' · '))
-            else if (pattern != null)
-              Text([
-                trData('Item Patterns'),
-                if (pattern.reference.book.isNotEmpty) '${pattern.reference}',
-                context.l10n.xpAmount(pattern.xpCost),
               ].join(' · '))
             else
               Text(context.l10n.customOrUnknownTechnique),
