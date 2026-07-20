@@ -3731,6 +3731,552 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'That file could not be read as a schools JSON array.'**
   String get sbCouldNotReadSchoolsFile;
+
+  /// No description provided for @gmSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Game master'**
+  String get gmSection;
+
+  /// No description provided for @npcLibraryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'NPCs & stat blocks'**
+  String get npcLibraryTitle;
+
+  /// No description provided for @npcLibrarySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Core Chapter 8 sample NPCs, quick building with templates, and your custom NPCs'**
+  String get npcLibrarySubtitle;
+
+  /// No description provided for @encountersTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Encounters'**
+  String get encountersTitle;
+
+  /// No description provided for @encountersSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Build NPC rosters and gauge their challenge'**
+  String get encountersSubtitle;
+
+  /// No description provided for @npcFilterAll.
+  ///
+  /// In en, this message translates to:
+  /// **'All'**
+  String get npcFilterAll;
+
+  /// No description provided for @npcFilterMinions.
+  ///
+  /// In en, this message translates to:
+  /// **'Minions'**
+  String get npcFilterMinions;
+
+  /// No description provided for @npcFilterAdversaries.
+  ///
+  /// In en, this message translates to:
+  /// **'Adversaries'**
+  String get npcFilterAdversaries;
+
+  /// No description provided for @npcFilterCustom.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom'**
+  String get npcFilterCustom;
+
+  /// No description provided for @npcTypeMinion.
+  ///
+  /// In en, this message translates to:
+  /// **'Minion'**
+  String get npcTypeMinion;
+
+  /// No description provided for @npcTypeAdversary.
+  ///
+  /// In en, this message translates to:
+  /// **'Adversary'**
+  String get npcTypeAdversary;
+
+  /// No description provided for @npcCombatIntrigue.
+  ///
+  /// In en, this message translates to:
+  /// **'Combat {combat} · Intrigue {intrigue}'**
+  String npcCombatIntrigue(int combat, int intrigue);
+
+  /// No description provided for @npcQuickBuild.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick build'**
+  String get npcQuickBuild;
+
+  /// No description provided for @npcImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Import custom NPCs…'**
+  String get npcImport;
+
+  /// No description provided for @npcExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export custom NPCs…'**
+  String get npcExport;
+
+  /// No description provided for @npcDeleteAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all custom NPCs'**
+  String get npcDeleteAll;
+
+  /// No description provided for @npcDeleteAllBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes every custom NPC. Bundled sample NPCs are unaffected.'**
+  String get npcDeleteAllBody;
+
+  /// No description provided for @npcImported.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} NPCs imported'**
+  String npcImported(int count);
+
+  /// No description provided for @npcExported.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} NPCs exported'**
+  String npcExported(int count);
+
+  /// No description provided for @npcCouldNotRead.
+  ///
+  /// In en, this message translates to:
+  /// **'That file could not be read as an NPC JSON array.'**
+  String get npcCouldNotRead;
+
+  /// No description provided for @npcNoneToExport.
+  ///
+  /// In en, this message translates to:
+  /// **'No custom NPCs to export.'**
+  String get npcNoneToExport;
+
+  /// No description provided for @npcDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete {name}?'**
+  String npcDeleteTitle(String name);
+
+  /// No description provided for @npcDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the custom NPC. Encounters that reference it will show it as missing.'**
+  String get npcDeleteBody;
+
+  /// No description provided for @npcEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'No NPCs match.'**
+  String get npcEmptyHint;
+
+  /// No description provided for @npcPickTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose an NPC'**
+  String get npcPickTitle;
+
+  /// No description provided for @npcDemeanorLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Demeanor'**
+  String get npcDemeanorLabel;
+
+  /// No description provided for @npcDemeanorTnMods.
+  ///
+  /// In en, this message translates to:
+  /// **'Social check TN modifiers: {mods}'**
+  String npcDemeanorTnMods(String mods);
+
+  /// No description provided for @npcUnmasking.
+  ///
+  /// In en, this message translates to:
+  /// **'Common way of unmasking: {way}'**
+  String npcUnmasking(String way);
+
+  /// No description provided for @npcAdvantagesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Advantages'**
+  String get npcAdvantagesLabel;
+
+  /// No description provided for @npcDisadvantagesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Disadvantages'**
+  String get npcDisadvantagesLabel;
+
+  /// No description provided for @npcWeaponsGear.
+  ///
+  /// In en, this message translates to:
+  /// **'Favored weapons & gear'**
+  String get npcWeaponsGear;
+
+  /// No description provided for @npcGearEquipped.
+  ///
+  /// In en, this message translates to:
+  /// **'Gear (equipped)'**
+  String get npcGearEquipped;
+
+  /// No description provided for @npcGearOther.
+  ///
+  /// In en, this message translates to:
+  /// **'Gear (other)'**
+  String get npcGearOther;
+
+  /// No description provided for @npcSkillGroupsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Skill groups'**
+  String get npcSkillGroupsLabel;
+
+  /// No description provided for @npcTechniquesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Techniques'**
+  String get npcTechniquesLabel;
+
+  /// No description provided for @npcTechniqueImportHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Full technique text appears if you import rules descriptions (Tools → Rules text).'**
+  String get npcTechniqueImportHint;
+
+  /// No description provided for @npcMinionRules.
+  ///
+  /// In en, this message translates to:
+  /// **'Minion: defeated when fatigue exceeds endurance (slain if the defeating damage is 7 or higher, otherwise dispatched non-lethally). Would-be critical strikes instead inflict fatigue equal to their severity. Minions generally spend Opportunity only on their listed abilities.'**
+  String get npcMinionRules;
+
+  /// No description provided for @npcUseAsBase.
+  ///
+  /// In en, this message translates to:
+  /// **'Use as base'**
+  String get npcUseAsBase;
+
+  /// No description provided for @npcEditAction.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit'**
+  String get npcEditAction;
+
+  /// No description provided for @npcDuplicateEdit.
+  ///
+  /// In en, this message translates to:
+  /// **'Duplicate & edit'**
+  String get npcDuplicateEdit;
+
+  /// No description provided for @npcAddToEncounter.
+  ///
+  /// In en, this message translates to:
+  /// **'Add to encounter…'**
+  String get npcAddToEncounter;
+
+  /// No description provided for @npcPrintSheet.
+  ///
+  /// In en, this message translates to:
+  /// **'Print stat block…'**
+  String get npcPrintSheet;
+
+  /// No description provided for @npcConflictRank.
+  ///
+  /// In en, this message translates to:
+  /// **'Conflict rank'**
+  String get npcConflictRank;
+
+  /// No description provided for @npcQuickBuildTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick NPC build'**
+  String get npcQuickBuildTitle;
+
+  /// No description provided for @npcBaseLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Base profile'**
+  String get npcBaseLabel;
+
+  /// No description provided for @npcChooseBase.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a base NPC…'**
+  String get npcChooseBase;
+
+  /// No description provided for @npcTemplatesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Templates (Core p. 311)'**
+  String get npcTemplatesLabel;
+
+  /// No description provided for @npcSuggestedAdv.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested advantages (add 0–2)'**
+  String get npcSuggestedAdv;
+
+  /// No description provided for @npcSuggestedDisadv.
+  ///
+  /// In en, this message translates to:
+  /// **'Suggested disadvantages (add 0–2)'**
+  String get npcSuggestedDisadv;
+
+  /// No description provided for @npcAddTechnique.
+  ///
+  /// In en, this message translates to:
+  /// **'Add technique'**
+  String get npcAddTechnique;
+
+  /// No description provided for @npcResultLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Result'**
+  String get npcResultLabel;
+
+  /// No description provided for @npcSaveAndPrint.
+  ///
+  /// In en, this message translates to:
+  /// **'Save & print…'**
+  String get npcSaveAndPrint;
+
+  /// No description provided for @npcSavedSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved {name}.'**
+  String npcSavedSnack(String name);
+
+  /// No description provided for @npcEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit NPC'**
+  String get npcEditTitle;
+
+  /// No description provided for @npcNewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New NPC'**
+  String get npcNewTitle;
+
+  /// No description provided for @npcBlurbLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Summary line'**
+  String get npcBlurbLabel;
+
+  /// No description provided for @npcCombatRank.
+  ///
+  /// In en, this message translates to:
+  /// **'Combat'**
+  String get npcCombatRank;
+
+  /// No description provided for @npcIntrigueRank.
+  ///
+  /// In en, this message translates to:
+  /// **'Intrigue'**
+  String get npcIntrigueRank;
+
+  /// No description provided for @npcAutoDerived.
+  ///
+  /// In en, this message translates to:
+  /// **'Recompute derived stats from rings'**
+  String get npcAutoDerived;
+
+  /// No description provided for @npcAbilityTextLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Rules text'**
+  String get npcAbilityTextLabel;
+
+  /// No description provided for @npcAddAbility.
+  ///
+  /// In en, this message translates to:
+  /// **'Add ability'**
+  String get npcAddAbility;
+
+  /// No description provided for @npcAddWeapon.
+  ///
+  /// In en, this message translates to:
+  /// **'Add weapon'**
+  String get npcAddWeapon;
+
+  /// No description provided for @npcAddAdvantage.
+  ///
+  /// In en, this message translates to:
+  /// **'Add advantage'**
+  String get npcAddAdvantage;
+
+  /// No description provided for @npcAddDisadvantage.
+  ///
+  /// In en, this message translates to:
+  /// **'Add disadvantage'**
+  String get npcAddDisadvantage;
+
+  /// No description provided for @npcRingLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Ring'**
+  String get npcRingLabel;
+
+  /// No description provided for @npcGroupsLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Skill groups (comma-separated)'**
+  String get npcGroupsLabel;
+
+  /// No description provided for @npcTypesLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Types (comma-separated)'**
+  String get npcTypesLabel;
+
+  /// No description provided for @npcGearEquippedLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Gear, equipped (one per line)'**
+  String get npcGearEquippedLabel;
+
+  /// No description provided for @npcGearOtherLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Gear, other (one per line)'**
+  String get npcGearOtherLabel;
+
+  /// No description provided for @encNew.
+  ///
+  /// In en, this message translates to:
+  /// **'New encounter'**
+  String get encNew;
+
+  /// No description provided for @encAddNpc.
+  ///
+  /// In en, this message translates to:
+  /// **'Add NPC…'**
+  String get encAddNpc;
+
+  /// No description provided for @encCombatRank.
+  ///
+  /// In en, this message translates to:
+  /// **'Combat encounter rank: {rank}'**
+  String encCombatRank(int rank);
+
+  /// No description provided for @encIntrigueRank.
+  ///
+  /// In en, this message translates to:
+  /// **'Intrigue encounter rank: {rank}'**
+  String encIntrigueRank(int rank);
+
+  /// No description provided for @encThresholdsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Party group-rank guide (Core p. 310)'**
+  String get encThresholdsTitle;
+
+  /// No description provided for @encGroupRankHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Group rank = sum of the party\'s school ranks.'**
+  String get encGroupRankHint;
+
+  /// No description provided for @encEven.
+  ///
+  /// In en, this message translates to:
+  /// **'≈ {rank}: evenly matched'**
+  String encEven(int rank);
+
+  /// No description provided for @encEasy.
+  ///
+  /// In en, this message translates to:
+  /// **'{rank} or more: strong edge for the party'**
+  String encEasy(int rank);
+
+  /// No description provided for @encHard.
+  ///
+  /// In en, this message translates to:
+  /// **'{rank} or less: party significantly outmatched'**
+  String encHard(int rank);
+
+  /// No description provided for @encMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} (missing)'**
+  String encMissing(String name);
+
+  /// No description provided for @encEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'No encounters yet. An encounter is a saved roster of NPCs with its challenge math.'**
+  String get encEmptyHint;
+
+  /// No description provided for @encDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This removes the saved encounter.'**
+  String get encDeleteBody;
+
+  /// No description provided for @encNpcCountLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} NPCs'**
+  String encNpcCountLabel(int count);
+
+  /// No description provided for @encPrint.
+  ///
+  /// In en, this message translates to:
+  /// **'Print encounter…'**
+  String get encPrint;
+
+  /// No description provided for @encImport.
+  ///
+  /// In en, this message translates to:
+  /// **'Import encounters…'**
+  String get encImport;
+
+  /// No description provided for @encExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export encounters…'**
+  String get encExport;
+
+  /// No description provided for @encImported.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} encounters imported'**
+  String encImported(int count);
+
+  /// No description provided for @encExported.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} encounters exported'**
+  String encExported(int count);
+
+  /// No description provided for @encCouldNotRead.
+  ///
+  /// In en, this message translates to:
+  /// **'That file could not be read as an encounters JSON array.'**
+  String get encCouldNotRead;
+
+  /// No description provided for @encNoneToExport.
+  ///
+  /// In en, this message translates to:
+  /// **'No encounters to export.'**
+  String get encNoneToExport;
+
+  /// No description provided for @nameRequiredSnack.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter a name first.'**
+  String get nameRequiredSnack;
+
+  /// No description provided for @npcDemeanorNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No demeanor'**
+  String get npcDemeanorNone;
 }
 
 class _AppLocalizationsDelegate

@@ -1,0 +1,172 @@
+[
+    {
+        "name": "Artist",
+        "conflict_rank": { "combat": 0, "intrigue": 2 },
+        "ring": "Fire",
+        "skill_groups": { "Artisan": 2, "Social": 2 },
+        "suggested_advantages": [
+            { "name": "Eye for Detail", "ring": "Air", "groups": [ "Artisan" ], "types": [ "Mental" ] },
+            { "name": "Renown", "ring": "Fire", "groups": [ "Artisan" ], "types": [ "Interpersonal" ] },
+            { "name": "Steady Hand", "ring": "Earth", "groups": [ "Artisan" ], "types": [ "Physical" ] }
+        ],
+        "suggested_disadvantages": [
+            { "name": "Cantankerous", "ring": "Water", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Naiveté", "ring": "Fire", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "World-Weariness", "ring": "Earth", "groups": [ "Social" ], "types": [ "Interpersonal" ] }
+        ],
+        "techniques": {
+            "categories": [ "Shūji" ],
+            "max": 3,
+            "default": [ "Fanning the Flames", "Pillar of Calm", "Shallow Waters" ]
+        },
+        "demeanor_options": [ "Detached", "Gruff", "Shrewd" ],
+        "default_demeanor": "Detached",
+        "reference": { "book": "Core", "page": 311 }
+    },
+    {
+        "name": "Investigator",
+        "conflict_rank": { "combat": 2, "intrigue": 2 },
+        "ring": "Air",
+        "skill_groups": { "Martial": 1, "Scholar": 1 },
+        "suggested_advantages": [
+            { "name": "Analytical Mind", "ring": "Fire", "groups": [ "Scholar" ], "types": [ "Mental" ] },
+            { "name": "Self-Awareness", "ring": "Void", "groups": [ "Martial" ], "types": [ "Mental" ] },
+            { "name": "Sharp Eyes", "ring": "Water", "groups": [ "Scholar" ], "types": [ "Physical" ] }
+        ],
+        "suggested_disadvantages": [
+            { "name": "Disbeliever", "ring": "Fire", "groups": [ "Social" ], "types": [ "Mental" ] },
+            { "name": "Haughty Tone", "ring": "Air", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Severe Allergies", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Physical" ] }
+        ],
+        "techniques": {
+            "categories": [ "Kata", "Shūji" ],
+            "max": 2,
+            "default": [ "Iaijutsu Cut: Crossing Blade", "Battle in the Mind" ]
+        },
+        "demeanor_options": [ "Gruff", "Shrewd" ],
+        "default_demeanor": "Gruff",
+        "reference": { "book": "Core", "page": 311 }
+    },
+    {
+        "name": "Sage",
+        "conflict_rank": { "combat": 1, "intrigue": 2 },
+        "ring": "Earth",
+        "skill_groups": { "Scholar": 1, "Trade": 1 },
+        "suggested_advantages": [
+            { "name": "Forbidden Knowledge [Mahō]", "ring": "Fire", "groups": [ "Scholar" ], "types": [ "Mental" ] },
+            { "name": "Exact Memory", "ring": "Earth", "groups": [ "Scholar" ], "types": [ "Mental" ] },
+            { "name": "Well-Read", "ring": "Fire", "groups": [ "Scholar" ], "types": [ "Mental" ] }
+        ],
+        "suggested_disadvantages": [
+            { "name": "Bitter Marriage", "ring": "Water", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Know-It-All", "ring": "Air", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Frailty", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Physical" ] }
+        ],
+        "techniques": {
+            "categories": [ "Mahō", "Shūji" ],
+            "max": 2,
+            "default": [ "Incite Haunting", "Sinful Whispers" ]
+        },
+        "demeanor_options": [ "Detached", "Shrewd" ],
+        "default_demeanor": "Detached",
+        "reference": { "book": "Core", "page": 311 }
+    },
+    {
+        "name": "Socialite",
+        "conflict_rank": { "combat": 0, "intrigue": 2 },
+        "ring": "Water",
+        "skill_groups": { "Social": 2, "Trade": 2 },
+        "suggested_advantages": [
+            { "name": "Well-Spoken", "ring": "Air", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Prim", "ring": "Earth", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Seems Trustworthy", "ring": "Water", "groups": [ "Social" ], "types": [ "Interpersonal" ] }
+        ],
+        "suggested_disadvantages": [
+            { "name": "Doomed Love", "ring": "Fire", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Lack of Empathy", "ring": "Air", "groups": [ "Social" ], "types": [ "Mental" ] },
+            { "name": "Bad Eyesight", "ring": "Water", "groups": [ "Scholar" ], "types": [ "Physical" ] }
+        ],
+        "techniques": {
+            "categories": [ "Shūji" ],
+            "max": 3,
+            "default": [ "Whispers of Court", "Cadence", "Well of Desire" ],
+            "_comment": [ "Default picks are not from the book; the sidebar on Core p. 311 gives no Socialite example." ]
+        },
+        "demeanor_options": [ "Assertive", "Shrewd" ],
+        "default_demeanor": "Assertive",
+        "reference": { "book": "Core", "page": 311 }
+    },
+    {
+        "name": "Spiritualist",
+        "conflict_rank": { "combat": 1, "intrigue": 1 },
+        "ring": "Void",
+        "skill_groups": { "Artisan": 1, "Scholar": 1 },
+        "suggested_advantages": [
+            { "name": "Partial Enlightenment", "ring": "Void", "groups": [ "Scholar" ], "types": [ "Spiritual" ] },
+            { "name": "Keen Empathy", "ring": "Air", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Friendly Kami or Spirit", "ring": "Fire, Earth, Air, or Water", "groups": [ "Scholar" ], "types": [ "Spiritual" ] }
+        ],
+        "suggested_disadvantages": [
+            { "name": "Poverty", "ring": "Water", "groups": [ "Trade" ], "types": [ "Material" ] },
+            { "name": "Fanaticism", "ring": "Fire", "groups": [ "Social" ], "types": [ "Mental" ] },
+            { "name": "Repressed", "ring": "Fire", "groups": [ "Social" ], "types": [ "Mental" ] }
+        ],
+        "techniques": {
+            "categories": [ "Invocations", "Kihō" ],
+            "max": 2,
+            "default": [ "Earth Needs No Eyes", "Flame Fist" ]
+        },
+        "demeanor_options": [ "Detached", "Assertive" ],
+        "default_demeanor": "Detached",
+        "reference": { "book": "Core", "page": 311 }
+    },
+    {
+        "name": "Trickster",
+        "conflict_rank": { "combat": 1, "intrigue": 2 },
+        "ring": "Air",
+        "skill_groups": { "Social": 1, "Scholar": 1 },
+        "suggested_advantages": [
+            { "name": "Excellent Liar", "ring": "Air", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Patience", "ring": "Earth", "groups": [ "Scholar" ], "types": [ "Mental" ] },
+            { "name": "Loves Haggling", "ring": "Water", "groups": [ "Trade" ], "types": [ "Interpersonal" ] }
+        ],
+        "suggested_disadvantages": [
+            { "name": "Fear of Failure", "ring": "Fire", "groups": [ "Martial" ], "types": [ "Mental" ] },
+            { "name": "Narcissism", "ring": "Earth", "groups": [ "Social" ], "types": [ "Mental" ] },
+            { "name": "Unmemorable Face", "ring": "Air", "groups": [ "Social" ], "types": [ "Physical" ] }
+        ],
+        "techniques": {
+            "categories": [ "Ninjutsu", "Shūji" ],
+            "max": 2,
+            "default": [ "Skulk", "All in Jest" ],
+            "_comment": [ "Default picks are not from the book; the sidebar on Core p. 311 gives no Trickster example." ]
+        },
+        "demeanor_options": [ "Ambitious", "Shrewd" ],
+        "default_demeanor": "Ambitious",
+        "reference": { "book": "Core", "page": 311 }
+    },
+    {
+        "name": "Warrior",
+        "conflict_rank": { "combat": 2, "intrigue": 1 },
+        "ring": "Fire",
+        "skill_groups": { "Martial": 2, "Social": 2 },
+        "suggested_advantages": [
+            { "name": "Masterful Fighter", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Mental" ] },
+            { "name": "Fearsome Presence", "ring": "Fire", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Veteran's Instincts", "ring": "Water", "groups": [ "Scholar" ], "types": [ "Mental" ] }
+        ],
+        "suggested_disadvantages": [
+            { "name": "Bad Dreams", "ring": "Void", "groups": [ "Martial" ], "types": [ "Mental" ] },
+            { "name": "Quick to Anger", "ring": "Fire", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Shattered by War", "ring": "Earth", "groups": [ "Social" ], "types": [ "Mental" ] }
+        ],
+        "techniques": {
+            "categories": [ "Kata" ],
+            "max": 3,
+            "default": [ "Striking as Fire", "Tactical Assessment" ]
+        },
+        "demeanor_options": [ "Assertive", "Gruff" ],
+        "default_demeanor": "Assertive",
+        "reference": { "book": "Core", "page": 311 }
+    }
+]

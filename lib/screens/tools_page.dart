@@ -13,7 +13,9 @@ import '../sheet_style_controller.dart';
 import '../theme.dart';
 import '../user_data_store.dart';
 import 'descriptions_editor.dart';
+import 'encounters_page.dart';
 import 'homebrew_schools_page.dart';
+import 'npc_library_page.dart';
 
 /// Tools: rules descriptions and homebrew content (the original's Tools
 /// menu, minus the SQLite-era CSV round trips).
@@ -292,6 +294,29 @@ class _ToolsPageState extends State<ToolsPage> {
             title: Text(l10n.exportDescriptions),
             subtitle: Text(l10n.exportDescriptionsSubtitle),
             onTap: _exportDescriptions,
+          ),
+          SectionHeader(l10n.gmSection),
+          ListTile(
+            leading: const Icon(Icons.groups_outlined),
+            title: Text(l10n.npcLibraryTitle),
+            subtitle: Text(l10n.npcLibrarySubtitle),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const NpcLibraryPage(),
+              ),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.flag_outlined),
+            title: Text(l10n.encountersTitle),
+            subtitle: Text(l10n.encountersSubtitle),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const EncountersPage(),
+              ),
+            ),
           ),
           SectionHeader(l10n.homebrewSection),
           ListTile(

@@ -2113,4 +2113,319 @@ class AppLocalizationsDe extends AppLocalizations {
   @override
   String get sbCouldNotReadSchoolsFile =>
       'Diese Datei konnte nicht als JSON-Array von Schulen gelesen werden.';
+
+  @override
+  String get gmSection => 'Spielleitung';
+
+  @override
+  String get npcLibraryTitle => 'NSC & Werteblöcke';
+
+  @override
+  String get npcLibrarySubtitle =>
+      'Beispiel-NSC aus Kapitel 8 des Grundregelwerks, Schnellbau mit Vorlagen und eigene NSC';
+
+  @override
+  String get encountersTitle => 'Begegnungen';
+
+  @override
+  String get encountersSubtitle =>
+      'NSC-Gruppen zusammenstellen und ihre Herausforderung einschätzen';
+
+  @override
+  String get npcFilterAll => 'Alle';
+
+  @override
+  String get npcFilterMinions => 'Handlanger';
+
+  @override
+  String get npcFilterAdversaries => 'Widersacher';
+
+  @override
+  String get npcFilterCustom => 'Eigene';
+
+  @override
+  String get npcTypeMinion => 'Handlanger';
+
+  @override
+  String get npcTypeAdversary => 'Widersacher';
+
+  @override
+  String npcCombatIntrigue(int combat, int intrigue) {
+    return 'Kampf $combat · Intrige $intrigue';
+  }
+
+  @override
+  String get npcQuickBuild => 'Schnellbau';
+
+  @override
+  String get npcImport => 'Eigene NSC importieren…';
+
+  @override
+  String get npcExport => 'Eigene NSC exportieren…';
+
+  @override
+  String get npcDeleteAll => 'Alle eigenen NSC löschen';
+
+  @override
+  String get npcDeleteAllBody =>
+      'Entfernt alle eigenen NSC. Die mitgelieferten Beispiel-NSC bleiben unberührt.';
+
+  @override
+  String npcImported(int count) {
+    return '$count NSC importiert';
+  }
+
+  @override
+  String npcExported(int count) {
+    return '$count NSC exportiert';
+  }
+
+  @override
+  String get npcCouldNotRead =>
+      'Diese Datei ließ sich nicht als JSON-Liste von NSC lesen.';
+
+  @override
+  String get npcNoneToExport => 'Keine eigenen NSC zum Exportieren.';
+
+  @override
+  String npcDeleteTitle(String name) {
+    return '$name löschen?';
+  }
+
+  @override
+  String get npcDeleteBody =>
+      'Entfernt den eigenen NSC. Begegnungen, die ihn verwenden, zeigen ihn als fehlend an.';
+
+  @override
+  String get npcEmptyHint => 'Keine passenden NSC.';
+
+  @override
+  String get npcPickTitle => 'NSC wählen';
+
+  @override
+  String get npcDemeanorLabel => 'Auftreten';
+
+  @override
+  String npcDemeanorTnMods(String mods) {
+    return 'ZW-Modifikatoren für soziale Proben: $mods';
+  }
+
+  @override
+  String npcUnmasking(String way) {
+    return 'Übliche Entblößung: $way';
+  }
+
+  @override
+  String get npcAdvantagesLabel => 'Vorzüge';
+
+  @override
+  String get npcDisadvantagesLabel => 'Schwächen';
+
+  @override
+  String get npcWeaponsGear => 'Bevorzugte Waffen & Ausrüstung';
+
+  @override
+  String get npcGearEquipped => 'Ausrüstung (angelegt)';
+
+  @override
+  String get npcGearOther => 'Ausrüstung (sonstige)';
+
+  @override
+  String get npcSkillGroupsLabel => 'Fähigkeitsgruppen';
+
+  @override
+  String get npcTechniquesLabel => 'Techniken';
+
+  @override
+  String get npcTechniqueImportHint =>
+      'Der vollständige Technik-Text erscheint, wenn Regelbeschreibungen importiert wurden (Werkzeuge → Regeltexte).';
+
+  @override
+  String get npcMinionRules =>
+      'Handlanger: besiegt, sobald die Erschöpfung die Ausdauer übersteigt (getötet bei 7+ Schaden der auslösenden Quelle, sonst kampfunfähig). Kritische Treffer verursachen stattdessen Erschöpfung in Höhe ihres Schweregrads. Handlanger geben Gelegenheit in der Regel nur für ihre gelisteten Fertigkeiten aus.';
+
+  @override
+  String get npcUseAsBase => 'Als Basis verwenden';
+
+  @override
+  String get npcEditAction => 'Bearbeiten';
+
+  @override
+  String get npcDuplicateEdit => 'Duplizieren & bearbeiten';
+
+  @override
+  String get npcAddToEncounter => 'Zu Begegnung hinzufügen…';
+
+  @override
+  String get npcPrintSheet => 'Werteblock drucken…';
+
+  @override
+  String get npcConflictRank => 'Konfliktrang';
+
+  @override
+  String get npcQuickBuildTitle => 'NSC-Schnellbau';
+
+  @override
+  String get npcBaseLabel => 'Basisprofil';
+
+  @override
+  String get npcChooseBase => 'Basis-NSC wählen…';
+
+  @override
+  String get npcTemplatesLabel => 'Vorlagen (Core S. 311)';
+
+  @override
+  String get npcSuggestedAdv => 'Vorgeschlagene Vorzüge (0–2 hinzufügen)';
+
+  @override
+  String get npcSuggestedDisadv => 'Vorgeschlagene Schwächen (0–2 hinzufügen)';
+
+  @override
+  String get npcAddTechnique => 'Technik hinzufügen';
+
+  @override
+  String get npcResultLabel => 'Ergebnis';
+
+  @override
+  String get npcSaveAndPrint => 'Speichern & drucken…';
+
+  @override
+  String npcSavedSnack(String name) {
+    return 'Gespeichert: $name';
+  }
+
+  @override
+  String get npcEditTitle => 'NSC bearbeiten';
+
+  @override
+  String get npcNewTitle => 'Neuer NSC';
+
+  @override
+  String get npcBlurbLabel => 'Kurzbeschreibung';
+
+  @override
+  String get npcCombatRank => 'Kampf';
+
+  @override
+  String get npcIntrigueRank => 'Intrige';
+
+  @override
+  String get npcAutoDerived => 'Abgeleitete Werte aus den Ringen neu berechnen';
+
+  @override
+  String get npcAbilityTextLabel => 'Regeltext';
+
+  @override
+  String get npcAddAbility => 'Fertigkeit hinzufügen';
+
+  @override
+  String get npcAddWeapon => 'Waffe hinzufügen';
+
+  @override
+  String get npcAddAdvantage => 'Vorzug hinzufügen';
+
+  @override
+  String get npcAddDisadvantage => 'Schwäche hinzufügen';
+
+  @override
+  String get npcRingLabel => 'Ring';
+
+  @override
+  String get npcGroupsLabel => 'Fähigkeitsgruppen (durch Kommas getrennt)';
+
+  @override
+  String get npcTypesLabel => 'Typen (durch Kommas getrennt)';
+
+  @override
+  String get npcGearEquippedLabel => 'Angelegte Ausrüstung (eine pro Zeile)';
+
+  @override
+  String get npcGearOtherLabel => 'Sonstige Ausrüstung (eine pro Zeile)';
+
+  @override
+  String get encNew => 'Neue Begegnung';
+
+  @override
+  String get encAddNpc => 'NSC hinzufügen…';
+
+  @override
+  String encCombatRank(int rank) {
+    return 'Begegnungsrang Kampf: $rank';
+  }
+
+  @override
+  String encIntrigueRank(int rank) {
+    return 'Begegnungsrang Intrige: $rank';
+  }
+
+  @override
+  String get encThresholdsTitle => 'Gruppenrang-Richtwerte (Core S. 310)';
+
+  @override
+  String get encGroupRankHint =>
+      'Gruppenrang = Summe der Schulränge der Gruppe.';
+
+  @override
+  String encEven(int rank) {
+    return '≈ $rank: ausgeglichen';
+  }
+
+  @override
+  String encEasy(int rank) {
+    return '$rank oder mehr: klarer Vorteil für die Gruppe';
+  }
+
+  @override
+  String encHard(int rank) {
+    return '$rank oder weniger: Gruppe deutlich unterlegen';
+  }
+
+  @override
+  String encMissing(String name) {
+    return '$name (fehlt)';
+  }
+
+  @override
+  String get encEmptyHint =>
+      'Noch keine Begegnungen. Eine Begegnung ist eine gespeicherte NSC-Gruppe samt Herausforderungsrechnung.';
+
+  @override
+  String get encDeleteBody => 'Entfernt die gespeicherte Begegnung.';
+
+  @override
+  String encNpcCountLabel(int count) {
+    return '$count NSC';
+  }
+
+  @override
+  String get encPrint => 'Begegnung drucken…';
+
+  @override
+  String get encImport => 'Begegnungen importieren…';
+
+  @override
+  String get encExport => 'Begegnungen exportieren…';
+
+  @override
+  String encImported(int count) {
+    return '$count Begegnungen importiert';
+  }
+
+  @override
+  String encExported(int count) {
+    return '$count Begegnungen exportiert';
+  }
+
+  @override
+  String get encCouldNotRead =>
+      'Diese Datei konnte nicht als JSON-Array von Begegnungen gelesen werden.';
+
+  @override
+  String get encNoneToExport => 'Keine Begegnungen zum Exportieren.';
+
+  @override
+  String get nameRequiredSnack => 'Bitte zuerst einen Namen eingeben.';
+
+  @override
+  String get npcDemeanorNone => 'Kein Auftreten';
 }

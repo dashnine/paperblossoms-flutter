@@ -1291,5 +1291,177 @@
     }
   },
   "sbNoSchoolsToExport": "No homebrew schools to export.",
-  "sbCouldNotReadSchoolsFile": "That file could not be read as a schools JSON array."
+  "sbCouldNotReadSchoolsFile": "That file could not be read as a schools JSON array.",
+  "gmSection": "Game master",
+  "npcLibraryTitle": "NPCs & stat blocks",
+  "npcLibrarySubtitle": "Core Chapter 8 sample NPCs, quick building with templates, and your custom NPCs",
+  "encountersTitle": "Encounters",
+  "encountersSubtitle": "Build NPC rosters and gauge their challenge",
+  "npcFilterAll": "All",
+  "npcFilterMinions": "Minions",
+  "npcFilterAdversaries": "Adversaries",
+  "npcFilterCustom": "Custom",
+  "npcTypeMinion": "Minion",
+  "npcTypeAdversary": "Adversary",
+  "npcCombatIntrigue": "Combat {combat} · Intrigue {intrigue}",
+  "@npcCombatIntrigue": {
+    "placeholders": {
+      "combat": { "type": "int" },
+      "intrigue": { "type": "int" }
+    }
+  },
+  "npcQuickBuild": "Quick build",
+  "npcImport": "Import custom NPCs…",
+  "npcExport": "Export custom NPCs…",
+  "npcDeleteAll": "Delete all custom NPCs",
+  "npcDeleteAllBody": "This removes every custom NPC. Bundled sample NPCs are unaffected.",
+  "npcImported": "{count} NPCs imported",
+  "@npcImported": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "npcExported": "{count} NPCs exported",
+  "@npcExported": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "npcCouldNotRead": "That file could not be read as an NPC JSON array.",
+  "npcNoneToExport": "No custom NPCs to export.",
+  "npcDeleteTitle": "Delete {name}?",
+  "@npcDeleteTitle": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "npcDeleteBody": "This removes the custom NPC. Encounters that reference it will show it as missing.",
+  "npcEmptyHint": "No NPCs match.",
+  "npcPickTitle": "Choose an NPC",
+  "npcDemeanorLabel": "Demeanor",
+  "npcDemeanorTnMods": "Social check TN modifiers: {mods}",
+  "@npcDemeanorTnMods": {
+    "placeholders": {
+      "mods": { "type": "String" }
+    }
+  },
+  "npcUnmasking": "Common way of unmasking: {way}",
+  "@npcUnmasking": {
+    "placeholders": {
+      "way": { "type": "String" }
+    }
+  },
+  "npcAdvantagesLabel": "Advantages",
+  "npcDisadvantagesLabel": "Disadvantages",
+  "npcWeaponsGear": "Favored weapons & gear",
+  "npcGearEquipped": "Gear (equipped)",
+  "npcGearOther": "Gear (other)",
+  "npcSkillGroupsLabel": "Skill groups",
+  "npcTechniquesLabel": "Techniques",
+  "npcTechniqueImportHint": "Full technique text appears if you import rules descriptions (Tools → Rules text).",
+  "npcMinionRules": "Minion: defeated when fatigue exceeds endurance (slain if the defeating damage is 7 or higher, otherwise dispatched non-lethally). Would-be critical strikes instead inflict fatigue equal to their severity. Minions generally spend Opportunity only on their listed abilities.",
+  "npcUseAsBase": "Use as base",
+  "npcEditAction": "Edit",
+  "npcDuplicateEdit": "Duplicate & edit",
+  "npcAddToEncounter": "Add to encounter…",
+  "npcPrintSheet": "Print stat block…",
+  "npcConflictRank": "Conflict rank",
+  "npcQuickBuildTitle": "Quick NPC build",
+  "npcBaseLabel": "Base profile",
+  "npcChooseBase": "Choose a base NPC…",
+  "npcTemplatesLabel": "Templates (Core p. 311)",
+  "npcSuggestedAdv": "Suggested advantages (add 0–2)",
+  "npcSuggestedDisadv": "Suggested disadvantages (add 0–2)",
+  "npcAddTechnique": "Add technique",
+  "npcResultLabel": "Result",
+  "npcSaveAndPrint": "Save & print…",
+  "npcSavedSnack": "Saved {name}.",
+  "@npcSavedSnack": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "npcEditTitle": "Edit NPC",
+  "npcNewTitle": "New NPC",
+  "npcBlurbLabel": "Summary line",
+  "npcCombatRank": "Combat",
+  "npcIntrigueRank": "Intrigue",
+  "npcAutoDerived": "Recompute derived stats from rings",
+  "npcAbilityTextLabel": "Rules text",
+  "npcAddAbility": "Add ability",
+  "npcAddWeapon": "Add weapon",
+  "npcAddAdvantage": "Add advantage",
+  "npcAddDisadvantage": "Add disadvantage",
+  "npcRingLabel": "Ring",
+  "npcGroupsLabel": "Skill groups (comma-separated)",
+  "npcTypesLabel": "Types (comma-separated)",
+  "npcGearEquippedLabel": "Gear, equipped (one per line)",
+  "npcGearOtherLabel": "Gear, other (one per line)",
+  "encNew": "New encounter",
+  "encAddNpc": "Add NPC…",
+  "encCombatRank": "Combat encounter rank: {rank}",
+  "@encCombatRank": {
+    "placeholders": {
+      "rank": { "type": "int" }
+    }
+  },
+  "encIntrigueRank": "Intrigue encounter rank: {rank}",
+  "@encIntrigueRank": {
+    "placeholders": {
+      "rank": { "type": "int" }
+    }
+  },
+  "encThresholdsTitle": "Party group-rank guide (Core p. 310)",
+  "encGroupRankHint": "Group rank = sum of the party's school ranks.",
+  "encEven": "≈ {rank}: evenly matched",
+  "@encEven": {
+    "placeholders": {
+      "rank": { "type": "int" }
+    }
+  },
+  "encEasy": "{rank} or more: strong edge for the party",
+  "@encEasy": {
+    "placeholders": {
+      "rank": { "type": "int" }
+    }
+  },
+  "encHard": "{rank} or less: party significantly outmatched",
+  "@encHard": {
+    "placeholders": {
+      "rank": { "type": "int" }
+    }
+  },
+  "encMissing": "{name} (missing)",
+  "@encMissing": {
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "encEmptyHint": "No encounters yet. An encounter is a saved roster of NPCs with its challenge math.",
+  "encDeleteBody": "This removes the saved encounter.",
+  "encNpcCountLabel": "{count} NPCs",
+  "@encNpcCountLabel": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "encPrint": "Print encounter…",
+  "encImport": "Import encounters…",
+  "encExport": "Export encounters…",
+  "encImported": "{count} encounters imported",
+  "@encImported": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "encExported": "{count} encounters exported",
+  "@encExported": {
+    "placeholders": {
+      "count": { "type": "int" }
+    }
+  },
+  "encCouldNotRead": "That file could not be read as an encounters JSON array.",
+  "encNoneToExport": "No encounters to export.",
+  "nameRequiredSnack": "Enter a name first.",
+  "npcDemeanorNone": "No demeanor"
 }

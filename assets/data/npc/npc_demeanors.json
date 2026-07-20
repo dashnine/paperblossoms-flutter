@@ -1,0 +1,107 @@
+[
+    {
+        "name": "Ambitious",
+        "description": "Pursues power whenever possible and resists giving it up, but jumps to support appeals that align with their own desires.",
+        "modifiers": { "Fire": 2, "Water": -2 },
+        "unmasking": "Bend Principles",
+        "reference": { "book": "Core", "page": 310 }
+    },
+    {
+        "name": "Assertive",
+        "description": "Used to being in charge and dislikes being told what to do; most pliant when they think they are getting their way.",
+        "modifiers": { "Earth": 2, "Air": -2 },
+        "unmasking": "Rage",
+        "reference": { "book": "Core", "page": 310 }
+    },
+    {
+        "name": "Detached",
+        "description": "Extremely meditative, spiritual, enlightened, or simply uninterested in other people.",
+        "modifiers": { "Earth": 1, "Fire": 1, "Void": -2 },
+        "unmasking": "Expose an Opening",
+        "reference": { "book": "Core", "page": 310 }
+    },
+    {
+        "name": "Gruff",
+        "description": "Rough exterior and no-nonsense attitude with little tolerance for frivolity or trickery; a direct, honest approach works best.",
+        "modifiers": { "Water": 2, "Earth": -2 },
+        "unmasking": "Inappropriate Outburst",
+        "reference": { "book": "Core", "page": 310 }
+    },
+    {
+        "name": "Shrewd",
+        "description": "Used to maneuvering around powerful people; avoids direct conflict and is wary of such efforts by others.",
+        "modifiers": { "Air": 2, "Fire": -2 },
+        "unmasking": "Panicked Retreat",
+        "reference": { "book": "Core", "page": 310 }
+    },
+    {
+        "name": "Angry",
+        "modifiers": { "Fire": 2, "Water": -2 },
+        "reference": { "book": "Core", "page": 318 }
+    },
+    {
+        "name": "Hungry",
+        "modifiers": { "Void": 2, "Air": -2 },
+        "reference": { "book": "Core", "page": 321 }
+    },
+    {
+        "name": "Flighty",
+        "modifiers": { "Air": 2, "Void": -2 },
+        "reference": { "book": "Core", "page": 322 }
+    },
+    {
+        "name": "Obstinate",
+        "modifiers": { "Water": 2, "Air": -2 },
+        "reference": { "book": "Core", "page": 323 }
+    },
+    {
+        "name": "Intense",
+        "modifiers": { "Air": 2, "Water": -2 },
+        "reference": { "book": "Core", "page": 324 }
+    },
+    {
+        "name": "Adaptable",
+        "modifiers": { "Void": 2, "Earth": -2 },
+        "reference": { "book": "Core", "page": 324 }
+    },
+    {
+        "name": "Intimidating",
+        "modifiers": { "Void": 2, "Air": -2 },
+        "reference": { "book": "Core", "page": 325 }
+    },
+    {
+        "name": "Territorial",
+        "modifiers": { "Fire": 2, "Air": -2 },
+        "reference": { "book": "Core", "page": 325 }
+    },
+    {
+        "name": "Playful",
+        "modifiers": { "Earth": 2, "Water": -2 },
+        "reference": { "book": "Core", "page": 325 }
+    },
+    {
+        "name": "Friendly",
+        "modifiers": { "Void": 1, "Earth": -2, "Water": -2 },
+        "reference": { "book": "Core", "page": 326 }
+    },
+    {
+        "name": "Proud",
+        "modifiers": { "Void": 2, "Earth": -2 },
+        "reference": { "book": "Core", "page": 326 }
+    },
+    {
+        "name": "Loyal",
+        "modifiers": { "Air": 1, "Earth": -2, "Void": -2 },
+        "reference": { "book": "Core", "page": 326 }
+    },
+    {
+        "name": "Opportunistic",
+        "modifiers": { "Water": 2, "Void": -2 },
+        "reference": { "book": "Core", "page": 327 }
+    },
+    {
+        "name": "Cautious",
+        "modifiers": { "Air": 2, "Earth": -2 },
+        "reference": { "book": "Core", "page": 327 }
+    }
+]

@@ -1,0 +1,1142 @@
+[
+    {
+        "name": "Loyal Bushi",
+        "type": "adversary",
+        "blurb": "Professional samurai soldier in service to a clan, met alone or in units on the march.",
+        "conflict_rank": { "combat": 4, "intrigue": 2 },
+        "rings": { "Air": 2, "Earth": 3, "Fire": 3, "Water": 3, "Void": 2 },
+        "derived": { "endurance": 12, "composure": 9, "focus": 5, "vigilance": 3 },
+        "social": { "honor": 55, "glory": 50, "status": 39 },
+        "demeanor": "Assertive",
+        "skill_groups": { "Artisan": 1, "Martial": 3, "Scholar": 2, "Social": 1, "Trade": 0 },
+        "advantages": [
+            { "name": "Tested in War", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Mental", "Physical" ] },
+            { "name": "Sworn to Bushidō", "ring": "Void", "groups": [ "Social" ], "types": [ "Mental" ] }
+        ],
+        "disadvantages": [
+            { "name": "Hot-Tempered", "ring": "Water", "groups": [ "Social" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Katana", "range": "1", "damage": "4", "deadliness": "5/7", "qualities": [ "Ceremonial", "Razor-Edged" ] },
+            { "name": "Yumi (Bow)", "range": "2–5", "damage": "5", "deadliness": "3", "qualities": [] }
+        ],
+        "gear": {
+            "equipped": [ "Lacquered armor (Physical 4, Ceremonial, Cumbersome, Wargear)", "wakizashi", "quiver", "yari (spear)", "knife" ],
+            "other": [ "Plain robes (Physical 1, Mundane)", "a handful of koku and bu" ]
+        },
+        "abilities": [
+            {
+                "name": "Crescent Moon Style",
+                "text": "When performing a Guard action, the bushi may spend Opportunity in the following way:\nOpportunity: After another character performs an Attack action targeting the bushi or another character the bushi is guarding, the bushi may perform a Strike action targeting them. This effect persists until the start of the bushi's next turn or until they perform a Strike action.",
+                "reference": { "book": "Core", "page": 312 }
+            },
+            {
+                "name": "Sworn Protector",
+                "text": "Once per scene, when an Attack action check targeting another character at range 0–1 succeeds, the bushi may intervene, becoming the target of the action instead.",
+                "reference": { "book": "Core", "page": 312 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 312 }
+    },
+    {
+        "name": "Humble Peasant",
+        "type": "minion",
+        "blurb": "Hardworking commoner beneath samurai notice; covers heimin and hinin alike (hinin have status 0).",
+        "conflict_rank": { "combat": 1, "intrigue": 1 },
+        "rings": { "Air": 1, "Earth": 2, "Fire": 2, "Water": 2, "Void": 1 },
+        "derived": { "endurance": 4, "composure": 4, "focus": 3, "vigilance": 2 },
+        "social": { "honor": 20, "glory": 25, "status": 15 },
+        "demeanor": "Shrewd",
+        "skill_groups": { "Artisan": 0, "Martial": 0, "Scholar": 0, "Social": 1, "Trade": 2 },
+        "advantages": [
+            { "name": "Salt of the Earth", "ring": "Earth", "groups": [ "Trade" ], "types": [ "Interpersonal", "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Deferential", "ring": "Water", "groups": [ "Social" ], "types": [ "Interpersonal", "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Improvised Weapon", "range": "1", "damage": "2", "deadliness": "3/4", "qualities": [] }
+        ],
+        "gear": {
+            "equipped": [ "Rags", "cloth headband", "shoddy farm equipment", "a meager handful of zeni" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Overlooked",
+                "text": "When a peasant makes a check targeting a character with a higher status rank, they treat that character's vigilance as 1 lower.",
+                "reference": { "book": "Core", "page": 313 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 313 }
+    },
+    {
+        "name": "Seasoned Courtier",
+        "type": "adversary",
+        "blurb": "Politician and diplomat samurai who serves with words, relying on a yōjimbō for protection.",
+        "conflict_rank": { "combat": 1, "intrigue": 5 },
+        "rings": { "Air": 4, "Earth": 2, "Fire": 2, "Water": 3, "Void": 2 },
+        "derived": { "endurance": 6, "composure": 12, "focus": 6, "vigilance": 4 },
+        "social": { "honor": 60, "glory": 50, "status": 39 },
+        "demeanor": "Shrewd",
+        "skill_groups": { "Artisan": 3, "Martial": 0, "Scholar": 2, "Social": 3, "Trade": 0 },
+        "advantages": [
+            { "name": "Inexhaustible Politeness", "ring": "Air", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Wealth and Resources", "ring": "Water", "groups": [ "Trade" ], "types": [ "Material" ] }
+        ],
+        "disadvantages": [
+            { "name": "Sheltered from War", "ring": "Void", "groups": [ "Martial" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Wakizashi", "range": "0–1", "damage": "3", "deadliness": "5/7", "qualities": [ "Ceremonial", "Razor-Edged" ] }
+        ],
+        "gear": {
+            "equipped": [ "Extravagant robes (Physical 1, Ceremonial)", "calligraphy set" ],
+            "other": [ "Tea set", "Rokugani pony" ]
+        },
+        "abilities": [
+            {
+                "name": "Whispering Winds",
+                "text": "Once per session as an action, the courtier may make a Courtesy (Air) check targeting one character in the scene. The TN is equal to 6 minus the target's glory rank (to a minimum of 1). If they succeed, the courtier learns a rumor about the target.\nOpportunity Opportunity: The courtier learns one of the target's advantages or disadvantages of the target's choice.",
+                "reference": { "book": "Core", "page": 313 }
+            },
+            {
+                "name": "Fanning the Flames",
+                "text": "When making a Social skill (Fire) check, the courtier may spend Opportunity in the following way:\nFire Opportunity: One target gains the Dazed condition.",
+                "reference": { "book": "Core", "page": 313 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 313 }
+    },
+    {
+        "name": "Scholarly Shugenja",
+        "type": "adversary",
+        "blurb": "Priest who communes with the kami; rare, and seldom found outside shrines, temples, and libraries.",
+        "conflict_rank": { "combat": 4, "intrigue": 3 },
+        "rings": { "Air": 3, "Earth": 3, "Fire": 3, "Water": 3, "Void": 3 },
+        "derived": { "endurance": 10, "composure": 12, "focus": 6, "vigilance": 3 },
+        "social": { "honor": 60, "glory": 45, "status": 39 },
+        "demeanor": "Ambitious",
+        "skill_groups": { "Artisan": 3, "Martial": 0, "Scholar": 2, "Social": 3, "Trade": 0 },
+        "advantages": [
+            { "name": "Mystical Knowledge", "ring": "Void", "groups": [ "Scholar" ], "types": [ "Mental" ] },
+            { "name": "Holy Personage", "ring": "Void", "groups": [ "Social" ], "types": [ "Interpersonal" ] }
+        ],
+        "disadvantages": [
+            { "name": "Scholar's Physique", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Physical" ] }
+        ],
+        "weapons": [
+            { "name": "Wakizashi", "range": "0–1", "damage": "3", "deadliness": "5/7", "qualities": [ "Ceremonial", "Razor-Edged" ] }
+        ],
+        "gear": {
+            "equipped": [ "Sanctified robes (Physical 1, Supernatural 3, Ceremonial)", "scroll satchel", "offerings" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Path to Inner Peace (Invocation)",
+                "text": "As a Support action, the shugenja may make a TN 2 Theology (Water) check targeting a character at range 0–2. If the shugenja succeeds, the target removes 3 fatigue, plus 1 per bonus success. A target can only be affected by the Path to Inner Peace invocation once per scene.",
+                "reference": { "book": "Core", "page": 314 }
+            },
+            {
+                "name": "The Fires From Within (Invocation)",
+                "text": "As an Attack action, the shugenja may make a TN 3 Theology (Fire) check targeting up to three characters at range 1–3. If the shugenja succeeds, each target suffers 3 supernatural damage, plus 1 per bonus success.\nOpportunity+: Choose 1 additional target per Opportunity spent this way.",
+                "reference": { "book": "Core", "page": 314 }
+            },
+            {
+                "name": "Disciple of Secret Lore",
+                "text": "Activation: Choose 0–5 additional invocations and 0–3 additional rituals that this shugenja can perform. Add 1 to this character's combat rank for each invocation with a prerequisite of rank 3+ chosen this way.",
+                "reference": { "book": "Core", "page": 314 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 314 }
+    },
+    {
+        "name": "Trained Ashigaru",
+        "type": "minion",
+        "blurb": "Drafted commoner foot soldier of Rokugani armies; encountered in troops when a clan is at war.",
+        "conflict_rank": { "combat": 2, "intrigue": 1 },
+        "rings": { "Air": 1, "Earth": 3, "Fire": 2, "Water": 2, "Void": 1 },
+        "derived": { "endurance": 6, "composure": 12, "focus": 6, "vigilance": 2 },
+        "social": { "honor": 25, "glory": 29, "status": 19 },
+        "demeanor": "Gruff",
+        "skill_groups": { "Artisan": 0, "Martial": 1, "Scholar": 0, "Social": 0, "Trade": 1 },
+        "advantages": [
+            { "name": "Strength in Numbers", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Jaded by Battle", "ring": "Void", "groups": [ "Social" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Yari", "range": "2", "damage": "5", "deadliness": "3", "qualities": [ "Wargear" ] }
+        ],
+        "gear": {
+            "equipped": [ "Ashigaru armor (Physical 3, Wargear)", "knife", "dice and cup or musical instrument", "a handful of bu and zeni" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Rank Tactics",
+                "text": "When an ashigaru provides assistance to the Martial skill check of another character at range 0–2, that character adds one kept ring die set to a success result instead of rolling an additional die.",
+                "reference": { "book": "Core", "page": 314 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 314 }
+    },
+    {
+        "name": "Venerable Provincial Daimyō",
+        "type": "adversary",
+        "blurb": "Stern, seasoned lord; rarely takes up arms anymore but remains deadly at court and in combat.",
+        "conflict_rank": { "combat": 7, "intrigue": 6 },
+        "rings": { "Air": 3, "Earth": 4, "Fire": 4, "Water": 4, "Void": 4 },
+        "derived": { "endurance": 14, "composure": 16, "focus": 7, "vigilance": 4 },
+        "social": { "honor": 55, "glory": 70, "status": 65 },
+        "demeanor": "Assertive",
+        "skill_groups": { "Artisan": 2, "Martial": 4, "Scholar": 3, "Social": 3, "Trade": 1 },
+        "advantages": [
+            { "name": "Wisdom of Experience", "ring": "Void", "groups": [ "Scholar" ], "types": [ "Mental" ] },
+            { "name": "Bolstering Presence", "ring": "Earth", "groups": [ "Social" ], "types": [ "Interpersonal" ] }
+        ],
+        "disadvantages": [
+            { "name": "Long at Court", "ring": "Water", "groups": [ "Martial" ], "types": [ "Mental", "Physical" ] }
+        ],
+        "weapons": [
+            { "name": "Wakizashi", "range": "0–1", "damage": "3", "deadliness": "5/7", "qualities": [ "Ceremonial", "Razor-Edged" ] }
+        ],
+        "gear": {
+            "equipped": [ "Calligraphy set", "personal chop" ],
+            "other": [ "Daishō", "plated armor (Physical 5, Cumbersome, Durable, Wargear)", "various estates" ]
+        },
+        "abilities": [
+            {
+                "name": "Lord's Command",
+                "text": "Once per scene, as a Support action, a daimyō may advise a character who can hear them on how to complete a task they wish the character to perform. The character may use the daimyō's ring or skill in place of their own for the next check they make to complete this task before the end of the game session.",
+                "reference": { "book": "Core", "page": 315 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 315 }
+    },
+    {
+        "name": "Desperate Bandit",
+        "type": "minion",
+        "blurb": "Rural outlaw relying on swift, violent ambush of travelers on the Imperial roads.",
+        "conflict_rank": { "combat": 1, "intrigue": 1 },
+        "rings": { "Air": 2, "Earth": 2, "Fire": 2, "Water": 2, "Void": 1 },
+        "derived": { "endurance": 5, "composure": 6, "focus": 4, "vigilance": 2 },
+        "social": { "honor": 15, "glory": 20, "status": 1 },
+        "_comment": [ "Status is printed as '01' in the book." ],
+        "demeanor": "Ambitious",
+        "skill_groups": { "Artisan": 0, "Martial": 1, "Scholar": 0, "Social": 0, "Trade": 1 },
+        "advantages": [
+            { "name": "Nothing to Lose", "ring": "Void", "groups": [ "Martial", "Social" ], "types": [ "Mental" ] }
+        ],
+        "disadvantages": [
+            { "name": "Fool's Avarice", "ring": "Earth", "groups": [ "Social" ], "types": [ "Mental" ] },
+            { "name": "Quarrelsome", "ring": "Void", "groups": [ "Social" ], "types": [ "Interpersonal" ] }
+        ],
+        "weapons": [
+            { "name": "Yari (Spear)", "range": "2", "damage": "5", "deadliness": "3", "qualities": [ "Wargear" ] },
+            { "name": "Sling", "range": "2–3", "damage": "3", "deadliness": "3", "qualities": [ "Concealable", "Mundane" ] }
+        ],
+        "gear": {
+            "equipped": [ "Thick clothes (Physical 2, Mundane)", "knife", "pouch of slingstones", "drinking cup" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Ambush Tactics",
+                "text": "When performing an Attack action against a target with the Dazed or Disoriented condition, increase any damage dealt by 2.",
+                "reference": { "book": "Core", "page": 315 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 315 }
+    },
+    {
+        "name": "Experienced Bandit",
+        "type": "adversary",
+        "blurb": "Cunning survivor who leads a gang of lesser outlaws or partners with a lethal rōnin.",
+        "conflict_rank": { "combat": 3, "intrigue": 2 },
+        "rings": { "Air": 2, "Earth": 3, "Fire": 3, "Water": 3, "Void": 1 },
+        "derived": { "endurance": 9, "composure": 8, "focus": 6, "vigilance": 3 },
+        "social": { "honor": 10, "glory": 15, "status": 3 },
+        "_comment": [ "Status is printed as '03' in the book." ],
+        "demeanor": "Shrewd",
+        "skill_groups": { "Artisan": 0, "Martial": 2, "Scholar": 0, "Social": 1, "Trade": 1 },
+        "advantages": [
+            { "name": "Age and Cunning", "ring": "Water", "groups": [ "Martial", "Social" ], "types": [ "Interpersonal", "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Fool's Avarice", "ring": "Earth", "groups": [ "Social" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Rusted Katana", "range": "1", "damage": "4", "deadliness": "5/7", "qualities": [ "Ceremonial", "Damaged", "Razor-Edged" ] },
+            { "name": "Kusari-gama", "range": "0/2–3", "damage": "3", "deadliness": "3", "qualities": [ "Concealable", "Snaring", "Wargear" ] }
+        ],
+        "gear": {
+            "equipped": [ "Ashigaru armor (Physical 3, Wargear)", "assortment of knives", "sake jug", "handful of bu" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Dirty Tricks",
+                "text": "When performing an Attack action check, an experienced bandit may spend Opportunity in the following way:\nOpportunity: One character at range 0–2 suffers the Disoriented condition. Then you may move 1 range band.",
+                "reference": { "book": "Core", "page": 316 }
+            },
+            {
+                "name": "...Get Them, You Fools!",
+                "text": "As an action, an experienced bandit may have up to two Desperate Bandits who have not yet acted this round immediately move 1 range band and perform a Strike action with skilled assistance.",
+                "reference": { "book": "Core", "page": 316 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 316 }
+    },
+    {
+        "name": "Skillful Rōnin",
+        "type": "adversary",
+        "blurb": "Masterless samurai who fights for money but holds, on some level, to Bushidō.",
+        "conflict_rank": { "combat": 4, "intrigue": 2 },
+        "rings": { "Air": 3, "Earth": 3, "Fire": 2, "Water": 2, "Void": 2 },
+        "derived": { "endurance": 12, "composure": 11, "focus": 5, "vigilance": 3 },
+        "social": { "honor": 30, "glory": 40, "status": 20 },
+        "demeanor": "Detached",
+        "skill_groups": { "Artisan": 0, "Martial": 3, "Scholar": 1, "Social": 0, "Trade": 2 },
+        "advantages": [
+            { "name": "Killer Instinct", "ring": "Void", "groups": [ "Martial" ], "types": [ "Mental" ] },
+            { "name": "Worldly Wanderer", "ring": "Void", "groups": [ "Scholar", "Trade" ], "types": [ "Mental" ] }
+        ],
+        "disadvantages": [
+            { "name": "Unnecessarily Rude", "ring": "Water", "groups": [ "Social" ], "types": [ "Interpersonal" ] }
+        ],
+        "weapons": [
+            { "name": "Katana", "range": "1", "damage": "4", "deadliness": "5/7", "qualities": [ "Ceremonial", "Razor-Edged" ] },
+            { "name": "Yumi", "range": "2–5", "damage": "5", "deadliness": "3", "qualities": [] }
+        ],
+        "gear": {
+            "equipped": [ "Wakizashi", "worn traveler's robes (Physical 2, Mundane)", "quiver", "empty sake jug", "straw hat", "handful of bu and zeni" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "School of the Wolf",
+                "text": "Once per round, when an Attack action check targeting the rōnin succeeds, the rōnin may suffer 3 fatigue to change the target to another character (other than the attacker) at range 0–1 of the rōnin.",
+                "reference": { "book": "Core", "page": 316 }
+            },
+            {
+                "name": "Striking as Fire",
+                "text": "When performing an Attack action (Fire) check, a rōnin may spend Opportunity as follows:\nFire Opportunity+: Increase the severity of any critical strike dealt as part of this attack by 2 per Opportunity spent this way.",
+                "reference": { "book": "Core", "page": 316 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 316 }
+    },
+    {
+        "name": "Deadly Bloodspeaker",
+        "type": "adversary",
+        "blurb": "Effectively immortal mahō sorcerer of Iuchiban's cult, heart hidden away in a box.",
+        "conflict_rank": { "combat": 9, "intrigue": 9 },
+        "rings": { "Air": 4, "Earth": 6, "Fire": 4, "Water": 4, "Void": 3 },
+        "derived": { "endurance": 18, "composure": 16, "focus": 6, "vigilance": 4 },
+        "social": { "honor": 5, "glory": 7, "status": 0 },
+        "_comment": [ "Honor/status are printed as '05' and '00' in the book." ],
+        "demeanor": "Ambitious",
+        "skill_groups": { "Artisan": 2, "Martial": 3, "Scholar": 5, "Social": 4, "Trade": 1 },
+        "advantages": [
+            { "name": "Undying", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Physical", "Spiritual" ] },
+            { "name": "Whispers of Fu Leng", "ring": "Void", "groups": [ "Scholar" ], "types": [ "Mental" ] }
+        ],
+        "disadvantages": [
+            { "name": "Heartless", "ring": "Void", "groups": [ "Social" ], "types": [ "Physical", "Spiritual" ] }
+        ],
+        "weapons": [
+            { "name": "Obsidian-Edged Katana", "range": "1", "damage": "5", "deadliness": "9", "qualities": [ "Razor-Edged", "Unholy" ] }
+        ],
+        "gear": {
+            "equipped": [ "Sorcerous raiment (Physical 2, Supernatural 4, Unholy)", "set of vile scrolls" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Bleed the Soul",
+                "text": "After the Bloodspeaker inflicts a Critical Strike on a living target, the target suffers the Dazed condition and the Bloodspeaker removes 3 fatigue.",
+                "reference": { "book": "Core", "page": 317 }
+            },
+            {
+                "name": "Hidden Heart",
+                "text": "The Bloodspeaker cannot truly be vanquished until its heart (usually buried in some deadly tomb or sanctum of evil) has been destroyed. It ignores the Unconscious condition. If slain, it can possess a fresh corpse after its allies have prepared the corpse through a dark rite that takes four days to complete.",
+                "reference": { "book": "Core", "page": 317 }
+            },
+            {
+                "name": "Master of Vile Lore",
+                "text": "The Bloodspeaker is a Tainted being who can perform all mahō.",
+                "reference": { "book": "Core", "page": 317 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 317 }
+    },
+    {
+        "name": "Wicked Mahō-Tsukai",
+        "type": "adversary",
+        "blurb": "Mortal corrupted by blood magic, serving selfish ends or Fu Leng's return.",
+        "conflict_rank": { "combat": 4, "intrigue": 3 },
+        "rings": { "Air": 3, "Earth": 4, "Fire": 3, "Water": 3, "Void": 2 },
+        "derived": { "endurance": 14, "composure": 8, "focus": 7, "vigilance": 3 },
+        "social": { "honor": 1, "glory": 15, "status": 0 },
+        "_comment": [ "Honor/status are printed as '01' and '00' in the book." ],
+        "demeanor": "Ambitious",
+        "skill_groups": { "Artisan": 0, "Martial": 1, "Scholar": 3, "Social": 2, "Trade": 1 },
+        "advantages": [
+            { "name": "Excellent Liar", "ring": "Air", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Whispers of Fu Leng", "ring": "Void", "groups": [ "Scholar" ], "types": [ "Mental" ] }
+        ],
+        "disadvantages": [
+            { "name": "Rotting from Within", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Physical", "Spiritual" ] }
+        ],
+        "weapons": [
+            { "name": "Ritual Knife", "range": "0", "damage": "2", "deadliness": "6", "qualities": [ "Concealable", "Razor-Edged", "Unholy" ] }
+        ],
+        "gear": {
+            "equipped": [ "Sorcerous raiment (Physical 2, Supernatural 4, Unholy)", "set of vile scrolls", "concealing mask or cowl", "several bu" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Mark of Desecration",
+                "text": "As a Support action, the mahō-tsukai may make a TN 2 Theology (Earth) check targeting up to three corpses at range 0–3. If the mahō-tsukai succeeds, each target rises as a Zombie Peasant, or a Bushi Skeleton if it was a warrior in life. Then, an area encompassing 1 range band around each target's position gains the Defiled terrain quality.",
+                "reference": { "book": "Core", "page": 318 }
+            },
+            {
+                "name": "Seeker of Vile Lore",
+                "text": "The mahō-tsukai is a Tainted being. Optionally, choose 0–2 additional mahō that the mahō-tsukai can perform. Add 1 to this character's combat rank for each mahō chosen this way.",
+                "reference": { "book": "Core", "page": 318 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 318 }
+    },
+    {
+        "name": "Bushi Skeleton",
+        "type": "minion",
+        "blurb": "Tattered flesh, bleached bones, and undying hatred; a terrifying skeletal warrior.",
+        "conflict_rank": { "combat": 3, "intrigue": 1 },
+        "rings": { "Air": 2, "Earth": 4, "Fire": 3, "Water": 3, "Void": 1 },
+        "derived": { "endurance": 7, "composure": "∞", "focus": 3, "vigilance": 2 },
+        "demeanor": "Angry",
+        "skill_groups": { "Artisan": 0, "Martial": 1, "Scholar": 0, "Social": 0, "Trade": 1 },
+        "advantages": [
+            { "name": "Unholy Vigor", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Physical", "Spiritual" ] }
+        ],
+        "disadvantages": [
+            { "name": "Visage of Death", "ring": "Water", "groups": [ "Social" ], "types": [ "Interpersonal" ] }
+        ],
+        "weapons": [
+            { "name": "Ancient Katana", "range": "1", "damage": "4", "deadliness": "5/7", "qualities": [ "Ceremonial", "Damaged", "Razor-Edged" ] },
+            { "name": "Decrepit Yumi", "range": "2–5", "damage": "5", "deadliness": "3", "qualities": [ "Damaged" ] }
+        ],
+        "gear": {
+            "equipped": [ "Ancient armor (Physical 3, Wargear)" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Clattering Bones",
+                "text": "A skeletal bushi is an Otherworldly, Tainted being. Additionally, the first time it would be defeated each scene, it receives a Scar disadvantage of the GM's choice instead as one of its limbs snaps or flies off.",
+                "reference": { "book": "Core", "page": 318 }
+            },
+            {
+                "name": "Does Not Bleed",
+                "text": "A skeletal bushi ignores conditions and critical strikes from non-Sacred sources.",
+                "reference": { "book": "Core", "page": 318 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 318 }
+    },
+    {
+        "name": "Bog Hag",
+        "type": "adversary",
+        "blurb": "Regenerating Shadowlands infiltrator that wears the flayed skin of its victims as a disguise.",
+        "conflict_rank": { "combat": 8, "intrigue": 5 },
+        "rings": { "Air": 4, "Earth": 2, "Fire": 3, "Water": 3, "Void": 1 },
+        "derived": { "endurance": 14, "composure": 8, "focus": 6, "vigilance": 3 },
+        "social": { "honor": 0, "glory": 5, "status": 0 },
+        "_comment": [ "Honor/glory/status are printed as '00'/'05'/'00' in the book." ],
+        "demeanor": "Shrewd",
+        "skill_groups": { "Artisan": 3, "Martial": 2, "Scholar": 6, "Social": 2, "Trade": 1 },
+        "advantages": [
+            { "name": "Shapeshifter's Guile", "ring": "Air", "groups": [ "Social" ], "types": [ "Interpersonal" ] },
+            { "name": "Sorcerous Lore", "ring": "Void", "groups": [ "Scholar" ], "types": [ "Mental" ] }
+        ],
+        "disadvantages": [
+            { "name": "Dreadful Hunger", "ring": "Earth", "groups": [ "Social" ], "types": [ "Interpersonal", "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Twisted Talons", "range": "1–2", "damage": "4", "deadliness": "5", "qualities": [ "Razor-Edged", "Unholy" ] },
+            { "name": "Horrific Maw", "range": "0", "damage": "1", "deadliness": "8", "qualities": [] }
+        ],
+        "gear": {
+            "equipped": [ "Fresh skin (Physical 3, Spiritual 5, Unholy)", "3 doses of each poison", "human-skin scrolls of wicked lore" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Accursed Regeneration",
+                "text": "At the end of each round, if the bog hag has not suffered damage from a Sacred source this round, the bog hag removes the Lightly Injured condition or reduces the Severely Injured condition to Lightly Injured.",
+                "reference": { "book": "Core", "page": 319 }
+            },
+            {
+                "name": "Seeker of Vile Lore",
+                "text": "The bog hag is an Otherworldly, Tainted being. Optionally, choose 0–3 mahō techniques that the bog hag can perform. Add 1 to this character's combat rank for each mahō chosen this way.",
+                "reference": { "book": "Core", "page": 319 }
+            },
+            {
+                "name": "Skins of the Slaughtered",
+                "text": "As an action, a bog hag may assume the illusory form of anyone it has killed. A character may make a TN 3 Sentiment check (Earth 4, Fire 1), or another appropriate check to see through this illusion. At the GM's discretion, a character may spend Opportunity Opportunity from any check to interact with the bog hag to see one of the following: a misplaced fold in the skin, luminescence in one eye, an impossible movement of the jaw, oddly sharp teeth, the smell of viscera, a conversational fixation on fresh and bloody meat.",
+                "reference": { "book": "Core", "page": 319 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 319 }
+    },
+    {
+        "name": "Shadowlands Goblin",
+        "type": "minion",
+        "blurb": "Lithe, bestial horde creature; of little consequence alone, a major threat in numbers.",
+        "conflict_rank": { "combat": 1, "intrigue": 1 },
+        "rings": { "Air": 2, "Earth": 2, "Fire": 2, "Water": 1, "Void": 1 },
+        "derived": { "endurance": 3, "composure": 4, "focus": 3, "vigilance": 2 },
+        "demeanor": "Shrewd",
+        "skill_groups": { "Artisan": 0, "Martial": 1, "Scholar": 0, "Social": 0, "Trade": 1 },
+        "advantages": [
+            { "name": "Expert Skulker", "ring": "Air", "groups": [ "Martial", "Trade" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Cowardice", "ring": "Earth", "groups": [ "Martial", "Social" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Small Yari", "range": "1", "damage": "5", "deadliness": "3", "qualities": [ "Wargear" ] },
+            { "name": "Small Yumi", "range": "2–3", "damage": "4", "deadliness": "3", "qualities": [] }
+        ],
+        "gear": {
+            "equipped": [ "Scavenged ashigaru armor (Physical 3)", "quiver", "teeth or other grotesque trophies" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Shadowlands Creature",
+                "text": "A Shadowlands goblin is a Tainted being of silhouette 1.",
+                "reference": { "book": "Core", "page": 320 }
+            },
+            {
+                "name": "Unsightly Rabble",
+                "text": "When making an Attack action check with assistance, a goblin may spend Opportunity as follows:\nOpportunity+: One character other than the target at range 0–2 suffers 4 physical damage. This Opportunity can be activated a number of times per round equal to the number of goblins assisting with the check.",
+                "reference": { "book": "Core", "page": 320 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 320 }
+    },
+    {
+        "name": "Sinister Oni",
+        "type": "adversary",
+        "blurb": "Demonic horror of Jigoku with twisted horns, razor teeth, and enormous talons.",
+        "conflict_rank": { "combat": 12, "intrigue": 5 },
+        "rings": { "Air": 3, "Earth": 4, "Fire": 6, "Water": 3, "Void": 3 },
+        "derived": { "endurance": 24, "composure": 12, "focus": 8, "vigilance": 2 },
+        "social": { "honor": 0, "glory": 4, "status": 0 },
+        "_comment": [ "Honor/glory/status are printed as '00'/'04'/'00' in the book." ],
+        "demeanor": "Assertive",
+        "skill_groups": { "Artisan": 0, "Martial": 4, "Scholar": 3, "Social": 1, "Trade": 0 },
+        "advantages": [
+            { "name": "Massive Stature", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Physical" ] },
+            { "name": "Unholy Might", "ring": "Void", "groups": [ "Martial" ], "types": [ "Physical", "Spiritual" ] }
+        ],
+        "disadvantages": [
+            { "name": "Horrifying Visage", "ring": "Water", "groups": [ "Social" ], "types": [ "Interpersonal" ] }
+        ],
+        "weapons": [
+            { "name": "Crushing Claws", "range": "1–2", "damage": "6", "deadliness": "8", "qualities": [ "Razor-Edged", "Unholy" ] }
+        ],
+        "gear": {
+            "equipped": [ "Demonic hide and armor scraps (Physical 5, Spiritual 5, Unholy)" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Dread Bellow",
+                "text": "Once per scene as a Scheme action, the oni may roar, feeding on the primal terror it instills. Each other character at range 0–4 must resist with a TN 4 Meditation check (Earth 2, Air 5) or suffer the Afflicted condition and stumble back 1 range band from the oni. For each character who fails, the oni removes 2 fatigue.",
+                "reference": { "book": "Core", "page": 320 }
+            },
+            {
+                "name": "Horror of Jigoku",
+                "text": "An oni is an Otherworldly, Tainted being of silhouette 4. After any character performs a successful Attack action that deals 0 damage to the oni (after resistance is applied), that character suffers 3 strife.",
+                "reference": { "book": "Core", "page": 320 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 320 }
+    },
+    {
+        "name": "Zombie Peasant",
+        "type": "minion",
+        "blurb": "Shambling hungering dead; the reason Rokugani funerary rites involve cremation.",
+        "conflict_rank": { "combat": 2, "intrigue": 0 },
+        "rings": { "Air": 1, "Earth": 3, "Fire": 3, "Water": 2, "Void": 0 },
+        "derived": { "endurance": 4, "composure": "∞", "focus": 3, "vigilance": 2 },
+        "demeanor": "Hungry",
+        "skill_groups": { "Artisan": 0, "Martial": 0, "Scholar": 0, "Social": 0, "Trade": 0 },
+        "advantages": [
+            { "name": "Hungry for Flesh", "ring": "Void", "groups": [ "Martial" ], "types": [ "Mental" ] }
+        ],
+        "disadvantages": [
+            { "name": "Shambling Gait", "ring": "Water", "groups": [ "Martial" ], "types": [ "Physical" ] }
+        ],
+        "weapons": [
+            { "name": "Jagged Teeth", "range": "0", "damage": "3", "deadliness": "5", "qualities": [ "Unholy" ] },
+            { "name": "Grasping Hands", "range": "0–1", "damage": "2", "deadliness": "1", "qualities": [ "Snaring" ] }
+        ],
+        "gear": {
+            "equipped": [ "Decaying flesh (Physical 2)" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Cadaverous Bite",
+                "text": "Increase the TN of checks to resist critical strikes inflicted by zombies by 2.",
+                "reference": { "book": "Core", "page": 321 }
+            },
+            {
+                "name": "Horrifying Reanimation",
+                "text": "A zombie is an Otherworldly, Tainted being. The first time it is defeated by damage from a non-Sacred source, if a zombie is in Defiled terrain, it reanimates. At the start of its next turn, it removes all fatigue and staggers to its feet with a scar disadvantage of the GM's choice.",
+                "reference": { "book": "Core", "page": 321 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 321 }
+    },
+    {
+        "name": "Forest Troll",
+        "type": "adversary",
+        "blurb": "Rare, intelligent but unpredictable giant of the Shinomen Mori; not above eating rude humans.",
+        "conflict_rank": { "combat": 7, "intrigue": 4 },
+        "rings": { "Air": 2, "Earth": 4, "Fire": 5, "Water": 4, "Void": 3 },
+        "derived": { "endurance": 16, "composure": 9, "focus": 4, "vigilance": 3 },
+        "social": { "honor": 30, "glory": 10, "status": 5 },
+        "_comment": [ "Status is printed as '05' in the book." ],
+        "demeanor": "Assertive",
+        "skill_groups": { "Artisan": 1, "Martial": 3, "Scholar": 3, "Social": 2, "Trade": 1 },
+        "advantages": [
+            { "name": "Brute Strength", "ring": "Void", "groups": [ "Martial" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Insatiable Appetite", "ring": "Water", "groups": [ "Social" ], "types": [ "Physical" ] }
+        ],
+        "weapons": [
+            { "name": "Massive Cudgel", "range": "2", "damage": "9", "deadliness": "5", "qualities": [ "Cumbersome" ] },
+            { "name": "Rending Grip", "range": "1", "damage": "4", "deadliness": "6", "qualities": [] }
+        ],
+        "gear": {
+            "equipped": [ "Scaled hide (Physical 1, Supernatural 1)", "animal-pelt clothes", "polished skull collection" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Ancient and Powerful",
+                "text": "A troll is an Otherworldly being of silhouette 4.",
+                "reference": { "book": "Core", "page": 321 }
+            },
+            {
+                "name": "Sorcerous Scales",
+                "text": "After a troll suffers damage from a physical or supernatural source, increase its resistance to that damage type by 4. This effect persists until it suffers damage from a source of a different type.",
+                "reference": { "book": "Core", "page": 321 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 321 }
+    },
+    {
+        "name": "Ki-Rin",
+        "type": "adversary",
+        "blurb": "Benevolent chimerical messenger of the kami that floats above the ground rather than trample a blade of grass.",
+        "conflict_rank": { "combat": 7, "intrigue": 7 },
+        "rings": { "Air": 3, "Earth": 4, "Fire": 2, "Water": 4, "Void": 5 },
+        "derived": { "endurance": 14, "composure": 16, "focus": 3, "vigilance": 5 },
+        "social": { "honor": 60, "glory": 50, "status": 39 },
+        "demeanor": "Detached",
+        "skill_groups": { "Artisan": 0, "Martial": 2, "Scholar": 6, "Social": 3, "Trade": 0 },
+        "advantages": [
+            { "name": "Wisdom of the Forest", "ring": "Air", "groups": [ "Scholar" ], "types": [ "Mental" ] }
+        ],
+        "disadvantages": [],
+        "weapons": [
+            { "name": "Majestic Antlers or Horns", "range": "1–2", "damage": "4", "deadliness": "6", "qualities": [ "Ceremonial", "Sacred" ] }
+        ],
+        "gear": {
+            "equipped": [ "Magic hide (Physical 3, Supernatural 3)" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Mystical Creature",
+                "text": "A ki-rin is an Otherworldly being of silhouette 3 that can fly. It can move vertically and ignores the negative effects of terrain. Additionally, once per scene, it may perform an Earth or Water invocation technique, and counts as succeeding with three bonus successes and Opportunity Opportunity.",
+                "reference": { "book": "Core", "page": 322 }
+            },
+            {
+                "name": "Sacred Envoy",
+                "text": "The ki-rin can speak any language, and it knows many secrets of the world. The righteous can sense its hallowed nature; to perform an Attack action against it, a character must forfeit honor equal to their honor rank (and glory equal to their glory rank, if they are seen doing it).",
+                "reference": { "book": "Core", "page": 322 }
+            },
+            {
+                "name": "Wrath for the Wicked",
+                "text": "Once per scene as an Attack action, the ki-rin may breathe holy fire from its mouth. Each Tainted being at range 0–4 must resist with a TN 4 Fitness check (Air 3, Earth 5) or suffer 8 supernatural damage with the Sacred quality, plus additional damage equal to its shortfall, and suffer the Burning condition.",
+                "reference": { "book": "Core", "page": 322 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 322 }
+    },
+    {
+        "name": "Manifest Air Kami",
+        "type": "adversary",
+        "blurb": "Air spirit acting directly on the world: a terrifying many-armed whirlwind of flickering hands.",
+        "conflict_rank": { "combat": 7, "intrigue": 5 },
+        "rings": { "Air": 6, "Earth": 1, "Fire": 1, "Water": 2, "Void": 1 },
+        "derived": { "endurance": 11, "composure": 6, "focus": 2, "vigilance": 4 },
+        "demeanor": "Flighty",
+        "skill_groups": { "Artisan": 3, "Martial": 3, "Scholar": 0, "Social": 3, "Trade": 2 },
+        "advantages": [
+            { "name": "Ethereal Form", "ring": "Air", "groups": [ "Martial", "Trade" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Easily Distracted", "ring": "Void", "groups": [ "Scholar", "Social" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Talons of Air", "range": "2–3", "damage": "4", "deadliness": "7", "qualities": [ "deals supernatural damage" ] }
+        ],
+        "gear": {
+            "equipped": [ "Misty Mantle (Physical 5, Supernatural 2)" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Flight",
+                "text": "A manifest air kami can move vertically and ignores the negative effects of terrain.",
+                "reference": { "book": "Core", "page": 322 }
+            },
+            {
+                "name": "Living Air Spirit",
+                "text": "A manifest air kami is an Otherworldly being of silhouette 2, 3, or 4, and may change its size as an action. Additionally, once per scene as an action of the appropriate types, a manifest air kami may perform any one Air invocation other than Rise, Air. It counts as succeeding with 3 bonus successes and 2 Opportunity.",
+                "reference": { "book": "Core", "page": 322 }
+            },
+            {
+                "name": "Swoop",
+                "text": "When performing an Attack action check, a manifest air kami may spend Opportunity as follows:\nOpportunity+: Move 1 range band away from the target per Opportunity spent this way. If the target is of silhouette 5 or smaller, the air kami may carry it to its destination instead.",
+                "reference": { "book": "Core", "page": 322 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 322 }
+    },
+    {
+        "name": "Manifest Earth Kami",
+        "type": "adversary",
+        "blurb": "Stone-bodied earth spirit; slow to anger, but its wrath is an unstoppable avalanche.",
+        "conflict_rank": { "combat": 8, "intrigue": 2 },
+        "rings": { "Air": 1, "Earth": 6, "Fire": 2, "Water": 2, "Void": 1 },
+        "derived": { "endurance": 15, "composure": 8, "focus": 3, "vigilance": 3 },
+        "demeanor": "Obstinate",
+        "skill_groups": { "Artisan": 2, "Martial": 3, "Scholar": 3, "Social": 0, "Trade": 3 },
+        "advantages": [
+            { "name": "Massive Stature", "ring": "Earth", "groups": [ "Martial", "Trade" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Honest to a Fault", "ring": "Air", "groups": [ "Social", "Trade" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Stone Fists", "range": "0–2", "damage": "7", "deadliness": "4", "qualities": [ "deals physical or supernatural damage" ] }
+        ],
+        "gear": {
+            "equipped": [ "Rocky Hide (Physical 6, Sacred)" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Burrow",
+                "text": "As a Movement action, a manifest earth kami may withdraw into the ground. It cannot be targeted by actions or effects, or perform actions other than Eruption.",
+                "reference": { "book": "Core", "page": 323 }
+            },
+            {
+                "name": "Eruption",
+                "text": "As an Attack and Movement action while burrowed, a manifest earth kami may burst from the ground at a chosen point at range 0–3. Each character at range 0–2 of that point must resist with a TN 4 Fitness check (Air 2, Water 5) or suffer 6 physical damage and the Prone condition.",
+                "reference": { "book": "Core", "page": 323 }
+            },
+            {
+                "name": "Living Earth Spirit",
+                "text": "A manifest earth kami is an Otherworldly being of silhouette 3. Additionally, once per scene as an action of the appropriate types, a manifest earth kami may perform any one Earth invocation other than Rise, Earth. It counts as succeeding with 3 bonus successes and 2 Opportunity.",
+                "reference": { "book": "Core", "page": 323 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 323 }
+    },
+    {
+        "name": "Manifest Fire Kami",
+        "type": "adversary",
+        "blurb": "Energy given humanoid form, robed in smoke; single-minded harbinger of destruction and renewal.",
+        "conflict_rank": { "combat": 9, "intrigue": 2 },
+        "rings": { "Air": 1, "Earth": 2, "Fire": 6, "Water": 2, "Void": 1 },
+        "derived": { "endurance": 12, "composure": 3, "focus": 4, "vigilance": 1 },
+        "demeanor": "Intense",
+        "skill_groups": { "Artisan": 0, "Martial": 3, "Scholar": 3, "Social": 2, "Trade": 3 },
+        "advantages": [
+            { "name": "Primal Terror", "ring": "Void", "groups": [ "Martial", "Social" ], "types": [ "Interpersonal" ] }
+        ],
+        "disadvantages": [
+            { "name": "Endless Hunger", "ring": "Water", "groups": [ "Artisan", "Scholar" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Blazing Touch", "range": "1–3", "damage": "6", "deadliness": "6", "qualities": [ "Razor-Edged", "deals supernatural damage" ] }
+        ],
+        "gear": {
+            "equipped": [ "Corona of Flames (Physical 3)" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Living Fire Spirit",
+                "text": "A manifest kami is an Otherworldly being. Additionally, once per scene as an action of the appropriate types, a manifest fire kami may perform any one Fire invocation other than Rise, Fire. It counts as succeeding with 3 bonus successes and 2 Opportunity.",
+                "reference": { "book": "Core", "page": 324 }
+            },
+            {
+                "name": "Mantle of Smoke and Ash",
+                "text": "Other characters treat the area at range 0–1 of the manifest fire kami as Dangerous and Obscuring terrain.",
+                "reference": { "book": "Core", "page": 324 }
+            },
+            {
+                "name": "Searing Caress",
+                "text": "When performing an Attack action check, a manifest fire kami may spend Opportunity as follows:\nOpportunity+: The target and up to one other character per Opportunity spent this way at range 0–1 of the target suffer the Burning condition.",
+                "reference": { "book": "Core", "page": 324 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 324 }
+    },
+    {
+        "name": "Manifest Water Kami",
+        "type": "adversary",
+        "blurb": "Shifting water spirit that can split itself to act in multiple places and reabsorb damaged copies.",
+        "conflict_rank": { "combat": 7, "intrigue": 4 },
+        "rings": { "Air": 2, "Earth": 1, "Fire": 1, "Water": 6, "Void": 2 },
+        "derived": { "endurance": 14, "composure": 8, "focus": 8, "vigilance": 2 },
+        "demeanor": "Adaptable",
+        "skill_groups": { "Artisan": 3, "Martial": 2, "Scholar": 3, "Social": 3, "Trade": 0 },
+        "advantages": [
+            { "name": "Liquid Body", "ring": "Water", "groups": [ "Martial", "Trade" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Without Convictions", "ring": "Earth", "groups": [ "Artisan", "Social" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Smashing Torrent", "range": "1–2", "damage": "7", "deadliness": "3", "qualities": [ "Snaring", "deals supernatural damage" ] }
+        ],
+        "gear": {
+            "equipped": [ "Enshrouding Fog (Physical 3, Supernatural 4)" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Living Water Spirit",
+                "text": "A manifest kami is an Otherworldly being. Additionally, once per scene as an action of the appropriate types, a manifest water kami may perform any one Water invocation other than Rise, Water. It counts as succeeding with 3 bonus successes and 2 Opportunity.",
+                "reference": { "book": "Core", "page": 324 }
+            },
+            {
+                "name": "Split",
+                "text": "Once per round, after a manifest water kami suffers a critical strike, it may split in two. The two new manifest water kami each have endurance equal to half that of the original, and any fatigue it had suffered is divided as evenly as possible. Then, both may remove any conditions the original was suffering. All of them act during the original water kami's turn, in the order of the GM's choosing.",
+                "reference": { "book": "Core", "page": 324 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 324 }
+    },
+    {
+        "name": "Bear",
+        "type": "adversary",
+        "blurb": "Solitary, fiercely territorial; from large brown bears of the Shinomen to smaller black bears.",
+        "conflict_rank": { "combat": 7, "intrigue": 1 },
+        "rings": { "Air": 1, "Earth": 4, "Fire": 3, "Water": 3, "Void": 1 },
+        "derived": { "endurance": 12, "composure": 9, "focus": 4, "vigilance": 3 },
+        "demeanor": "Intimidating",
+        "skill_groups": { "Artisan": 0, "Martial": 1, "Scholar": 0, "Social": 0, "Trade": 0 },
+        "advantages": [
+            { "name": "Enormous Stature", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Opportunist", "ring": "Void", "groups": [ "Martial" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Claws and Fangs", "range": "1–2", "damage": "8", "deadliness": "6", "qualities": [] }
+        ],
+        "gear": {
+            "equipped": [ "Thick hide (Physical 4)" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Crushing Swipe",
+                "text": "A bear is a silhouette 3 creature with terrifying strength. When a bear inflicts a critical strike, the TN of the check to resist is 4, and if the target fails, they suffer the Dazed condition in addition to the other effects.",
+                "reference": { "book": "Core", "page": 325 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 325 }
+    },
+    {
+        "name": "Boar",
+        "type": "adversary",
+        "blurb": "Aggressive, territorial wild pig; its jagged tusks can slay even an armored bushi.",
+        "conflict_rank": { "combat": 5, "intrigue": 1 },
+        "rings": { "Air": 2, "Earth": 3, "Fire": 4, "Water": 3, "Void": 1 },
+        "derived": { "endurance": 9, "composure": 4, "focus": 6, "vigilance": 2 },
+        "demeanor": "Territorial",
+        "skill_groups": { "Artisan": 0, "Martial": 1, "Scholar": 0, "Social": 0, "Trade": 0 },
+        "advantages": [
+            { "name": "Keen Sense of Smell", "ring": "Void", "groups": [ "Trade" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Hot-Tempered", "ring": "Water", "groups": [ "Martial" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Tusks", "range": "0", "damage": "7", "deadliness": "7", "qualities": [ "Durable", "Razor-Edged" ] }
+        ],
+        "gear": {
+            "equipped": [ "Thick hide (Physical 4)" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Sustaining Fury",
+                "text": "After a boar suffers a critical strike, it becomes Enraged. While Enraged, a boar cannot suffer the Unconscious condition and may perform Attack actions even while Incapacitated.",
+                "reference": { "book": "Core", "page": 325 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 325 }
+    },
+    {
+        "name": "Cat",
+        "type": "minion",
+        "blurb": "Small, cunning feline; provides entertainment, pest control, and occasional affection.",
+        "conflict_rank": { "combat": 1, "intrigue": 1 },
+        "rings": { "Air": 4, "Earth": 1, "Fire": 1, "Water": 2, "Void": 1 },
+        "derived": { "endurance": 3, "composure": 9, "focus": 6, "vigilance": 3 },
+        "demeanor": "Playful",
+        "skill_groups": { "Artisan": 0, "Martial": 1, "Scholar": 0, "Social": 0, "Trade": 0 },
+        "advantages": [
+            { "name": "Silent Stalker", "ring": "Air", "groups": [ "Martial" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Hubris", "ring": "Air", "groups": [ "Social" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Claws", "range": "0", "damage": "0", "deadliness": "2", "qualities": [ "Concealable", "Razor-Edged" ] }
+        ],
+        "gear": {
+            "equipped": [],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Pouncing Predator",
+                "text": "A cat is a silhouette 0 creature. When performing an Attack action check against an unaware or Prone target, it may spend Opportunity as follows:\nOpportunity: The target suffers the Disoriented condition.",
+                "reference": { "book": "Core", "page": 325 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 325 }
+    },
+    {
+        "name": "Dog",
+        "type": "minion",
+        "blurb": "Devoted companion serving as guard, tracker, hunter, and fighter alongside its master.",
+        "conflict_rank": { "combat": 1, "intrigue": 1 },
+        "rings": { "Air": 2, "Earth": 2, "Fire": 1, "Water": 3, "Void": 1 },
+        "derived": { "endurance": 4, "composure": 5, "focus": 3, "vigilance": 4 },
+        "demeanor": "Friendly",
+        "skill_groups": { "Artisan": 0, "Martial": 1, "Scholar": 0, "Social": 1, "Trade": 0 },
+        "advantages": [
+            { "name": "Keen Tracker", "ring": "Water", "groups": [ "Trade" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Dependent on Humans", "ring": "Void", "groups": [ "Trade" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Bite", "range": "0", "damage": "4", "deadliness": "2", "qualities": [ "Snaring" ] }
+        ],
+        "gear": {
+            "equipped": [],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Working Companion",
+                "text": "Choose one Martial or Trade skill. When the dog provides assistance on a check with this skill, it counts as providing skilled assistance.",
+                "reference": { "book": "Core", "page": 326 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 326 }
+    },
+    {
+        "name": "Hawk",
+        "type": "minion",
+        "blurb": "Majestic lord of the skies; some samurai tame them for sport hunting.",
+        "conflict_rank": { "combat": 2, "intrigue": 1 },
+        "rings": { "Air": 4, "Earth": 1, "Fire": 2, "Water": 2, "Void": 1 },
+        "derived": { "endurance": 2, "composure": 5, "focus": 6, "vigilance": 2 },
+        "demeanor": "Proud",
+        "skill_groups": { "Artisan": 0, "Martial": 1, "Scholar": 0, "Social": 0, "Trade": 0 },
+        "advantages": [
+            { "name": "Sharp Eyesight", "ring": "Water", "groups": [ "Martial", "Trade" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Hollow Bones", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Physical" ] }
+        ],
+        "weapons": [
+            { "name": "Beak and Talons", "range": "0", "damage": "1", "deadliness": "6", "qualities": [] }
+        ],
+        "gear": {
+            "equipped": [],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Nimble Flyer",
+                "text": "A hawk is a silhouette 0 creature that can fly. It can move vertically and ignores the negative effects of terrain.",
+                "reference": { "book": "Core", "page": 326 }
+            },
+            {
+                "name": "Swoop",
+                "text": "When performing an Attack action check, a hawk may spend Opportunity as follows:\nOpportunity+: Move 1 range band away from the target per Opportunity spent this way. If the target is of silhouette 0 or smaller, the hawk may carry it to its destination instead.",
+                "reference": { "book": "Core", "page": 326 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 326 }
+    },
+    {
+        "name": "Horse (Rokugani Pony)",
+        "type": "minion",
+        "blurb": "Native Rokugani steed; not as fierce as Unicorn-bred horses, but a steady mount.",
+        "conflict_rank": { "combat": 2, "intrigue": 1 },
+        "rings": { "Air": 1, "Earth": 3, "Fire": 2, "Water": 3, "Void": 1 },
+        "derived": { "endurance": 8, "composure": 4, "focus": 6, "vigilance": 2 },
+        "demeanor": "Loyal",
+        "skill_groups": { "Artisan": 0, "Martial": 0, "Scholar": 0, "Social": 1, "Trade": 0 },
+        "advantages": [
+            { "name": "Tireless Runner", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Skittish", "ring": "Void", "groups": [ "Martial" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Hooves", "range": "1–2", "damage": "6", "deadliness": "5", "qualities": [] }
+        ],
+        "gear": {
+            "equipped": [ "Hide (Physical 2)", "saddle", "saddlebags", "feed bag", "grooming kit" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Loyal Steed",
+                "text": "A Rokugani pony is a silhouette 3 creature. It can be ridden by a human-sized (silhouette 2 or lower) rider.",
+                "reference": { "book": "Core", "page": 326 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 326 }
+    },
+    {
+        "name": "Hunting Cat",
+        "type": "adversary",
+        "blurb": "Cougar, lion, or tiger; stalks and ambushes prey, mauling quickly and savagely.",
+        "conflict_rank": { "combat": 6, "intrigue": 1 },
+        "rings": { "Air": 4, "Earth": 2, "Fire": 1, "Water": 3, "Void": 1 },
+        "derived": { "endurance": 6, "composure": 12, "focus": 6, "vigilance": 4 },
+        "demeanor": "Opportunistic",
+        "skill_groups": { "Artisan": 0, "Martial": 2, "Scholar": 0, "Social": 0, "Trade": 0 },
+        "advantages": [
+            { "name": "Silent Stalker", "ring": "Air", "groups": [ "Martial" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Hubris", "ring": "Air", "groups": [ "Social" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Claws and Fangs", "range": "1", "damage": "5", "deadliness": "9", "qualities": [ "Razor-Edged" ] }
+        ],
+        "gear": {
+            "equipped": [ "Thick fur (Physical 2)" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Pouncing Predator",
+                "text": "A hunting cat is a silhouette 3 creature. When performing an Attack action check against an unaware or Prone target, it may spend Opportunity as follows:\nOpportunity: The target suffers the Disoriented condition.",
+                "reference": { "book": "Core", "page": 327 }
+            },
+            {
+                "name": "Savage Mauling",
+                "text": "Disoriented targets cannot defend against damage dealt by a hunting cat.",
+                "reference": { "book": "Core", "page": 327 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 327 }
+    },
+    {
+        "name": "Utaku Steed",
+        "type": "minion",
+        "blurb": "Sacred steed of the Utaku Battle Maidens; fiery, ferocious, and utterly loyal.",
+        "conflict_rank": { "combat": 4, "intrigue": 2 },
+        "rings": { "Air": 1, "Earth": 3, "Fire": 3, "Water": 3, "Void": 1 },
+        "derived": { "endurance": 14, "composure": 10, "focus": 6, "vigilance": 2 },
+        "demeanor": "Loyal",
+        "skill_groups": { "Artisan": 0, "Martial": 3, "Scholar": 0, "Social": 3, "Trade": 0 },
+        "advantages": [
+            { "name": "Tireless Runner", "ring": "Earth", "groups": [ "Martial" ], "types": [ "Physical" ] }
+        ],
+        "disadvantages": [
+            { "name": "Quick to Anger", "ring": "Void", "groups": [ "Social" ], "types": [ "Interpersonal" ] }
+        ],
+        "weapons": [
+            { "name": "Hooves", "range": "1–2", "damage": "7", "deadliness": "6", "qualities": [] }
+        ],
+        "gear": {
+            "equipped": [ "Hide and armor (Physical 4)", "saddle", "saddlebags", "feed bag", "grooming kit" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Legendary Steed",
+                "text": "An Utaku steed is a silhouette 3 creature. It can be ridden by a human-sized (silhouette 2 or lower) rider, but generally does not tolerate any rider other than a worthy Utaku Battle Maiden.",
+                "reference": { "book": "Core", "page": 327 }
+            },
+            {
+                "name": "Paragon of Horses",
+                "text": "A Utaku steed grants its rider skilled assistance on Martial checks they make while mounted.",
+                "reference": { "book": "Core", "page": 327 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 327 }
+    },
+    {
+        "name": "Wolf",
+        "type": "minion",
+        "blurb": "Pack hunter of the forested Empire; relentless pursuit and hit-and-run attacks.",
+        "conflict_rank": { "combat": 1, "intrigue": 1 },
+        "rings": { "Air": 2, "Earth": 2, "Fire": 3, "Water": 3, "Void": 1 },
+        "derived": { "endurance": 4, "composure": 4, "focus": 6, "vigilance": 4 },
+        "demeanor": "Cautious",
+        "skill_groups": { "Artisan": 0, "Martial": 1, "Scholar": 0, "Social": 1, "Trade": 0 },
+        "advantages": [
+            { "name": "Pack Tactics", "ring": "Water", "groups": [ "Martial", "Social" ], "types": [ "Interpersonal" ] }
+        ],
+        "disadvantages": [
+            { "name": "Cautious Hunter", "ring": "Void", "groups": [ "Martial" ], "types": [ "Mental" ] }
+        ],
+        "weapons": [
+            { "name": "Fangs", "range": "0", "damage": "4", "deadliness": "4", "qualities": [ "Snaring" ] }
+        ],
+        "gear": {
+            "equipped": [ "Hide (Physical 2)" ],
+            "other": []
+        },
+        "abilities": [
+            {
+                "name": "Circle the Kill",
+                "text": "When performing a Martial Arts [Unarmed] check, a wolf may spend Opportunity in the following ways.\nWater Opportunity: The target suffers the Bleeding condition.\nFire Opportunity: The target treats all terrain as Dangerous until the end of their next turn.",
+                "reference": { "book": "Core", "page": 327 }
+            }
+        ],
+        "reference": { "book": "Core", "page": 327 }
+    }
+]

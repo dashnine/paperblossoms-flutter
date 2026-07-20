@@ -52,6 +52,7 @@ flutter:
     - assets/data/
     - assets/data/hor/
     - assets/data/hor/pack/
+    - assets/data/npc/
     - assets/i18n/
     - assets/images/
     - assets/fonts/

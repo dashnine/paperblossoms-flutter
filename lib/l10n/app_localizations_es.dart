@@ -2102,4 +2102,319 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get sbCouldNotReadSchoolsFile =>
       'Ese archivo no se pudo leer como un array JSON de escuelas.';
+
+  @override
+  String get gmSection => 'Director de juego';
+
+  @override
+  String get npcLibraryTitle => 'PNJ y bloques de características';
+
+  @override
+  String get npcLibrarySubtitle =>
+      'PNJ de ejemplo del capítulo 8 del manual básico, creación rápida con plantillas y tus PNJ personalizados';
+
+  @override
+  String get encountersTitle => 'Encuentros';
+
+  @override
+  String get encountersSubtitle => 'Forma grupos de PNJ y calibra su desafío';
+
+  @override
+  String get npcFilterAll => 'Todos';
+
+  @override
+  String get npcFilterMinions => 'Esbirros';
+
+  @override
+  String get npcFilterAdversaries => 'Adversarios';
+
+  @override
+  String get npcFilterCustom => 'Personalizados';
+
+  @override
+  String get npcTypeMinion => 'Esbirro';
+
+  @override
+  String get npcTypeAdversary => 'Adversario';
+
+  @override
+  String npcCombatIntrigue(int combat, int intrigue) {
+    return 'Combate $combat · Intriga $intrigue';
+  }
+
+  @override
+  String get npcQuickBuild => 'Creación rápida';
+
+  @override
+  String get npcImport => 'Importar PNJ personalizados…';
+
+  @override
+  String get npcExport => 'Exportar PNJ personalizados…';
+
+  @override
+  String get npcDeleteAll => 'Eliminar todos los PNJ personalizados';
+
+  @override
+  String get npcDeleteAllBody =>
+      'Elimina todos los PNJ personalizados. Los PNJ de ejemplo incluidos no se ven afectados.';
+
+  @override
+  String npcImported(int count) {
+    return '$count PNJ importados';
+  }
+
+  @override
+  String npcExported(int count) {
+    return '$count PNJ exportados';
+  }
+
+  @override
+  String get npcCouldNotRead =>
+      'No se pudo leer el archivo como una lista JSON de PNJ.';
+
+  @override
+  String get npcNoneToExport => 'No hay PNJ personalizados que exportar.';
+
+  @override
+  String npcDeleteTitle(String name) {
+    return '¿Eliminar $name?';
+  }
+
+  @override
+  String get npcDeleteBody =>
+      'Elimina el PNJ personalizado. Los encuentros que lo usen lo mostrarán como ausente.';
+
+  @override
+  String get npcEmptyHint => 'Ningún PNJ coincide.';
+
+  @override
+  String get npcPickTitle => 'Elegir un PNJ';
+
+  @override
+  String get npcDemeanorLabel => 'Talante';
+
+  @override
+  String npcDemeanorTnMods(String mods) {
+    return 'Modificadores de NO en pruebas sociales: $mods';
+  }
+
+  @override
+  String npcUnmasking(String way) {
+    return 'Forma habitual de perder la máscara: $way';
+  }
+
+  @override
+  String get npcAdvantagesLabel => 'Ventajas';
+
+  @override
+  String get npcDisadvantagesLabel => 'Desventajas';
+
+  @override
+  String get npcWeaponsGear => 'Armas predilectas y equipo';
+
+  @override
+  String get npcGearEquipped => 'Equipo (equipado)';
+
+  @override
+  String get npcGearOther => 'Equipo (otro)';
+
+  @override
+  String get npcSkillGroupsLabel => 'Grupos de habilidades';
+
+  @override
+  String get npcTechniquesLabel => 'Técnicas';
+
+  @override
+  String get npcTechniqueImportHint =>
+      'El texto completo de las técnicas aparece si importas las descripciones de reglas (Herramientas → Textos de reglas).';
+
+  @override
+  String get npcMinionRules =>
+      'Esbirro: derrotado cuando su fatiga supera su resistencia (muere si el daño que lo derrota es 7 o más; si no, queda fuera de combate). Un golpe crítico le inflige en cambio fatiga igual a su severidad. Los esbirros suelen gastar la Oportunidad solo en sus capacidades listadas.';
+
+  @override
+  String get npcUseAsBase => 'Usar como base';
+
+  @override
+  String get npcEditAction => 'Editar';
+
+  @override
+  String get npcDuplicateEdit => 'Duplicar y editar';
+
+  @override
+  String get npcAddToEncounter => 'Añadir a un encuentro…';
+
+  @override
+  String get npcPrintSheet => 'Imprimir bloque de características…';
+
+  @override
+  String get npcConflictRank => 'Rango de conflicto';
+
+  @override
+  String get npcQuickBuildTitle => 'Creación rápida de PNJ';
+
+  @override
+  String get npcBaseLabel => 'Perfil base';
+
+  @override
+  String get npcChooseBase => 'Elegir un PNJ base…';
+
+  @override
+  String get npcTemplatesLabel => 'Plantillas (Core p. 311)';
+
+  @override
+  String get npcSuggestedAdv => 'Ventajas sugeridas (añadir 0–2)';
+
+  @override
+  String get npcSuggestedDisadv => 'Desventajas sugeridas (añadir 0–2)';
+
+  @override
+  String get npcAddTechnique => 'Añadir técnica';
+
+  @override
+  String get npcResultLabel => 'Resultado';
+
+  @override
+  String get npcSaveAndPrint => 'Guardar e imprimir…';
+
+  @override
+  String npcSavedSnack(String name) {
+    return 'Guardado: $name';
+  }
+
+  @override
+  String get npcEditTitle => 'Editar PNJ';
+
+  @override
+  String get npcNewTitle => 'Nuevo PNJ';
+
+  @override
+  String get npcBlurbLabel => 'Línea de resumen';
+
+  @override
+  String get npcCombatRank => 'Combate';
+
+  @override
+  String get npcIntrigueRank => 'Intriga';
+
+  @override
+  String get npcAutoDerived =>
+      'Recalcular los atributos derivados a partir de los anillos';
+
+  @override
+  String get npcAbilityTextLabel => 'Texto de reglas';
+
+  @override
+  String get npcAddAbility => 'Añadir capacidad';
+
+  @override
+  String get npcAddWeapon => 'Añadir arma';
+
+  @override
+  String get npcAddAdvantage => 'Añadir ventaja';
+
+  @override
+  String get npcAddDisadvantage => 'Añadir desventaja';
+
+  @override
+  String get npcRingLabel => 'Anillo';
+
+  @override
+  String get npcGroupsLabel => 'Grupos de habilidades (separados por comas)';
+
+  @override
+  String get npcTypesLabel => 'Tipos (separados por comas)';
+
+  @override
+  String get npcGearEquippedLabel => 'Equipo equipado (uno por línea)';
+
+  @override
+  String get npcGearOtherLabel => 'Otro equipo (uno por línea)';
+
+  @override
+  String get encNew => 'Nuevo encuentro';
+
+  @override
+  String get encAddNpc => 'Añadir PNJ…';
+
+  @override
+  String encCombatRank(int rank) {
+    return 'Rango de encuentro en combate: $rank';
+  }
+
+  @override
+  String encIntrigueRank(int rank) {
+    return 'Rango de encuentro en intriga: $rank';
+  }
+
+  @override
+  String get encThresholdsTitle => 'Guía del rango de grupo (Core p. 310)';
+
+  @override
+  String get encGroupRankHint =>
+      'Rango de grupo = suma de los rangos de escuela del grupo.';
+
+  @override
+  String encEven(int rank) {
+    return '≈ $rank: fuerzas igualadas';
+  }
+
+  @override
+  String encEasy(int rank) {
+    return '$rank o más: clara ventaja para el grupo';
+  }
+
+  @override
+  String encHard(int rank) {
+    return '$rank o menos: grupo claramente superado';
+  }
+
+  @override
+  String encMissing(String name) {
+    return '$name (ausente)';
+  }
+
+  @override
+  String get encEmptyHint =>
+      'Aún no hay encuentros. Un encuentro es un grupo de PNJ guardado con su cálculo de desafío.';
+
+  @override
+  String get encDeleteBody => 'Elimina el encuentro guardado.';
+
+  @override
+  String encNpcCountLabel(int count) {
+    return '$count PNJ';
+  }
+
+  @override
+  String get encPrint => 'Imprimir encuentro…';
+
+  @override
+  String get encImport => 'Importar encuentros…';
+
+  @override
+  String get encExport => 'Exportar encuentros…';
+
+  @override
+  String encImported(int count) {
+    return '$count encuentros importados';
+  }
+
+  @override
+  String encExported(int count) {
+    return '$count encuentros exportados';
+  }
+
+  @override
+  String get encCouldNotRead =>
+      'No se pudo leer ese archivo como una matriz JSON de encuentros.';
+
+  @override
+  String get encNoneToExport => 'No hay encuentros que exportar.';
+
+  @override
+  String get nameRequiredSnack => 'Introduce primero un nombre.';
+
+  @override
+  String get npcDemeanorNone => 'Sin actitud';
 }

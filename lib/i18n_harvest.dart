@@ -117,6 +117,38 @@ Set<String> translatableDataStrings() {
     }
   }
 
+  // Chapter 8 GM data: display names only. Long prose (blurbs, ability
+  // rules text, gear lines, demeanor descriptions) deliberately stays
+  // English — trData falls back to identity at those display sites.
+  for (final npc in gameData.npc.samples) {
+    add(npc.name);
+    for (final trait in [...npc.advantages, ...npc.disadvantages]) {
+      add(trait.name);
+      addAll(trait.groups);
+      addAll(trait.types);
+    }
+    for (final weapon in npc.weapons) {
+      add(weapon.name);
+      addAll(weapon.qualities);
+    }
+    for (final ability in npc.abilities) {
+      add(ability.name);
+    }
+  }
+  for (final demeanor in gameData.npc.demeanors) {
+    add(demeanor.name);
+    add(demeanor.unmasking);
+  }
+  for (final template in gameData.npc.templates) {
+    add(template.name);
+    for (final trait in [
+      ...template.suggestedAdvantages,
+      ...template.suggestedDisadvantages
+    ]) {
+      add(trait.name);
+    }
+  }
+
   // App-side display strings that behave like data: conditions and their
   // qualifiers, Table 6-6 bands, derived states, heritage tables, character
   // types, and the type/track vocabulary shown on advances.

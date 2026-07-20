@@ -2117,4 +2117,321 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get sbCouldNotReadSchoolsFile =>
       'Ce fichier n’a pas pu être lu comme un tableau JSON d’écoles.';
+
+  @override
+  String get gmSection => 'Maître du jeu';
+
+  @override
+  String get npcLibraryTitle => 'PNJ et blocs de stats';
+
+  @override
+  String get npcLibrarySubtitle =>
+      'PNJ types du chapitre 8 du livre de base, création rapide par gabarits et vos PNJ personnalisés';
+
+  @override
+  String get encountersTitle => 'Rencontres';
+
+  @override
+  String get encountersSubtitle =>
+      'Composez des groupes de PNJ et jaugez leur difficulté';
+
+  @override
+  String get npcFilterAll => 'Tous';
+
+  @override
+  String get npcFilterMinions => 'Sous-fifres';
+
+  @override
+  String get npcFilterAdversaries => 'Adversaires';
+
+  @override
+  String get npcFilterCustom => 'Personnalisés';
+
+  @override
+  String get npcTypeMinion => 'Sous-fifre';
+
+  @override
+  String get npcTypeAdversary => 'Adversaire';
+
+  @override
+  String npcCombatIntrigue(int combat, int intrigue) {
+    return 'Combat $combat · Intrigue $intrigue';
+  }
+
+  @override
+  String get npcQuickBuild => 'Création rapide';
+
+  @override
+  String get npcImport => 'Importer des PNJ personnalisés…';
+
+  @override
+  String get npcExport => 'Exporter les PNJ personnalisés…';
+
+  @override
+  String get npcDeleteAll => 'Supprimer tous les PNJ personnalisés';
+
+  @override
+  String get npcDeleteAllBody =>
+      'Supprime tous les PNJ personnalisés. Les PNJ types fournis ne sont pas affectés.';
+
+  @override
+  String npcImported(int count) {
+    return '$count PNJ importés';
+  }
+
+  @override
+  String npcExported(int count) {
+    return '$count PNJ exportés';
+  }
+
+  @override
+  String get npcCouldNotRead =>
+      'Ce fichier n’a pas pu être lu comme un tableau JSON de PNJ.';
+
+  @override
+  String get npcNoneToExport => 'Aucun PNJ personnalisé à exporter.';
+
+  @override
+  String npcDeleteTitle(String name) {
+    return 'Supprimer $name ?';
+  }
+
+  @override
+  String get npcDeleteBody =>
+      'Supprime ce PNJ personnalisé. Les rencontres qui y font référence l’afficheront comme manquant.';
+
+  @override
+  String get npcEmptyHint => 'Aucun PNJ ne correspond.';
+
+  @override
+  String get npcPickTitle => 'Choisir un PNJ';
+
+  @override
+  String get npcDemeanorLabel => 'Attitude';
+
+  @override
+  String npcDemeanorTnMods(String mods) {
+    return 'Modificateurs de ND des tests sociaux : $mods';
+  }
+
+  @override
+  String npcUnmasking(String way) {
+    return 'Perte de façade courante : $way';
+  }
+
+  @override
+  String get npcAdvantagesLabel => 'Avantages';
+
+  @override
+  String get npcDisadvantagesLabel => 'Désavantages';
+
+  @override
+  String get npcWeaponsGear => 'Armes favorites et équipement';
+
+  @override
+  String get npcGearEquipped => 'Équipement (porté)';
+
+  @override
+  String get npcGearOther => 'Équipement (autre)';
+
+  @override
+  String get npcSkillGroupsLabel => 'Groupes de compétences';
+
+  @override
+  String get npcTechniquesLabel => 'Techniques';
+
+  @override
+  String get npcTechniqueImportHint =>
+      'Le texte complet des techniques apparaît si vous importez les descriptions de règles (Outils → Textes de règles).';
+
+  @override
+  String get npcMinionRules =>
+      'Sous-fifre : vaincu quand sa fatigue dépasse son endurance (tué si les dégâts qui le terrassent sont de 7 ou plus, sinon mis hors d’état sans le tuer). Un coup critique lui inflige à la place une fatigue égale à sa sévérité. Les sous-fifres ne dépensent en général l’Opportunité que sur leurs capacités listées.';
+
+  @override
+  String get npcUseAsBase => 'Utiliser comme base';
+
+  @override
+  String get npcEditAction => 'Modifier';
+
+  @override
+  String get npcDuplicateEdit => 'Dupliquer et modifier';
+
+  @override
+  String get npcAddToEncounter => 'Ajouter à une rencontre…';
+
+  @override
+  String get npcPrintSheet => 'Imprimer le bloc de stats…';
+
+  @override
+  String get npcConflictRank => 'Rang de conflit';
+
+  @override
+  String get npcQuickBuildTitle => 'Création rapide de PNJ';
+
+  @override
+  String get npcBaseLabel => 'Profil de base';
+
+  @override
+  String get npcChooseBase => 'Choisir un PNJ de base…';
+
+  @override
+  String get npcTemplatesLabel => 'Gabarits (Core p. 311)';
+
+  @override
+  String get npcSuggestedAdv => 'Avantages suggérés (ajouter 0–2)';
+
+  @override
+  String get npcSuggestedDisadv => 'Désavantages suggérés (ajouter 0–2)';
+
+  @override
+  String get npcAddTechnique => 'Ajouter une technique';
+
+  @override
+  String get npcResultLabel => 'Résultat';
+
+  @override
+  String get npcSaveAndPrint => 'Enregistrer et imprimer…';
+
+  @override
+  String npcSavedSnack(String name) {
+    return 'Enregistré : $name';
+  }
+
+  @override
+  String get npcEditTitle => 'Modifier le PNJ';
+
+  @override
+  String get npcNewTitle => 'Nouveau PNJ';
+
+  @override
+  String get npcBlurbLabel => 'Ligne de résumé';
+
+  @override
+  String get npcCombatRank => 'Combat';
+
+  @override
+  String get npcIntrigueRank => 'Intrigue';
+
+  @override
+  String get npcAutoDerived =>
+      'Recalculer les attributs dérivés depuis les anneaux';
+
+  @override
+  String get npcAbilityTextLabel => 'Texte de règles';
+
+  @override
+  String get npcAddAbility => 'Ajouter une capacité';
+
+  @override
+  String get npcAddWeapon => 'Ajouter une arme';
+
+  @override
+  String get npcAddAdvantage => 'Ajouter un avantage';
+
+  @override
+  String get npcAddDisadvantage => 'Ajouter un désavantage';
+
+  @override
+  String get npcRingLabel => 'Anneau';
+
+  @override
+  String get npcGroupsLabel =>
+      'Groupes de compétences (séparés par des virgules)';
+
+  @override
+  String get npcTypesLabel => 'Types (séparés par des virgules)';
+
+  @override
+  String get npcGearEquippedLabel => 'Équipement porté (un par ligne)';
+
+  @override
+  String get npcGearOtherLabel => 'Autre équipement (un par ligne)';
+
+  @override
+  String get encNew => 'Nouvelle rencontre';
+
+  @override
+  String get encAddNpc => 'Ajouter un PNJ…';
+
+  @override
+  String encCombatRank(int rank) {
+    return 'Rang de rencontre en combat : $rank';
+  }
+
+  @override
+  String encIntrigueRank(int rank) {
+    return 'Rang de rencontre en intrigue : $rank';
+  }
+
+  @override
+  String get encThresholdsTitle => 'Guide du rang de groupe (Core p. 310)';
+
+  @override
+  String get encGroupRankHint =>
+      'Rang de groupe = somme des rangs d’école du groupe de joueurs.';
+
+  @override
+  String encEven(int rank) {
+    return '≈ $rank : forces équilibrées';
+  }
+
+  @override
+  String encEasy(int rank) {
+    return '$rank ou plus : net avantage pour le groupe';
+  }
+
+  @override
+  String encHard(int rank) {
+    return '$rank ou moins : groupe nettement surclassé';
+  }
+
+  @override
+  String encMissing(String name) {
+    return '$name (manquant)';
+  }
+
+  @override
+  String get encEmptyHint =>
+      'Aucune rencontre pour l’instant. Une rencontre est un groupe de PNJ enregistré avec son calcul de difficulté.';
+
+  @override
+  String get encDeleteBody => 'Supprime la rencontre enregistrée.';
+
+  @override
+  String encNpcCountLabel(int count) {
+    return '$count PNJ';
+  }
+
+  @override
+  String get encPrint => 'Imprimer la rencontre…';
+
+  @override
+  String get encImport => 'Importer des rencontres…';
+
+  @override
+  String get encExport => 'Exporter les rencontres…';
+
+  @override
+  String encImported(int count) {
+    return '$count rencontres importées';
+  }
+
+  @override
+  String encExported(int count) {
+    return '$count rencontres exportées';
+  }
+
+  @override
+  String get encCouldNotRead =>
+      'Ce fichier n’a pas pu être lu comme un tableau JSON de rencontres.';
+
+  @override
+  String get encNoneToExport => 'Aucune rencontre à exporter.';
+
+  @override
+  String get nameRequiredSnack => 'Saisissez d’abord un nom.';
+
+  @override
+  String get npcDemeanorNone => 'Sans attitude';
 }

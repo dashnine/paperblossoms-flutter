@@ -230,6 +230,15 @@ void main() {
     expect(grouped.last.value, ['Totally Homebrew Move']);
   });
 
+  test('item patterns bucket under Item Patterns with their reference', () {
+    final grouped = groupTechniques(['Striking as Earth', 'Kakita Pattern']);
+    expect(grouped.map((g) => g.key).toList(), ['Kata', 'Item Patterns']);
+    expect(grouped.last.value, ['Kakita Pattern']);
+    final meta = techniqueMeta(
+        'Kakita Pattern', lookupAppLocalizations(const Locale('en')));
+    expect(meta, 'SL p.109');
+  });
+
   test('stanceRows lists all five stances with effects', () {
     final rows = stanceRows(lookupAppLocalizations(const Locale('en')));
     expect(rows.length, 5);

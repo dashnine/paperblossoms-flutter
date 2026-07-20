@@ -19,6 +19,7 @@ Future<void> main() async {
   await gameData.load();
   await userDataStore.loadDescriptions();
   await userDataStore.loadHomebrew();
+  await userDataStore.loadEncounters();
   await themeController.load();
   await sheetStyleController.load();
   await localeController.load();

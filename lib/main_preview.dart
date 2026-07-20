@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'advance.dart';
 import 'character.dart';
 import 'data_l10n.dart';
+import 'encounter.dart';
 import 'game_data.dart';
 import 'game_data_models.dart';
 import 'hor_controller.dart';
@@ -14,7 +15,11 @@ import 'locale_controllers.dart';
 import 'rules_constants.dart';
 import 'screens/add_advance_page.dart';
 import 'screens/character_editor.dart';
+import 'screens/encounter_editor_page.dart';
 import 'screens/homebrew_schools_page.dart';
+import 'screens/npc_detail_page.dart';
+import 'screens/npc_library_page.dart';
+import 'screens/npc_quick_build_page.dart';
 import 'screens/tools_page.dart';
 import 'theme.dart';
 import 'wizard/school_builder/school_builder_shell.dart';
@@ -238,6 +243,32 @@ class _PreviewApp extends StatelessWidget {
     }
     if (const bool.fromEnvironment('SCHOOLS')) {
       return const HomebrewSchoolsPage();
+    }
+    // GM tools previews: NPC_LIBRARY=true opens the NPC library;
+    // NPC_DETAIL=<sample name> a stat block; NPC_QUICK=<base name> the
+    // quick builder (curriculum taps can't be automated on this machine);
+    // ENCOUNTER=true the encounter editor seeded with a bandit ambush.
+    if (const bool.fromEnvironment('NPC_LIBRARY')) {
+      return const NpcLibraryPage();
+    }
+    const npcDetail = String.fromEnvironment('NPC_DETAIL');
+    if (npcDetail.isNotEmpty) {
+      return NpcDetailPage(npc: gameData.npc.sampleByName(npcDetail)!);
+    }
+    const npcQuick = String.fromEnvironment('NPC_QUICK');
+    if (npcQuick.isNotEmpty) {
+      return NpcQuickBuildPage(base: gameData.npc.sampleByName(npcQuick));
+    }
+    if (const bool.fromEnvironment('ENCOUNTER')) {
+      return EncounterEditorPage(
+        encounter: Encounter(
+          name: 'Bandit Ambush',
+          entries: [
+            EncounterEntry(npc: 'Desperate Bandit', count: 4),
+            EncounterEntry(npc: 'Experienced Bandit'),
+          ],
+        ),
+      );
     }
     // TOOLS=true with ABOUT=true also opens the About dialog on launch.
     if (const bool.fromEnvironment('TOOLS')) {

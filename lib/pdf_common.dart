@@ -288,13 +288,15 @@ List<MapEntry<String, List<String>>> groupTechniques(List<String> names) {
   }
   final buckets = <String, List<String>>{};
   for (final name in names) {
-    buckets
-        .putIfAbsent(gameData.techniqueByName(name)?.category ?? '', () => [])
-        .add(name);
+    final category = gameData.techniqueByName(name)?.category ??
+        (gameData.itemPatternByName(name) != null ? 'Item Patterns' : '');
+    buckets.putIfAbsent(category, () => []).add(name);
   }
   return [
     for (final cat in order)
       if (buckets.containsKey(cat)) MapEntry(cat, buckets[cat]!),
+    if (buckets.containsKey('Item Patterns'))
+      MapEntry('Item Patterns', buckets['Item Patterns']!),
     if (buckets.containsKey('')) MapEntry('', buckets['']!),
   ];
 }
@@ -303,9 +305,13 @@ List<MapEntry<String, List<String>>> groupTechniques(List<String> names) {
 /// and reference only; the category itself is the sub-header.
 String techniqueMeta(String name, AppLocalizations l10n) {
   final technique = gameData.techniqueByName(name);
+  if (technique == null) {
+    final pattern = gameData.itemPatternByName(name);
+    return '${pattern?.reference ?? ''}';
+  }
   return [
-    if (technique?.rank != null) l10n.rankN(technique!.rank),
-    if ('${technique?.reference ?? ''}'.isNotEmpty) '${technique!.reference}',
+    l10n.rankN(technique.rank),
+    if ('${technique.reference}'.isNotEmpty) '${technique.reference}',
   ].join(' · ');
 }
 

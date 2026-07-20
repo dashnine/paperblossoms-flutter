@@ -4,8 +4,10 @@ import 'dart:io';
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:path_provider/path_provider.dart';
 
+import 'encounter.dart';
 import 'game_data.dart';
 import 'game_data_models.dart';
+import 'npc_models.dart';
 
 /// User-entered rules descriptions and homebrew game data. The bundled data
 /// intentionally ships no rules text (copyright); users who own the books
@@ -246,6 +248,7 @@ class UserDataStore {
     await gameData.load();
     await loadDescriptions();
     await loadHomebrew();
+    await loadEncounters();
   }
 
   /// Removes [name] from the homebrew schools, then reloads bundled data
@@ -314,6 +317,196 @@ class UserDataStore {
     return imported.length;
   }
 
+  /// Custom NPCs currently merged: the in-memory authority that
+  /// `homebrew/npcs.json` mirrors. Same memory-first contract as
+  /// [homebrewSchools].
+  List<Npc> customNpcs = [];
+
+  Future<File> _customNpcsFile() async =>
+      File('${(await homebrewDir()).path}/npcs.json');
+
+  Future<void> _writeCustomNpcs(List<Npc> npcs) async {
+    final file = await _customNpcsFile();
+    if (failedHomebrewFiles.remove('npcs.json') && await file.exists()) {
+      await file.copy('${file.path}.bad');
+    }
+    if (npcs.isEmpty) {
+      if (await file.exists()) await file.delete();
+      return;
+    }
+    await file.writeAsString(
+      const JsonEncoder.withIndent(
+        '  ',
+      ).convert([for (final n in npcs) n.toJson()]),
+    );
+  }
+
+  /// Insert-or-replace [npc] by name in memory and in `homebrew/npcs.json`.
+  /// [replacingName] additionally removes the entry it renames. Memory is
+  /// updated before the returned future's disk write.
+  Future<void> saveCustomNpc(Npc npc, {String? replacingName}) {
+    npc.custom = true;
+    bool replaced(Npc n) => n.name == npc.name || n.name == replacingName;
+    customNpcs
+      ..removeWhere(replaced)
+      ..add(npc);
+    gameData.npc.samples
+      ..removeWhere(replaced)
+      ..add(npc);
+    if (!loadedHomebrewFiles.contains('npcs.json')) {
+      loadedHomebrewFiles.add('npcs.json');
+    }
+    return _writeCustomNpcs(customNpcs);
+  }
+
+  /// Removes [name] from the custom NPCs, then reloads from scratch: a
+  /// custom NPC may have overridden a bundled sample by name, and only a
+  /// full reload resurrects the original.
+  Future<void> deleteCustomNpc(String name) async {
+    customNpcs.removeWhere((n) => n.name == name);
+    await _writeCustomNpcs(customNpcs);
+    await reloadAll();
+  }
+
+  /// Removes every custom NPC in one pass (single reload).
+  Future<void> deleteAllCustomNpcs() async {
+    customNpcs.clear();
+    await _writeCustomNpcs(customNpcs);
+    await reloadAll();
+  }
+
+  /// Serializes the custom NPCs for file export, in the same shape
+  /// [loadHomebrew] reads.
+  String exportCustomNpcsJson() => const JsonEncoder.withIndent(
+    '  ',
+  ).convert([for (final n in customNpcs) n.toJson()]);
+
+  /// Imports custom NPCs from a JSON array and merges them in: imported
+  /// entries overwrite same-name ones, everything else is kept. Returns the
+  /// number of NPCs imported. Throws [FormatException] on unparseable input.
+  Future<int> importCustomNpcs(String content) async {
+    final raw = jsonDecode(content);
+    if (raw is! List) {
+      throw const FormatException('Expected a JSON array of NPCs');
+    }
+    final byName = <String, Npc>{};
+    for (final e in raw) {
+      if (e is! Map<String, dynamic> || (e['name'] ?? '').toString().isEmpty) {
+        continue;
+      }
+      try {
+        byName['${e['name']}'] = Npc.fromJson(e)..custom = true;
+      } catch (_) {
+        throw FormatException('Malformed NPC entry "${e['name']}"');
+      }
+    }
+    final imported = [...byName.values];
+    if (imported.isEmpty) {
+      throw const FormatException('No NPCs found in file');
+    }
+    final names = {for (final n in imported) n.name};
+    customNpcs
+      ..removeWhere((n) => names.contains(n.name))
+      ..addAll(imported);
+    gameData.npc.samples
+      ..removeWhere((n) => names.contains(n.name))
+      ..addAll(imported);
+    if (!loadedHomebrewFiles.contains('npcs.json')) {
+      loadedHomebrewFiles.add('npcs.json');
+    }
+    await _writeCustomNpcs(customNpcs);
+    return imported.length;
+  }
+
+  // ---- Encounters ----
+  //
+  // Encounters are pure user data with no bundled counterpart, so they live
+  // as a whole-file store beside user_descriptions.json (outside homebrew/,
+  // where the merge machinery would have nothing to merge them into).
+
+  /// Saved encounters. Loaded at startup and after [reloadAll].
+  List<Encounter> encounters = [];
+
+  Future<File> _encountersFile() async =>
+      File('${(await _baseDir()).path}/encounters.json');
+
+  Future<void> loadEncounters() async {
+    final file = await _encountersFile();
+    if (!await file.exists()) return;
+    try {
+      final raw = jsonDecode(await file.readAsString()) as List<dynamic>;
+      encounters = [for (final e in raw) Encounter.fromJson(e)];
+    } catch (_) {
+      // A corrupt file must not brick startup; leave what is loaded.
+    }
+  }
+
+  Future<void> saveEncounters() async {
+    final file = await _encountersFile();
+    if (encounters.isEmpty) {
+      if (await file.exists()) await file.delete();
+      return;
+    }
+    await file.writeAsString(
+      const JsonEncoder.withIndent(
+        '  ',
+      ).convert([for (final e in encounters) e.toJson()]),
+    );
+  }
+
+  /// Insert-or-replace [encounter] by name; [replacingName] additionally
+  /// removes the entry it renames.
+  Future<void> saveEncounter(Encounter encounter, {String? replacingName}) {
+    encounters
+      ..removeWhere(
+          (e) => e.name == encounter.name || e.name == replacingName)
+      ..add(encounter);
+    return saveEncounters();
+  }
+
+  Future<void> deleteEncounter(String name) {
+    encounters.removeWhere((e) => e.name == name);
+    return saveEncounters();
+  }
+
+  /// Serializes the encounters for file export, in the same shape
+  /// [loadEncounters] reads.
+  String exportEncountersJson() => const JsonEncoder.withIndent(
+    '  ',
+  ).convert([for (final e in encounters) e.toJson()]);
+
+  /// Imports encounters from a JSON array and merges them in: imported
+  /// entries overwrite same-name ones, everything else is kept. Returns the
+  /// number of encounters imported. Throws [FormatException] on unparseable
+  /// input.
+  Future<int> importEncounters(String content) async {
+    final raw = jsonDecode(content);
+    if (raw is! List) {
+      throw const FormatException('Expected a JSON array of encounters');
+    }
+    final byName = <String, Encounter>{};
+    for (final e in raw) {
+      if (e is! Map<String, dynamic> || (e['name'] ?? '').toString().isEmpty) {
+        continue;
+      }
+      try {
+        byName['${e['name']}'] = Encounter.fromJson(e);
+      } catch (_) {
+        throw FormatException('Malformed encounter entry "${e['name']}"');
+      }
+    }
+    final imported = [...byName.values];
+    if (imported.isEmpty) {
+      throw const FormatException('No encounters found in file');
+    }
+    final names = {for (final e in imported) e.name};
+    encounters
+      ..removeWhere((e) => names.contains(e.name))
+      ..addAll(imported);
+    await saveEncounters();
+    return imported.length;
+  }
+
   /// Merges homebrew JSON files into the loaded game data. File names must
   /// match the bundled data files (e.g. `weapons.json`, `titles.json`);
   /// entries are appended after the official content.
@@ -321,6 +514,7 @@ class UserDataStore {
     loadedHomebrewFiles = [];
     failedHomebrewFiles.clear();
     homebrewSchools = [];
+    customNpcs = [];
     final dir = await homebrewDir();
     // The pack-only kinds mutate stock data (replace/remove), so they are
     // honored only when the HoR errata pack's manifest says they belong to
@@ -416,6 +610,19 @@ class UserDataStore {
             for (final e in category['entries'] ?? [])
               Weapon.fromJson(e, category: category['name'] ?? ''),
         ]);
+      case 'npcs':
+        // Replace-by-name like schools: a custom NPC may override a bundled
+        // Chapter 8 sample, and an in-session save followed by a reload must
+        // never duplicate. Last entry wins on duplicate names in the file.
+        final incoming = [
+          ...{
+            for (final e in raw) '${e['name']}': Npc.fromJson(e)..custom = true
+          }.values,
+        ];
+        final names = {for (final n in incoming) n.name};
+        customNpcs = incoming;
+        gameData.npc.samples.removeWhere((n) => names.contains(n.name));
+        gameData.npc.samples.addAll(incoming);
       // The two kinds below exist for the Heroes of Rokugan errata pack;
       // plain `weapons` stays append-only so existing homebrew behaves
       // exactly as before. Files with these names only exist after an

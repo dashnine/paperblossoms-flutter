@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/services.dart' show rootBundle;
 
 import 'game_data_models.dart';
+import 'npc_models.dart';
 
 /// Heroes of Rokugan campaign data (assets/data/hor/). Kept in its own
 /// container, never merged into the stock lists, so no stock picker or
@@ -22,6 +23,37 @@ class HorData {
   HorRoninBackground? backgroundByName(String name) {
     for (final b in roninBackgrounds) {
       if (b.name == name) return b;
+    }
+    return null;
+  }
+}
+
+/// Chapter 8 GM data (assets/data/npc/): sample NPC stat blocks, templates,
+/// and demeanors. Kept in its own container so no PC-facing picker or
+/// enumeration ever surfaces an NPC entry. Custom (homebrew) NPCs are merged
+/// into [samples] by the user data store.
+class NpcData {
+  List<Npc> samples = [];
+  List<NpcTemplate> templates = [];
+  List<Demeanor> demeanors = [];
+
+  Npc? sampleByName(String name) {
+    for (final n in samples) {
+      if (n.name == name) return n;
+    }
+    return null;
+  }
+
+  NpcTemplate? templateByName(String name) {
+    for (final t in templates) {
+      if (t.name == name) return t;
+    }
+    return null;
+  }
+
+  Demeanor? demeanorByName(String name) {
+    for (final d in demeanors) {
+      if (d.name == name) return d;
     }
     return null;
   }
@@ -56,6 +88,7 @@ class GameData {
   List<Question8Option> question8Options = [];
   List<Description> descriptions = [];
   HorData hor = HorData();
+  NpcData npc = NpcData();
 
   Future<void> load() async {
     clans = await _loadList('clans', Clan.fromJson);
@@ -96,7 +129,31 @@ class GameData {
     ];
 
     await _loadHor();
+    await _loadNpc();
     loaded = true;
+  }
+
+  /// Chapter 8 GM data must never break stock loading: any failure leaves an
+  /// empty [NpcData] (the GM tools simply show nothing) with the stock lists
+  /// untouched.
+  Future<void> _loadNpc() async {
+    final n = NpcData();
+    try {
+      n.samples = [
+        for (final e in await _loadRaw('npc/npc_samples')) Npc.fromJson(e)
+      ];
+      n.templates = [
+        for (final e in await _loadRaw('npc/npc_templates'))
+          NpcTemplate.fromJson(e)
+      ];
+      n.demeanors = [
+        for (final e in await _loadRaw('npc/npc_demeanors'))
+          Demeanor.fromJson(e)
+      ];
+      npc = n;
+    } catch (_) {
+      npc = NpcData();
+    }
   }
 
   /// Heroes of Rokugan data is additive-only and must never break stock
@@ -181,6 +238,12 @@ class GameData {
 
   Technique? techniqueByName(String name) =>
       _firstWhereOrNull(techniques, (t) => t.name == name);
+
+  /// Item patterns (SL p.109) are granted/learned like techniques but live
+  /// in their own table; display sites fall back to this after
+  /// [techniqueByName] misses.
+  ItemPattern? itemPatternByName(String name) =>
+      _firstWhereOrNull(itemPatterns, (p) => p.name == name);
 
   /// Techniques in a category or subcategory whose rank falls in
   /// [minRank]..[maxRank] (inclusive).

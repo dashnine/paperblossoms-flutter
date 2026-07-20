@@ -2087,4 +2087,319 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get sbCouldNotReadSchoolsFile =>
       'That file could not be read as a schools JSON array.';
+
+  @override
+  String get gmSection => 'Game master';
+
+  @override
+  String get npcLibraryTitle => 'NPCs & stat blocks';
+
+  @override
+  String get npcLibrarySubtitle =>
+      'Core Chapter 8 sample NPCs, quick building with templates, and your custom NPCs';
+
+  @override
+  String get encountersTitle => 'Encounters';
+
+  @override
+  String get encountersSubtitle =>
+      'Build NPC rosters and gauge their challenge';
+
+  @override
+  String get npcFilterAll => 'All';
+
+  @override
+  String get npcFilterMinions => 'Minions';
+
+  @override
+  String get npcFilterAdversaries => 'Adversaries';
+
+  @override
+  String get npcFilterCustom => 'Custom';
+
+  @override
+  String get npcTypeMinion => 'Minion';
+
+  @override
+  String get npcTypeAdversary => 'Adversary';
+
+  @override
+  String npcCombatIntrigue(int combat, int intrigue) {
+    return 'Combat $combat · Intrigue $intrigue';
+  }
+
+  @override
+  String get npcQuickBuild => 'Quick build';
+
+  @override
+  String get npcImport => 'Import custom NPCs…';
+
+  @override
+  String get npcExport => 'Export custom NPCs…';
+
+  @override
+  String get npcDeleteAll => 'Delete all custom NPCs';
+
+  @override
+  String get npcDeleteAllBody =>
+      'This removes every custom NPC. Bundled sample NPCs are unaffected.';
+
+  @override
+  String npcImported(int count) {
+    return '$count NPCs imported';
+  }
+
+  @override
+  String npcExported(int count) {
+    return '$count NPCs exported';
+  }
+
+  @override
+  String get npcCouldNotRead =>
+      'That file could not be read as an NPC JSON array.';
+
+  @override
+  String get npcNoneToExport => 'No custom NPCs to export.';
+
+  @override
+  String npcDeleteTitle(String name) {
+    return 'Delete $name?';
+  }
+
+  @override
+  String get npcDeleteBody =>
+      'This removes the custom NPC. Encounters that reference it will show it as missing.';
+
+  @override
+  String get npcEmptyHint => 'No NPCs match.';
+
+  @override
+  String get npcPickTitle => 'Choose an NPC';
+
+  @override
+  String get npcDemeanorLabel => 'Demeanor';
+
+  @override
+  String npcDemeanorTnMods(String mods) {
+    return 'Social check TN modifiers: $mods';
+  }
+
+  @override
+  String npcUnmasking(String way) {
+    return 'Common way of unmasking: $way';
+  }
+
+  @override
+  String get npcAdvantagesLabel => 'Advantages';
+
+  @override
+  String get npcDisadvantagesLabel => 'Disadvantages';
+
+  @override
+  String get npcWeaponsGear => 'Favored weapons & gear';
+
+  @override
+  String get npcGearEquipped => 'Gear (equipped)';
+
+  @override
+  String get npcGearOther => 'Gear (other)';
+
+  @override
+  String get npcSkillGroupsLabel => 'Skill groups';
+
+  @override
+  String get npcTechniquesLabel => 'Techniques';
+
+  @override
+  String get npcTechniqueImportHint =>
+      'Full technique text appears if you import rules descriptions (Tools → Rules text).';
+
+  @override
+  String get npcMinionRules =>
+      'Minion: defeated when fatigue exceeds endurance (slain if the defeating damage is 7 or higher, otherwise dispatched non-lethally). Would-be critical strikes instead inflict fatigue equal to their severity. Minions generally spend Opportunity only on their listed abilities.';
+
+  @override
+  String get npcUseAsBase => 'Use as base';
+
+  @override
+  String get npcEditAction => 'Edit';
+
+  @override
+  String get npcDuplicateEdit => 'Duplicate & edit';
+
+  @override
+  String get npcAddToEncounter => 'Add to encounter…';
+
+  @override
+  String get npcPrintSheet => 'Print stat block…';
+
+  @override
+  String get npcConflictRank => 'Conflict rank';
+
+  @override
+  String get npcQuickBuildTitle => 'Quick NPC build';
+
+  @override
+  String get npcBaseLabel => 'Base profile';
+
+  @override
+  String get npcChooseBase => 'Choose a base NPC…';
+
+  @override
+  String get npcTemplatesLabel => 'Templates (Core p. 311)';
+
+  @override
+  String get npcSuggestedAdv => 'Suggested advantages (add 0–2)';
+
+  @override
+  String get npcSuggestedDisadv => 'Suggested disadvantages (add 0–2)';
+
+  @override
+  String get npcAddTechnique => 'Add technique';
+
+  @override
+  String get npcResultLabel => 'Result';
+
+  @override
+  String get npcSaveAndPrint => 'Save & print…';
+
+  @override
+  String npcSavedSnack(String name) {
+    return 'Saved $name.';
+  }
+
+  @override
+  String get npcEditTitle => 'Edit NPC';
+
+  @override
+  String get npcNewTitle => 'New NPC';
+
+  @override
+  String get npcBlurbLabel => 'Summary line';
+
+  @override
+  String get npcCombatRank => 'Combat';
+
+  @override
+  String get npcIntrigueRank => 'Intrigue';
+
+  @override
+  String get npcAutoDerived => 'Recompute derived stats from rings';
+
+  @override
+  String get npcAbilityTextLabel => 'Rules text';
+
+  @override
+  String get npcAddAbility => 'Add ability';
+
+  @override
+  String get npcAddWeapon => 'Add weapon';
+
+  @override
+  String get npcAddAdvantage => 'Add advantage';
+
+  @override
+  String get npcAddDisadvantage => 'Add disadvantage';
+
+  @override
+  String get npcRingLabel => 'Ring';
+
+  @override
+  String get npcGroupsLabel => 'Skill groups (comma-separated)';
+
+  @override
+  String get npcTypesLabel => 'Types (comma-separated)';
+
+  @override
+  String get npcGearEquippedLabel => 'Gear, equipped (one per line)';
+
+  @override
+  String get npcGearOtherLabel => 'Gear, other (one per line)';
+
+  @override
+  String get encNew => 'New encounter';
+
+  @override
+  String get encAddNpc => 'Add NPC…';
+
+  @override
+  String encCombatRank(int rank) {
+    return 'Combat encounter rank: $rank';
+  }
+
+  @override
+  String encIntrigueRank(int rank) {
+    return 'Intrigue encounter rank: $rank';
+  }
+
+  @override
+  String get encThresholdsTitle => 'Party group-rank guide (Core p. 310)';
+
+  @override
+  String get encGroupRankHint =>
+      'Group rank = sum of the party\'s school ranks.';
+
+  @override
+  String encEven(int rank) {
+    return '≈ $rank: evenly matched';
+  }
+
+  @override
+  String encEasy(int rank) {
+    return '$rank or more: strong edge for the party';
+  }
+
+  @override
+  String encHard(int rank) {
+    return '$rank or less: party significantly outmatched';
+  }
+
+  @override
+  String encMissing(String name) {
+    return '$name (missing)';
+  }
+
+  @override
+  String get encEmptyHint =>
+      'No encounters yet. An encounter is a saved roster of NPCs with its challenge math.';
+
+  @override
+  String get encDeleteBody => 'This removes the saved encounter.';
+
+  @override
+  String encNpcCountLabel(int count) {
+    return '$count NPCs';
+  }
+
+  @override
+  String get encPrint => 'Print encounter…';
+
+  @override
+  String get encImport => 'Import encounters…';
+
+  @override
+  String get encExport => 'Export encounters…';
+
+  @override
+  String encImported(int count) {
+    return '$count encounters imported';
+  }
+
+  @override
+  String encExported(int count) {
+    return '$count encounters exported';
+  }
+
+  @override
+  String get encCouldNotRead =>
+      'That file could not be read as an encounters JSON array.';
+
+  @override
+  String get encNoneToExport => 'No encounters to export.';
+
+  @override
+  String get nameRequiredSnack => 'Enter a name first.';
+
+  @override
+  String get npcDemeanorNone => 'No demeanor';
 }
