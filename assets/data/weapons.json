@@ -80,7 +80,7 @@
                     "max": 1
                 },
                 "damage": 3,
-                "deadliness": 5,
+                "deadliness": 6,
                 "grips": [
                     {
                         "name": "1-hand",
@@ -144,6 +144,10 @@
                             {
                                 "attribute": "deadliness",
                                 "value_increase": 1
+                            },
+                            {
+                                "attribute": "quality",
+                                "value": "Razor-edged"
                             }
                         ]
                     }
@@ -2914,7 +2918,7 @@
                     "book": "PoW",
                     "page": 112
                 },
-                "skill": "Melee",
+                "skill": "Unarmed",
                 "range": {
                     "min": 0,
                     "max": 1
@@ -3030,7 +3034,7 @@
                     "book": "PoW",
                     "page": 112
                 },
-                "skill": "Melee",
+                "skill": "Unarmed",
                 "range": {
                     "min": 0,
                     "max": 1
@@ -3069,7 +3073,7 @@
                     "book": "PoW",
                     "page": 112
                 },
-                "skill": "Melee",
+                "skill": "Unarmed",
                 "range": {
                     "min": 0,
                     "max": 1
@@ -3115,7 +3119,7 @@
                     "book": "PoW",
                     "page": 112
                 },
-                "skill": "Melee",
+                "skill": "Unarmed",
                 "range": {
                     "min": 0,
                     "max": 1
@@ -3167,7 +3171,7 @@
                         "effects": []
                     },
                     {
-                        "name": "2-hand(bludgeon)",
+                        "name": "2-hand (bludgeon)",
                         "effects": [
                             {
                                 "attribute": "damage",
@@ -3176,7 +3180,7 @@
                         ]
                     },
                     {
-                        "name": "1-hand (stab)",
+                        "name": "2-hand (stab)",
                         "effects": [
                             {
                                 "attribute": "damage",

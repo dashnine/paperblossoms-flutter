@@ -9267,7 +9267,7 @@
             },
             {
                 "rank": 1,
-                "advance": "Striking as Air",
+                "advance": "Courtier's Resolve",
                 "type": "technique",
                 "special_access": false
             },
@@ -14021,6 +14021,10 @@
             {
                 "size": 1,
                 "set": ["Traveling Pack"]
+            },
+            {
+                "size": 1,
+                "set": ["Unicorn Warhorse"]
             }
         ],
         "curriculum": [
@@ -20487,7 +20491,7 @@
             "set": ["Command", "Fitness", "Martial Arts [Melee]", "Martial Arts [Unarmed]", "Meditation", "Tactics", "Theology"]
         },
         "honor": 50,
-        "techniques_available": ["Close Combat Kata", "General Kata", "Rituals", "Earth Sh\u016bji"],
+        "techniques_available": ["Close Combat Kata", "General Kata", "Rituals", "Sh\u016bji"],
         "starting_techniques": [
             {
                 "size": 1,
@@ -20511,6 +20515,10 @@
             {
                 "size": 1,
                 "set": ["Yari", "Naginata"]
+            },
+            {
+                "size": 1,
+                "set": ["Scimitar"]
             },
             {
                 "size": 1,

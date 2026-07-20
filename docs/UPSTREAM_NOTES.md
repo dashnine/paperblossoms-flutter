@@ -424,6 +424,9 @@ our data) matches the printed book instead, consistent with upstream's
 general book-not-errata stance. Left as-is; the descriptions mention the
 errata values in passing.
 
+**Superseded by #81** (2026-07-19): the user adopted the official
+errata, so both rows now carry the errata values.
+
 ## 36. "Ikomo Bard School" name error in `schools.json` (patched here)
 
 Upstream names the Lion courtier school **Ikomo** Bard School; the
@@ -1035,3 +1038,73 @@ entries (p. 9). All clean except the entries above.
 - Small-caps extraction renders headers like "Blood of Osano-Wo" and
   "KnotWork"; data's "Blood of Osano-wo" / "Knotwork" match the
   running text.
+
+## 81. Official FFG errata (v3.0, 8/12/2020) applied (patched here)
+
+Policy change, superseding the book-not-errata stance recorded in #35:
+the user added `docs/errata__faq_v30_8_12_2020_hq.pdf` and asked for the
+errata to be applied. Every item in the document was checked against our
+data, descriptions, and rules code. Guarded by the "FFG errata v3.0"
+test group in `test/game_data_validation_test.dart`.
+
+Changed in this pass:
+
+- `weapons.json` — Dao deadliness 5 → **6**; Jian 2-hand grip gains
+  **Razor-edged** (Core errata, Table 5-1). Chair, Lute, Sake Bottle &
+  Cups, and Scroll Case switch skill Melee → **Unarmed**; Umbrella's
+  stab grip becomes **2-hand (stab)** (PoW errata, Table 3-1; the
+  Umbrella edit also normalizes upstream's space-less "2-hand(bludgeon)"
+  grip name). i18n overlays renamed the two grip keys the same commit.
+- `schools.json` — Utaku Battle Maiden rank 1: Striking as Air →
+  **Courtier's Resolve** (the last of the six "redundant entry"
+  curriculum swaps; the other five were already in upstream data). Moto
+  Avenger starting outfit gains **Unicorn Warhorse** (SL errata). Qamarist
+  Shield Bearer: techniques available "Earth Shūji" → **Shūji**, and
+  the outfit gains a **Scimitar** (PoW errata).
+- `titles.json` — Emerald Magistrate status award constraint `max` →
+  `min` 40 ("+15 (to a minimum of 40)").
+- Descriptions (gitignored `docs/*_descriptions.json`, regenerated
+  union) — Dao/Jian now state the errata stats as current; Umbrella stab
+  is two-handed; Summoning Mantra is TN **4**; Commune with Evil's
+  blessing lasts until the end of the **next** scene and extends by
+  **scenes**, not rounds; Spiritual Shackles is an Attack and **Scheme**
+  action.
+
+Already errata-correct before this pass (no change needed): the other
+five curriculum swaps (Kakita Duelist ×2 incl. "Crossing Blade", Asako
+Loremaster, Shiba Guardian, Kaito Shrine Keeper, Akodo Commander);
+Zanbatō DMG 6/DLS 7; Lady Shinjo's Speed already a shūji; Voice of the
+Wilds' starting rituals; Qamarist rank-2 "Iron Shell Style"; the Manifest
+Fire Kami NPC sample (Earth 2/Fire 6); the app's stance strings
+("Scheme action"); and the descriptions of Iaijutsu Cut: Rising Blade,
+Wisdom of the Ages, Vendor of Strange Wares, Voice of Authority,
+Slippery Maneuvers, and Fiend's Retreat, which were written from the
+errata'd text originally.
+
+Out of scope / not modeled: the p. 26 tiebreaker, p. 296 example,
+p. 230 improvised-weapon margin note, Wait-action and Table 8-1
+opportunity wording (rules prose the app doesn't carry); the Core p. 306
+Peasant Family NPC table (the NPC quick build abstracts family tables);
+PoW NPC profiles Reo/Rhinoceros/Furiribi (not bundled); the
+optional-rule sections (incl. the Treasure Hunter alternate ability,
+which is only offered for Risky Checks campaigns) and the generic FAQ
+rulings (simultaneous effects, advantage-inversion Void refunds, NPC
+Void points, Mahō Taint scaling, Kisshōten lore, and the two curriculum
+FAQ answers — multiple purchases of one entry all count, and = access
+lapsing when a rank completes — both of which the engine already
+implements).
+
+FAQ rulings that anchor to a specific entry, however, were folded into
+that entry's description as a trailing "(FAQ: …)" note (second pass,
+same day): both Iaijutsu Cut techniques (the weapon needs a Razor-Edged
+*one-handed* grip — nodachi and jian ineligible); Crimson Leaves Strike
+and Coiling Serpent Style (can't disarm/restrain unarmed or body-part
+weapon profiles); Matsu's Fury (triggers while already Enraged);
+Spiritual Artisan (the FAQ's summon/augment/awaken scope); Thunderclap
+Strike (highest-TN-once ruling, the FAQ's own example); and Fiend's
+Retreat + Laughing Fox Style (declare after dice are kept, before
+symbols resolve). The p. 173
+prerequisite clarification (group listings don't waive clan/role
+restrictions) is recorded here as a table ruling: like Qt, the app's
+purchase list never enforced `restriction` fields, and name-called
+techniques waive prerequisites anyway, so behavior is unchanged.

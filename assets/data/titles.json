@@ -59,7 +59,7 @@
             {
                 "base_award": 15,
                 "constraint": {
-                    "type": "max",
+                    "type": "min",
                     "value": 40
                 },
                 "award_attribute": "status"

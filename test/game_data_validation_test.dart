@@ -1165,4 +1165,81 @@ void main() {
           containsAll(['Cumbersome', 'Durable', 'Mundane']));
     });
   });
+
+  // Official FFG errata (v3.0, 8/12/2020), adopted 2026-07-19 on user
+  // request — supersedes the book-not-errata stance of UPSTREAM_NOTES #35.
+  // See docs/UPSTREAM_NOTES.md #81 for the full item-by-item accounting.
+  group('FFG errata v3.0', () {
+    test('Dao is deadliness 6', () {
+      final w = gameData.weaponByName('Dao')!;
+      expect(w.deadliness, 6);
+    });
+
+    test('Jian 2-hand grip grants Razor-edged', () {
+      final w = gameData.weaponByName('Jian')!;
+      final twoHand = w.grips.firstWhere((g) => g.name == '2-hand');
+      expect(
+          twoHand.effects.any(
+              (e) => e.attribute == 'quality' && e.value == 'Razor-edged'),
+          isTrue);
+    });
+
+    test('Utaku Battle Maiden rank 1 teaches Courtier\'s Resolve', () {
+      final school = gameData.schools
+          .firstWhere((s) => s.name == 'Utaku Battle Maiden School');
+      final r1 = [
+        for (final a in school.curriculum)
+          if (a.rank == 1) a.advance
+      ];
+      expect(r1, contains("Courtier's Resolve"));
+      expect(r1, isNot(contains('Striking as Air')));
+    });
+
+    test('Moto Avenger outfit includes the Unicorn Warhorse', () {
+      final school = gameData.schools
+          .firstWhere((s) => s.name == 'Moto Avenger School');
+      expect(
+          school.startingOutfit
+              .any((s) => s.options.contains('Unicorn Warhorse')),
+          isTrue);
+    });
+
+    test('Qamarist Shield Bearer studies all shūji and owns a scimitar', () {
+      final school = gameData.schools
+          .firstWhere((s) => s.name == 'Qamarist Shield Bearer Tradition');
+      expect(school.techniquesAvailable, contains('Shūji'));
+      expect(school.techniquesAvailable, isNot(contains('Earth Shūji')));
+      expect(
+          school.startingOutfit.any((s) => s.options.contains('Scimitar')),
+          isTrue);
+    });
+
+    test('PoW hand-held improvised weapons use Unarmed', () {
+      for (final name in [
+        'Chair',
+        'Lute',
+        'Sake Bottle & Cups',
+        'Scroll Case'
+      ]) {
+        expect(gameData.weaponByName(name)!.skill, 'Unarmed',
+            reason: '$name should be wielded with Martial Arts [Unarmed]');
+      }
+    });
+
+    test('Umbrella stab grip is 2-hand', () {
+      final grips = gameData.weaponByName('Umbrella')!.grips;
+      expect(grips.map((g) => g.name), contains('2-hand (stab)'));
+      expect(grips.map((g) => g.name), isNot(contains('1-hand (stab)')));
+    });
+
+    test('Emerald Magistrate status award is +15 to a minimum of 40', () {
+      final title =
+          gameData.titles.firstWhere((t) => t.name == 'Emerald Magistrate');
+      final award = title.socialAwards
+          .firstWhere((a) => a.awardAttribute == 'status');
+      expect(award.baseAward, 15);
+      expect(award.constraint?.type, 'min');
+      expect(award.constraint?.value, 40);
+    });
+  });
 }
