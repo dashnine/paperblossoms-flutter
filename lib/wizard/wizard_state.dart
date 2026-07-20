@@ -336,12 +336,50 @@ class WizardState {
       }
     }
     for (final replacement in replacementRings) {
-      if (replacement.isNotEmpty && overflow > 0) {
-        rings[replacement] = (rings[replacement] ?? 0) + 1;
-        overflow--;
-      }
+      if (replacement.isEmpty || overflow <= 0) continue;
+      // HoR overflow must land under the cap too; stock keeps its original
+      // blind redistribution byte-for-byte.
+      if (horMode && (rings[replacement] ?? 0) >= 3) continue;
+      rings[replacement] = (rings[replacement] ?? 0) + 1;
+      overflow--;
     }
     return (rings: rings, overflow: overflow);
+  }
+
+  /// Grows [replacementRings] so page 7 can offer one picker per overflow
+  /// point (HoR ring stacking can overflow past the stock two slots).
+  void ensureReplacementRingSlots(int count) {
+    while (replacementRings.length < count) {
+      replacementRings.add('');
+    }
+  }
+
+  /// Writes replacement ring slot [index], growing the list as needed — so
+  /// the page-7 widgets never have to mutate the list during build.
+  void setReplacementRing(int index, String value) {
+    ensureReplacementRingSlots(index + 1);
+    replacementRings[index] = value;
+  }
+
+  /// Clears HoR replacement picks whose ring has since reached the cap of 3
+  /// (an earlier-page edit can push a picked ring to 3, which would
+  /// otherwise strand overflow behind a slot that renders blank). Simulates
+  /// the redistribution order [calcRings] uses. No-op in stock mode.
+  void pruneStaleReplacementRings() {
+    if (!horMode) return;
+    final rings = rawRings();
+    for (final entry in rings.entries.toList()) {
+      if (entry.value > 3) rings[entry.key] = 3;
+    }
+    for (var i = 0; i < replacementRings.length; i++) {
+      final replacement = replacementRings[i];
+      if (replacement.isEmpty) continue;
+      if ((rings[replacement] ?? 0) >= 3) {
+        replacementRings[i] = '';
+      } else {
+        rings[replacement] = (rings[replacement] ?? 0) + 1;
+      }
+    }
   }
 
   /// Whether the chosen heritage effect grants a bonus skill.

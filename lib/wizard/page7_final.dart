@@ -23,14 +23,21 @@ class Page7Final extends StatelessWidget {
     // slots are computed locally and only materialized in state when a pick
     // is made (setReplacementSkill) — build must not mutate the wizard.
     var skillSlots = wizard.replacementSkills.length;
+    var ringSlots = wizard.replacementRings.length;
     if (wizard.horMode) {
       final filled =
           wizard.replacementSkills.where((s) => s.isNotEmpty).length;
       final needed = filled + skills.overflow;
       if (needed > skillSlots) skillSlots = needed;
+      final ringsFilled =
+          wizard.replacementRings.where((r) => r.isNotEmpty).length;
+      final ringsNeeded = ringsFilled + rings.overflow;
+      if (ringsNeeded > ringSlots) ringSlots = ringsNeeded;
     }
     String slotValue(int i) =>
         i < wizard.replacementSkills.length ? wizard.replacementSkills[i] : '';
+    String ringSlotValue(int i) =>
+        i < wizard.replacementRings.length ? wizard.replacementRings[i] : '';
     final ringText = [
       for (final entry in rings.rings.entries)
         '${trData(entry.key)} ${entry.value}'
@@ -85,17 +92,17 @@ class Page7Final extends StatelessWidget {
             context.l10n.ringOverflowMsg(rings.overflow),
             style: TextStyle(color: Theme.of(context).colorScheme.error),
           ),
-          for (var i = 0; i < 2; i++)
-            if (i == 0 || wizard.replacementRings[0].isNotEmpty)
+          for (var i = 0; i < ringSlots; i++)
+            if (i == 0 || ringSlotValue(i - 1).isNotEmpty)
               WizDropdown(
                 label: context.l10n.replacementRingN(i + 1),
-                value: wizard.replacementRings[i],
+                value: ringSlotValue(i),
                 options: [
                   for (final entry in rings.rings.entries)
                     if (entry.value < 3) entry.key
                 ],
                 onChanged: (value) {
-                  wizard.replacementRings[i] = value;
+                  wizard.setReplacementRing(i, value);
                   onChanged();
                 },
               ),

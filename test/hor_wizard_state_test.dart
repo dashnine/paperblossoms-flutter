@@ -155,6 +155,72 @@ void main() {
     });
   });
 
+  group('ring cap 3', () {
+    // Every HoR rōnin ring source stacked on Water: base 1 + any-ring clan
+    // block + background + two school choices + standout = 6.
+    WizardState waterStacked() => horRoninBuild()
+      ..horRoninRing = 'Water'
+      ..horBackgroundRing = 'Water'
+      ..ringChoices = ['Water', 'Water']
+      ..schoolSpecialRing = 'Water';
+
+    test('a ring stacked to 6 is capped and reports 3 overflow', () {
+      final rings = waterStacked().calcRings();
+      expect(rings.rings['Water'], 3);
+      expect(rings.overflow, 3);
+    });
+
+    test('three replacement slots absorb the overflow', () {
+      final wizard = waterStacked()
+        ..replacementRings = ['Air', 'Earth', 'Fire'];
+      final rings = wizard.calcRings();
+      expect(rings.overflow, 0);
+      expect(rings.rings['Air'], 2);
+      expect(rings.rings['Earth'], 2);
+      expect(rings.rings['Fire'], 2);
+    });
+
+    test('replacement redistribution respects the cap', () {
+      final wizard = horRoninBuild()
+        ..horRoninRing = 'Water'
+        ..horBackgroundRing = 'Water'
+        ..ringChoices = ['Water', 'Fire'] // Water 4: 1 overflow; Fire 2
+        ..schoolSpecialRing = 'Fire' // Fire 3
+        ..replacementRings = ['Fire', 'Air'];
+      // Fire is already at 3: the point must skip it and land on Air.
+      final rings = wizard.calcRings();
+      expect(rings.rings['Fire'], 3);
+      expect(rings.rings['Air'], 2);
+      expect(rings.overflow, 0);
+    });
+
+    test('setReplacementRing pads the list instead of throwing', () {
+      final wizard = horRoninBuild()..setReplacementRing(3, 'Air');
+      expect(wizard.replacementRings, hasLength(4));
+      expect(wizard.replacementRings[3], 'Air');
+    });
+
+    test('pruneStaleReplacementRings clears picks pushed to cap', () {
+      final wizard = horRoninBuild()
+        ..horRoninRing = 'Water'
+        ..horBackgroundRing = 'Water'
+        ..ringChoices = ['Water', 'Fire'] // 1 overflow; Fire at 2
+        ..schoolSpecialRing = 'Air'
+        ..replacementRings = ['Fire', ''];
+      expect(wizard.calcRings().overflow, 0);
+      // An earlier-page edit pushes Fire to 3: the pick is stale.
+      wizard.schoolSpecialRing = 'Fire';
+      wizard.pruneStaleReplacementRings();
+      expect(wizard.replacementRings[0], '');
+      // Stock mode: prune is a no-op.
+      final stock = horRoninBuild()
+        ..horMode = false
+        ..replacementRings = ['Fire', ''];
+      stock.pruneStaleReplacementRings();
+      expect(stock.replacementRings[0], 'Fire');
+    });
+  });
+
   group('Q5-Q8 mechanics', () {
     test('giri and ninjō skills land in the raw skills', () {
       final skills = horHidaBuild().rawSkills();

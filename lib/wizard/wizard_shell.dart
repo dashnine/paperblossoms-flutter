@@ -204,9 +204,10 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
   }
 
   Future<void> _next() async {
-    // An earlier-page edit can push a picked replacement skill to its HoR
-    // cap; clear such stale picks so overflow accounting stays honest
-    // before validation looks at it. No-op in stock mode.
+    // An earlier-page edit can push a picked replacement ring or skill to
+    // its HoR cap; clear such stale picks so overflow accounting stays
+    // honest before validation looks at it. No-op in stock mode.
+    wizard.pruneStaleReplacementRings();
     wizard.pruneStaleReplacementSkills();
     final error = _validate(_page);
     if (error != null) {
