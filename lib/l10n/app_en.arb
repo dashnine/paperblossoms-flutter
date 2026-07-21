@@ -408,6 +408,22 @@
     }
   },
   "atRank5": "At rank 5",
+  "atRank6": "At rank 6",
+  "bonusCurriculumSection": "Bonus curriculum skills",
+  "addBonusCurriculumSkill": "Add bonus curriculum skill",
+  "bonusSkillLimitReached": "All picks for your school rank used",
+  "bonusSkillsChosen": "{chosen} / {allowed} chosen",
+  "@bonusSkillsChosen": {
+    "placeholders": {
+      "chosen": {
+        "type": "int"
+      },
+      "allowed": {
+        "type": "int"
+      }
+    }
+  },
+  "noBonusSkillsYet": "No bonus skills chosen yet.",
   "alreadyLearnedLabel": "Already learned",
   "buyThisAdvance": "Buy this advance",
   "titlesSection": "Titles",

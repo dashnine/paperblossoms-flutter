@@ -177,6 +177,95 @@ void main() {
     });
   });
 
+  group('School of Waves bonus curriculum skills (core p.87)', () {
+    setUp(() {
+      // Courtesy is a Social skill, off the Worldly Rōnin rank-1 curriculum,
+      // so its crediting is decided purely by the bonus designation.
+      character.school = 'Worldly Rōnin Path';
+    });
+
+    test('a designated bonus skill earns full curriculum XP at rank 1', () {
+      character.advanceStack = [skill('Courtesy', cost: 2)];
+      expect(recalcRank(character).curriculumXP, 1); // off-curriculum: half
+
+      character.bonusCurriculumSkills = ['Courtesy'];
+      expect(recalcRank(character).curriculumXP, 2); // now full
+    });
+
+    test('bonus skills count at all ranks (they drive the rank-up in full)',
+        () {
+      // Four Courtesy buys cost 2+4+6+8 = 20. As bonus curriculum they count
+      // in full at every rank in the walk, reaching rank 2.
+      character.bonusCurriculumSkills = ['Courtesy'];
+      for (var i = 0; i < 4; i++) {
+        character.advanceStack.add(skill('Courtesy'));
+      }
+      expect(recalcRank(character).rank, 2);
+    });
+
+    test('without the designation the same buys stay half and never rank up',
+        () {
+      for (var i = 0; i < 4; i++) {
+        character.advanceStack.add(skill('Courtesy'));
+      }
+      // Half of 2+4+6+8 = 1+2+3+4 = 10, short of the 20 threshold.
+      final result = recalcRank(character);
+      expect(result.rank, 1);
+      expect(result.curriculumXP, 10);
+    });
+
+    test('designations are inert for a school without School of Waves', () {
+      character.school = 'Hida Defender School';
+      character.bonusCurriculumSkills = ['Courtesy'];
+      character.advanceStack = [skill('Courtesy', cost: 2)];
+      expect(recalcRank(character).curriculumXP, 1); // still half
+    });
+
+    test('skillRankCap: 6 only for a designated skill once mastery is active',
+        () {
+      character.bonusCurriculumSkills = ['Meditation'];
+      // Mastery (A Bottomless Ocean) activates above school rank 5.
+      expect(skillRankCap(character, 5, 'Meditation'), 5);
+      expect(skillRankCap(character, 6, 'Meditation'), 6);
+      // Undesignated skills stay capped at 5 even at rank 6.
+      expect(skillRankCap(character, 6, 'Fitness'), 5);
+    });
+
+    test('skillRankCap stays 5 for a school without School of Waves', () {
+      character.school = 'Hida Defender School';
+      character.bonusCurriculumSkills = ['Meditation'];
+      expect(skillRankCap(character, 6, 'Meditation'), 5);
+    });
+
+    test('purchasableSkills keeps the 5 cap until mastery is active', () {
+      character.bonusCurriculumSkills = ['Meditation'];
+      character.baseSkills = {'Meditation': 5};
+      // School rank 1 (empty advance stack): mastery is off, so a rank-5
+      // bonus skill is not yet purchasable.
+      expect(purchasableSkills(character).contains('Meditation'), isFalse);
+    });
+
+    test('at school rank 6 a rank-5 bonus skill becomes purchasable', () {
+      character.bonusCurriculumSkills = ['Command', 'Meditation'];
+      character.baseSkills = {'Meditation': 5, 'Tactics': 5};
+      // Drive the character to school rank 6 with five full-credit curriculum
+      // advances (Command is a bonus skill, so full at every rank); each
+      // explicit cost clears one rank threshold [20,24,32,44,60].
+      for (final cost in rankXpThresholds) {
+        character.advanceStack.add(Advance(
+            type: advanceTypeSkill,
+            name: 'Command',
+            track: trackCurriculum,
+            cost: cost));
+      }
+      expect(recalcRank(character).rank, 6);
+      // A Bottomless Ocean lifts the designated skill's cap to 6...
+      expect(purchasableSkills(character).contains('Meditation'), isTrue);
+      // ...but an undesignated rank-5 skill stays capped at 5.
+      expect(purchasableSkills(character).contains('Tactics'), isFalse);
+    });
+  });
+
   group('title progress (mainwindow.cpp recalcTitle)', () {
     test('no titles means no title in progress', () {
       final result = recalcTitle(character);

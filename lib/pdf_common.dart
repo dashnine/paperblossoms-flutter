@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
@@ -255,7 +257,10 @@ final stanceColumnWidths = <int, pw.TableColumnWidth>{
 };
 
 /// A row of [total] rank bubbles, filled up to [rank] (clamped) — the
-/// pen-and-paper advancement convention from the official sheet.
+/// pen-and-paper advancement convention from the official sheet. When [rank]
+/// exceeds [total] (a School of Waves bonus skill at rank 6), the first
+/// bubble becomes a filled star ([_starMarker]) so the extra rank shows
+/// without widening the row.
 pw.Widget rankBubbles(int rank,
         {int total = 5, double size = 5, PdfColor color = PdfColors.grey800}) =>
     pw.Row(
@@ -266,13 +271,41 @@ pw.Widget rankBubbles(int rank,
             width: size,
             height: size,
             margin: const pw.EdgeInsets.only(right: 1.5),
-            decoration: pw.BoxDecoration(
-              shape: pw.BoxShape.circle,
-              border: pw.Border.all(color: color, width: 0.6),
-              color: i < rank.clamp(0, total) ? color : null,
-            ),
+            // Over-cap: mark the first bubble with a filled star instead of a
+            // circle. Drawn as geometry (like the circles) rather than a font
+            // glyph, whose ink would render undersized and baseline-hung.
+            decoration: rank > total && i == 0
+                ? null
+                : pw.BoxDecoration(
+                    shape: pw.BoxShape.circle,
+                    border: pw.Border.all(color: color, width: 0.6),
+                    color: i < rank.clamp(0, total) ? color : null,
+                  ),
+            child: rank > total && i == 0 ? _starMarker(size, color) : null,
           ),
       ],
+    );
+
+/// A filled five-point star inscribed in a [size]×[size] box — the over-cap
+/// marker for [rankBubbles].
+pw.Widget _starMarker(double size, PdfColor color) => pw.CustomPaint(
+      size: PdfPoint(size, size),
+      painter: (canvas, box) {
+        final cx = box.x / 2, cy = box.y / 2;
+        // Slightly larger than the box: a star's concave ink reads smaller
+        // than a circle of equal radius, and PDF drawing doesn't clip, so the
+        // overshoot lands harmlessly in the bubble margin.
+        final outer = box.x * 0.65, inner = outer * 0.4;
+        for (var k = 0; k < 10; k++) {
+          final r = k.isEven ? outer : inner;
+          final a = math.pi / 2 + k * math.pi / 5;
+          final x = cx + r * math.cos(a), y = cy + r * math.sin(a);
+          k == 0 ? canvas.moveTo(x, y) : canvas.lineTo(x, y);
+        }
+        canvas
+          ..setFillColor(color)
+          ..fillPath();
+      },
     );
 
 /// Buckets known techniques by data category, in canonical data order

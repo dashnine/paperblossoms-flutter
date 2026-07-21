@@ -219,6 +219,23 @@ void main() {
     expect(trimmed.length, isNot(full.length));
   });
 
+  test('a rank-6 skill renders the over-cap star instead of five circles',
+      () async {
+    // A rank-6 skill (School of Waves + A Bottomless Ocean) swaps the first
+    // rank bubble for a ★ marker; the structured sheet must still render and
+    // must differ byte-for-byte from the same skill capped at 5.
+    character.baseSkills = {'Meditation': 5};
+    final atFive = await buildCharacterSheetPdf(style: SheetStyle.structured);
+
+    character.baseSkills = {'Meditation': 6};
+    final atSix = await buildCharacterSheetPdf(style: SheetStyle.structured);
+
+    expect(utf8.decode(atSix.sublist(0, 5), allowMalformed: true), '%PDF-');
+    expect(atSix, isNot(equals(atFive)));
+    final out = Platform.environment['PDF_PROBE_RANK6_PATH'];
+    if (out != null) await File(out).writeAsBytes(atSix);
+  });
+
   test('groupTechniques buckets by category in data order, unknowns last', () {
     final shuji =
         gameData.techniques.firstWhere((t) => t.category == 'Shūji').name;

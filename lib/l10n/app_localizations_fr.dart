@@ -663,6 +663,29 @@ class AppLocalizationsFr extends AppLocalizations {
   String get atRank5 => 'Au rang 5';
 
   @override
+  String get atRank6 => 'Au rang 6';
+
+  @override
+  String get bonusCurriculumSection => 'Compétences bonus du cursus';
+
+  @override
+  String get addBonusCurriculumSkill =>
+      'Ajouter une compétence bonus au cursus';
+
+  @override
+  String get bonusSkillLimitReached =>
+      'Tous les choix pour votre rang d’école sont utilisés';
+
+  @override
+  String bonusSkillsChosen(int chosen, int allowed) {
+    return '$chosen / $allowed choisies';
+  }
+
+  @override
+  String get noBonusSkillsYet =>
+      'Aucune compétence bonus choisie pour l’instant.';
+
+  @override
   String get alreadyLearnedLabel => 'Déjà appris';
 
   @override

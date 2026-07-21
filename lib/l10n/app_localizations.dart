@@ -1218,6 +1218,42 @@ abstract class AppLocalizations {
   /// **'At rank 5'**
   String get atRank5;
 
+  /// No description provided for @atRank6.
+  ///
+  /// In en, this message translates to:
+  /// **'At rank 6'**
+  String get atRank6;
+
+  /// No description provided for @bonusCurriculumSection.
+  ///
+  /// In en, this message translates to:
+  /// **'Bonus curriculum skills'**
+  String get bonusCurriculumSection;
+
+  /// No description provided for @addBonusCurriculumSkill.
+  ///
+  /// In en, this message translates to:
+  /// **'Add bonus curriculum skill'**
+  String get addBonusCurriculumSkill;
+
+  /// No description provided for @bonusSkillLimitReached.
+  ///
+  /// In en, this message translates to:
+  /// **'All picks for your school rank used'**
+  String get bonusSkillLimitReached;
+
+  /// No description provided for @bonusSkillsChosen.
+  ///
+  /// In en, this message translates to:
+  /// **'{chosen} / {allowed} chosen'**
+  String bonusSkillsChosen(int chosen, int allowed);
+
+  /// No description provided for @noBonusSkillsYet.
+  ///
+  /// In en, this message translates to:
+  /// **'No bonus skills chosen yet.'**
+  String get noBonusSkillsYet;
+
   /// No description provided for @alreadyLearnedLabel.
   ///
   /// In en, this message translates to:

@@ -51,6 +51,11 @@ const titleGrants = {
   'Dreaded Enforcer': 'Whispers of Cruelty',
 };
 
+// School ability granting bonus curriculum skill picks equal to school rank
+// (Worldly Rōnin Path, core p.87). The rank-6 cap on those skills comes from
+// its mastery ability, A Bottomless Ocean.
+const schoolAbilityWaves = 'School of Waves';
+
 // Curriculum XP needed to advance out of each school rank (core book p.98).
 const rankXpThresholds = [20, 24, 32, 44, 60];
 

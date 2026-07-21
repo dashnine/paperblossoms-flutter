@@ -44,6 +44,12 @@ class Character extends ChangeNotifier {
   String heritage = '';
   String notes = '';
   List<String> titles = [];
+
+  /// Skills the player has designated as bonus curriculum skills via the
+  /// Worldly Rōnin Path's School of Waves ability (core p.87). Stored as
+  /// canonical English skill names. Inert unless the school's ability is
+  /// [schoolAbilityWaves]; the allowed count equals the current school rank.
+  List<String> bonusCurriculumSkills = [];
   List<String> techniques = [];
   List<String> advDisadv = [];
   Map<String, int> baseSkills = {};
@@ -114,6 +120,7 @@ class Character extends ChangeNotifier {
     heritage = '';
     notes = '';
     titles = [];
+    bonusCurriculumSkills = [];
     techniques = [];
     advDisadv = [];
     baseSkills = {};
@@ -150,6 +157,8 @@ class Character extends ChangeNotifier {
     heritage = json['heritage'] ?? '';
     notes = json['notes'] ?? '';
     titles = List<String>.from(json['titles'] ?? []);
+    bonusCurriculumSkills =
+        List<String>.from(json['bonus_curriculum_skills'] ?? []);
     techniques = List<String>.from(json['techniques'] ?? []);
     advDisadv = List<String>.from(json['adv_disadv'] ?? []);
     baseSkills = Map<String, int>.from(json['base_skills'] ?? {});
@@ -210,6 +219,9 @@ class Character extends ChangeNotifier {
         'equipment': [for (final e in equipment) e.toJson()],
         'bonds': [for (final b in bonds) b.toJson()],
         'portrait': portraitB64,
+        // Omitted when empty so stock (non-Waves) saves stay byte-identical.
+        if (bonusCurriculumSkills.isNotEmpty)
+          'bonus_curriculum_skills': bonusCurriculumSkills,
         if (hor) 'hor': true,
         'identity_locked': identityLocked,
       };

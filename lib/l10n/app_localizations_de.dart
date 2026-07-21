@@ -662,6 +662,28 @@ class AppLocalizationsDe extends AppLocalizations {
   String get atRank5 => 'Bei Rang 5';
 
   @override
+  String get atRank6 => 'Bei Rang 6';
+
+  @override
+  String get bonusCurriculumSection => 'Bonusfähigkeiten im Lehrplan';
+
+  @override
+  String get addBonusCurriculumSkill =>
+      'Bonusfähigkeit zum Lehrplan hinzufügen';
+
+  @override
+  String get bonusSkillLimitReached =>
+      'Alle Auswahlen für deinen Schulrang aufgebraucht';
+
+  @override
+  String bonusSkillsChosen(int chosen, int allowed) {
+    return '$chosen / $allowed gewählt';
+  }
+
+  @override
+  String get noBonusSkillsYet => 'Noch keine Bonusfähigkeiten gewählt.';
+
+  @override
   String get alreadyLearnedLabel => 'Bereits erlernt';
 
   @override

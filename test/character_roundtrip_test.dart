@@ -81,6 +81,21 @@ void main() {
     expect(character.conditions, ['Bleeding', 'Lightly Wounded (Fire)']);
   });
 
+  test('bonus curriculum skills round-trip; omitted from stock saves', () {
+    character.clear();
+    character.school = 'Worldly Rōnin Path';
+    character.bonusCurriculumSkills = ['Fitness', 'Commerce'];
+    final json = jsonEncode(character.toJson());
+    character.clear();
+    character.loadFromJson(jsonDecode(json));
+    expect(character.bonusCurriculumSkills, ['Fitness', 'Commerce']);
+
+    // A stock character with no picks omits the key entirely so existing
+    // save files stay byte-identical.
+    character.clear();
+    expect(character.toJson().containsKey('bonus_curriculum_skills'), isFalse);
+  });
+
   test('portraitBytes decodes valid data and nulls out corrupt data', () {
     character.clear();
     expect(character.portraitBytes, isNull);

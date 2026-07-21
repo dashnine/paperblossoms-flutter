@@ -331,6 +331,27 @@ bool isInCurriculum(
   return false;
 }
 
+/// Whether the character's school ability is School of Waves (Worldly Rōnin
+/// Path, or a homebrew school reusing the same ability name). School of Waves
+/// lets the player designate bonus curriculum skills that count in-curriculum
+/// at all ranks; this port has no equivalent for any other school ability.
+bool hasSchoolOfWaves(Character c) =>
+    gameData.schoolByName(c.school)?.schoolAbility == schoolAbilityWaves;
+
+/// Max purchasable rank for [skill]: 6 for a designated bonus curriculum skill
+/// once the School of Waves mastery ability (A Bottomless Ocean) is active at
+/// school rank > 5, otherwise the usual 5.
+int skillRankCap(Character c, int schoolRank, String skill) {
+  final school = gameData.schoolByName(c.school);
+  final masteryActive =
+      schoolRank > 5 && (school?.masteryAbility.isNotEmpty ?? false);
+  return masteryActive &&
+          hasSchoolOfWaves(c) &&
+          c.bonusCurriculumSkills.contains(skill)
+      ? 6
+      : 5;
+}
+
 /// Whether an advance is in [title]'s advancement track. Port of
 /// MainWindow::isInTitle; technique groups are bounded by the row's own rank.
 bool isInTitle(String value, String advType, String title) {
@@ -371,9 +392,18 @@ bool isInTitle(String value, String advType, String title) {
 RankResult recalcRank(Character c) {
   var curricXP = 0;
   var rank = 1;
+  // School of Waves bonus curriculum skills count in-curriculum at *all* ranks
+  // (rank-independent), so they're checked outside the per-rank curriculum
+  // lookup. Current designations apply to the whole walk — they aren't on the
+  // stack, so there is no purchase-order to respect.
+  final bonusSkills = hasSchoolOfWaves(c)
+      ? c.bonusCurriculumSkills.toSet()
+      : const <String>{};
   for (final advance in c.advanceStack) {
     if (advance.onCurriculumTrack) {
-      if (isInCurriculum(advance.name, advance.type, c.school, rank)) {
+      if (isInCurriculum(advance.name, advance.type, c.school, rank) ||
+          (advance.type == advanceTypeSkill &&
+              bonusSkills.contains(advance.name))) {
         curricXP += advance.cost;
       } else {
         curricXP += halfCost(advance.cost);
@@ -441,12 +471,15 @@ List<String> abilities(Character c, int rank, String currentTitle) {
 
 // ---- Advance legality (addadvancedialog.cpp) ----
 
-/// Skills purchasable as advances: everything below effective rank 5.
+/// Skills purchasable as advances: everything below its effective rank cap
+/// (5, or 6 for a School of Waves bonus curriculum skill once mastery is
+/// active — see [skillRankCap]).
 List<String> purchasableSkills(Character c) {
   final ranks = effectiveSkillRanks(c);
+  final schoolRank = recalcRank(c).rank;
   return [
     for (final skill in gameData.allSkills())
-      if ((ranks[skill] ?? 0) < 5) skill
+      if ((ranks[skill] ?? 0) < skillRankCap(c, schoolRank, skill)) skill
   ];
 }
 

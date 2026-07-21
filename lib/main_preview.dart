@@ -58,7 +58,10 @@ void _seedDemoCharacter() {
   character.name = 'Tetsu';
   character.family = 'Hida';
   character.clan = 'Crab';
-  character.school = 'Hida Defender School';
+  // SCHOOL=<name> overrides the demo school (e.g. to preview the Worldly
+  // Rōnin Path's bonus curriculum section on the Advancement tab).
+  character.school = const String.fromEnvironment('SCHOOL',
+      defaultValue: 'Hida Defender School');
   character.ninjo = 'Protect those who cannot protect themselves.';
   character.giri = 'Hold the Wall against the Shadowlands.';
   character.heritage = 'Glorious Sacrifice';

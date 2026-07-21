@@ -204,6 +204,15 @@ void main() {
       expect(school.reference.page, '85');
     });
 
+    test('School of Waves ability name matches the code constant', () {
+      // The bonus-curriculum feature keys off this exact ability string;
+      // guards against a data rename silently disabling it.
+      expect(
+        gameData.schools.map((s) => s.schoolAbility),
+        contains(schoolAbilityWaves),
+      );
+    });
+
     test('Elixir of Recovery is spelled correctly', () {
       // Upstream misspells this Path of Waves ritual "Elxir of Recovery".
       // Patched in our techniques.json — see docs/UPSTREAM_NOTES.md #6.

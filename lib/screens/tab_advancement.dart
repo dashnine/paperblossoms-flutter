@@ -100,6 +100,9 @@ class AdvancementTab extends StatelessWidget {
     final title = recalcTitle(character);
     final status = _buildStatus(context, rank, title);
     final curriculum = _buildCurriculum(context, rank.rank);
+    final bonus = hasSchoolOfWaves(character)
+        ? _buildBonusSkills(context, rank.rank)
+        : null;
     final titles = _buildTitles(context, title.currentTitle);
     final stack = _buildAdvanceStack(context);
 
@@ -113,7 +116,12 @@ class AdvancementTab extends StatelessWidget {
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Expanded(child: curriculum),
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [curriculum, if (bonus != null) bonus],
+                  ),
+                ),
                 const SizedBox(width: 24),
                 Expanded(
                   child: Column(
@@ -129,7 +137,13 @@ class AdvancementTab extends StatelessWidget {
     }
     return ListView(
       padding: const EdgeInsets.all(16),
-      children: [status, curriculum, titles, stack],
+      children: [
+        status,
+        curriculum,
+        if (bonus != null) bonus,
+        titles,
+        stack,
+      ],
     );
   }
 
@@ -244,7 +258,7 @@ class AdvancementTab extends StatelessWidget {
                   : null,
               children: [
                 for (final entry in byRank[rank]!)
-                  _curriculumTile(context, entry, skillRanks),
+                  _curriculumTile(context, entry, skillRanks, currentRank),
               ],
             ),
       ],
@@ -252,15 +266,20 @@ class AdvancementTab extends StatelessWidget {
   }
 
   Widget _curriculumTile(BuildContext context, CurriculumEntry entry,
-      Map<String, int> skillRanks) {
+      Map<String, int> skillRanks, int currentRank) {
     final theme = Theme.of(context);
     final skillRank =
         entry.type == entryTypeSkill ? (skillRanks[entry.advance] ?? 0) : 0;
-    // "Done" entries: a learned technique, or a skill at the rank-5 cap.
+    // A skill's cap is 6 when it's a School of Waves bonus skill and mastery
+    // is active, otherwise 5.
+    final skillCap = entry.type == entryTypeSkill
+        ? skillRankCap(character, currentRank, entry.advance)
+        : 5;
+    // "Done" entries: a learned technique, or a skill at its rank cap.
     // Group entries are open-ended and never marked.
     final done = switch (entry.type) {
       entryTypeTechnique => alreadyLearned(character, entry.advance),
-      entryTypeSkill => skillRank >= 5,
+      entryTypeSkill => skillRank >= skillCap,
       _ => false,
     };
     return ListTile(
@@ -279,7 +298,9 @@ class AdvancementTab extends StatelessWidget {
       trailing: done
           ? Tooltip(
               message: entry.type == entryTypeSkill
-                  ? context.l10n.atRank5
+                  ? (skillCap >= 6
+                      ? context.l10n.atRank6
+                      : context.l10n.atRank5)
                   : context.l10n.alreadyLearnedLabel,
               child:
                   Icon(Icons.check_circle, color: theme.colorScheme.outline),
@@ -291,6 +312,128 @@ class AdvancementTab extends StatelessWidget {
             ),
       onTap: done ? null : () => _buyCurriculumEntry(context, entry),
     );
+  }
+
+  /// School of Waves bonus curriculum skills (Worldly Rōnin Path, core p.87):
+  /// the player designates up to [schoolRank] skills that count in-curriculum
+  /// at all ranks. Only shown for characters with that school ability.
+  Widget _buildBonusSkills(BuildContext context, int schoolRank) {
+    final theme = Theme.of(context);
+    final skillRanks = effectiveSkillRanks(character);
+    final picks = character.bonusCurriculumSkills;
+    final allowed = schoolRank;
+    final full = picks.length >= allowed;
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        SectionHeader(
+          context.l10n.bonusCurriculumSection,
+          trailing: IconButton(
+            tooltip: full
+                ? context.l10n.bonusSkillLimitReached
+                : context.l10n.addBonusCurriculumSkill,
+            icon: const Icon(Icons.add),
+            onPressed: full ? null : () => _addBonusSkill(context),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16),
+          child: Text(
+            context.l10n.bonusSkillsChosen(picks.length, allowed),
+            style: theme.textTheme.bodySmall
+                ?.copyWith(color: theme.colorScheme.outline),
+          ),
+        ),
+        if (picks.isEmpty)
+          EmptyHint(context.l10n.noBonusSkillsYet)
+        else
+          for (var i = 0; i < picks.length; i++)
+            _bonusSkillTile(context, picks[i], i, schoolRank, skillRanks),
+      ],
+    );
+  }
+
+  Widget _bonusSkillTile(BuildContext context, String skill, int index,
+      int schoolRank, Map<String, int> skillRanks) {
+    final theme = Theme.of(context);
+    final skillRank = skillRanks[skill] ?? 0;
+    final cap = skillRankCap(character, schoolRank, skill);
+    final done = skillRank >= cap;
+    return ListTile(
+      dense: true,
+      visualDensity: VisualDensity.compact,
+      title: Text(trData(skill)),
+      subtitle: skillRank > 0
+          ? Text(context.l10n.skillRankLabel(skillRank))
+          : null,
+      trailing: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (done)
+            Tooltip(
+              message: cap >= 6 ? context.l10n.atRank6 : context.l10n.atRank5,
+              child:
+                  Icon(Icons.check_circle, color: theme.colorScheme.outline),
+            )
+          else
+            Tooltip(
+              message: context.l10n.buyThisAdvance,
+              child: Icon(Icons.add_circle_outline,
+                  color: theme.colorScheme.primary),
+            ),
+          IconButton(
+            tooltip: context.l10n.remove,
+            icon: const Icon(Icons.delete_outline),
+            onPressed: () => _removeBonusSkill(context, index),
+          ),
+        ],
+      ),
+      onTap: done
+          ? null
+          : () => _addAdvance(context,
+              initialType: advanceTypeSkill, initialOption: skill),
+    );
+  }
+
+  Future<void> _addBonusSkill(BuildContext context) async {
+    final options = [
+      for (final skill in gameData.allSkills())
+        if (!character.bonusCurriculumSkills.contains(skill)) skill
+    ];
+    final chosen = await showDialog<String>(
+      context: context,
+      builder: (context) => SimpleDialog(
+        title: Text(context.l10n.addBonusCurriculumSkill),
+        children: [
+          for (final skill in options)
+            SimpleDialogOption(
+              onPressed: () => Navigator.pop(context, skill),
+              child: Text(trData(skill)),
+            ),
+        ],
+      ),
+    );
+    if (chosen == null) return;
+    character.bonusCurriculumSkills.add(chosen);
+    character.touch();
+  }
+
+  void _removeBonusSkill(BuildContext context, int index) {
+    final skill = character.bonusCurriculumSkills.removeAt(index);
+    character.touch();
+    ScaffoldMessenger.of(context)
+      ..hideCurrentSnackBar()
+      ..showSnackBar(SnackBar(
+        content: Text(context.l10n.removedName(trData(skill))),
+        action: SnackBarAction(
+          label: context.l10n.undo,
+          onPressed: () {
+            character.bonusCurriculumSkills.insert(
+                index.clamp(0, character.bonusCurriculumSkills.length), skill);
+            character.touch();
+          },
+        ),
+      ));
   }
 
   Widget _buildTitles(BuildContext context, String currentTitle) {
