@@ -4,12 +4,12 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'character.dart';
-import 'data_l10n.dart';
-import 'game_data.dart';
-import 'item.dart';
-import 'l10n/app_localizations.dart';
-import 'rules_constants.dart';
+import '../character.dart';
+import '../data_l10n.dart';
+import '../game_data.dart';
+import '../item.dart';
+import '../l10n/app_localizations.dart';
+import '../rules_constants.dart';
 
 const pdfAccent = PdfColor.fromInt(0xFFB03060); // sakuraDeep
 const pdfLight = PdfColor.fromInt(0xFFF3E3EA);

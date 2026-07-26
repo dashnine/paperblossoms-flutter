@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/character.dart';
@@ -10,6 +8,7 @@ import 'package:paperblossoms/user_data_store.dart';
 import 'package:paperblossoms/wizard/school_builder/school_builder_shell.dart';
 import 'package:paperblossoms/wizard/school_builder/school_builder_state.dart';
 
+import 'temp_stores.dart';
 import 'test_app.dart';
 
 /// A complete Bushi school, mirroring school_builder_state_test's fixture.
@@ -67,16 +66,10 @@ Widget host({SchoolBuilderState? initial}) => testApp(Builder(
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late Directory tempDir;
+  useTempStores('pb_school_builder');
 
   setUpAll(() async {
     await gameData.load();
-    tempDir = await Directory.systemTemp.createTemp('pb_school_builder');
-    userDataStore.documentsDirectory = () async => tempDir;
-  });
-
-  tearDownAll(() async {
-    await tempDir.delete(recursive: true);
   });
 
   testWidgets('a complete school walks through all nine steps and saves',

@@ -4,14 +4,14 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'character.dart';
-import 'data_l10n.dart';
-import 'derived_stats.dart';
-import 'game_data.dart';
-import 'item.dart';
-import 'l10n/app_localizations.dart';
+import '../character.dart';
+import '../data_l10n.dart';
+import '../derived_stats.dart';
+import '../game_data.dart';
+import '../item.dart';
+import '../l10n/app_localizations.dart';
 import 'pdf_common.dart';
-import 'rules_constants.dart';
+import '../rules_constants.dart';
 
 /// The structured sheet follows the official character sheet's conventions —
 /// ring circles with rank bubbles, skills in group columns, empty tracking

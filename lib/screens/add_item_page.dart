@@ -6,7 +6,7 @@ import '../item.dart';
 import '../l10n/l10n.dart';
 import '../rules_constants.dart';
 import '../theme.dart';
-import 'pickers.dart';
+import '../widgets/picker_page.dart';
 
 /// Adds equipment (port of AddItemDialog): pick a base weapon/armor/personal
 /// effect, then edit any field before adding — customized gear is stored

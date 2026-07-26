@@ -5,7 +5,7 @@ import '../data_l10n.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
 import '../l10n/l10n.dart';
-import 'pickers.dart';
+import '../widgets/picker_page.dart';
 
 /// Picks a bond (port of AddBondDialog). Returns true if one was added.
 Future<bool> addBondFlow(BuildContext context) async {

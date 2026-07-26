@@ -1,5 +1,5 @@
-import 'npc_math.dart';
-import 'npc_models.dart';
+import '../npc_math.dart';
+import '../npc_models.dart';
 
 /// Per-template choices in the quick builder: the demeanor pick, technique
 /// picks (seeded with the template's defaults), and which of the suggested

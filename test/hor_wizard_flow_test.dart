@@ -1,15 +1,13 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/character.dart';
-import 'package:paperblossoms/character_store.dart';
 import 'package:paperblossoms/game_data.dart';
 import 'package:paperblossoms/rules_constants.dart';
 import 'package:paperblossoms/screens/character_editor.dart';
 import 'package:paperblossoms/wizard/wizard_shell.dart';
 import 'package:paperblossoms/wizard/wizard_state.dart';
 
+import 'temp_stores.dart';
 import 'test_app.dart';
 
 /// A complete HoR Crab build ready to walk through every wizard page.
@@ -49,16 +47,10 @@ WizardState horCompleteBuild() => WizardState()
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late Directory tempDir;
+  useTempStores('pb_hor_wizard_test');
 
   setUpAll(() async {
     await gameData.load();
-    tempDir = await Directory.systemTemp.createTemp('pb_hor_wizard_test');
-    characterStore.documentsDirectory = () async => tempDir;
-  });
-
-  tearDownAll(() async {
-    await tempDir.delete(recursive: true);
   });
 
   setUp(() => character.clear());

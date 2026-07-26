@@ -4,7 +4,7 @@ import '../../data_l10n.dart';
 import '../../game_data.dart';
 import '../../l10n/l10n.dart';
 import '../../rules_constants.dart';
-import '../../screens/pickers.dart';
+import '../../widgets/picker_page.dart';
 import '../wizard_widgets.dart';
 import 'school_builder_data.dart';
 import 'school_builder_state.dart';

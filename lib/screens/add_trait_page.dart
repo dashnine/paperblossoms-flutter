@@ -5,7 +5,7 @@ import '../data_l10n.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
 import '../l10n/l10n.dart';
-import 'pickers.dart';
+import '../widgets/picker_page.dart';
 
 /// Picks a distinction/adversity/passion/anxiety (port of AddDisadvDialog),
 /// optionally pre-filtered to one category. Returns true if one was added.

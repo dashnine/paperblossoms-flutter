@@ -1,12 +1,10 @@
-import 'dart:convert';
-
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 import '../character.dart';
 import '../character_store.dart';
 import '../data_l10n.dart';
+import '../helpers.dart';
 import '../l10n/l10n.dart';
 import '../wizard/wizard_shell.dart';
 import 'character_editor.dart';
@@ -91,43 +89,20 @@ class _CharacterChooserState extends State<CharacterChooser>
   }
 
   Future<void> _importCharacter() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['json'],
-      withData: true,
-    );
-    final bytes = result?.files.single.bytes;
-    if (bytes == null) return;
-    // Proper UTF-8 decode (String.fromCharCodes garbles multibyte
-    // characters, e.g. accented names); malformed bytes degrade to
-    // replacement characters instead of failing the import.
-    await characterStore.importJson(utf8.decode(bytes, allowMalformed: true));
+    final text = await pickTextFile();
+    if (text == null) return;
+    await characterStore.importJson(text);
     _refresh();
   }
 
   Future<void> _deleteCharacter(CharacterSummary summary) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(context.l10n.deleteCharacterTitle(summary.name)),
-        content: Text(context.l10n.deleteCannotBeUndone),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(context.l10n.cancel),
-          ),
-          FilledButton(
-            style: FilledButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.error,
-              foregroundColor: Theme.of(context).colorScheme.onError,
-            ),
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(context.l10n.delete),
-          ),
-        ],
-      ),
+    final confirmed = await confirmDialog(
+      context,
+      title: context.l10n.deleteCharacterTitle(summary.name),
+      body: context.l10n.deleteCannotBeUndone,
+      confirmLabel: context.l10n.delete,
     );
-    if (confirmed != true) return;
+    if (!confirmed) return;
     await characterStore.delete(summary.uuid);
     _refresh();
   }

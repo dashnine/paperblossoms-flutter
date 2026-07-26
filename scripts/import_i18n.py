@@ -19,6 +19,7 @@ Rules:
 
 import csv
 import json
+import os
 import re
 import sys
 import unicodedata
@@ -26,8 +27,9 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 HARVEST = ROOT / "build" / "l10n_harvest.json"
-UPSTREAM_I18N_DIR = Path(
-    "/Users/flux/git/PaperBlossoms_github/PaperBlossoms/data/i18n")
+UPSTREAM_I18N_DIR = Path(os.environ.get(
+    "PB_UPSTREAM_I18N",
+    "/Users/flux/git/PaperBlossoms_github/PaperBlossoms/data/i18n"))
 
 
 def normalize(value: str) -> str:

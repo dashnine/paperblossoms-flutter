@@ -1,11 +1,10 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 
 import '../data_l10n.dart';
 import '../game_data.dart';
+import '../helpers.dart';
 import '../l10n/l10n.dart';
 import '../npc_models.dart';
 import '../theme.dart';
@@ -29,12 +28,6 @@ class _NpcLibraryPageState extends State<NpcLibraryPage> {
   String _query = '';
   String _filter = 'all';
 
-  void _showMessage(String message) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
-  }
-
   List<Npc> _filtered() {
     final q = _query.toLowerCase();
     return [
@@ -55,76 +48,41 @@ class _NpcLibraryPageState extends State<NpcLibraryPage> {
 
   Future<void> _delete(Npc npc) async {
     final l10n = context.l10n;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.npcDeleteTitle(npc.name)),
-        content: Text(l10n.npcDeleteBody),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(l10n.cancel),
-          ),
-          FilledButton(
-            style: FilledButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.error,
-              foregroundColor: Theme.of(context).colorScheme.onError,
-            ),
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(l10n.delete),
-          ),
-        ],
-      ),
+    final confirmed = await confirmDialog(
+      context,
+      title: l10n.npcDeleteTitle(npc.name),
+      body: l10n.npcDeleteBody,
+      confirmLabel: l10n.delete,
     );
-    if (confirmed != true) return;
+    if (!confirmed) return;
     await userDataStore.deleteCustomNpc(npc.name);
     if (mounted) setState(() {});
   }
 
   Future<void> _deleteAll() async {
     final l10n = context.l10n;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(l10n.npcDeleteAll),
-        content: Text(l10n.npcDeleteAllBody),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(l10n.cancel),
-          ),
-          FilledButton(
-            style: FilledButton.styleFrom(
-              backgroundColor: Theme.of(context).colorScheme.error,
-              foregroundColor: Theme.of(context).colorScheme.onError,
-            ),
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(l10n.delete),
-          ),
-        ],
-      ),
+    final confirmed = await confirmDialog(
+      context,
+      title: l10n.npcDeleteAll,
+      body: l10n.npcDeleteAllBody,
+      confirmLabel: l10n.delete,
     );
-    if (confirmed != true) return;
+    if (!confirmed) return;
     await userDataStore.deleteAllCustomNpcs();
     if (mounted) setState(() {});
   }
 
   Future<void> _import() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['json'],
-      withData: true,
-    );
-    final bytes = result?.files.single.bytes;
-    if (bytes == null || !mounted) return;
+    final text = await pickTextFile();
+    if (text == null || !mounted) return;
     try {
-      final count = await userDataStore.importCustomNpcs(utf8.decode(bytes));
+      final count = await userDataStore.importCustomNpcs(text);
       if (!mounted) return;
       setState(() {});
-      _showMessage(context.l10n.npcImported(count));
+      showMessage(context, context.l10n.npcImported(count));
     } on FormatException {
       if (!mounted) return;
-      _showMessage(context.l10n.npcCouldNotRead);
+      showMessage(context, context.l10n.npcCouldNotRead);
     }
   }
 
@@ -132,25 +90,13 @@ class _NpcLibraryPageState extends State<NpcLibraryPage> {
     final l10n = context.l10n;
     final count = userDataStore.customNpcs.length;
     if (count == 0) {
-      _showMessage(l10n.npcNoneToExport);
+      showMessage(context, l10n.npcNoneToExport);
       return;
     }
     final bytes = utf8.encode(userDataStore.exportCustomNpcsJson());
-    if (!mounted) return;
-    final isDesktop =
-        Platform.isMacOS || Platform.isWindows || Platform.isLinux;
-    final path = await FilePicker.platform.saveFile(
-      fileName: 'npcs.json',
-      type: FileType.custom,
-      allowedExtensions: ['json'],
-      bytes: isDesktop ? null : bytes,
-    );
-    if (path == null || !mounted) return;
-    if (isDesktop) {
-      await File(path).writeAsBytes(bytes);
-      if (!mounted) return;
-    }
-    _showMessage(l10n.npcExported(count));
+    final saved = await exportBytesToFile('npcs.json', bytes);
+    if (!saved || !mounted) return;
+    showMessage(context, l10n.npcExported(count));
   }
 
   Future<void> _openQuickBuild({Npc? base}) async {
@@ -163,7 +109,7 @@ class _NpcLibraryPageState extends State<NpcLibraryPage> {
     );
     if (!mounted) return;
     setState(() {});
-    if (saved != null) _showMessage(l10n.npcSavedSnack(saved));
+    if (saved != null) showMessage(context, l10n.npcSavedSnack(saved));
   }
 
   @override

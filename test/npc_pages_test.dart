@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/encounter.dart';
@@ -11,20 +9,15 @@ import 'package:paperblossoms/screens/npc_quick_build_page.dart';
 import 'package:paperblossoms/screens/tools_page.dart';
 import 'package:paperblossoms/user_data_store.dart';
 
+import 'temp_stores.dart';
 import 'test_app.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late Directory tempDir;
+  useTempStores('pb_npc_pages_test');
 
   setUpAll(() async {
-    tempDir = await Directory.systemTemp.createTemp('pb_npc_pages_test');
-    userDataStore.documentsDirectory = () async => tempDir;
     await gameData.load();
-  });
-
-  tearDownAll(() async {
-    await tempDir.delete(recursive: true);
   });
 
   testWidgets('tools page shows the Game master section', (tester) async {

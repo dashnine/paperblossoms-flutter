@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:printing/printing.dart';
 
 import '../data_l10n.dart';
-import '../game_data.dart';
-import '../generate_pdf_npc.dart';
-import '../l10n/l10n.dart';
 import '../encounter.dart';
+import '../game_data.dart';
+import '../l10n/l10n.dart';
 import '../npc_models.dart';
+import '../pdf/generate_pdf_npc.dart';
 import '../theme.dart';
 import '../user_data_store.dart';
 import '../widgets/ring_viewer.dart';

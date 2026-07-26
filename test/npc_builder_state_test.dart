@@ -1,8 +1,8 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/game_data.dart';
-import 'package:paperblossoms/npc_builder_state.dart';
 import 'package:paperblossoms/npc_math.dart';
 import 'package:paperblossoms/npc_models.dart';
+import 'package:paperblossoms/screens/npc_builder_state.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

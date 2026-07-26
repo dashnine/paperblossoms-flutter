@@ -1,15 +1,14 @@
 import 'dart:convert';
-import 'dart:io';
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:printing/printing.dart';
 
 import '../character.dart';
 import '../character_store.dart';
-import '../generate_pdf.dart';
+import '../helpers.dart';
 import '../l10n/l10n.dart';
+import '../pdf/generate_pdf.dart';
 import '../sheet_style_controller.dart';
 import 'tab_advancement.dart';
 import 'tab_background.dart';
@@ -111,23 +110,10 @@ class _CharacterEditorState extends State<CharacterEditor> {
         .trim()
         .replaceAll(RegExp(r'[<>:"/\\|?*]'), '_');
     final bytes = utf8.encode(characterStore.exportJson());
-    // saveFile writes the bytes itself only on iOS/Android; on desktop it
-    // returns the chosen path (and macOS rejects a bytes argument outright).
-    final isDesktop =
-        Platform.isMacOS || Platform.isWindows || Platform.isLinux;
-    final path = await FilePicker.platform.saveFile(
-      fileName: '${name.isEmpty ? 'character' : name}.json',
-      type: FileType.custom,
-      allowedExtensions: ['json'],
-      bytes: isDesktop ? null : bytes,
-    );
-    if (path == null || !mounted) return;
-    if (isDesktop) {
-      await File(path).writeAsBytes(bytes);
-      if (!mounted) return;
-    }
-    ScaffoldMessenger.of(context)
-        .showSnackBar(SnackBar(content: Text(context.l10n.characterExported)));
+    final saved = await exportBytesToFile(
+        '${name.isEmpty ? 'character' : name}.json', bytes);
+    if (!saved || !mounted) return;
+    showMessage(context, context.l10n.characterExported);
   }
 
   @override

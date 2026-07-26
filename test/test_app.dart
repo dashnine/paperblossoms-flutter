@@ -6,11 +6,14 @@ import 'package:paperblossoms/locale_controllers.dart';
 /// locale pinned (English by default) so `find.text(...)` assertions are
 /// independent of the machine running the tests.
 Widget testApp(Widget home,
-    {Locale locale = const Locale('en'), ThemeData? theme}) {
+    {Locale locale = const Locale('en'),
+    ThemeData? theme,
+    List<NavigatorObserver>? navigatorObservers}) {
   return MaterialApp(
     locale: locale,
     localizationsDelegates: AppLocalizations.localizationsDelegates,
     supportedLocales: supportedUiLocales,
+    navigatorObservers: navigatorObservers ?? const [],
     theme: theme,
     home: home,
   );

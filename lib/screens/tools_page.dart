@@ -1,11 +1,11 @@
 import 'dart:convert';
-import 'dart:io';
+import 'dart:io' show Platform;
 
-import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
 import '../game_data.dart';
+import '../helpers.dart';
 import '../hor_controller.dart';
 import '../l10n/l10n.dart';
 import '../locale_controllers.dart';
@@ -48,53 +48,29 @@ class _ToolsPageState extends State<ToolsPage> {
     }
   }
 
-  void _showMessage(String message) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(SnackBar(content: Text(message)));
-  }
-
   Future<void> _importDescriptions() async {
-    final result = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['json', 'csv'],
-      withData: true,
-    );
-    final bytes = result?.files.single.bytes;
-    if (bytes == null || !mounted) return;
+    final text = await pickTextFile(extensions: ['json', 'csv']);
+    if (text == null || !mounted) return;
     try {
-      final count = await userDataStore.importDescriptions(utf8.decode(bytes));
+      final count = await userDataStore.importDescriptions(text);
       if (!mounted) return;
-      _showMessage(context.l10n.importedDescriptions(count));
+      showMessage(context, context.l10n.importedDescriptions(count));
     } on FormatException {
       if (!mounted) return;
-      _showMessage(context.l10n.couldNotReadDescriptionsFile);
+      showMessage(context, context.l10n.couldNotReadDescriptionsFile);
     }
   }
 
   Future<void> _exportDescriptions() async {
     final count = gameData.descriptions.length;
     if (count == 0) {
-      _showMessage(context.l10n.noDescriptionsToExport);
+      showMessage(context, context.l10n.noDescriptionsToExport);
       return;
     }
     final bytes = utf8.encode(userDataStore.exportDescriptionsJson());
-    // saveFile writes the bytes itself only on iOS/Android; on desktop it
-    // returns the chosen path (and macOS rejects a bytes argument outright).
-    final isDesktop =
-        Platform.isMacOS || Platform.isWindows || Platform.isLinux;
-    final path = await FilePicker.platform.saveFile(
-      fileName: 'user_descriptions.json',
-      type: FileType.custom,
-      allowedExtensions: ['json'],
-      bytes: isDesktop ? null : bytes,
-    );
-    if (path == null || !mounted) return;
-    if (isDesktop) {
-      await File(path).writeAsBytes(bytes);
-      if (!mounted) return;
-    }
-    _showMessage(context.l10n.exportedDescriptions(count));
+    final saved = await exportBytesToFile('user_descriptions.json', bytes);
+    if (!saved || !mounted) return;
+    showMessage(context, context.l10n.exportedDescriptions(count));
   }
 
   Future<void> _reloadHomebrew() async {
@@ -122,12 +98,12 @@ class _ToolsPageState extends State<ToolsPage> {
       await userDataStore.uninstallHorPack();
       if (!mounted) return;
       setState(() => _horPackInstalled = false);
-      _showMessage(l10n.horPackRemovedMsg);
+      showMessage(context, l10n.horPackRemovedMsg);
     } else {
       final count = await userDataStore.installHorPack();
       if (!mounted) return;
       setState(() => _horPackInstalled = true);
-      _showMessage(l10n.horPackInstalledMsg(count));
+      showMessage(context, l10n.horPackInstalledMsg(count));
     }
   }
 

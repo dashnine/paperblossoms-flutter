@@ -8,12 +8,12 @@ import '../game_data_models.dart';
 import '../l10n/l10n.dart';
 import '../layout.dart';
 import '../theme.dart';
+import '../widgets/critical_strike_dialog.dart';
 import '../widgets/identity_lock_button.dart';
 import '../widgets/int_spinner.dart';
+import '../widgets/picker_page.dart';
 import '../widgets/portrait_picker.dart';
 import '../widgets/ring_viewer.dart';
-import 'critical_strike_dialog.dart';
-import 'pickers.dart';
 
 /// Tab 1: identity, portrait, rings, derived attributes, social standing,
 /// wealth, skills, and abilities (mainwindow.ui Character Data page).

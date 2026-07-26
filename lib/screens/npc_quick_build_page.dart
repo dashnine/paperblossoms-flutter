@@ -5,13 +5,13 @@ import 'package:printing/printing.dart';
 
 import '../data_l10n.dart';
 import '../game_data.dart';
-import '../generate_pdf_npc.dart';
 import '../l10n/l10n.dart';
-import '../npc_builder_state.dart';
 import '../npc_models.dart';
+import '../pdf/generate_pdf_npc.dart';
 import '../theme.dart';
 import '../user_data_store.dart';
 import '../widgets/technique_picker.dart';
+import 'npc_builder_state.dart';
 import 'npc_library_page.dart';
 
 /// The fast path: pick a base sample, tap Chapter 8 templates onto it, save.

@@ -3,8 +3,8 @@ import 'dart:ui' show Locale;
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/encounter.dart';
 import 'package:paperblossoms/game_data.dart';
-import 'package:paperblossoms/generate_pdf_npc.dart';
 import 'package:paperblossoms/l10n/app_localizations.dart';
+import 'package:paperblossoms/pdf/generate_pdf_npc.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

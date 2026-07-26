@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../data_l10n.dart';
 import '../../game_data.dart';
 import '../../l10n/l10n.dart';
-import '../../screens/pickers.dart';
+import '../../widgets/picker_page.dart';
 import 'school_builder_state.dart';
 
 /// Amber inline banner for the book's "should" rules: advisory, never

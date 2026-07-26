@@ -1,31 +1,31 @@
 // Development-only entrypoint: opens the editor directly with a seeded demo
-// character. Run with: flutter run -d macos -t lib/main_preview.dart
+// character. Run with: flutter run -d macos -t lib/dev/main_preview.dart
 import 'package:flutter/material.dart';
 
-import 'advance.dart';
-import 'character.dart';
-import 'data_l10n.dart';
-import 'encounter.dart';
-import 'game_data.dart';
-import 'game_data_models.dart';
-import 'hor_controller.dart';
-import 'item.dart';
-import 'l10n/l10n.dart';
-import 'locale_controllers.dart';
-import 'rules_constants.dart';
-import 'screens/add_advance_page.dart';
-import 'screens/character_editor.dart';
-import 'screens/encounter_editor_page.dart';
-import 'screens/homebrew_schools_page.dart';
-import 'screens/npc_detail_page.dart';
-import 'screens/npc_library_page.dart';
-import 'screens/npc_quick_build_page.dart';
-import 'screens/tools_page.dart';
-import 'theme.dart';
-import 'wizard/school_builder/school_builder_shell.dart';
-import 'wizard/school_builder/school_builder_state.dart';
-import 'wizard/wizard_shell.dart';
-import 'wizard/wizard_state.dart';
+import '../advance.dart';
+import '../character.dart';
+import '../data_l10n.dart';
+import '../encounter.dart';
+import '../game_data.dart';
+import '../game_data_models.dart';
+import '../hor_controller.dart';
+import '../item.dart';
+import '../l10n/l10n.dart';
+import '../locale_controllers.dart';
+import '../rules_constants.dart';
+import '../screens/add_advance_page.dart';
+import '../screens/character_editor.dart';
+import '../screens/encounter_editor_page.dart';
+import '../screens/homebrew_schools_page.dart';
+import '../screens/npc_detail_page.dart';
+import '../screens/npc_library_page.dart';
+import '../screens/npc_quick_build_page.dart';
+import '../screens/tools_page.dart';
+import '../theme.dart';
+import '../wizard/school_builder/school_builder_shell.dart';
+import '../wizard/school_builder/school_builder_state.dart';
+import '../wizard/wizard_shell.dart';
+import '../wizard/wizard_state.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();

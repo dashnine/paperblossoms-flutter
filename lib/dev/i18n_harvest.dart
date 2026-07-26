@@ -1,7 +1,7 @@
-import 'derived_stats.dart';
-import 'game_data.dart';
-import 'rules_constants.dart';
-import 'wizard/wizard_state.dart';
+import '../derived_stats.dart';
+import '../game_data.dart';
+import '../rules_constants.dart';
+import '../wizard/wizard_state.dart';
 
 /// The canonical set of game-data display strings a locale overlay may
 /// translate. This is the single authority both for the CI sync guard

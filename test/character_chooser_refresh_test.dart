@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/character.dart';
 import 'package:paperblossoms/character_store.dart';
-import 'package:paperblossoms/l10n/l10n.dart';
-import 'package:paperblossoms/locale_controllers.dart';
 import 'package:paperblossoms/screens/character_chooser.dart';
+
+import 'test_app.dart';
 
 void main() {
   late Directory tempDir;
@@ -32,13 +32,8 @@ void main() {
       'list refreshes when the editor pops after the wizard pushReplaced it',
       (tester) async {
     await tester.runAsync(() async {
-      await tester.pumpWidget(MaterialApp(
-        locale: const Locale('en'),
-        localizationsDelegates: AppLocalizations.localizationsDelegates,
-        supportedLocales: supportedUiLocales,
-        navigatorObservers: [routeObserver],
-        home: const CharacterChooser(),
-      ));
+      await tester.pumpWidget(testApp(const CharacterChooser(),
+          navigatorObservers: [routeObserver]));
     });
     await settleIO(tester);
     expect(find.byType(ListTile), findsNothing);

@@ -7,7 +7,7 @@ import '../game_data_models.dart';
 import '../hor_controller.dart';
 import '../l10n/l10n.dart';
 import '../rules_constants.dart';
-import 'pickers.dart';
+import '../widgets/picker_page.dart';
 
 /// Picks a new title for the character and applies the disadvantage grants
 /// some titles list as immediate effects (see titleGrants). Returns true if

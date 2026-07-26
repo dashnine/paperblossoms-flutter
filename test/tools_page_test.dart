@@ -1,28 +1,17 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/game_data.dart';
 import 'package:paperblossoms/hor_controller.dart';
 import 'package:paperblossoms/screens/homebrew_schools_page.dart';
 import 'package:paperblossoms/screens/tools_page.dart';
-import 'package:paperblossoms/user_data_store.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import 'temp_stores.dart';
 import 'test_app.dart';
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late Directory tempDir;
-
-  setUpAll(() async {
-    tempDir = await Directory.systemTemp.createTemp('pb_tools_test');
-    userDataStore.documentsDirectory = () async => tempDir;
-  });
-
-  tearDownAll(() async {
-    await tempDir.delete(recursive: true);
-  });
+  useTempStores('pb_tools_test');
 
   testWidgets('tools page shows description import/export tiles',
       (tester) async {

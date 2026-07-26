@@ -3,12 +3,12 @@ import 'dart:typed_data';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'data_l10n.dart';
-import 'encounter.dart';
-import 'game_data.dart';
-import 'l10n/app_localizations.dart';
-import 'npc_math.dart';
-import 'npc_models.dart';
+import '../data_l10n.dart';
+import '../encounter.dart';
+import '../game_data.dart';
+import '../l10n/app_localizations.dart';
+import '../npc_math.dart';
+import '../npc_models.dart';
 import 'pdf_common.dart';
 
 /// Printable stat block for one NPC.

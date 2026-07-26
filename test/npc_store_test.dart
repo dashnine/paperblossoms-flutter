@@ -7,18 +7,14 @@ import 'package:paperblossoms/game_data.dart';
 import 'package:paperblossoms/npc_models.dart';
 import 'package:paperblossoms/user_data_store.dart';
 
+import 'temp_stores.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late Directory tempDir;
+  final tempDir = useTempStores('pb_npc_store_test');
 
   setUpAll(() async {
     await gameData.load();
-    tempDir = await Directory.systemTemp.createTemp('pb_npc_store_test');
-    userDataStore.documentsDirectory = () async => tempDir;
-  });
-
-  tearDownAll(() async {
-    await tempDir.delete(recursive: true);
   });
 
   Npc custom(String name) => Npc(
@@ -160,7 +156,7 @@ void main() {
   });
 
   test('corrupt files never brick loading', () async {
-    final base = Directory('${tempDir.path}/paperblossoms');
+    final base = Directory('${tempDir().path}/paperblossoms');
     await File('${base.path}/encounters.json').writeAsString('not json');
     userDataStore.encounters = [];
     await userDataStore.loadEncounters();

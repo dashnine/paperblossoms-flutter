@@ -6,18 +6,14 @@ import 'package:paperblossoms/game_data.dart';
 import 'package:paperblossoms/game_data_models.dart';
 import 'package:paperblossoms/user_data_store.dart';
 
+import 'temp_stores.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late Directory tempDir;
+  useTempStores('pb_userdata_test');
 
   setUpAll(() async {
     await gameData.load();
-    tempDir = await Directory.systemTemp.createTemp('pb_userdata_test');
-    userDataStore.documentsDirectory = () async => tempDir;
-  });
-
-  tearDownAll(() async {
-    await tempDir.delete(recursive: true);
   });
 
   test('descriptions roundtrip through disk and clear when emptied',

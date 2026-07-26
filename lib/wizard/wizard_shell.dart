@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import '../character_store.dart';
 import '../data_l10n.dart';
 import '../game_data.dart';
+import '../helpers.dart';
 import '../hor_controller.dart';
 import '../l10n/l10n.dart';
 import '../layout.dart';
@@ -239,29 +240,14 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
       wizard.upbringing.isNotEmpty;
 
   Future<void> _confirmDiscard() async {
-    final colors = Theme.of(context).colorScheme;
-    final discard = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(context.l10n.wizDiscardTitle),
-        content: Text(context.l10n.wizDiscardBody),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(context.l10n.keepEditing),
-          ),
-          FilledButton(
-            style: FilledButton.styleFrom(
-              backgroundColor: colors.error,
-              foregroundColor: colors.onError,
-            ),
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(context.l10n.discard),
-          ),
-        ],
-      ),
+    final discard = await confirmDialog(
+      context,
+      title: context.l10n.wizDiscardTitle,
+      body: context.l10n.wizDiscardBody,
+      confirmLabel: context.l10n.discard,
+      cancelLabel: context.l10n.keepEditing,
     );
-    if (discard == true && mounted) Navigator.pop(context);
+    if (discard && mounted) Navigator.pop(context);
   }
 
   Widget _summaryPanel() {

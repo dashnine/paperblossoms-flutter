@@ -40,14 +40,16 @@ class _TechniquePickerDialogState extends State<_TechniquePickerDialog> {
   @override
   Widget build(BuildContext context) {
     final l10n = context.l10n;
-    final q = _query.toLowerCase();
+    // Case- and diacritic-insensitive, so typing "kiho" finds "Kihō"
+    // (matching PickerPage and the advancement search).
+    final q = dataL10n.sortKey(_query);
     final filtered = [
       for (final t in widget.options)
         if (q.isEmpty ||
-            t.name.toLowerCase().contains(q) ||
-            trData(t.name).toLowerCase().contains(q) ||
-            t.category.toLowerCase().contains(q) ||
-            trData(t.category).toLowerCase().contains(q))
+            dataL10n.sortKey(t.name).contains(q) ||
+            dataL10n.sortKey(trData(t.name)).contains(q) ||
+            dataL10n.sortKey(t.category).contains(q) ||
+            dataL10n.sortKey(trData(t.category)).contains(q))
           t
     ];
     return AlertDialog(

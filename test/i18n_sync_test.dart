@@ -3,8 +3,8 @@ import 'dart:io';
 
 import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:paperblossoms/dev/i18n_harvest.dart';
 import 'package:paperblossoms/game_data.dart';
-import 'package:paperblossoms/i18n_harvest.dart';
 
 /// Guards the data-translation overlays against drifting out of sync with
 /// the game data: a data-audit rename must update the overlay in the same
@@ -19,8 +19,9 @@ void main() {
   setUpAll(() async {
     await gameData.load();
     harvest = translatableDataStrings();
-    // Side effect for scripts/import_i18n_fr.py: the authoritative list of
+    // Side effect for scripts/import_i18n.py: the authoritative list of
     // translatable strings, one source of truth for tooling and CI.
+    Directory('build').createSync(recursive: true);
     File('build/l10n_harvest.json').writeAsStringSync(
         const JsonEncoder.withIndent('  ').convert(harvest.toList()..sort()));
   });

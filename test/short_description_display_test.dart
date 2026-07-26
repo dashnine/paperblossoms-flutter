@@ -5,7 +5,7 @@ import 'package:paperblossoms/game_data.dart';
 import 'package:paperblossoms/game_data_models.dart';
 import 'package:paperblossoms/rules_constants.dart';
 import 'package:paperblossoms/screens/add_advance_page.dart';
-import 'package:paperblossoms/screens/pickers.dart';
+import 'package:paperblossoms/widgets/picker_page.dart';
 import 'package:paperblossoms/wizard/wizard_widgets.dart';
 
 import 'test_app.dart';

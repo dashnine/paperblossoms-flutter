@@ -7,8 +7,8 @@ import '../game_data.dart';
 import '../game_data_models.dart';
 import '../l10n/l10n.dart';
 import '../rules_constants.dart';
-import '../widgets/int_spinner.dart';
-import 'pickers.dart';
+import 'int_spinner.dart';
+import 'picker_page.dart';
 
 /// What the player chose in the dialog; the Table 6-6 row follows from
 /// [finalSeverity] via critBand().

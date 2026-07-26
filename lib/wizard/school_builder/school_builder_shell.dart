@@ -4,19 +4,20 @@ import 'package:flutter/material.dart';
 
 import '../../data_l10n.dart';
 import '../../game_data.dart';
+import '../../helpers.dart';
 import '../../l10n/l10n.dart';
 import '../../layout.dart';
 import '../../user_data_store.dart';
 import '../wizard_state.dart';
-import 'sb_page1_roles.dart';
-import 'sb_page2_affiliation.dart';
-import 'sb_page3_ability.dart';
-import 'sb_page4_rings.dart';
-import 'sb_page5_skills.dart';
-import 'sb_page6_techniques.dart';
-import 'sb_page7_curriculum.dart';
-import 'sb_page8_outfit.dart';
-import 'sb_page9_final.dart';
+import 'page1_roles.dart';
+import 'page2_affiliation.dart';
+import 'page3_ability.dart';
+import 'page4_rings.dart';
+import 'page5_skills.dart';
+import 'page6_techniques.dart';
+import 'page7_curriculum.dart';
+import 'page8_outfit.dart';
+import 'page9_final.dart';
 import 'school_builder_state.dart';
 
 /// The PoW "Building a School" wizard shell (pp. 76-84): nine steps with
@@ -138,26 +139,13 @@ class _SchoolBuilderWizardState extends State<SchoolBuilderWizard> {
       gameData.schoolByName(name) != null &&
       !userDataStore.homebrewSchools.any((s) => s.name == name);
 
-  Future<bool> _confirm(String title, String body) async {
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(title),
-        content: Text(body),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(context.l10n.cancel),
-          ),
-          FilledButton(
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(context.l10n.sbSaveAnyway),
-          ),
-        ],
-      ),
-    );
-    return confirmed == true;
-  }
+  Future<bool> _confirm(String title, String body) => confirmDialog(
+        context,
+        title: title,
+        body: body,
+        confirmLabel: context.l10n.sbSaveAnyway,
+        destructive: false,
+      );
 
   /// Updates one description in memory unless doing so would wipe text a
   /// *different* school still resolves by this name — ability names come
@@ -262,29 +250,14 @@ class _SchoolBuilderWizardState extends State<SchoolBuilderWizard> {
   bool get _hasProgress => _page > 0 || state.roles.isNotEmpty;
 
   Future<void> _confirmDiscard() async {
-    final colors = Theme.of(context).colorScheme;
-    final discard = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: Text(context.l10n.sbDiscardTitle),
-        content: Text(context.l10n.sbDiscardBody),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(context, false),
-            child: Text(context.l10n.keepEditing),
-          ),
-          FilledButton(
-            style: FilledButton.styleFrom(
-              backgroundColor: colors.error,
-              foregroundColor: colors.onError,
-            ),
-            onPressed: () => Navigator.pop(context, true),
-            child: Text(context.l10n.discard),
-          ),
-        ],
-      ),
+    final discard = await confirmDialog(
+      context,
+      title: context.l10n.sbDiscardTitle,
+      body: context.l10n.sbDiscardBody,
+      confirmLabel: context.l10n.discard,
+      cancelLabel: context.l10n.keepEditing,
     );
-    if (discard == true && mounted) Navigator.pop(context);
+    if (discard && mounted) Navigator.pop(context);
   }
 
   Widget _summaryPanel() {

@@ -5,18 +5,14 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/game_data.dart';
 import 'package:paperblossoms/user_data_store.dart';
 
+import 'temp_stores.dart';
+
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();
-  late Directory tempDir;
+  useTempStores('pb_hor_pack_test');
 
   setUpAll(() async {
-    tempDir = await Directory.systemTemp.createTemp('pb_hor_pack_test');
-    userDataStore.documentsDirectory = () async => tempDir;
     await userDataStore.reloadAll();
-  });
-
-  tearDownAll(() async {
-    await tempDir.delete(recursive: true);
   });
 
   test('install applies erratas; uninstall restores stock byte-for-byte',

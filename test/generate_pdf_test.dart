@@ -7,13 +7,13 @@ import 'package:paperblossoms/advance.dart';
 import 'package:paperblossoms/character.dart';
 import 'package:paperblossoms/game_data.dart';
 import 'package:paperblossoms/game_data_models.dart' as gm;
-import 'package:paperblossoms/generate_pdf.dart';
 import 'package:paperblossoms/item.dart';
 import 'package:paperblossoms/l10n/app_localizations.dart';
-import 'package:paperblossoms/pdf_common.dart';
-import 'package:pdf/pdf.dart' show PdfPageFormat;
+import 'package:paperblossoms/pdf/generate_pdf.dart';
+import 'package:paperblossoms/pdf/pdf_common.dart';
 import 'package:paperblossoms/rules_constants.dart';
 import 'package:paperblossoms/sheet_style_controller.dart';
+import 'package:pdf/pdf.dart' show PdfPageFormat;
 
 void main() {
   TestWidgetsFlutterBinding.ensureInitialized();

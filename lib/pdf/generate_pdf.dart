@@ -4,16 +4,16 @@ import 'dart:ui' show Locale;
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
-import 'character.dart';
-import 'data_l10n.dart';
-import 'derived_stats.dart';
-import 'game_data.dart';
+import '../character.dart';
+import '../data_l10n.dart';
+import '../derived_stats.dart';
+import '../game_data.dart';
 import 'generate_pdf_structured.dart';
-import 'item.dart';
-import 'l10n/app_localizations.dart';
+import '../item.dart';
+import '../l10n/app_localizations.dart';
 import 'pdf_common.dart';
-import 'rules_constants.dart';
-import 'sheet_style_controller.dart';
+import '../rules_constants.dart';
+import '../sheet_style_controller.dart';
 
 /// Renders the character sheet as a PDF in the chosen [style]. The
 /// minimalist style mirrors the sections of the original PB_TEMPLATE.html
