@@ -9,6 +9,14 @@ import 'game_data.dart';
 import 'game_data_models.dart';
 import 'npc_models.dart';
 
+/// Thrown by [UserDataStore.importDescriptions] when the file parsed fine
+/// but no row had any text — e.g. an export template nothing was filled into
+/// yet. Distinct from [FormatException] so the UI can say so instead of
+/// "could not read file".
+class NoFilledDescriptionsException implements Exception {
+  const NoFilledDescriptionsException();
+}
+
 /// User-entered rules descriptions and homebrew game data. The bundled data
 /// intentionally ships no rules text (copyright); users who own the books
 /// enter their own, like the original's user_descriptions table. Homebrew
@@ -95,28 +103,77 @@ class UserDataStore {
     await saveDescriptions();
   }
 
-  /// Serializes [gameData.descriptions] for file export, in the same shape
-  /// [loadDescriptions] reads.
-  String exportDescriptionsJson() =>
-      jsonEncode([for (final d in gameData.descriptions) d.toJson()]);
+  /// Removes every user description and persists the empty store.
+  Future<void> deleteAllDescriptions() async {
+    gameData.descriptions.clear();
+    await saveDescriptions();
+  }
+
+  /// Serializes descriptions for file export, in the same shape
+  /// [loadDescriptions] reads but pretty-printed and sorted by name so the
+  /// file is hand-editable and diffable across export passes. With
+  /// [includeAll], emits one row per describable name — plus any existing
+  /// entries whose names fall outside that list, e.g. homebrew school names —
+  /// with empty text where the user has written none: a template for filling
+  /// in outside the app.
+  String exportDescriptionsJson({bool includeAll = false}) {
+    final byName = {for (final d in gameData.descriptions) d.name: d};
+    final names = {
+      if (includeAll) ...gameData.describableNames(),
+      ...byName.keys,
+    }.toList()
+      ..sort();
+    return const JsonEncoder.withIndent(' ').convert([
+      for (final name in names)
+        (byName[name] ?? Description(name: name)).toJson(),
+    ]);
+  }
 
   /// Imports descriptions from [content] — either this app's JSON export or
   /// the original Qt app's `user_descriptions.csv` — and merges them in:
   /// imported entries overwrite same-name ones, everything else is kept.
-  /// Returns the number of entries imported. Throws [FormatException] on
-  /// unparseable input, leaving the loaded descriptions untouched.
-  Future<int> importDescriptions(String content) async {
-    final imported = content.trimLeft().startsWith('[')
+  /// Rows with no text in either field are skipped, never treated as "clear
+  /// my entry" — so re-importing a stale template exported with `includeAll`
+  /// cannot blank out descriptions written since (clearing is done in-app).
+  /// Duplicate names within the file collapse to the last row.
+  ///
+  /// Throws [FormatException] on unparseable input and
+  /// [NoFilledDescriptionsException] when the file parsed but every row was
+  /// blank (an unfilled template); both leave the loaded descriptions
+  /// untouched. `unknownNames` lists imported names that match nothing in
+  /// the loaded data — they are kept (harmless, and they survive the
+  /// round-trip) but will never be shown anywhere.
+  Future<({int added, int updated, List<String> unknownNames})>
+      importDescriptions(String content) async {
+    final parsed = content.trimLeft().startsWith('[')
         ? _parseDescriptionsJson(content)
         : _parseDescriptionsCsv(content);
-    if (imported.isEmpty) {
+    if (parsed.isEmpty) {
       throw const FormatException('No descriptions found in file');
     }
-    final names = {for (final d in imported) d.name};
-    gameData.descriptions.removeWhere((d) => names.contains(d.name));
-    gameData.descriptions.addAll(imported);
+    final imported = <String, Description>{
+      for (final d in parsed)
+        if (d.description.isNotEmpty || d.shortDesc.isNotEmpty) d.name: d,
+    };
+    if (imported.isEmpty) throw const NoFilledDescriptionsException();
+    // School names are describable too (homebrew school descriptions) but
+    // aren't in describableNames(), which mirrors the editor's list.
+    final known = {
+      ...gameData.describableNames(),
+      for (final s in gameData.schools) s.name,
+    };
+    final existing = {for (final d in gameData.descriptions) d.name};
+    gameData.descriptions.removeWhere((d) => imported.containsKey(d.name));
+    gameData.descriptions.addAll(imported.values);
     await saveDescriptions();
-    return imported.length;
+    return (
+      added: imported.keys.where((n) => !existing.contains(n)).length,
+      updated: imported.keys.where(existing.contains).length,
+      unknownNames: [
+        for (final n in imported.keys)
+          if (!known.contains(n)) n
+      ],
+    );
   }
 
   List<Description> _parseDescriptionsJson(String content) {
@@ -124,11 +181,18 @@ class UserDataStore {
     if (raw is! List) {
       throw const FormatException('Expected a JSON array of descriptions');
     }
+    // Coerces field values instead of using Description.fromJson: a
+    // hand-edited file may hold non-string values, which must not escape as
+    // an uncaught TypeError.
     return [
       for (final entry in raw)
         if (entry is Map<String, dynamic> &&
             (entry['name'] ?? '').toString().isNotEmpty)
-          Description.fromJson(entry),
+          Description(
+            name: entry['name'].toString(),
+            description: (entry['description'] ?? '').toString(),
+            shortDesc: (entry['short_desc'] ?? '').toString(),
+          ),
     ];
   }
 

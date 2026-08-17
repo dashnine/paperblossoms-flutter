@@ -27,10 +27,30 @@ void main() {
     expect(find.text('Import descriptions…'), findsOneWidget);
     expect(find.text('Export descriptions…'), findsOneWidget);
 
-    // Export with nothing entered reports instead of opening a save dialog.
+    // Export opens an options dialog; with nothing entered and the template
+    // box unchecked it reports instead of opening a save dialog.
     await tester.tap(find.text('Export descriptions…'));
-    await tester.pump();
+    await tester.pumpAndSettle();
+    expect(find.text('Include empty entries'), findsOneWidget);
+    await tester.tap(find.text('Export'));
+    await tester.pumpAndSettle();
     expect(find.text('No descriptions to export.'), findsOneWidget);
+  });
+
+  testWidgets('export dialog cancel closes without exporting or reporting',
+      (tester) async {
+    gameData.descriptions = [];
+    await tester.pumpWidget(testApp(const ToolsPage()));
+    await tester.pumpAndSettle();
+
+    await tester.scrollUntilVisible(find.text('Export descriptions…'), 100,
+        scrollable: find.byType(Scrollable));
+    await tester.tap(find.text('Export descriptions…'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Cancel'));
+    await tester.pumpAndSettle();
+    expect(find.text('Include empty entries'), findsNothing);
+    expect(find.text('No descriptions to export.'), findsNothing);
   });
 
   testWidgets('Heroes of Rokugan switch is present and defaults off',

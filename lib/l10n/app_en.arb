@@ -169,6 +169,42 @@
   },
   "couldNotReadDescriptionsFile": "Couldn't read that file as descriptions JSON or CSV.",
   "noDescriptionsToExport": "No descriptions to export.",
+  "exportDescriptionsTitle": "Export descriptions",
+  "exportIncludeEmpty": "Include empty entries",
+  "exportIncludeEmptySubtitle": "Adds every describable entry with blank text, to fill in outside the app.",
+  "importedDescriptionsSummary": "{count, plural, =1{Imported 1 description} other{Imported {count} descriptions}} (new: {added}, updated: {updated}).",
+  "@importedDescriptionsSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "added": {
+        "type": "int"
+      },
+      "updated": {
+        "type": "int"
+      }
+    }
+  },
+  "noFilledDescriptionsInFile": "That file has no filled-in descriptions to import.",
+  "unknownDescriptionNamesTitle": "Unknown names",
+  "unknownDescriptionNamesBody": "{count, plural, =1{1 imported entry matches no known name and won't appear in the app:} other{{count} imported entries match no known name and won't appear in the app:}}",
+  "@unknownDescriptionNamesBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "deleteAllDescriptions": "Delete all descriptions",
+  "deleteAllDescriptionsBody": "{count, plural, =1{This deletes the description you entered.} other{This deletes all {count} descriptions you entered.}}",
+  "@deleteAllDescriptionsBody": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "tabCharacter": "Character",
   "tabBackground": "Background",
   "tabTraits": "Traits",

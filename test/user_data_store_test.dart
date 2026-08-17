@@ -41,12 +41,13 @@ void main() {
     await userDataStore.setDescription('Striking as Fire', 'old fire', 'f');
     await userDataStore.setDescription('Striking as Water', 'keep me', 'w');
 
-    final count = await userDataStore.importDescriptions(jsonEncode([
+    final result = await userDataStore.importDescriptions(jsonEncode([
       {'name': 'Striking as Fire', 'description': 'new fire', 'short_desc': ''},
       {'name': 'Striking as Air', 'description': 'air text', 'short_desc': 'a'},
     ]));
 
-    expect(count, 2);
+    expect(result.added, 1);
+    expect(result.updated, 1);
     expect(gameData.descriptionFor('Striking as Fire'), 'new fire');
     expect(gameData.shortDescFor('Striking as Fire'), '');
     expect(gameData.descriptionFor('Striking as Water'), 'keep me');
@@ -79,13 +80,104 @@ void main() {
         '\n'
         '"Quoted ""Name""","body","short"\n'
         '"orphan line without enough fields"\n';
-    final count = await userDataStore.importDescriptions(csv);
+    final result = await userDataStore.importDescriptions(csv);
 
-    expect(count, 2);
+    expect(result.added, 2);
     expect(gameData.descriptionFor('Striking as Earth'),
         'Reduce damage, by 1\nper rank');
     expect(gameData.shortDescFor('Striking as Earth'), 'Defense');
     expect(gameData.descriptionFor('Quoted "Name"'), 'body');
+  });
+
+  test('includeAll export works with no user descriptions at all', () async {
+    gameData.descriptions = [];
+    final rows = jsonDecode(
+        userDataStore.exportDescriptionsJson(includeAll: true)) as List;
+    expect(rows.length, gameData.describableNames().length);
+  });
+
+  test('includeAll export emits a full sorted template that round-trips',
+      () async {
+    gameData.descriptions = [];
+    await userDataStore.setDescription('Striking as Earth', 'earth text', '');
+    // A name outside describableNames() (like a homebrew school's) must
+    // survive the template export too.
+    await userDataStore.setDescription('My Homebrew School', 'orphan', '');
+
+    final exported =
+        userDataStore.exportDescriptionsJson(includeAll: true);
+    final rows = (jsonDecode(exported) as List).cast<Map<String, dynamic>>();
+    final names = [for (final r in rows) r['name'] as String];
+
+    expect(names.toSet().containsAll(gameData.describableNames()), isTrue);
+    expect(names, contains('My Homebrew School'));
+    expect(names, orderedEquals([...names]..sort()));
+    expect(
+        rows.firstWhere(
+            (r) => r['name'] == 'Striking as Earth')['description'],
+        'earth text');
+    final blank =
+        rows.firstWhere((r) => (r['description'] as String).isEmpty);
+    expect(blank['short_desc'], '');
+
+    // Re-importing the template must only touch its filled rows: an entry
+    // written after the export survives, blanks import nothing.
+    await userDataStore.setDescription('Striking as Fire', 'newer text', '');
+    final result = await userDataStore.importDescriptions(exported);
+    expect(result.added, 0);
+    expect(result.updated, 2);
+    expect(gameData.descriptionFor('Striking as Fire'), 'newer text');
+    expect(gameData.descriptions.length, 3);
+  });
+
+  test('a template with no filled rows throws without touching state',
+      () async {
+    gameData.descriptions = [];
+    await userDataStore.setDescription('Striking as Earth', 'kept', '');
+    await expectLater(
+        userDataStore.importDescriptions(jsonEncode([
+          {'name': 'Striking as Earth', 'description': '', 'short_desc': ''},
+          {'name': 'Striking as Water', 'description': '', 'short_desc': ''},
+        ])),
+        throwsA(isA<NoFilledDescriptionsException>()));
+    expect(gameData.descriptions.length, 1);
+    expect(gameData.descriptionFor('Striking as Earth'), 'kept');
+  });
+
+  test('import dedupes by name, reports unknown names, coerces wrong types',
+      () async {
+    gameData.descriptions = [];
+    final result = await userDataStore.importDescriptions(jsonEncode([
+      {'name': 'Striking as Earth', 'description': 'first', 'short_desc': ''},
+      {'name': 'Striking as Earth', 'description': 'last', 'short_desc': ''},
+      {'name': 'Totally Made Up', 'description': 123, 'short_desc': null},
+    ]));
+    expect(result.added, 2);
+    expect(result.updated, 0);
+    expect(result.unknownNames, ['Totally Made Up']);
+    expect(gameData.descriptions.length, 2);
+    expect(gameData.descriptionFor('Striking as Earth'), 'last');
+    expect(gameData.descriptionFor('Totally Made Up'), '123');
+  });
+
+  test('CSV rows with no text in either field are skipped', () async {
+    gameData.descriptions = [];
+    const csv = '"Striking as Earth","",""\n'
+        '"Striking as Water","water text",""\n';
+    final result = await userDataStore.importDescriptions(csv);
+    expect(result.added, 1);
+    expect(gameData.descriptions.length, 1);
+    expect(gameData.descriptionFor('Striking as Water'), 'water text');
+  });
+
+  test('deleteAllDescriptions empties the store and persists', () async {
+    gameData.descriptions = [];
+    await userDataStore.setDescription('Striking as Earth', 'text', '');
+    await userDataStore.deleteAllDescriptions();
+    expect(gameData.descriptions, isEmpty);
+    userDataStore.updateDescription('stale', 'in memory only', '');
+    await userDataStore.loadDescriptions();
+    expect(gameData.descriptions, isEmpty);
   });
 
   test('garbage import throws and leaves descriptions untouched', () async {

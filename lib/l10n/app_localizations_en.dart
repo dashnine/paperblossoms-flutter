@@ -289,6 +289,61 @@ class AppLocalizationsEn extends AppLocalizations {
   String get noDescriptionsToExport => 'No descriptions to export.';
 
   @override
+  String get exportDescriptionsTitle => 'Export descriptions';
+
+  @override
+  String get exportIncludeEmpty => 'Include empty entries';
+
+  @override
+  String get exportIncludeEmptySubtitle =>
+      'Adds every describable entry with blank text, to fill in outside the app.';
+
+  @override
+  String importedDescriptionsSummary(int count, int added, int updated) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Imported $count descriptions',
+      one: 'Imported 1 description',
+    );
+    return '$_temp0 (new: $added, updated: $updated).';
+  }
+
+  @override
+  String get noFilledDescriptionsInFile =>
+      'That file has no filled-in descriptions to import.';
+
+  @override
+  String get unknownDescriptionNamesTitle => 'Unknown names';
+
+  @override
+  String unknownDescriptionNamesBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other:
+          '$count imported entries match no known name and won\'t appear in the app:',
+      one:
+          '1 imported entry matches no known name and won\'t appear in the app:',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get deleteAllDescriptions => 'Delete all descriptions';
+
+  @override
+  String deleteAllDescriptionsBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'This deletes all $count descriptions you entered.',
+      one: 'This deletes the description you entered.',
+    );
+    return '$_temp0';
+  }
+
+  @override
   String get tabCharacter => 'Character';
 
   @override

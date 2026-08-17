@@ -15,6 +15,7 @@ import '../locale_controllers.dart';
 import '../rules_constants.dart';
 import '../screens/add_advance_page.dart';
 import '../screens/character_editor.dart';
+import '../screens/descriptions_editor.dart';
 import '../screens/encounter_editor_page.dart';
 import '../screens/homebrew_schools_page.dart';
 import '../screens/npc_detail_page.dart';
@@ -273,10 +274,17 @@ class _PreviewApp extends StatelessWidget {
         ),
       );
     }
-    // TOOLS=true with ABOUT=true also opens the About dialog on launch.
+    // TOOLS=true with ABOUT=true also opens the About dialog on launch,
+    // with EXPORT=true the export-descriptions options dialog.
     if (const bool.fromEnvironment('TOOLS')) {
       return const ToolsPage(
-          openAboutOnLaunch: bool.fromEnvironment('ABOUT'));
+          openAboutOnLaunch: bool.fromEnvironment('ABOUT'),
+          openExportDescriptionsOnLaunch: bool.fromEnvironment('EXPORT'));
+    }
+    // DESCRIPTIONS=true opens the rules-descriptions editor (seeded with the
+    // demo descriptions above, so the delete-all action is enabled).
+    if (const bool.fromEnvironment('DESCRIPTIONS')) {
+      return const DescriptionsEditor();
     }
     // ADVANCE_TYPE (Skill/Ring/Technique, plus optional ADVANCE_OPTION and
     // ADVANCE_GROUP) opens the Add Advance page directly — curriculum taps

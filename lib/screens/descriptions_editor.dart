@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../data_l10n.dart';
 import '../game_data.dart';
+import '../helpers.dart';
 import '../l10n/l10n.dart';
 import '../user_data_store.dart';
 
@@ -70,6 +71,19 @@ class _DescriptionsEditorState extends State<DescriptionsEditor> {
     shortController.dispose();
   }
 
+  Future<void> _deleteAll() async {
+    final l10n = context.l10n;
+    final confirmed = await confirmDialog(
+      context,
+      title: l10n.deleteAllDescriptions,
+      body: l10n.deleteAllDescriptionsBody(gameData.descriptions.length),
+      confirmLabel: l10n.delete,
+    );
+    if (!confirmed || !mounted) return;
+    await userDataStore.deleteAllDescriptions();
+    if (mounted) setState(() {});
+  }
+
   @override
   Widget build(BuildContext context) {
     final query = dataL10n.sortKey(_query);
@@ -82,7 +96,16 @@ class _DescriptionsEditorState extends State<DescriptionsEditor> {
           name
     ];
     return Scaffold(
-      appBar: AppBar(title: Text(context.l10n.rulesDescriptionsTitle)),
+      appBar: AppBar(
+        title: Text(context.l10n.rulesDescriptionsTitle),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.delete_sweep),
+            tooltip: context.l10n.deleteAllDescriptions,
+            onPressed: gameData.descriptions.isEmpty ? null : _deleteAll,
+          ),
+        ],
+      ),
       body: Column(
         children: [
           Padding(

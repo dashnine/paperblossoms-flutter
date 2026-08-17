@@ -20,11 +20,18 @@ import 'npc_library_page.dart';
 /// Tools: rules descriptions and homebrew content (the original's Tools
 /// menu, minus the SQLite-era CSV round trips).
 class ToolsPage extends StatefulWidget {
-  const ToolsPage({super.key, this.openAboutOnLaunch = false});
+  const ToolsPage(
+      {super.key,
+      this.openAboutOnLaunch = false,
+      this.openExportDescriptionsOnLaunch = false});
 
   /// Preview-only (main_preview ABOUT=true): opens the About dialog after
   /// the first frame, since native taps can't be automated during verify.
   final bool openAboutOnLaunch;
+
+  /// Preview-only (main_preview EXPORT=true), same reason as
+  /// [openAboutOnLaunch].
+  final bool openExportDescriptionsOnLaunch;
 
   @override
   State<ToolsPage> createState() => _ToolsPageState();
@@ -46,31 +53,117 @@ class _ToolsPageState extends State<ToolsPage> {
     if (widget.openAboutOnLaunch) {
       WidgetsBinding.instance.addPostFrameCallback((_) => _showAbout());
     }
+    if (widget.openExportDescriptionsOnLaunch) {
+      WidgetsBinding.instance
+          .addPostFrameCallback((_) => _exportDescriptions());
+    }
   }
 
   Future<void> _importDescriptions() async {
     final text = await pickTextFile(extensions: ['json', 'csv']);
     if (text == null || !mounted) return;
+    final l10n = context.l10n;
     try {
-      final count = await userDataStore.importDescriptions(text);
+      final result = await userDataStore.importDescriptions(text);
       if (!mounted) return;
-      showMessage(context, context.l10n.importedDescriptions(count));
-    } on FormatException {
+      showMessage(
+        context,
+        l10n.importedDescriptionsSummary(
+          result.added + result.updated,
+          result.added,
+          result.updated,
+        ),
+      );
+      if (result.unknownNames.isNotEmpty) {
+        await _warnUnknownNames(result.unknownNames);
+      }
+    } on NoFilledDescriptionsException {
       if (!mounted) return;
-      showMessage(context, context.l10n.couldNotReadDescriptionsFile);
+      showMessage(context, l10n.noFilledDescriptionsInFile);
+    } on FormatException catch (e) {
+      if (!mounted) return;
+      // The message carries jsonDecode's syntax-error location — the one
+      // thing a user hand-editing the file needs.
+      showMessage(
+        context,
+        '${l10n.couldNotReadDescriptionsFile}\n${e.message}',
+      );
     }
   }
 
+  /// Typos in hand-edited files import "successfully" but never show up
+  /// anywhere; naming them while the file is still open is the only chance
+  /// to catch them.
+  Future<void> _warnUnknownNames(List<String> unknownNames) async {
+    const shown = 10;
+    final names = [
+      ...unknownNames.take(shown),
+      if (unknownNames.length > shown) '…',
+    ].join('\n');
+    await showDialog<void>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: Text(context.l10n.unknownDescriptionNamesTitle),
+        content: Text(
+          '${context.l10n.unknownDescriptionNamesBody(unknownNames.length)}'
+          '\n\n$names',
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: Text(context.l10n.ok),
+          ),
+        ],
+      ),
+    );
+  }
+
   Future<void> _exportDescriptions() async {
-    final count = gameData.descriptions.length;
-    if (count == 0) {
-      showMessage(context, context.l10n.noDescriptionsToExport);
+    final l10n = context.l10n;
+    var includeEmpty = false;
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (context) => StatefulBuilder(
+        builder: (context, setDialogState) => AlertDialog(
+          title: Text(l10n.exportDescriptionsTitle),
+          content: CheckboxListTile(
+            contentPadding: EdgeInsets.zero,
+            controlAffinity: ListTileControlAffinity.leading,
+            title: Text(l10n.exportIncludeEmpty),
+            subtitle: Text(l10n.exportIncludeEmptySubtitle),
+            value: includeEmpty,
+            onChanged: (value) =>
+                setDialogState(() => includeEmpty = value ?? false),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text(l10n.cancel),
+            ),
+            FilledButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(l10n.exportTooltip),
+            ),
+          ],
+        ),
+      ),
+    );
+    if (confirmed != true || !mounted) return;
+    if (!includeEmpty && gameData.descriptions.isEmpty) {
+      showMessage(context, l10n.noDescriptionsToExport);
       return;
     }
-    final bytes = utf8.encode(userDataStore.exportDescriptionsJson());
-    final saved = await exportBytesToFile('user_descriptions.json', bytes);
+    final json =
+        userDataStore.exportDescriptionsJson(includeAll: includeEmpty);
+    final count = (jsonDecode(json) as List).length;
+    // A distinct template filename so an unfilled export isn't mistaken for
+    // a real backup.
+    final saved = await exportBytesToFile(
+      includeEmpty ? 'descriptions_template.json' : 'user_descriptions.json',
+      utf8.encode(json),
+    );
     if (!saved || !mounted) return;
-    showMessage(context, context.l10n.exportedDescriptions(count));
+    showMessage(context, l10n.exportedDescriptions(count));
   }
 
   Future<void> _reloadHomebrew() async {

@@ -558,6 +558,60 @@ abstract class AppLocalizations {
   /// **'No descriptions to export.'**
   String get noDescriptionsToExport;
 
+  /// No description provided for @exportDescriptionsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Export descriptions'**
+  String get exportDescriptionsTitle;
+
+  /// No description provided for @exportIncludeEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Include empty entries'**
+  String get exportIncludeEmpty;
+
+  /// No description provided for @exportIncludeEmptySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Adds every describable entry with blank text, to fill in outside the app.'**
+  String get exportIncludeEmptySubtitle;
+
+  /// No description provided for @importedDescriptionsSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Imported 1 description} other{Imported {count} descriptions}} (new: {added}, updated: {updated}).'**
+  String importedDescriptionsSummary(int count, int added, int updated);
+
+  /// No description provided for @noFilledDescriptionsInFile.
+  ///
+  /// In en, this message translates to:
+  /// **'That file has no filled-in descriptions to import.'**
+  String get noFilledDescriptionsInFile;
+
+  /// No description provided for @unknownDescriptionNamesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Unknown names'**
+  String get unknownDescriptionNamesTitle;
+
+  /// No description provided for @unknownDescriptionNamesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 imported entry matches no known name and won\'t appear in the app:} other{{count} imported entries match no known name and won\'t appear in the app:}}'**
+  String unknownDescriptionNamesBody(int count);
+
+  /// No description provided for @deleteAllDescriptions.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete all descriptions'**
+  String get deleteAllDescriptions;
+
+  /// No description provided for @deleteAllDescriptionsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{This deletes the description you entered.} other{This deletes all {count} descriptions you entered.}}'**
+  String deleteAllDescriptionsBody(int count);
+
   /// No description provided for @tabCharacter.
   ///
   /// In en, this message translates to:
