@@ -15,6 +15,8 @@ import '../locale_controllers.dart';
 import '../rules_constants.dart';
 import '../screens/add_advance_page.dart';
 import '../screens/character_editor.dart';
+import '../screens/custom_legacies_page.dart';
+import '../screens/custom_legacy_page.dart';
 import '../screens/descriptions_editor.dart';
 import '../screens/encounter_editor_page.dart';
 import '../screens/homebrew_schools_page.dart';
@@ -97,6 +99,13 @@ void _seedDemoCharacter() {
         track: trackTitle,
         cost: 3),
   ];
+  // LEGACY=true previews Legacies of War content: a Legacy held, plus the
+  // priced Student of Akodo distinction and its XP advance (after the
+  // stack seed above, which would otherwise overwrite the advance).
+  if (const bool.fromEnvironment('LEGACY')) {
+    character.advDisadv.add('Heroic Life');
+    character.addTrait(gameData.advDisadvByName('Student of Akodo')!);
+  }
   final katana = gameData.weaponByName('Katana')!;
   character.equipment = [
     for (final grip in katana.grips) Item.fromWeapon(katana, grip),
@@ -193,6 +202,28 @@ class _PreviewApp extends StatelessWidget {
     return state;
   }
 
+  /// A stock Hida build with the Legacy option on (LEGACY=true).
+  static WizardState _legacyDemoWizard() {
+    final school = gameData.schoolByName('Hida Defender School')!;
+    return WizardState()
+      ..characterType = characterTypeSamurai
+      ..clan = 'Crab'
+      ..family = 'Hida'
+      ..familyRing = 'Earth'
+      ..school = school.name
+      ..schoolSkills = [...school.startingSkills.options]
+      ..ringChoices = ['Earth', 'Water']
+      ..schoolSpecialRing = 'Void'
+      ..techChoices = ["Lord Hida's Grip", 'Striking as Earth']
+      ..distinction = 'Large Stature'
+      ..adversity = 'Bluntness'
+      ..passion = 'Architecture'
+      ..anxiety = 'Blessed Lineage'
+      ..takeLegacy = true
+      ..legacy = 'Heroic Life'
+      ..personalName = 'Tetsu';
+  }
+
   /// A mid-flight HoR build for previewing the campaign wizard pages
   /// (WIZARD=true HOR=true WIZARD_PAGE=<1-7>).
   static WizardState _horDemoWizard() {
@@ -236,6 +267,10 @@ class _PreviewApp extends StatelessWidget {
         return NewCharacterWizard(
             initialState: _horDemoWizard(), initialPage: wizardPage - 1);
       }
+      if (const bool.fromEnvironment('LEGACY') && wizardPage > 0) {
+        return NewCharacterWizard(
+            initialState: _legacyDemoWizard(), initialPage: wizardPage - 1);
+      }
       return const NewCharacterWizard();
     }
     // SCHOOL_BUILDER=<1-9> opens the school-builder wizard on that step,
@@ -247,6 +282,14 @@ class _PreviewApp extends StatelessWidget {
     }
     if (const bool.fromEnvironment('SCHOOLS')) {
       return const HomebrewSchoolsPage();
+    }
+    // Custom Legacy previews (Legacies of War p. 12): LEGACY_BUILDER=true
+    // opens a blank template form; LEGACIES=true the management page.
+    if (const bool.fromEnvironment('LEGACY_BUILDER')) {
+      return const CustomLegacyPage();
+    }
+    if (const bool.fromEnvironment('LEGACIES')) {
+      return const CustomLegaciesPage();
     }
     // GM tools previews: NPC_LIBRARY=true opens the NPC library;
     // NPC_DETAIL=<sample name> a stat block; NPC_QUICK=<base name> the

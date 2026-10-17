@@ -4367,6 +4367,186 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'No demeanor'**
   String get npcDemeanorNone;
+
+  /// No description provided for @legacyInsteadOfHeritage.
+  ///
+  /// In en, this message translates to:
+  /// **'Take a Legacy instead of rolling the heritage table'**
+  String get legacyInsteadOfHeritage;
+
+  /// No description provided for @legacyInsteadOfHeritageSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Legacies of War p. 5: the table\'s results are not applied. You still name the ancestor you are named for.'**
+  String get legacyInsteadOfHeritageSubtitle;
+
+  /// No description provided for @legacyLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Legacy'**
+  String get legacyLabel;
+
+  /// No description provided for @legacyInstructions.
+  ///
+  /// In en, this message translates to:
+  /// **'A Legacy is a new kind of advantage linking this character to a predecessor. It may exceed the creation limit on advantages; its requirement, charge and effects are in the entry\'s rules text.'**
+  String get legacyInstructions;
+
+  /// No description provided for @wizErrLegacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a Legacy or switch back to the heritage table.'**
+  String get wizErrLegacy;
+
+  /// No description provided for @wizErrLegacyAlly.
+  ///
+  /// In en, this message translates to:
+  /// **'{legacy} requires {ally} or {support} as a creation advantage (question 9 or 13).'**
+  String wizErrLegacyAlly(String legacy, String ally, String support);
+
+  /// No description provided for @createCustomLegacy.
+  ///
+  /// In en, this message translates to:
+  /// **'Create custom Legacy…'**
+  String get createCustomLegacy;
+
+  /// No description provided for @customLegacyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Legacy'**
+  String get customLegacyTitle;
+
+  /// No description provided for @customLegacyEditTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit Legacy'**
+  String get customLegacyEditTitle;
+
+  /// No description provided for @customLegacyNameHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Legacy of …'**
+  String get customLegacyNameHint;
+
+  /// No description provided for @customLegacyRing.
+  ///
+  /// In en, this message translates to:
+  /// **'Ring'**
+  String get customLegacyRing;
+
+  /// No description provided for @customLegacyTypes.
+  ///
+  /// In en, this message translates to:
+  /// **'Types'**
+  String get customLegacyTypes;
+
+  /// No description provided for @customLegacyTemplate.
+  ///
+  /// In en, this message translates to:
+  /// **'Start from a template'**
+  String get customLegacyTemplate;
+
+  /// No description provided for @customLegacyTemplateNone.
+  ///
+  /// In en, this message translates to:
+  /// **'Blank'**
+  String get customLegacyTemplateNone;
+
+  /// No description provided for @customLegacyRequirement.
+  ///
+  /// In en, this message translates to:
+  /// **'Requirement'**
+  String get customLegacyRequirement;
+
+  /// No description provided for @customLegacyRequirementHint.
+  ///
+  /// In en, this message translates to:
+  /// **'What the predecessor must have achieved or been.'**
+  String get customLegacyRequirementHint;
+
+  /// No description provided for @customLegacyCharge.
+  ///
+  /// In en, this message translates to:
+  /// **'Charge'**
+  String get customLegacyCharge;
+
+  /// No description provided for @customLegacyChargeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'End-of-scene conditions that remove 3 strife, or add 3 strife and 1 Void point.'**
+  String get customLegacyChargeHint;
+
+  /// No description provided for @customLegacyEffects.
+  ///
+  /// In en, this message translates to:
+  /// **'Effects'**
+  String get customLegacyEffects;
+
+  /// No description provided for @customLegacyEffectsHint.
+  ///
+  /// In en, this message translates to:
+  /// **'The narrative boon, and the checks on which up to two dice may be rerolled.'**
+  String get customLegacyEffectsHint;
+
+  /// No description provided for @customLegacySaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved “{name}” to homebrew/legacies.json.'**
+  String customLegacySaved(String name);
+
+  /// No description provided for @customLegacyNameTaken.
+  ///
+  /// In en, this message translates to:
+  /// **'That name already belongs to another advantage.'**
+  String get customLegacyNameTaken;
+
+  /// No description provided for @customLegacies.
+  ///
+  /// In en, this message translates to:
+  /// **'Custom Legacies'**
+  String get customLegacies;
+
+  /// No description provided for @customLegaciesSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Build Legacy templates for the successors of retired characters (Legacies of War p. 12).'**
+  String get customLegaciesSubtitle;
+
+  /// No description provided for @customLegacyEmptyHint.
+  ///
+  /// In en, this message translates to:
+  /// **'No custom Legacies yet.\nCreate one here or from a character\'s traits tab.'**
+  String get customLegacyEmptyHint;
+
+  /// No description provided for @customLegacyDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Characters holding it keep the name but lose its ring, types and rules text.'**
+  String get customLegacyDeleteBody;
+
+  /// No description provided for @customLegacyDeleteAlsoText.
+  ///
+  /// In en, this message translates to:
+  /// **'Also remove its rules text'**
+  String get customLegacyDeleteAlsoText;
+
+  /// No description provided for @customLegacyDeleteAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove all custom Legacies'**
+  String get customLegacyDeleteAll;
+
+  /// No description provided for @customLegacyDeleteAllBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This deletes every entry in homebrew/legacies.json.'**
+  String get customLegacyDeleteAllBody;
+
+  /// No description provided for @pricedTraitBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Bought in play for {cost} XP. It belongs to no curriculum, so it counts for half credit toward the track you choose.'**
+  String pricedTraitBody(int cost);
 }
 
 class _AppLocalizationsDelegate

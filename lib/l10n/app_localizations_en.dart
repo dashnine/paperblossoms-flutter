@@ -2477,4 +2477,112 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get npcDemeanorNone => 'No demeanor';
+
+  @override
+  String get legacyInsteadOfHeritage =>
+      'Take a Legacy instead of rolling the heritage table';
+
+  @override
+  String get legacyInsteadOfHeritageSubtitle =>
+      'Legacies of War p. 5: the table\'s results are not applied. You still name the ancestor you are named for.';
+
+  @override
+  String get legacyLabel => 'Legacy';
+
+  @override
+  String get legacyInstructions =>
+      'A Legacy is a new kind of advantage linking this character to a predecessor. It may exceed the creation limit on advantages; its requirement, charge and effects are in the entry\'s rules text.';
+
+  @override
+  String get wizErrLegacy =>
+      'Choose a Legacy or switch back to the heritage table.';
+
+  @override
+  String wizErrLegacyAlly(String legacy, String ally, String support) {
+    return '$legacy requires $ally or $support as a creation advantage (question 9 or 13).';
+  }
+
+  @override
+  String get createCustomLegacy => 'Create custom Legacy…';
+
+  @override
+  String get customLegacyTitle => 'Custom Legacy';
+
+  @override
+  String get customLegacyEditTitle => 'Edit Legacy';
+
+  @override
+  String get customLegacyNameHint => 'Legacy of …';
+
+  @override
+  String get customLegacyRing => 'Ring';
+
+  @override
+  String get customLegacyTypes => 'Types';
+
+  @override
+  String get customLegacyTemplate => 'Start from a template';
+
+  @override
+  String get customLegacyTemplateNone => 'Blank';
+
+  @override
+  String get customLegacyRequirement => 'Requirement';
+
+  @override
+  String get customLegacyRequirementHint =>
+      'What the predecessor must have achieved or been.';
+
+  @override
+  String get customLegacyCharge => 'Charge';
+
+  @override
+  String get customLegacyChargeHint =>
+      'End-of-scene conditions that remove 3 strife, or add 3 strife and 1 Void point.';
+
+  @override
+  String get customLegacyEffects => 'Effects';
+
+  @override
+  String get customLegacyEffectsHint =>
+      'The narrative boon, and the checks on which up to two dice may be rerolled.';
+
+  @override
+  String customLegacySaved(String name) {
+    return 'Saved “$name” to homebrew/legacies.json.';
+  }
+
+  @override
+  String get customLegacyNameTaken =>
+      'That name already belongs to another advantage.';
+
+  @override
+  String get customLegacies => 'Custom Legacies';
+
+  @override
+  String get customLegaciesSubtitle =>
+      'Build Legacy templates for the successors of retired characters (Legacies of War p. 12).';
+
+  @override
+  String get customLegacyEmptyHint =>
+      'No custom Legacies yet.\nCreate one here or from a character\'s traits tab.';
+
+  @override
+  String get customLegacyDeleteBody =>
+      'Characters holding it keep the name but lose its ring, types and rules text.';
+
+  @override
+  String get customLegacyDeleteAlsoText => 'Also remove its rules text';
+
+  @override
+  String get customLegacyDeleteAll => 'Remove all custom Legacies';
+
+  @override
+  String get customLegacyDeleteAllBody =>
+      'This deletes every entry in homebrew/legacies.json.';
+
+  @override
+  String pricedTraitBody(int cost) {
+    return 'Bought in play for $cost XP. It belongs to no curriculum, so it counts for half credit toward the track you choose.';
+  }
 }

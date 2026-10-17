@@ -5,11 +5,14 @@ import '../data_l10n.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
 import '../l10n/l10n.dart';
+import '../rules_constants.dart';
 import '../theme.dart';
 import 'add_trait_page.dart';
+import 'custom_legacy_page.dart';
 
-/// Tab 3: distinctions, adversities, passions, and anxieties held by the
-/// character, grouped by category as in the original Personal Traits page.
+/// Tab 3: distinctions, adversities, passions, anxieties, and Legacies held
+/// by the character, grouped by category as in the original Personal Traits
+/// page (Legacies are the fifth category, Legacies of War p. 5).
 class PersonalTraitsTab extends StatelessWidget {
   const PersonalTraitsTab({super.key});
 
@@ -18,11 +21,20 @@ class PersonalTraitsTab extends StatelessWidget {
     'Adversities',
     'Passions',
     'Anxieties',
+    'Legacies',
   ];
 
-  void _remove(String name) {
-    character.advDisadv.remove(name);
-    character.touch();
+  // A priced trait's XP advance goes with it (see Character.removeTrait).
+  void _remove(String name) => character.removeTrait(name);
+
+  /// Builds a custom Legacy template (Legacies of War p. 12) and takes it.
+  Future<void> _createCustomLegacy(BuildContext context) async {
+    final saved = await Navigator.push<String>(
+      context,
+      MaterialPageRoute(builder: (context) => const CustomLegacyPage()),
+    );
+    final entry = saved == null ? null : gameData.advDisadvByName(saved);
+    if (entry != null) character.addTrait(entry);
   }
 
   @override
@@ -46,10 +58,21 @@ class PersonalTraitsTab extends StatelessWidget {
         for (final category in byCategory.keys) ...[
           SectionHeader(
             trData(category),
-            trailing: IconButton(
-              tooltip: context.l10n.add,
-              icon: const Icon(Icons.add),
-              onPressed: () => addTraitFlow(context, category: category),
+            trailing: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (category == categoryLegacies)
+                  IconButton(
+                    tooltip: context.l10n.createCustomLegacy,
+                    icon: const Icon(Icons.auto_awesome_outlined),
+                    onPressed: () => _createCustomLegacy(context),
+                  ),
+                IconButton(
+                  tooltip: context.l10n.add,
+                  icon: const Icon(Icons.add),
+                  onPressed: () => addTraitFlow(context, category: category),
+                ),
+              ],
             ),
           ),
           if (byCategory[category]!.isEmpty)
@@ -63,6 +86,7 @@ class PersonalTraitsTab extends StatelessWidget {
                     if (entry.ring.isNotEmpty) trData(entry.ring),
                     if (entry.types.isNotEmpty)
                       entry.types.map(trData).join(', '),
+                    if (entry.xp > 0) context.l10n.costXp(entry.xp),
                     if (gameData.shortDescFor(entry.name).isNotEmpty)
                       gameData.shortDescFor(entry.name),
                   ].join(' · ')),

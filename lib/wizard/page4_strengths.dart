@@ -40,8 +40,7 @@ class _Page4StrengthsState extends State<Page4Strengths> {
     List<String> names(String category) => wizard.horMode
         ? wizard.horTraitNames(category)
         : [
-            for (final entry in gameData.advDisadvByCategory(category))
-              entry.name
+            for (final entry in wizard.creationTraits(category)) entry.name
           ];
     return ListView(
       padding: const EdgeInsets.all(16),

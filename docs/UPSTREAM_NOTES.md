@@ -1108,3 +1108,70 @@ prerequisite clarification (group listings don't waive clan/role
 restrictions) is recorded here as a table ruling: like Qt, the app's
 purchase list never enforced `restriction` fields, and name-called
 techniques waive prerequisites anyway, so behavior is unchanged.
+
+## 82. Badger family "Foreheshu" and the `"Legacies of War"` book code in `clans.json` (patched here)
+
+Against Legacies of War (ESL5R15EN-DLC_Legacies-of-War.pdf, printed page =
+PDF index + 1), p. 16, "Additional Badger Clan Player Character Options":
+
+- The family is spelled **Fureheshu** everywhere the book names it (the
+  stat block header, the sidebar title, and the founder "Ichirō
+  Fureheshu"); upstream's `Foreheshu` is a mistranscription of the same
+  class as #75 and #78. Renamed; the stat line (+1 Earth or Water; Labor,
+  Theology; Glory 30; 4 koku) already matched. Saved characters with the
+  old family name resolve to the new one on load (`familyRenames`), and
+  the i18n overlays and rekey maps carry the rename. Guarded by the
+  "Badger families spell Fureheshu" test.
+- Upstream stores this one reference as the full title `"Legacies of War"`
+  (also hard-coded as the schema enum in `data/scripts/add_enums.py`
+  `get_books()` and the eleven `json_schema/*.schema.json` files) while
+  every other book uses a short code; the app shows codes raw ("FoV p.71"),
+  so it rendered inconsistently. Normalised to `LoW`; `Reference.fromJson`
+  maps the upstream string onto it (`bookCodeAliases`) so homebrew files
+  and a re-synced upstream copy still display `LoW`. Guarded by the "no
+  bundled book code contains a space" test. For the upstream filer: the
+  fix is the family name in `clans.json` plus the enum entry.
+
+## 83. Blood of the Lioness and Legacies of War content added here (beyond upstream)
+
+Upstream carries nothing else from either Edge Studio product (ESL5R15EN:
+the 32-page Blood of the Lioness adventure booklet, printed page = PDF
+index + 1, and its free online supplement Legacies of War). Added in this
+app, with book codes `BotL` and `LoW`:
+
+- `techniques.json`: **Ancestral Army**, rank 1 Water invocation,
+  restriction Lion (BotL p. 9: "Rank 1, Kitsu Family"; p. 8 limits it to
+  Lion Clan characters). The booklet also calls it "Ancestral Summons"
+  three times (the dōjō prose, Kitsu Yū's NPC ability, the epilogue);
+  the PC technique block's header wins and the description notes the alias.
+- `advantages_disadvantages.json`: **Student of Akodo** (Void distinction,
+  Interpersonal/Mental, BotL p. 9 sidebar). The book sells it to non-Lion
+  characters for 3 XP after a downtime study, the only XP-priced advantage
+  in any book, so the entry carries a new optional `xp` key (an app-side
+  schema extension; every other entry is 0). The app confirms the cost
+  and records the purchase as an `Advantage` advance on the Curriculum or
+  Title track the player picks; no curriculum lists it, so it earns half
+  credit there like any other off-curriculum purchase. The creation
+  pickers skip priced traits.
+- `advantages_disadvantages.json`: a fifth category, **Legacies**, with the
+  ten templates of LoW pp. 7-11 (Dreams Unfulfilled, Duty Bound,
+  Heart-Reader, Hero's Death, Heroic Life, Idealism, Inherited Connections,
+  Notorious Scoundrel, Pragmatist, Secret Teachings). Hero's Death has no
+  fixed ring (it follows the chosen Bushidō tenet), stored as `Various`;
+  Secret Teachings' types are "Interpersonal, Mental and/or Physical", kept
+  as the book prints them. The wizard offers a Legacy in place of the Q18
+  heritage roll (LoW p. 5) for stock samurai and enforces Inherited
+  Connections' creation requirement (p. 10); a custom-template builder
+  (p. 12) writes to `homebrew/legacies.json`.
+
+Deliberately not added:
+
+- **The War Game** (LoW p. 16): a nemuranai. Upstream includes no named
+  nemuranai anywhere (Fields of Victory p. 92's Banner of Amaterasu, Claws
+  of the Kitsu and the rest are absent too), and `personal_effects` has no
+  field for a sealed invocation.
+- The adventure's NPC profiles (Kitsu Yū, Matsu Sakura, Shinjo Kamu, the
+  Five Pillars, both armies) and its mass-battle objectives: the GM tool
+  stays Core Chapter 8 only, as it did for Dark Tides and Deathly Turns.
+- LoW's wartime random-encounter tables, adventure seed and lore sections
+  (no character data).

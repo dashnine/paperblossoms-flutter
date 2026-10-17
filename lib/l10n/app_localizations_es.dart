@@ -2496,4 +2496,111 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get npcDemeanorNone => 'Sin actitud';
+
+  @override
+  String get legacyInsteadOfHeritage =>
+      'Tomar un Legado en lugar de tirar en la tabla de herencia';
+
+  @override
+  String get legacyInsteadOfHeritageSubtitle =>
+      'Legacies of War pág. 5: los resultados de la tabla no se aplican. Aun así eliges al antepasado del que llevas el nombre.';
+
+  @override
+  String get legacyLabel => 'Legado';
+
+  @override
+  String get legacyInstructions =>
+      'Un Legado es un nuevo tipo de ventaja que vincula a este personaje con un predecesor. Puede superar el límite de ventajas en la creación; su requisito, su carga y sus efectos están en el texto de reglas de la entrada.';
+
+  @override
+  String get wizErrLegacy => 'Elige un Legado o vuelve a la tabla de herencia.';
+
+  @override
+  String wizErrLegacyAlly(String legacy, String ally, String support) {
+    return '$legacy requiere $ally o $support como ventaja de creación (pregunta 9 o 13).';
+  }
+
+  @override
+  String get createCustomLegacy => 'Crear Legado personalizado…';
+
+  @override
+  String get customLegacyTitle => 'Legado personalizado';
+
+  @override
+  String get customLegacyEditTitle => 'Editar Legado';
+
+  @override
+  String get customLegacyNameHint => 'Legado de …';
+
+  @override
+  String get customLegacyRing => 'Anillo';
+
+  @override
+  String get customLegacyTypes => 'Tipos';
+
+  @override
+  String get customLegacyTemplate => 'Partir de una plantilla';
+
+  @override
+  String get customLegacyTemplateNone => 'En blanco';
+
+  @override
+  String get customLegacyRequirement => 'Requisito';
+
+  @override
+  String get customLegacyRequirementHint =>
+      'Lo que el predecesor debe haber logrado o sido.';
+
+  @override
+  String get customLegacyCharge => 'Carga';
+
+  @override
+  String get customLegacyChargeHint =>
+      'Condiciones al final de la escena que eliminan 3 de conflicto, o añaden 3 de conflicto y 1 punto de Vacío.';
+
+  @override
+  String get customLegacyEffects => 'Efectos';
+
+  @override
+  String get customLegacyEffectsHint =>
+      'La ventaja narrativa y las tiradas en las que se pueden repetir hasta dos dados.';
+
+  @override
+  String customLegacySaved(String name) {
+    return '«$name» guardado en homebrew/legacies.json.';
+  }
+
+  @override
+  String get customLegacyNameTaken => 'Ese nombre ya pertenece a otra ventaja.';
+
+  @override
+  String get customLegacies => 'Legados personalizados';
+
+  @override
+  String get customLegaciesSubtitle =>
+      'Crea plantillas de Legado para los sucesores de personajes retirados (Legacies of War pág. 12).';
+
+  @override
+  String get customLegacyEmptyHint =>
+      'Aún no hay Legados personalizados.\nCrea uno aquí o desde la pestaña de rasgos de un personaje.';
+
+  @override
+  String get customLegacyDeleteBody =>
+      'Los personajes que lo tienen conservan el nombre pero pierden su anillo, tipos y texto de reglas.';
+
+  @override
+  String get customLegacyDeleteAlsoText => 'Borrar también su texto de reglas';
+
+  @override
+  String get customLegacyDeleteAll =>
+      'Eliminar todos los Legados personalizados';
+
+  @override
+  String get customLegacyDeleteAllBody =>
+      'Esto borra todas las entradas de homebrew/legacies.json.';
+
+  @override
+  String pricedTraitBody(int cost) {
+    return 'Comprado en juego por $cost PX. No pertenece a ningún plan de estudios, así que cuenta la mitad para la vía elegida (plan de estudios o título).';
+  }
 }

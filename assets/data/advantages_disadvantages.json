@@ -781,6 +781,17 @@
                 "ring": "Water",
                 "types": ["Interpersonal", "Mental"],
                 "effects": ""
+            },
+            {
+                "name": "Student of Akodo",
+                "reference": {
+                    "book": "BotL",
+                    "page": 9
+                },
+                "ring": "Void",
+                "types": ["Interpersonal", "Mental"],
+                "effects": "",
+                "xp": 3
             }
         ]
     },
@@ -2595,6 +2606,111 @@
                 },
                 "ring": "Air",
                 "types": ["Mental"],
+                "effects": ""
+            }
+        ]
+    },
+    {
+        "name": "Legacies",
+        "entries": [
+            {
+                "name": "Dreams Unfulfilled",
+                "reference": {
+                    "book": "LoW",
+                    "page": 7
+                },
+                "ring": "Fire",
+                "types": ["Interpersonal", "Mental"],
+                "effects": ""
+            },
+            {
+                "name": "Duty Bound",
+                "reference": {
+                    "book": "LoW",
+                    "page": 7
+                },
+                "ring": "Earth",
+                "types": ["Interpersonal", "Mental"],
+                "effects": ""
+            },
+            {
+                "name": "Heart-Reader",
+                "reference": {
+                    "book": "LoW",
+                    "page": 8
+                },
+                "ring": "Air",
+                "types": ["Interpersonal", "Mental"],
+                "effects": ""
+            },
+            {
+                "name": "Hero's Death",
+                "reference": {
+                    "book": "LoW",
+                    "page": 8
+                },
+                "ring": "Various",
+                "types": ["Interpersonal", "Mental"],
+                "effects": ""
+            },
+            {
+                "name": "Heroic Life",
+                "reference": {
+                    "book": "LoW",
+                    "page": 9
+                },
+                "ring": "Water",
+                "types": ["Interpersonal", "Mental"],
+                "effects": ""
+            },
+            {
+                "name": "Idealism",
+                "reference": {
+                    "book": "LoW",
+                    "page": 9
+                },
+                "ring": "Earth",
+                "types": ["Interpersonal", "Mental"],
+                "effects": ""
+            },
+            {
+                "name": "Inherited Connections",
+                "reference": {
+                    "book": "LoW",
+                    "page": 10
+                },
+                "ring": "Water",
+                "types": ["Interpersonal", "Mental"],
+                "effects": ""
+            },
+            {
+                "name": "Notorious Scoundrel",
+                "reference": {
+                    "book": "LoW",
+                    "page": 10
+                },
+                "ring": "Fire",
+                "types": ["Interpersonal", "Mental"],
+                "effects": ""
+            },
+            {
+                "name": "Pragmatist",
+                "reference": {
+                    "book": "LoW",
+                    "page": 10
+                },
+                "ring": "Air",
+                "types": ["Interpersonal", "Mental"],
+                "effects": ""
+            },
+            {
+                "name": "Secret Teachings",
+                "reference": {
+                    "book": "LoW",
+                    "page": 11
+                },
+                "ring": "Void",
+                "types": ["Interpersonal", "Mental and/or Physical"],
                 "effects": ""
             }
         ]

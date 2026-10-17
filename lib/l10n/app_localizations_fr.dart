@@ -2512,4 +2512,113 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get npcDemeanorNone => 'Sans attitude';
+
+  @override
+  String get legacyInsteadOfHeritage =>
+      'Prendre un Legs au lieu de lancer sur la table d’héritage';
+
+  @override
+  String get legacyInsteadOfHeritageSubtitle =>
+      'Legacies of War p. 5 : les résultats de la table ne s’appliquent pas. Vous choisissez tout de même l’ancêtre dont vous portez le nom.';
+
+  @override
+  String get legacyLabel => 'Legs';
+
+  @override
+  String get legacyInstructions =>
+      'Un Legs est un nouveau type d’avantage qui relie ce personnage à un prédécesseur. Il peut dépasser la limite d’avantages à la création ; sa condition, sa charge et ses effets figurent dans le texte de règles de l’entrée.';
+
+  @override
+  String get wizErrLegacy =>
+      'Choisissez un Legs ou revenez à la table d’héritage.';
+
+  @override
+  String wizErrLegacyAlly(String legacy, String ally, String support) {
+    return '$legacy exige $ally ou $support parmi les avantages de création (question 9 ou 13).';
+  }
+
+  @override
+  String get createCustomLegacy => 'Créer un Legs personnalisé…';
+
+  @override
+  String get customLegacyTitle => 'Legs personnalisé';
+
+  @override
+  String get customLegacyEditTitle => 'Modifier le Legs';
+
+  @override
+  String get customLegacyNameHint => 'Legs de …';
+
+  @override
+  String get customLegacyRing => 'Anneau';
+
+  @override
+  String get customLegacyTypes => 'Types';
+
+  @override
+  String get customLegacyTemplate => 'Partir d’un modèle';
+
+  @override
+  String get customLegacyTemplateNone => 'Vierge';
+
+  @override
+  String get customLegacyRequirement => 'Condition';
+
+  @override
+  String get customLegacyRequirementHint =>
+      'Ce que le prédécesseur doit avoir accompli ou été.';
+
+  @override
+  String get customLegacyCharge => 'Charge';
+
+  @override
+  String get customLegacyChargeHint =>
+      'Conditions de fin de scène qui retirent 3 conflits, ou ajoutent 3 conflits et 1 point de Vide.';
+
+  @override
+  String get customLegacyEffects => 'Effets';
+
+  @override
+  String get customLegacyEffectsHint =>
+      'L’avantage narratif, et les tests où l’on peut relancer jusqu’à deux dés.';
+
+  @override
+  String customLegacySaved(String name) {
+    return '« $name » enregistré dans homebrew/legacies.json.';
+  }
+
+  @override
+  String get customLegacyNameTaken =>
+      'Ce nom appartient déjà à un autre avantage.';
+
+  @override
+  String get customLegacies => 'Legs personnalisés';
+
+  @override
+  String get customLegaciesSubtitle =>
+      'Créez des modèles de Legs pour les successeurs de personnages retirés (Legacies of War p. 12).';
+
+  @override
+  String get customLegacyEmptyHint =>
+      'Aucun Legs personnalisé.\nCréez-en un ici ou depuis l’onglet des traits d’un personnage.';
+
+  @override
+  String get customLegacyDeleteBody =>
+      'Les personnages qui le possèdent gardent le nom mais perdent son anneau, ses types et son texte de règles.';
+
+  @override
+  String get customLegacyDeleteAlsoText =>
+      'Supprimer aussi son texte de règles';
+
+  @override
+  String get customLegacyDeleteAll => 'Supprimer tous les Legs personnalisés';
+
+  @override
+  String get customLegacyDeleteAllBody =>
+      'Supprime toutes les entrées de homebrew/legacies.json.';
+
+  @override
+  String pricedTraitBody(int cost) {
+    return 'Acheté en jeu pour $cost XP. Il n’appartient à aucun cursus : il compte pour moitié dans la progression choisie (cursus ou titre).';
+  }
 }

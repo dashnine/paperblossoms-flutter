@@ -64,45 +64,14 @@ class _HomebrewSchoolsPageState extends State<HomebrewSchoolsPage> {
 
   Future<void> _delete(School school) async {
     final l10n = context.l10n;
-    var alsoText = true;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setDialogState) => AlertDialog(
-          title: Text(l10n.sbDeleteTitle(school.name)),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(l10n.sbDeleteBody),
-              CheckboxListTile(
-                contentPadding: EdgeInsets.zero,
-                controlAffinity: ListTileControlAffinity.leading,
-                title: Text(l10n.sbDeleteAlsoText),
-                value: alsoText,
-                onChanged: (value) =>
-                    setDialogState(() => alsoText = value ?? true),
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text(l10n.cancel),
-            ),
-            FilledButton(
-              style: FilledButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.error,
-                foregroundColor: Theme.of(context).colorScheme.onError,
-              ),
-              onPressed: () => Navigator.pop(context, true),
-              child: Text(l10n.delete),
-            ),
-          ],
-        ),
-      ),
+    final alsoText = await confirmWithCheckbox(
+      context,
+      title: l10n.sbDeleteTitle(school.name),
+      body: l10n.sbDeleteBody,
+      checkboxLabel: l10n.sbDeleteAlsoText,
+      confirmLabel: l10n.delete,
     );
-    if (confirmed != true) return;
+    if (alsoText == null) return;
     // Delete (and reload) first, THEN clear rules text — but only for names
     // no surviving school still resolves: ability names come from shared
     // templates, and a deleted override's name now belongs to the

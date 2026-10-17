@@ -180,6 +180,19 @@ class _NewCharacterWizardState extends State<NewCharacterWizard> {
         if (wizard.horMode && wizard.heritage.isEmpty) {
           return l10n.wizErrHorHeritage;
         }
+        // Legacies of War p. 5: a Legacy in place of the roll must be chosen;
+        // Inherited Connections (p. 10) also requires an Ally or Support
+        // advantage among the creation picks.
+        if (wizard.usesLegacy) {
+          if (wizard.legacy.isEmpty) return l10n.wizErrLegacy;
+          if (wizard.legacyNeedsAlly) {
+            return l10n.wizErrLegacyAlly(
+              trData('Inherited Connections'),
+              trData('Ally [Name]'),
+              trData('Support of [One Group]'),
+            );
+          }
+        }
         // Battle of One Thousand Years pairs an adversity with a marked
         // outfit item; the item pick cannot be skipped.
         if (wizard.horMode &&

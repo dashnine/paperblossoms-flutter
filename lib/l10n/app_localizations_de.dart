@@ -2505,4 +2505,112 @@ class AppLocalizationsDe extends AppLocalizations {
 
   @override
   String get npcDemeanorNone => 'Kein Auftreten';
+
+  @override
+  String get legacyInsteadOfHeritage =>
+      'Ein Vermächtnis statt eines Wurfs auf der Herkunftstabelle nehmen';
+
+  @override
+  String get legacyInsteadOfHeritageSubtitle =>
+      'Legacies of War S. 5: Die Ergebnisse der Tabelle werden nicht angewendet. Den Vorfahren, nach dem du benannt bist, wählst du trotzdem.';
+
+  @override
+  String get legacyLabel => 'Vermächtnis';
+
+  @override
+  String get legacyInstructions =>
+      'Ein Vermächtnis ist eine neue Art von Vorteil, die diesen Charakter mit einem Vorgänger verbindet. Es darf die Vorteilsgrenze bei der Erschaffung überschreiten; Voraussetzung, Auftrag und Effekte stehen im Regeltext des Eintrags.';
+
+  @override
+  String get wizErrLegacy =>
+      'Wähle ein Vermächtnis oder kehre zur Herkunftstabelle zurück.';
+
+  @override
+  String wizErrLegacyAlly(String legacy, String ally, String support) {
+    return '$legacy verlangt $ally oder $support als Vorteil bei der Erschaffung (Frage 9 oder 13).';
+  }
+
+  @override
+  String get createCustomLegacy => 'Eigenes Vermächtnis erstellen…';
+
+  @override
+  String get customLegacyTitle => 'Eigenes Vermächtnis';
+
+  @override
+  String get customLegacyEditTitle => 'Vermächtnis bearbeiten';
+
+  @override
+  String get customLegacyNameHint => 'Vermächtnis von …';
+
+  @override
+  String get customLegacyRing => 'Ring';
+
+  @override
+  String get customLegacyTypes => 'Typen';
+
+  @override
+  String get customLegacyTemplate => 'Von einer Vorlage ausgehen';
+
+  @override
+  String get customLegacyTemplateNone => 'Leer';
+
+  @override
+  String get customLegacyRequirement => 'Voraussetzung';
+
+  @override
+  String get customLegacyRequirementHint =>
+      'Was der Vorgänger erreicht haben oder gewesen sein muss.';
+
+  @override
+  String get customLegacyCharge => 'Auftrag';
+
+  @override
+  String get customLegacyChargeHint =>
+      'Bedingungen am Szenenende, die 3 Zwist entfernen oder 3 Zwist und 1 Leere-Punkt hinzufügen.';
+
+  @override
+  String get customLegacyEffects => 'Effekte';
+
+  @override
+  String get customLegacyEffectsHint =>
+      'Der erzählerische Vorteil und die Proben, bei denen bis zu zwei Würfel neu geworfen werden dürfen.';
+
+  @override
+  String customLegacySaved(String name) {
+    return '„$name“ in homebrew/legacies.json gespeichert.';
+  }
+
+  @override
+  String get customLegacyNameTaken =>
+      'Dieser Name gehört bereits einem anderen Vorteil.';
+
+  @override
+  String get customLegacies => 'Eigene Vermächtnisse';
+
+  @override
+  String get customLegaciesSubtitle =>
+      'Erstelle Vermächtnis-Vorlagen für die Nachfolger zurückgezogener Charaktere (Legacies of War S. 12).';
+
+  @override
+  String get customLegacyEmptyHint =>
+      'Noch keine eigenen Vermächtnisse.\nErstelle eines hier oder im Eigenschaften-Reiter eines Charakters.';
+
+  @override
+  String get customLegacyDeleteBody =>
+      'Charaktere, die es besitzen, behalten den Namen, verlieren aber Ring, Typen und Regeltext.';
+
+  @override
+  String get customLegacyDeleteAlsoText => 'Auch den Regeltext entfernen';
+
+  @override
+  String get customLegacyDeleteAll => 'Alle eigenen Vermächtnisse entfernen';
+
+  @override
+  String get customLegacyDeleteAllBody =>
+      'Löscht jeden Eintrag in homebrew/legacies.json.';
+
+  @override
+  String pricedTraitBody(int cost) {
+    return 'Im Spiel für $cost EP gekauft. Es gehört zu keinem Lehrplan und zählt daher zur Hälfte für die gewählte Laufbahn (Lehrplan oder Titel).';
+  }
 }

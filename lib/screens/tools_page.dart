@@ -14,6 +14,7 @@ import '../theme.dart';
 import '../user_data_store.dart';
 import 'descriptions_editor.dart';
 import 'encounters_page.dart';
+import 'custom_legacies_page.dart';
 import 'homebrew_schools_page.dart';
 import 'npc_library_page.dart';
 
@@ -120,35 +121,16 @@ class _ToolsPageState extends State<ToolsPage> {
 
   Future<void> _exportDescriptions() async {
     final l10n = context.l10n;
-    var includeEmpty = false;
-    final confirmed = await showDialog<bool>(
-      context: context,
-      builder: (context) => StatefulBuilder(
-        builder: (context, setDialogState) => AlertDialog(
-          title: Text(l10n.exportDescriptionsTitle),
-          content: CheckboxListTile(
-            contentPadding: EdgeInsets.zero,
-            controlAffinity: ListTileControlAffinity.leading,
-            title: Text(l10n.exportIncludeEmpty),
-            subtitle: Text(l10n.exportIncludeEmptySubtitle),
-            value: includeEmpty,
-            onChanged: (value) =>
-                setDialogState(() => includeEmpty = value ?? false),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text(l10n.cancel),
-            ),
-            FilledButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: Text(l10n.exportTooltip),
-            ),
-          ],
-        ),
-      ),
+    final includeEmpty = await confirmWithCheckbox(
+      context,
+      title: l10n.exportDescriptionsTitle,
+      checkboxLabel: l10n.exportIncludeEmpty,
+      checkboxSubtitle: l10n.exportIncludeEmptySubtitle,
+      confirmLabel: l10n.exportTooltip,
+      initialValue: false,
+      destructive: false,
     );
-    if (confirmed != true || !mounted) return;
+    if (includeEmpty == null || !mounted) return;
     if (!includeEmpty && gameData.descriptions.isEmpty) {
       showMessage(context, l10n.noDescriptionsToExport);
       return;
@@ -396,6 +378,17 @@ class _ToolsPageState extends State<ToolsPage> {
               context,
               MaterialPageRoute(
                 builder: (context) => const HomebrewSchoolsPage(),
+              ),
+            ),
+          ),
+          ListTile(
+            leading: const Icon(Icons.auto_awesome_outlined),
+            title: Text(l10n.customLegacies),
+            subtitle: Text(l10n.customLegaciesSubtitle),
+            onTap: () => Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => const CustomLegaciesPage(),
               ),
             ),
           ),

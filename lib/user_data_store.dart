@@ -7,6 +7,7 @@ import 'package:path_provider/path_provider.dart';
 import 'encounter.dart';
 import 'game_data.dart';
 import 'game_data_models.dart';
+import 'rules_constants.dart';
 import 'npc_models.dart';
 
 /// Thrown by [UserDataStore.importDescriptions] when the file parsed fine
@@ -54,6 +55,36 @@ class UserDataStore {
     final dir = Directory('${(await _baseDir()).path}/homebrew');
     await dir.create(recursive: true);
     return dir;
+  }
+
+  Future<File> _homebrewFile(String fileName) async =>
+      File('${(await homebrewDir()).path}/$fileName');
+
+  /// Writes one app-owned homebrew file (schools, npcs, legacies) as a
+  /// pretty-printed JSON array, or deletes it when [rows] is empty. Never
+  /// silently overwrites a file the loader could not parse (the hand-edits
+  /// in it may be one typo away from valid): such a file is set aside as
+  /// `.bad` once, before the first rewrite.
+  Future<void> _writeHomebrewRows(
+      String fileName, List<Map<String, dynamic>> rows) async {
+    final file = await _homebrewFile(fileName);
+    if (failedHomebrewFiles.remove(fileName) && await file.exists()) {
+      await file.copy('${file.path}.bad');
+    }
+    if (rows.isEmpty) {
+      if (await file.exists()) await file.delete();
+      return;
+    }
+    await file.writeAsString(
+        const JsonEncoder.withIndent('  ').convert(rows));
+  }
+
+  /// Lists [fileName] on the tools screen once this session has written it,
+  /// even if it did not exist at load time.
+  void _markLoaded(String fileName) {
+    if (!loadedHomebrewFiles.contains(fileName)) {
+      loadedHomebrewFiles.add(fileName);
+    }
   }
 
   /// Loads user descriptions into [gameData.descriptions].
@@ -254,13 +285,10 @@ class UserDataStore {
   /// writes so callers (and widget tests) never race the file.
   List<School> homebrewSchools = [];
 
-  Future<File> _homebrewSchoolsFile() async =>
-      File('${(await homebrewDir()).path}/schools.json');
-
   /// The schools in `homebrew/schools.json` as stored on disk; empty when
   /// the file is absent or unparseable.
   Future<List<School>> readHomebrewSchools() async {
-    final file = await _homebrewSchoolsFile();
+    final file = await _homebrewFile('schools.json');
     if (!await file.exists()) return [];
     try {
       final raw = jsonDecode(await file.readAsString()) as List<dynamic>;
@@ -270,23 +298,8 @@ class UserDataStore {
     }
   }
 
-  Future<void> _writeHomebrewSchools(List<School> schools) async {
-    final file = await _homebrewSchoolsFile();
-    // Never silently overwrite a file the loader could not parse — the
-    // hand-edits in it may be one typo away from valid. Set it aside once.
-    if (failedHomebrewFiles.remove('schools.json') && await file.exists()) {
-      await file.copy('${file.path}.bad');
-    }
-    if (schools.isEmpty) {
-      if (await file.exists()) await file.delete();
-      return;
-    }
-    await file.writeAsString(
-      const JsonEncoder.withIndent(
-        '  ',
-      ).convert([for (final s in schools) s.toJson()]),
-    );
-  }
+  Future<void> _writeHomebrewSchools(List<School> schools) =>
+      _writeHomebrewRows('schools.json', [for (final s in schools) s.toJson()]);
 
   /// Insert-or-replace [school] by name in memory and in
   /// `homebrew/schools.json`. [replacingName] additionally removes the
@@ -300,9 +313,7 @@ class UserDataStore {
     gameData.schools
       ..removeWhere(replaced)
       ..add(school);
-    if (!loadedHomebrewFiles.contains('schools.json')) {
-      loadedHomebrewFiles.add('schools.json');
-    }
+    _markLoaded('schools.json');
     return _writeHomebrewSchools(homebrewSchools);
   }
 
@@ -374,9 +385,7 @@ class UserDataStore {
     gameData.schools
       ..removeWhere((s) => names.contains(s.name))
       ..addAll(imported);
-    if (!loadedHomebrewFiles.contains('schools.json')) {
-      loadedHomebrewFiles.add('schools.json');
-    }
+    _markLoaded('schools.json');
     await _writeHomebrewSchools(homebrewSchools);
     return imported.length;
   }
@@ -386,24 +395,8 @@ class UserDataStore {
   /// [homebrewSchools].
   List<Npc> customNpcs = [];
 
-  Future<File> _customNpcsFile() async =>
-      File('${(await homebrewDir()).path}/npcs.json');
-
-  Future<void> _writeCustomNpcs(List<Npc> npcs) async {
-    final file = await _customNpcsFile();
-    if (failedHomebrewFiles.remove('npcs.json') && await file.exists()) {
-      await file.copy('${file.path}.bad');
-    }
-    if (npcs.isEmpty) {
-      if (await file.exists()) await file.delete();
-      return;
-    }
-    await file.writeAsString(
-      const JsonEncoder.withIndent(
-        '  ',
-      ).convert([for (final n in npcs) n.toJson()]),
-    );
-  }
+  Future<void> _writeCustomNpcs(List<Npc> npcs) =>
+      _writeHomebrewRows('npcs.json', [for (final n in npcs) n.toJson()]);
 
   /// Insert-or-replace [npc] by name in memory and in `homebrew/npcs.json`.
   /// [replacingName] additionally removes the entry it renames. Memory is
@@ -417,9 +410,7 @@ class UserDataStore {
     gameData.npc.samples
       ..removeWhere(replaced)
       ..add(npc);
-    if (!loadedHomebrewFiles.contains('npcs.json')) {
-      loadedHomebrewFiles.add('npcs.json');
-    }
+    _markLoaded('npcs.json');
     return _writeCustomNpcs(customNpcs);
   }
 
@@ -475,9 +466,7 @@ class UserDataStore {
     gameData.npc.samples
       ..removeWhere((n) => names.contains(n.name))
       ..addAll(imported);
-    if (!loadedHomebrewFiles.contains('npcs.json')) {
-      loadedHomebrewFiles.add('npcs.json');
-    }
+    _markLoaded('npcs.json');
     await _writeCustomNpcs(customNpcs);
     return imported.length;
   }
@@ -571,6 +560,49 @@ class UserDataStore {
     return imported.length;
   }
 
+  // ---- Custom Legacies (Legacies of War pp. 6 and 12) ----
+
+  /// Custom Legacy templates currently merged: the in-memory authority that
+  /// `homebrew/legacies.json` mirrors. Same memory-first contract as
+  /// [homebrewSchools].
+  List<AdvDisadv> customLegacies = [];
+
+  Future<void> _writeCustomLegacies(List<AdvDisadv> legacies) =>
+      _writeHomebrewRows(
+          'legacies.json', [for (final a in legacies) a.toJson()]);
+
+  /// Insert-or-replace [legacy] by name in memory and in
+  /// `homebrew/legacies.json`. [replacingName] additionally removes the entry
+  /// it renames. Memory is updated before the returned future's disk write.
+  Future<void> saveCustomLegacy(AdvDisadv legacy, {String? replacingName}) {
+    bool replaced(AdvDisadv a) =>
+        a.name == legacy.name || a.name == replacingName;
+    customLegacies
+      ..removeWhere(replaced)
+      ..add(legacy);
+    gameData.advantagesDisadvantages
+      ..removeWhere(replaced)
+      ..add(legacy);
+    _markLoaded('legacies.json');
+    return _writeCustomLegacies(customLegacies);
+  }
+
+  /// Removes [name] from the custom Legacies, then reloads from scratch so a
+  /// hand-authored entry that shadowed a bundled one by name resurrects it
+  /// (the in-app builder refuses such names, but the file is editable).
+  Future<void> deleteCustomLegacy(String name) async {
+    customLegacies.removeWhere((a) => a.name == name);
+    await _writeCustomLegacies(customLegacies);
+    await reloadAll();
+  }
+
+  /// Removes every custom Legacy in one pass (single reload).
+  Future<void> deleteAllCustomLegacies() async {
+    customLegacies.clear();
+    await _writeCustomLegacies(customLegacies);
+    await reloadAll();
+  }
+
   /// Merges homebrew JSON files into the loaded game data. File names must
   /// match the bundled data files (e.g. `weapons.json`, `titles.json`);
   /// entries are appended after the official content.
@@ -579,6 +611,7 @@ class UserDataStore {
     failedHomebrewFiles.clear();
     homebrewSchools = [];
     customNpcs = [];
+    customLegacies = [];
     final dir = await homebrewDir();
     // The pack-only kinds mutate stock data (replace/remove), so they are
     // honored only when the HoR errata pack's manifest says they belong to
@@ -605,22 +638,30 @@ class UserDataStore {
     }
   }
 
+  /// Replace-by-name merge for the kinds the app itself writes (schools,
+  /// npcs, legacies): [parsed] entries shadow any same-named entry already
+  /// in [target], so an in-session save followed by a reload never
+  /// duplicates; the last duplicate within [parsed] wins. Returns the
+  /// deduplicated entries, which become the file's in-memory mirror.
+  static List<T> _replaceByName<T>(
+      List<T> target, Iterable<T> parsed, String Function(T) nameOf) {
+    final incoming = [...{for (final e in parsed) nameOf(e): e}.values];
+    final names = {for (final e in incoming) nameOf(e)};
+    target.removeWhere((e) => names.contains(nameOf(e)));
+    target.addAll(incoming);
+    return incoming;
+  }
+
   bool _mergeHomebrew(String kind, List<dynamic> raw) {
     switch (kind) {
       case 'clans':
         gameData.clans.addAll([for (final e in raw) Clan.fromJson(e)]);
       case 'schools':
-        // Replace-by-name so an in-session save followed by a reload never
-        // duplicates, and homebrew may override a bundled school (same
-        // precedent as descriptions import: imported wins on name). Last
-        // entry wins on duplicate names within the file itself.
-        final incoming = [
-          ...{for (final e in raw) '${e['name']}': School.fromJson(e)}.values,
-        ];
-        final names = {for (final s in incoming) s.name};
-        homebrewSchools = incoming;
-        gameData.schools.removeWhere((s) => names.contains(s.name));
-        gameData.schools.addAll(incoming);
+        // Homebrew may override a bundled school by name (same precedent as
+        // descriptions import: imported wins on name).
+        homebrewSchools = _replaceByName(
+            gameData.schools, [for (final e in raw) School.fromJson(e)],
+            (s) => s.name);
       case 'skill_groups':
         gameData.skillGroups.addAll([
           for (final e in raw) SkillGroup.fromJson(e),
@@ -676,18 +717,9 @@ class UserDataStore {
               Weapon.fromJson(e, category: category['name'] ?? ''),
         ]);
       case 'npcs':
-        // Replace-by-name like schools: a custom NPC may override a bundled
-        // Chapter 8 sample, and an in-session save followed by a reload must
-        // never duplicate. Last entry wins on duplicate names in the file.
-        final incoming = [
-          ...{
-            for (final e in raw) '${e['name']}': Npc.fromJson(e)..custom = true
-          }.values,
-        ];
-        final names = {for (final n in incoming) n.name};
-        customNpcs = incoming;
-        gameData.npc.samples.removeWhere((n) => names.contains(n.name));
-        gameData.npc.samples.addAll(incoming);
+        // A custom NPC may override a bundled Chapter 8 sample by name.
+        customNpcs = _replaceByName(gameData.npc.samples,
+            [for (final e in raw) Npc.fromJson(e)..custom = true], (n) => n.name);
       // The two kinds below exist for the Heroes of Rokugan errata pack;
       // plain `weapons` stays append-only so existing homebrew behaves
       // exactly as before. Files with these names only exist after an
@@ -714,6 +746,13 @@ class UserDataStore {
                   .removeWhere((p) => names.contains(p.name));
           }
         }
+      case 'legacies':
+        // Custom Legacy templates (Legacies of War p. 12).
+        customLegacies = _replaceByName(gameData.advantagesDisadvantages, [
+          for (final e in raw)
+            AdvDisadv.fromJson(e,
+                category: '${e['category'] ?? categoryLegacies}'),
+        ], (a) => a.name);
       default:
         return false;
     }

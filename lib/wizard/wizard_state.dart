@@ -128,6 +128,10 @@ class WizardState {
   String q18Special2 = '';
   String roninBond = '';
   String q17RoninText = '';
+  // Legacies of War p. 5: a Legacy taken in place of the Q18 heritage roll
+  // (stock samurai only; HoR's campaign heritage is mandatory).
+  bool takeLegacy = false;
+  String legacy = '';
 
   // ---- Page 7 ----
   String personalName = '';
@@ -171,6 +175,8 @@ class WizardState {
     horService = '';
     horQ5Skill = '';
     horQ6Skill = '';
+    takeLegacy = false;
+    legacy = '';
   }
 
   /// Selects the HoR rōnin background and sizes the skill-pick list to its
@@ -184,8 +190,27 @@ class WizardState {
         List.filled(background?.skillChoices.length ?? 0, '', growable: true);
   }
 
-  String get heritage =>
-      chosenAncestor == 1 ? ancestor1 : (chosenAncestor == 2 ? ancestor2 : '');
+  /// The chosen heritage result; empty when a Legacy replaces the Q18 roll,
+  /// so none of the table's results (social mods, effects, auto-granted
+  /// traits, ring exchanges) ever apply.
+  String get heritage {
+    if (usesLegacy) return '';
+    return chosenAncestor == 1
+        ? ancestor1
+        : (chosenAncestor == 2 ? ancestor2 : '');
+  }
+
+  /// Whether the Legacy option is in force: stock samurai only.
+  bool get usesLegacy => takeLegacy && !horMode && isSamurai;
+
+  /// Legacies of War p. 10: Inherited Connections must be paired with an
+  /// Ally [Name] or Support of [One Group] advantage among the creation
+  /// picks (Q9 or Q13).
+  bool get legacyNeedsAlly =>
+      usesLegacy &&
+      legacy == 'Inherited Connections' &&
+      !{distinction, q13Advantage}.any(
+          (n) => n.startsWith('Ally [') || n.startsWith('Support of ['));
 
   /// The campaign title granted by Q20 for the chosen service.
   String get horCampaignTitle => horServiceTitles[horService] ?? '';
@@ -556,6 +581,14 @@ class WizardState {
   // Heroes of Rokugan option lists
   // ---------------------------------------------------------------------
 
+  /// Traits offered by the creation pickers (Q9-Q13): the category's entries
+  /// minus XP-priced ones, which the books sell in play only (Student of
+  /// Akodo, BotL p. 9).
+  List<AdvDisadv> creationTraits(String category) => [
+        for (final a in gameData.advDisadvByCategory(category))
+          if (a.xp == 0) a,
+      ];
+
   /// Advantage/disadvantage names for the HoR pickers: stock entries minus
   /// the campaign ban list, plus the campaign's own additions.
   List<String> horTraitNames(String category) {
@@ -564,7 +597,7 @@ class WizardState {
       ...gameData.hor.bans.advantagesCreationOnly,
     };
     return [
-      for (final a in gameData.advDisadvByCategory(category))
+      for (final a in creationTraits(category))
         if (!banned.contains(a.name)) a.name,
       for (final a in gameData.horAdvDisadvByCategory(category)) a.name,
     ];
@@ -1009,6 +1042,7 @@ class WizardState {
       if (q13PickedAdvantage == true && q13Advantage.isNotEmpty) q13Advantage,
       if (q13PickedAdvantage == false && q13Disadvantage.isNotEmpty)
         q13Disadvantage,
+      if (usesLegacy && legacy.isNotEmpty) legacy,
     ];
     if (heritageData != null) {
       if (effectKindOf(heritageData) == HeritageEffectKind.trait &&

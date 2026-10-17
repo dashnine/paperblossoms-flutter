@@ -4,7 +4,9 @@ import 'package:flutter/foundation.dart';
 import 'package:uuid/uuid.dart';
 
 import 'advance.dart';
+import 'game_data_models.dart';
 import 'item.dart';
+import 'rules_constants.dart';
 
 const saveFileVersion = 1;
 
@@ -97,6 +99,34 @@ class Character extends ChangeNotifier {
     }
   }
 
+  /// Adds a trait by name (a no-op if already held). An XP-priced one
+  /// (Student of Akodo, BotL p. 9: 3 XP, bought in play) also records its
+  /// cost as an advance on [track] (Curriculum or Title); no curriculum
+  /// lists it, so the rank and title math give it half credit like any
+  /// other off-curriculum purchase.
+  void addTrait(AdvDisadv entry, {String track = trackCurriculum}) {
+    if (advDisadv.contains(entry.name)) return;
+    advDisadv.add(entry.name);
+    if (entry.xp > 0) {
+      advanceStack.add(Advance(
+        type: advanceTypeAdvantage,
+        name: entry.name,
+        track: track,
+        cost: entry.xp,
+      ));
+    }
+    touch();
+  }
+
+  /// Removes a trait and the XP advance a priced one recorded. The reverse
+  /// is deliberate: deleting the advance on the Advancement tab keeps the
+  /// trait, as an XP-correction path.
+  void removeTrait(String name) {
+    advDisadv.remove(name);
+    advanceStack.removeWhere((a) => a.isAdvantage && a.name == name);
+    touch();
+  }
+
   /// Notify listeners after any direct field mutation.
   void touch() {
     dirty = true;
@@ -150,7 +180,8 @@ class Character extends ChangeNotifier {
     uuid = json['uuid'] ?? const Uuid().v4();
     name = json['name'] ?? '';
     clan = json['clan'] ?? '';
-    family = json['family'] ?? '';
+    // Families renamed by a data audit (#82) resolve to the corrected name.
+    family = familyRenames[json['family']] ?? json['family'] ?? '';
     school = json['school'] ?? '';
     ninjo = json['ninjo'] ?? '';
     giri = json['giri'] ?? '';

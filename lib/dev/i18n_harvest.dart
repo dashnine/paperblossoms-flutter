@@ -173,7 +173,12 @@ Set<String> translatableDataStrings() {
       characterTypeGaijin]);
   addAll(['skill', 'skill group', 'technique', 'technique group']);
   addAll([trackCurriculum, trackTitle, 'Free']);
-  addAll([advanceTypeSkill, advanceTypeRing, advanceTypeTechnique]);
+  addAll([
+    advanceTypeSkill,
+    advanceTypeRing,
+    advanceTypeTechnique,
+    advanceTypeAdvantage,
+  ]);
   addAll([itemTypeWeapon, itemTypeArmor, itemTypePersonalEffect]);
 
   out.remove('any');

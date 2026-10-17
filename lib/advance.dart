@@ -1,7 +1,8 @@
 import 'rules_constants.dart';
 
 /// One purchased advance. Semantically identical to the original app's
-/// pipe-delimited "Type|Name|Track|Cost" rows: [type] is Skill/Ring/Technique,
+/// pipe-delimited "Type|Name|Track|Cost" rows: [type] is
+/// Skill/Ring/Technique (or Advantage for an XP-priced trait bought in play),
 /// and [track] is Curriculum, Title, or a free-advance reason string.
 class Advance {
   String type;
@@ -19,6 +20,7 @@ class Advance {
   bool get isSkill => type == advanceTypeSkill;
   bool get isRing => type == advanceTypeRing;
   bool get isTechnique => type == advanceTypeTechnique;
+  bool get isAdvantage => type == advanceTypeAdvantage;
   bool get onCurriculumTrack => track == trackCurriculum;
   bool get onTitleTrack => track == trackTitle;
   bool get isFree => !onCurriculumTrack && !onTitleTrack;

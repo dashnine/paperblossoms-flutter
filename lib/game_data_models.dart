@@ -2,6 +2,8 @@
 // Field names mirror the JSON keys of the original Paper Blossoms data files
 // so the user homebrew overlay can round-trip through the same shapes.
 
+import 'rules_constants.dart';
+
 class Reference {
   final String book;
   final String page;
@@ -9,8 +11,13 @@ class Reference {
   const Reference({this.book = '', this.page = ''});
 
   Reference.fromJson(Map<String, dynamic> json)
-      : book = json['book']?.toString() ?? '',
+      : book = canonicalBook(json['book']?.toString() ?? ''),
         page = json['page']?.toString() ?? '';
+
+  /// Maps upstream's one full-title code ("Legacies of War") and any future
+  /// alias onto the short code, so homebrew files and a re-synced upstream
+  /// copy display like the rest of the data (UPSTREAM_NOTES #82).
+  static String canonicalBook(String raw) => bookCodeAliases[raw] ?? raw;
 
   Map<String, dynamic> toJson() => {'book': book, 'page': page};
 
@@ -330,6 +337,10 @@ class AdvDisadv {
   final String effects;
   final Reference reference;
 
+  /// XP cost when the trait is bought in play rather than taken at
+  /// creation (only Student of Akodo, BotL p. 9, sets it). Zero = free.
+  final int xp;
+
   const AdvDisadv({
     required this.name,
     this.category = '',
@@ -337,6 +348,7 @@ class AdvDisadv {
     this.types = const [],
     this.effects = '',
     this.reference = const Reference(),
+    this.xp = 0,
   });
 
   AdvDisadv.fromJson(Map<String, dynamic> json, {this.category = ''})
@@ -344,7 +356,8 @@ class AdvDisadv {
         ring = json['ring'] ?? '',
         types = List<String>.from(json['types'] ?? []),
         effects = json['effects'] ?? '',
-        reference = Reference.fromJson(json['reference'] ?? {});
+        reference = Reference.fromJson(json['reference'] ?? {}),
+        xp = (json['xp'] as num?)?.toInt() ?? 0;
 
   Map<String, dynamic> toJson() => {
         'name': name,
@@ -353,6 +366,8 @@ class AdvDisadv {
         'types': types,
         'effects': effects,
         'reference': reference.toJson(),
+        // Emitted only when priced so homebrew round-trips keep their shape.
+        if (xp > 0) 'xp': xp,
       };
 }
 

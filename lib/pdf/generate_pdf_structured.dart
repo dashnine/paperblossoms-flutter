@@ -190,9 +190,15 @@ Future<Uint8List> buildStructuredSheet({
             [for (final s in group.skills) if ((skills[s] ?? 0) > 0) s]),
   ];
 
-  // Traits bucketed into the official four-way split; anything homebrew
+  // Traits bucketed into the official categories; anything homebrew
   // outside those categories keeps its own bucket at the end.
-  const traitOrder = ['Distinctions', 'Passions', 'Adversities', 'Anxieties'];
+  const traitOrder = [
+    'Distinctions',
+    'Passions',
+    'Adversities',
+    'Anxieties',
+    'Legacies',
+  ];
   final traitBuckets = {for (final cat in traitOrder) cat: <String>[]};
   final otherTraits = <String>[];
   for (final name in c.advDisadv) {

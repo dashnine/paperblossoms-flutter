@@ -8,11 +8,18 @@ const ringEarth = 'Earth';
 const ringFire = 'Fire';
 const ringWater = 'Water';
 const ringVoid = 'Void';
+// Hero's Death (Legacies of War p. 8) takes its ring from the chosen tenet;
+// the data carries this placeholder, the custom builder offers it too.
+const ringVarious = 'Various';
 
 // Advance types (first column of the original pipe-delimited advance rows).
 const advanceTypeSkill = 'Skill';
 const advanceTypeRing = 'Ring';
 const advanceTypeTechnique = 'Technique';
+// An XP-priced advantage (Student of Akodo, BotL p. 9) recorded when the
+// trait is added in play, on the Curriculum or Title track the player picks;
+// no curriculum lists it, so the rank/title math gives it half credit.
+const advanceTypeAdvantage = 'Advantage';
 
 // Advance tracks. Anything else in the track slot is a free-advance reason.
 const trackCurriculum = 'Curriculum';
@@ -68,6 +75,19 @@ const characterTypeGaijin = 'Gaijin';
 // injuries a critical strike assigns (core p.270, Table 6-6, severity 7-11).
 const categoryAdversities = 'Adversities';
 const typeScar = 'Scar';
+
+// Legacies (Legacies of War pp. 5-12): a fifth advantage category, taken in
+// place of the Q18 heritage roll and never offered as a Q9/Q13 pick.
+const categoryLegacies = 'Legacies';
+// Reference stamped on custom Legacy templates (the custom-template rules).
+const customLegacyRefBook = 'LoW';
+const customLegacyRefPage = '12';
+
+// Backwards compatibility for upstream names corrected here
+// (docs/UPSTREAM_NOTES.md #82). Applied on parse so homebrew files, a
+// re-synced upstream copy, and saved characters keep resolving.
+const bookCodeAliases = {'Legacies of War': 'LoW'};
+const familyRenames = {'Foreheshu': 'Fureheshu'};
 
 // Item types.
 const itemTypeWeapon = 'Weapon';

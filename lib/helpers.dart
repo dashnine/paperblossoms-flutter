@@ -82,3 +82,60 @@ Future<bool> confirmDialog(
   );
   return confirmed == true;
 }
+
+/// A confirm dialog carrying one checkbox (e.g. "also remove its rules
+/// text"). Returns null when cancelled, otherwise the checkbox's final value.
+Future<bool?> confirmWithCheckbox(
+  BuildContext context, {
+  required String title,
+  String? body,
+  required String checkboxLabel,
+  String? checkboxSubtitle,
+  required String confirmLabel,
+  bool initialValue = true,
+  bool destructive = true,
+}) async {
+  var checked = initialValue;
+  final confirmed = await showDialog<bool>(
+    context: context,
+    builder: (context) => StatefulBuilder(
+      builder: (context, setDialogState) => AlertDialog(
+        title: Text(title),
+        content: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (body != null) Text(body),
+            CheckboxListTile(
+              contentPadding: EdgeInsets.zero,
+              controlAffinity: ListTileControlAffinity.leading,
+              title: Text(checkboxLabel),
+              subtitle:
+                  checkboxSubtitle == null ? null : Text(checkboxSubtitle),
+              value: checked,
+              onChanged: (value) =>
+                  setDialogState(() => checked = value ?? initialValue),
+            ),
+          ],
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context, false),
+            child: Text(context.l10n.cancel),
+          ),
+          FilledButton(
+            style: destructive
+                ? FilledButton.styleFrom(
+                    backgroundColor: Theme.of(context).colorScheme.error,
+                    foregroundColor: Theme.of(context).colorScheme.onError,
+                  )
+                : null,
+            onPressed: () => Navigator.pop(context, true),
+            child: Text(confirmLabel),
+          ),
+        ],
+      ),
+    ),
+  );
+  return confirmed == true ? checked : null;
+}

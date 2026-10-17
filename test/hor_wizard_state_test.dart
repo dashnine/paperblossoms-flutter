@@ -489,4 +489,25 @@ void main() {
       expect(character.toJson().containsKey('hor'), isFalse);
     });
   });
+
+
+  group('Legacy option under HoR', () {
+    test('is inert: the campaign heritage still applies', () {
+      final wizard = horHidaBuild()
+        ..takeLegacy = true
+        ..legacy = 'Heroic Life';
+      expect(wizard.usesLegacy, isFalse);
+      expect(wizard.legacyNeedsAlly, isFalse);
+      expect(wizard.heritage, 'Material Success');
+      wizard.assemble();
+      expect(character.heritage, 'Material Success');
+      expect(character.advDisadv, isNot(contains('Heroic Life')));
+    });
+
+    test('HoR pickers skip priced traits too', () {
+      final wizard = horHidaBuild();
+      expect(wizard.horTraitNames('Distinctions'),
+          isNot(contains('Student of Akodo')));
+    });
+  });
 }

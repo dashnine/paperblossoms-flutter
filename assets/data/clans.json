@@ -609,9 +609,9 @@
                 "wealth": 3
             },
             {
-                "name": "Foreheshu",
+                "name": "Fureheshu",
                 "reference": {
-                    "book": "Legacies of War",
+                    "book": "LoW",
                     "page": 16
                 },
                 "ring_increase": ["Earth", "Water"],

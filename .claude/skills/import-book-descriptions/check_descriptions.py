@@ -13,7 +13,7 @@ Validate a generated descriptions JSON file before importing it in the app:
     python3 .claude/skills/import-book-descriptions/check_descriptions.py my_book_descriptions.json
 
 Book codes are the `reference.book` values used in assets/data/*.json
-(Core, CR, PoW, EE, CoS, SL, Mantis, FoV, WotW, CotFW, ...).
+(Core, CR, PoW, EE, CoS, SL, Mantis, FoV, WotW, CotFW, GMK, DT, BotL, LoW).
 """
 
 import argparse

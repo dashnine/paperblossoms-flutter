@@ -1912,6 +1912,16 @@
                             "page": 116
                         },
                         "xp": 3
+                    },
+                    {
+                        "name": "Ancestral Army",
+                        "restriction": "Lion",
+                        "rank": 1,
+                        "reference": {
+                            "book": "BotL",
+                            "page": 9
+                        },
+                        "xp": 3
                     }
                 ]
             }

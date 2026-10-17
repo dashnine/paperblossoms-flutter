@@ -1,5 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:paperblossoms/game_data.dart';
+import 'package:paperblossoms/game_data_models.dart';
 import 'package:paperblossoms/item.dart';
 import 'package:paperblossoms/rules_constants.dart';
 import 'package:paperblossoms/wizard/wizard_state.dart';
@@ -1249,6 +1250,98 @@ void main() {
       expect(award.baseAward, 15);
       expect(award.constraint?.type, 'min');
       expect(award.constraint?.value, 40);
+    });
+  });
+
+
+  group('Blood of the Lioness / Legacies of War (UPSTREAM_NOTES #82-#83)', () {
+    test('Badger families spell Fureheshu and cite LoW', () {
+      final badger = gameData.clanByName('Badger')!;
+      final names = badger.families.map((f) => f.name);
+      expect(names, contains('Fureheshu'));
+      expect(names, isNot(contains('Foreheshu')));
+      final family = badger.families.firstWhere((f) => f.name == 'Fureheshu');
+      expect(family.reference.book, 'LoW');
+      expect(family.reference.page, '16');
+    });
+
+    test('no bundled book code contains a space', () {
+      final books = <String>{
+        for (final c in gameData.clans) c.reference.book,
+        for (final c in gameData.clans)
+          for (final f in c.families) f.reference.book,
+        for (final s in gameData.schools) s.reference.book,
+        for (final t in gameData.techniques) t.reference.book,
+        for (final a in gameData.advantagesDisadvantages) a.reference.book,
+        for (final t in gameData.titles) t.reference.book,
+        for (final w in gameData.weapons) w.reference.book,
+        for (final a in gameData.armor) a.reference.book,
+        for (final p in gameData.personalEffects) p.reference.book,
+      };
+      expect(books.where((b) => b.contains(' ')), isEmpty);
+      expect(books, containsAll(['BotL', 'LoW']));
+    });
+
+    test('Reference.fromJson maps the upstream full-title code to LoW', () {
+      expect(Reference.fromJson({'book': 'Legacies of War', 'page': 16}).book,
+          'LoW');
+      expect(Reference.fromJson({'book': 'FoV', 'page': 71}).book, 'FoV');
+    });
+
+    test('Ancestral Army is a rank 1 Lion-only Water invocation', () {
+      final technique =
+          gameData.techniques.firstWhere((t) => t.name == 'Ancestral Army');
+      expect(technique.category, 'Invocations');
+      expect(technique.subcategory, 'Water Invocations');
+      expect(technique.rank, 1);
+      expect(technique.xp, 3);
+      expect(technique.restriction, 'Lion');
+      expect('${technique.reference}', 'BotL p.9');
+    });
+
+    test('Student of Akodo is the only XP-priced advantage', () {
+      final student = gameData.advDisadvByName('Student of Akodo')!;
+      expect(student.category, 'Distinctions');
+      expect(student.ring, ringVoid);
+      expect(student.types, ['Interpersonal', 'Mental']);
+      expect(student.xp, 3);
+      expect('${student.reference}', 'BotL p.9');
+      expect(
+          gameData.advantagesDisadvantages
+              .where((a) => a.xp > 0)
+              .map((a) => a.name),
+          ['Student of Akodo']);
+    });
+
+    test('the Legacies category holds the ten LoW templates', () {
+      final legacies = gameData.advDisadvByCategory(categoryLegacies);
+      expect({for (final l in legacies) l.name: l.ring}, {
+        'Dreams Unfulfilled': ringFire,
+        'Duty Bound': ringEarth,
+        'Heart-Reader': ringAir,
+        "Hero's Death": ringVarious,
+        'Heroic Life': ringWater,
+        'Idealism': ringEarth,
+        'Inherited Connections': ringWater,
+        'Notorious Scoundrel': ringFire,
+        'Pragmatist': ringAir,
+        'Secret Teachings': ringVoid,
+      });
+      for (final legacy in legacies) {
+        expect(legacy.reference.book, 'LoW', reason: legacy.name);
+        expect(legacy.types.first, 'Interpersonal', reason: legacy.name);
+        expect(legacy.xp, 0, reason: legacy.name);
+      }
+      expect(gameData.advDisadvByName('Secret Teachings')!.types,
+          ['Interpersonal', 'Mental and/or Physical']);
+    });
+
+    test('no bundled advantage name starts with "Legacy of "', () {
+      // The custom builder's default name prefix must never collide.
+      expect(
+          gameData.advantagesDisadvantages
+              .where((a) => a.name.startsWith('Legacy of ')),
+          isEmpty);
     });
   });
 }

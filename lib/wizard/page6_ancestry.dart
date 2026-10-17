@@ -6,6 +6,8 @@ import '../data_l10n.dart';
 import '../game_data.dart';
 import '../game_data_models.dart';
 import '../l10n/l10n.dart';
+import '../rules_constants.dart';
+import '../screens/custom_legacy_page.dart';
 import 'wizard_state.dart';
 import 'wizard_widgets.dart';
 
@@ -163,6 +165,22 @@ class Page6Ancestry extends StatelessWidget {
     final names = _ancestorNames();
     return [
       QuestionHeader(context.l10n.wizQ18Ancestry),
+      // Legacies of War p. 5: a Legacy replaces the heritage roll entirely.
+      SwitchListTile(
+        contentPadding: EdgeInsets.zero,
+        title: Text(context.l10n.legacyInsteadOfHeritage),
+        subtitle: Text(context.l10n.legacyInsteadOfHeritageSubtitle),
+        value: wizard.takeLegacy,
+        // The rolled ancestors and their picks are kept (the heritage
+        // getter already ignores them while the switch is on), so flipping
+        // the switch to read it costs nothing.
+        onChanged: (value) {
+          wizard.takeLegacy = value;
+          if (!value) wizard.legacy = '';
+          onChanged();
+        },
+      ),
+      if (wizard.takeLegacy) ..._legacyPicker(context) else ...[
       WizDropdown(
         label: context.l10n.heritageTable,
         value: wizard.heritageSource,
@@ -215,6 +233,46 @@ class Page6Ancestry extends StatelessWidget {
           ],
         ),
       if (wizard.heritageEntry != null) ..._effectControls(context),
+      ],
+    ];
+  }
+
+  /// The Legacy dropdown plus a shortcut to the custom-template builder.
+  List<Widget> _legacyPicker(BuildContext context) {
+    return [
+      Text(context.l10n.legacyInstructions),
+      Row(
+        children: [
+          Expanded(
+            child: WizDropdown(
+              label: context.l10n.legacyLabel,
+              value: wizard.legacy,
+              options: [
+                for (final entry
+                    in gameData.advDisadvByCategory(categoryLegacies))
+                  entry.name
+              ],
+              onChanged: (value) {
+                wizard.legacy = value;
+                onChanged();
+              },
+            ),
+          ),
+          TextButton(
+            onPressed: () async {
+              final saved = await Navigator.push<String>(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const CustomLegacyPage()),
+              );
+              if (saved == null) return;
+              wizard.legacy = saved;
+              onChanged();
+            },
+            child: Text(context.l10n.createCustomLegacy),
+          ),
+        ],
+      ),
     ];
   }
 

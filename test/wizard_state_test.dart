@@ -235,4 +235,89 @@ void main() {
       expect(WizardState.equipmentSpecialOptions('Katana'), isNull);
     });
   });
+
+
+  group('Legacy in place of the heritage roll (Legacies of War p. 5)', () {
+    /// A Core heritage result that changes social stats, to prove the
+    /// Legacy switch suppresses it.
+    String heritageWithModifiers() => gameData
+        .heritagesBySource('Core')
+        .firstWhere((h) => h.glory != 0 || h.honor != 0 || h.status != 0)
+        .result;
+
+    test('assembles the Legacy and applies no heritage result', () {
+      final wizard = hidaBuild()
+        ..replacementRings = ['Fire', '']
+        ..ancestor1 = heritageWithModifiers()
+        ..chosenAncestor = 1
+        ..takeLegacy = true
+        ..legacy = 'Heroic Life';
+      expect(wizard.usesLegacy, isTrue);
+      expect(wizard.heritage, '');
+      expect(wizard.heritageEntry, isNull);
+      wizard.assemble();
+      expect(character.heritage, '');
+      expect(character.advDisadv, contains('Heroic Life'));
+      // Same numbers as the no-heritage build: status 30, glory 49, honor 50.
+      expect(character.status, 30);
+      expect(character.glory, 49);
+      expect(character.honor, 50);
+    });
+
+    test('the heritage result applies again once the switch is off', () {
+      final wizard = hidaBuild()
+        ..replacementRings = ['Fire', '']
+        ..ancestor1 = heritageWithModifiers()
+        ..chosenAncestor = 1
+        ..takeLegacy = false
+        ..legacy = 'Heroic Life';
+      expect(wizard.heritageEntry, isNotNull);
+      wizard.assemble();
+      expect(character.heritage, heritageWithModifiers());
+      expect(character.advDisadv, isNot(contains('Heroic Life')));
+    });
+
+    test('an empty Legacy pick adds nothing', () {
+      final wizard = hidaBuild()
+        ..replacementRings = ['Fire', '']
+        ..takeLegacy = true;
+      wizard.assemble();
+      final legacies = {
+        for (final l in gameData.advDisadvByCategory(categoryLegacies)) l.name
+      };
+      expect(character.advDisadv.where(legacies.contains), isEmpty);
+    });
+
+    test('Inherited Connections needs an Ally or Support creation pick', () {
+      final wizard = hidaBuild()
+        ..takeLegacy = true
+        ..legacy = 'Inherited Connections';
+      expect(wizard.legacyNeedsAlly, isTrue);
+      wizard.q13Advantage = 'Ally [Name]';
+      expect(wizard.legacyNeedsAlly, isFalse);
+      wizard
+        ..q13Advantage = 'Paragon of Loyalty'
+        ..distinction = 'Support of [One Group]';
+      expect(wizard.legacyNeedsAlly, isFalse);
+      wizard.legacy = 'Heroic Life';
+      expect(wizard.legacyNeedsAlly, isFalse);
+    });
+
+    test('creation pickers never offer Legacies or priced traits', () {
+      final wizard = hidaBuild();
+      final q9 = wizard.creationTraits('Distinctions').map((a) => a.name);
+      expect(q9, isNot(contains('Student of Akodo')));
+      expect(q9, isNot(contains('Heroic Life')));
+      expect(q9, contains('Large Stature'));
+    });
+
+    test('switching character type clears the Legacy answers', () {
+      final wizard = hidaBuild()
+        ..takeLegacy = true
+        ..legacy = 'Heroic Life';
+      wizard.setCharacterType(characterTypeRonin);
+      expect(wizard.takeLegacy, isFalse);
+      expect(wizard.legacy, '');
+    });
+  });
 }

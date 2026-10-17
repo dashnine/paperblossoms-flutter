@@ -118,4 +118,32 @@ void main() {
     // Loading always locks identity, regardless of the saved/absent flag.
     expect(character.identityLocked, isTrue);
   });
+
+
+  test('a Foreheshu family in an old save loads as Fureheshu (#82)', () {
+    character.clear();
+    character.loadFromJson({'clan': 'Badger', 'family': 'Foreheshu'});
+    expect(character.family, 'Fureheshu');
+    character.loadFromJson({'clan': 'Crab', 'family': 'Hida'});
+    expect(character.family, 'Hida');
+  });
+
+  test('an Advantage-type advance round-trips through the save format', () {
+    character.clear();
+    character.advanceStack = [
+      Advance(
+          type: advanceTypeAdvantage,
+          name: 'Student of Akodo',
+          track: trackTitle,
+          cost: 3),
+    ];
+    final json = jsonEncode(character.toJson());
+    character.clear();
+    character.loadFromJson(jsonDecode(json));
+    final advance = character.advanceStack.single;
+    expect(advance.isAdvantage, isTrue);
+    expect(advance.onTitleTrack, isTrue);
+    expect(advance.track, trackTitle);
+    expect(advance.cost, 3);
+  });
 }

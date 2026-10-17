@@ -43,7 +43,8 @@ python3 .claude/skills/import-book-descriptions/check_descriptions.py --book PoW
 ```
 
 Book codes are the `reference.book` values in `assets/data/*.json` (Core,
-CR, PoW, EE, CoS, SL, Mantis, FoV, WotW, CotFW). The output is
+CR, PoW, EE, CoS, SL, Mantis, FoV, WotW, CotFW, GMK, DT, BotL, LoW). The
+output is
 `name<TAB>book p.page` — exactly what you need to find each entry in the PDF.
 
 What counts as describable (mirrors `describableNames()` in
