@@ -284,7 +284,7 @@ jobs:
             --key-id "$APPSTORE_API_KEY_ID" \
             --issuer "$APPSTORE_API_ISSUER_ID" \
             --wait
-          xcrun stapler staple "$APP_PATH"
+          bash .github/scripts/staple.sh "$APP_PATH"
 
       - name: Build, sign, notarize, and staple DMG
         if: steps.sig.outputs.have_cert == 'true'
@@ -306,7 +306,7 @@ jobs:
             --key-id "$APPSTORE_API_KEY_ID" \
             --issuer "$APPSTORE_API_ISSUER_ID" \
             --wait
-          xcrun stapler staple "$dmg"
+          bash .github/scripts/staple.sh "$dmg"
           spctl -a -t open --context context:primary-signature -v "$dmg"
 
       - name: Package unsigned zip (no certificate)
