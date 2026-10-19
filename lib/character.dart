@@ -99,20 +99,27 @@ class Character extends ChangeNotifier {
     }
   }
 
+  /// What this character pays for [entry]: its XP cost, or nothing when
+  /// the book waives it for the character's clan (Student of Akodo for a
+  /// Lion, BotL p. 9).
+  int priceFor(AdvDisadv entry) =>
+      pricedTraitFreeFor[entry.name] == clan ? 0 : entry.xp;
+
   /// Adds a trait by name (a no-op if already held). An XP-priced one
-  /// (Student of Akodo, BotL p. 9: 3 XP, bought in play) also records its
-  /// cost as an advance on [track] (Curriculum or Title); no curriculum
-  /// lists it, so the rank and title math give it half credit like any
-  /// other off-curriculum purchase.
+  /// (Student of Akodo, BotL p. 9: 3 XP, bought in play by non-Lion) also
+  /// records its cost as an advance on [track] (Curriculum or Title); no
+  /// curriculum lists it, so the rank and title math give it half credit
+  /// like any other off-curriculum purchase.
   void addTrait(AdvDisadv entry, {String track = trackCurriculum}) {
     if (advDisadv.contains(entry.name)) return;
     advDisadv.add(entry.name);
-    if (entry.xp > 0) {
+    final cost = priceFor(entry);
+    if (cost > 0) {
       advanceStack.add(Advance(
         type: advanceTypeAdvantage,
         name: entry.name,
         track: track,
-        cost: entry.xp,
+        cost: cost,
       ));
     }
     touch();

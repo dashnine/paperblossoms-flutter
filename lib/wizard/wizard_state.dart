@@ -583,10 +583,10 @@ class WizardState {
 
   /// Traits offered by the creation pickers (Q9-Q13): the category's entries
   /// minus XP-priced ones, which the books sell in play only (Student of
-  /// Akodo, BotL p. 9).
+  /// Akodo, BotL p. 9), except to the clan the book waives the price for.
   List<AdvDisadv> creationTraits(String category) => [
         for (final a in gameData.advDisadvByCategory(category))
-          if (a.xp == 0) a,
+          if (a.xp == 0 || pricedTraitFreeFor[a.name] == clan) a,
       ];
 
   /// Advantage/disadvantage names for the HoR pickers: stock entries minus

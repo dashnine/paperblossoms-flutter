@@ -20,6 +20,10 @@ const advanceTypeTechnique = 'Technique';
 // trait is added in play, on the Curriculum or Title track the player picks;
 // no curriculum lists it, so the rank/title math gives it half credit.
 const advanceTypeAdvantage = 'Advantage';
+// Priced advantages the named clan takes for free: BotL p. 9 sells Student
+// of Akodo to non-Lion characters only (every Lion student has read
+// Akodo's Leadership), so a Lion takes it like any other distinction.
+const pricedTraitFreeFor = {'Student of Akodo': 'Lion'};
 
 // Advance tracks. Anything else in the track slot is a free-advance reason.
 const trackCurriculum = 'Curriculum';

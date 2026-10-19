@@ -1151,8 +1151,9 @@ app, with book codes `BotL` and `LoW`:
   schema extension; every other entry is 0). The app confirms the cost
   and records the purchase as an `Advantage` advance on the Curriculum or
   Title track the player picks; no curriculum lists it, so it earns half
-  credit there like any other off-curriculum purchase. The creation
-  pickers skip priced traits.
+  credit there like any other off-curriculum purchase. A Lion character
+  takes it free, in play or at creation (the book says every Lion student
+  has read Leadership); for everyone else the creation pickers skip it.
 - `advantages_disadvantages.json`: a fifth category, **Legacies**, with the
   ten templates of LoW pp. 7-11 (Dreams Unfulfilled, Duty Bound,
   Heart-Reader, Hero's Death, Heroic Life, Idealism, Inherited Connections,

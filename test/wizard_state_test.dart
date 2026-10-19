@@ -311,6 +311,12 @@ void main() {
       expect(q9, contains('Large Stature'));
     });
 
+    test('a Lion may take Student of Akodo at creation', () {
+      final wizard = hidaBuild()..clan = 'Lion';
+      expect(wizard.creationTraits('Distinctions').map((a) => a.name),
+          contains('Student of Akodo'));
+    });
+
     test('switching character type clears the Legacy answers', () {
       final wizard = hidaBuild()
         ..takeLegacy = true

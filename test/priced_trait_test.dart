@@ -53,6 +53,21 @@ void main() {
     expect(after.titleXP, before.titleXP + halfCost(3));
   });
 
+  test('a Lion takes Student of Akodo for free; anyone else pays', () {
+    final student = gameData.advDisadvByName('Student of Akodo')!;
+    character.clan = 'Lion';
+    expect(character.priceFor(student), 0);
+    character.addTrait(student);
+    expect(character.advDisadv, ['Student of Akodo']);
+    expect(character.advanceStack, isEmpty);
+
+    character.clear();
+    character.clan = 'Crab';
+    expect(character.priceFor(student), 3);
+    character.addTrait(student);
+    expect(character.advanceStack.single.cost, 3);
+  });
+
   test('a free trait records no advance, and re-adding is a no-op', () {
     final trait = gameData.advDisadvByName('Large Stature')!;
     character.addTrait(trait);

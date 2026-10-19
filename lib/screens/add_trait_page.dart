@@ -28,15 +28,17 @@ Future<bool> addTraitFlow(BuildContext context, {String? category}) async {
       if (category == null) trData(entry.category),
       if (entry.ring.isNotEmpty) trData(entry.ring),
       if (entry.types.isNotEmpty) entry.types.map(trData).join(', '),
-      if (entry.xp > 0) context.l10n.costXp(entry.xp),
+      if (character.priceFor(entry) > 0)
+        context.l10n.costXp(character.priceFor(entry)),
     ].join(' · '),
     descriptionOf: (entry) => gameData.shortDescFor(entry.name),
   );
   if (choice == null) return false;
   var track = trackCurriculum;
-  if (choice.xp > 0) {
-    // BotL p. 9 sells Student of Akodo for 3 XP: confirm the cost and pick
-    // the track its advance counts toward (half credit, Character.addTrait).
+  if (character.priceFor(choice) > 0) {
+    // BotL p. 9 sells Student of Akodo to non-Lion for 3 XP: confirm the
+    // cost and pick the track its advance counts toward (half credit,
+    // Character.addTrait).
     if (!context.mounted) return false;
     final picked = await _pickTrack(context, choice);
     if (picked == null) return false;
@@ -60,7 +62,7 @@ Future<String?> _pickTrack(BuildContext context, AdvDisadv entry) {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(l10n.pricedTraitBody(entry.xp)),
+            Text(l10n.pricedTraitBody(character.priceFor(entry))),
             for (final (value, label) in [
               (trackCurriculum, l10n.trackCurriculumLabel),
               if (character.titles.isNotEmpty)

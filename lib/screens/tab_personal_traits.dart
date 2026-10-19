@@ -86,7 +86,8 @@ class PersonalTraitsTab extends StatelessWidget {
                     if (entry.ring.isNotEmpty) trData(entry.ring),
                     if (entry.types.isNotEmpty)
                       entry.types.map(trData).join(', '),
-                    if (entry.xp > 0) context.l10n.costXp(entry.xp),
+                    if (character.priceFor(entry) > 0)
+                      context.l10n.costXp(character.priceFor(entry)),
                     if (gameData.shortDescFor(entry.name).isNotEmpty)
                       gameData.shortDescFor(entry.name),
                   ].join(' · ')),

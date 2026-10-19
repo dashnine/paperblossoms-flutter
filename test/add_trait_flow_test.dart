@@ -73,6 +73,22 @@ void main() {
     expect(character.advanceStack, isEmpty);
   });
 
+  testWidgets('a Lion gets Student of Akodo with no cost and no dialog',
+      (tester) async {
+    character.clan = 'Lion';
+    await tester.pumpWidget(opener());
+    await tester.tap(find.text('open'));
+    await tester.pumpAndSettle();
+    await tester.enterText(find.byType(TextField), 'Student of Akodo');
+    await tester.pumpAndSettle();
+    expect(find.textContaining('Cost:'), findsNothing);
+    await tester.tap(find.widgetWithText(ListTile, 'Student of Akodo'));
+    await tester.pumpAndSettle();
+    expect(find.byType(AlertDialog), findsNothing);
+    expect(character.advDisadv, ['Student of Akodo']);
+    expect(character.advanceStack, isEmpty);
+  });
+
   testWidgets('a free trait is added without a dialog', (tester) async {
     await tester.pumpWidget(opener());
     await tester.tap(find.text('open'));
